@@ -7,6 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "fisterViewController.h"
+#import "secondViewController.h"
+#import "thirdViewController.h"
+#import "fourViewController.h"
+#import "fiveViewController.h"
 
 @interface ViewController : UIViewController
 
