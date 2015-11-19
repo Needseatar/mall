@@ -29,8 +29,7 @@
 -(void)createSearchBar{
     
     [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
-   // [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], UITextAttributeTextColor,nil]];
-    
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont systemFontOfSize:18],NSFontAttributeName, nil]];
     
     self.title = @"购物车";
     

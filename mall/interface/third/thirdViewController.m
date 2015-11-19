@@ -31,10 +31,19 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], [UIColor blueColor],nil]];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(10, 10, 300, 20)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(20, 7, 240, 20)];
     _searchBar.placeholder = @"请输入搜索内容";
     _searchBar.delegate = self;
     [self.navigationController.navigationBar addSubview:_searchBar];
+    
+    //右边二维码
+    UIButton * rightCamera = [UIButton buttonWithType:UIButtonTypeSystem];
+    [rightCamera setTitle:@"搜索" forState:UIControlStateNormal];
+    [rightCamera setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    rightCamera.titleLabel.font = [UIFont systemFontOfSize:18];
+    rightCamera.frame = CGRectMakeEx(0, 0, 35, 20);
+    UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
+    self.navigationItem.rightBarButtonItem = rightCameraItem;
     
 }
 

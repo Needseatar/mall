@@ -32,10 +32,25 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], [UIColor blueColor],nil]];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(10, 10, 300, 20)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(65, 7, 200, 20)];
     _searchBar.placeholder = @"请输入搜索内容";
     _searchBar.delegate = self;
     [self.navigationController.navigationBar addSubview:_searchBar];
+    
+    //左边logo
+    UIButton * leftLogo = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftLogo.frame = CGRectMakeEx(0, 0, 40,20);
+    [leftLogo setImage:[UIImage imageNamed:@"home_logo.9.png"] forState:UIControlStateNormal];
+    UIBarButtonItem * leftLogoItem = [[UIBarButtonItem alloc] initWithCustomView:leftLogo];
+    self.navigationItem.leftBarButtonItem = leftLogoItem;
+    
+    //右边二维码
+    UIButton * rightCamera = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightCamera.frame = CGRectMakeEx(0, 0, 20,20);
+    [rightCamera setImage:[UIImage imageNamed:@"barcode_normal.png"] forState:UIControlStateNormal];
+    UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
+    self.navigationItem.rightBarButtonItem = rightCameraItem;
+
     
 }
 
