@@ -26,7 +26,7 @@
     
     
     secondViewController * secondView = [[secondViewController alloc] init];
-    UITabBarItem * Item2 = [[UITabBarItem alloc] initWithTitle:@"分类" image:[UIImage imageNamed:@"main_bottom_tab_category_normal.png"] selectedImage:[UIImage imageNamed:@"main_bottom_tab_category_focus.png"]];
+    UITabBarItem * Item2 = [[UITabBarItem alloc] initWithTitle:@"分类" image:[UIImage imageNamed:@"main_bottom_tab_category_normal.png"] selectedImage:[UIImage imageNamed:@"main_bottom_tab_category_foucus.png"]];
     secondView.tabBarItem = Item2;
     UINavigationController * NsecondView = [[UINavigationController alloc] initWithRootViewController:secondView];
     
@@ -49,6 +49,7 @@
     
     UITabBarController * tabbarControl = [[UITabBarController alloc] init];
     tabbarControl.viewControllers = @[NfistView, NsecondView, NthirdView, NfourView, fiveView];
+    //[tabbarControl.moreNavigationController.navigationBar setTintColor:[UIColor blackColor]];
     
     [self addChildViewController:tabbarControl];
     [self.view addSubview:tabbarControl.view];

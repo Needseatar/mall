@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZJScreenAdaptation.h"
 
 @interface fiveViewController : UIViewController
 
