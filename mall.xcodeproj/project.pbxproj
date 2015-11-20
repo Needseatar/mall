@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */; };
 		1BEF93DB1BFD62FC00F7470D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DA1BFD62FC00F7470D /* main.m */; };
 		1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DD1BFD62FC00F7470D /* AppDelegate.m */; };
 		1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93E01BFD62FC00F7470D /* ViewController.m */; };
@@ -208,6 +209,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B48C9621BFEC451009CE729 /* fiveViewUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fiveViewUserTableViewCell.h; sourceTree = "<group>"; };
+		1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveViewUserTableViewCell.m; sourceTree = "<group>"; };
 		1BEF93D61BFD62FC00F7470D /* mall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BEF93DA1BFD62FC00F7470D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BEF93DC1BFD62FC00F7470D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -558,6 +561,8 @@
 			children = (
 				1BEF946F1BFD660000F7470D /* fiveViewController.h */,
 				1BEF94701BFD660000F7470D /* fiveViewController.m */,
+				1B48C9621BFEC451009CE729 /* fiveViewUserTableViewCell.h */,
+				1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */,
 			);
 			path = five;
 			sourceTree = "<group>";
@@ -1113,6 +1118,7 @@
 				1BEF95491BFD6CCC00F7470D /* ZJScreenAdaptation.m in Sources */,
 				1BEF93DB1BFD62FC00F7470D /* main.m in Sources */,
 				1BEF94921BFD660000F7470D /* fiveViewController.m in Sources */,
+				1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

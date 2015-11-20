@@ -61,18 +61,31 @@
 }
 //获取到表格有多少个分组，每个分组有多少行数据以后，就调用该方法，去返回表格的每一行
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString * cellId = @"cell";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    //用户登陆界面
+    if (indexPath.section == 0) {
+        static NSString * cellId1 = @"cell1";
+        fiveViewUserTableViewCell *cell1 = [tableView dequeueReusableCellWithIdentifier:cellId1];
+        if(cell1 == nil){
+            cell1 = [[fiveViewUserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId1];
+        }
+        return cell1;
+        
+    }else
+    {
+        static NSString * cellId = @"cell";
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        
+        if(cell == nil){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        NSArray *array = _mArray[indexPath.section];
+        
+        cell.textLabel.text = array[indexPath.row];
+        
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    NSArray *array = _mArray[indexPath.section];
-    
-    cell.textLabel.text = array[indexPath.row];
-    
-    return cell;
     
 }
 //跳转到介绍
@@ -83,10 +96,10 @@
 //返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 170;
+        return heightEx(130);
     }else
     {
-        return 50;
+        return widthEx(35);
     }
 }
 //返回组尾高度
@@ -99,7 +112,7 @@
         return 0.1;
     }else
     {
-        return 10;
+        return heightEx(10);
     }
 }
 
