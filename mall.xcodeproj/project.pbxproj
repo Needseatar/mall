@@ -498,8 +498,8 @@
 		1BEF94511BFD660000F7470D /* image */ = {
 			isa = PBXGroup;
 			children = (
-				1BEF94621BFD660000F7470D /* WAPOfTitle */,
 				1BEF954A1BFD851C00F7470D /* other */,
+				1BEF94621BFD660000F7470D /* WAPOfTitle */,
 				1BEF94521BFD660000F7470D /* logo.psd */,
 				1BEF94531BFD660000F7470D /* main_bottom_tab_cart_focus.png */,
 				1BEF94541BFD660000F7470D /* main_bottom_tab_cart_normal.png */,
