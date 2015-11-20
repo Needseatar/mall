@@ -16,8 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
     
     fisterViewController * fistView = [[fisterViewController alloc] init];
     UITabBarItem * Item1 = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"main_bottom_tab_home_focus.png"] selectedImage:[UIImage imageNamed:@"main_bottom_tab_home_focus.png"]];
@@ -49,7 +47,7 @@
     
     UITabBarController * tabbarControl = [[UITabBarController alloc] init];
     tabbarControl.viewControllers = @[NfistView, NsecondView, NthirdView, NfourView, fiveView];
-    //[tabbarControl.moreNavigationController.navigationBar setTintColor:[UIColor blackColor]];
+    //[tabbarControl.moreNavigationController.navigationBar setBarTintColor:[UIColor blackColor]];
     
     [self addChildViewController:tabbarControl];
     [self.view addSubview:tabbarControl.view];

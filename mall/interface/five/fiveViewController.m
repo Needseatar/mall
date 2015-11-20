@@ -32,20 +32,22 @@
 {
     NSArray *array1 = @[@"个人账户"];
     NSArray *array2 = @[@"我的订单", @"虚拟订单"];
-    NSArray *array3 = @[@"系统消息", @"版本更新"];
-    NSArray *array4 = @[@"建议反馈", @"关于"];
+    NSArray *array3 = @[@"我的代金劵", @"收藏的店铺"];
+    NSArray *array4 = @[@"系统消息", @"版本更新"];
+    NSArray *array5 = @[@"建议反馈", @"关于"];
     
     _mArray = [[NSMutableArray alloc] init];
     [_mArray addObject:array1];
     [_mArray addObject:array2];
     [_mArray addObject:array3];
     [_mArray addObject:array4];
+    [_mArray addObject:array5];
 }
 
 #pragma mark - 设置TabelView界面
 -(void)setTabelView
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64 -44) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64 -44) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -68,9 +70,10 @@
         if(cell1 == nil){
             cell1 = [[fiveViewUserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId1];
         }
+        cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell1;
         
-    }else
+    }else // 其它信息
     {
         static NSString * cellId = @"cell";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
@@ -78,6 +81,7 @@
         if(cell == nil){
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //设置右边箭头
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         NSArray *array = _mArray[indexPath.section];
