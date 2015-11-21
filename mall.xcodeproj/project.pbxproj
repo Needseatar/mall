@@ -189,6 +189,7 @@
 		1BEF967A1BFD851C00F7470D /* main_navigation_car.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BEF95E31BFD851C00F7470D /* main_navigation_car.png */; };
 		1BEF967B1BFD851C00F7470D /* main_navigation_car_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BEF95E41BFD851C00F7470D /* main_navigation_car_checked.png */; };
 		1BEF967D1BFD851C00F7470D /* store_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BEF95E61BFD851C00F7470D /* store_bg.png */; };
+		1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF2B9AA1C0003D200010E52 /* fiveAboutViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -406,6 +407,8 @@
 		1BEF95E31BFD851C00F7470D /* main_navigation_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_navigation_car.png; sourceTree = "<group>"; };
 		1BEF95E41BFD851C00F7470D /* main_navigation_car_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_navigation_car_checked.png; sourceTree = "<group>"; };
 		1BEF95E61BFD851C00F7470D /* store_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = store_bg.png; sourceTree = "<group>"; };
+		1BF2B9A91C0003D200010E52 /* fiveAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fiveAboutViewController.h; sourceTree = "<group>"; };
+		1BF2B9AA1C0003D200010E52 /* fiveAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveAboutViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -563,6 +566,7 @@
 				1BEF94701BFD660000F7470D /* fiveViewController.m */,
 				1B48C9621BFEC451009CE729 /* fiveViewUserTableViewCell.h */,
 				1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */,
+				1BF2B9A81C00038800010E52 /* about */,
 			);
 			path = five;
 			sourceTree = "<group>";
@@ -810,6 +814,15 @@
 				1BEF95E41BFD851C00F7470D /* main_navigation_car_checked.png */,
 			);
 			path = "drawable-xxhdpi";
+			sourceTree = "<group>";
+		};
+		1BF2B9A81C00038800010E52 /* about */ = {
+			isa = PBXGroup;
+			children = (
+				1BF2B9A91C0003D200010E52 /* fiveAboutViewController.h */,
+				1BF2B9AA1C0003D200010E52 /* fiveAboutViewController.m */,
+			);
+			path = about;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1112,6 +1125,7 @@
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
 				1BEF94911BFD660000F7470D /* fisterViewController.m in Sources */,
 				1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */,
+				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,
 				1BEF94931BFD660000F7470D /* fourViewController.m in Sources */,
 				1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */,

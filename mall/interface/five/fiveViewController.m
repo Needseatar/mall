@@ -47,7 +47,7 @@
 #pragma mark - 设置TabelView界面
 -(void)setTabelView
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64 -44) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64 -44) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -79,10 +79,10 @@
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         
         if(cell == nil){
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //设置右边箭头
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //设置右边箭头
+        //cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         NSArray *array = _mArray[indexPath.section];
         
@@ -94,8 +94,15 @@
 }
 //跳转到介绍
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 4 && indexPath.row == 1) {  //进入关于的界面
+        fiveAboutViewController *FAV = [[fiveAboutViewController alloc] init];
+        [self.navigationController pushViewController:FAV animated:YES];
+    }else
+    {
+        fiveAboutViewController * FAView = [[fiveAboutViewController alloc] init];
+        [self.navigationController pushViewController:FAView animated:NO];
+    }
     
-    ;
 }
 //返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

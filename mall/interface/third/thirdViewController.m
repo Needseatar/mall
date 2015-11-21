@@ -36,12 +36,13 @@
     _searchBar.delegate = self;
     [self.navigationController.navigationBar addSubview:_searchBar];
     
-    //右边二维码
-    UIButton * rightCamera = [UIButton buttonWithType:UIButtonTypeSystem];
+    //右边搜索按钮
+    UIButton * rightCamera = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightCamera setTitle:@"搜索" forState:UIControlStateNormal];
     [rightCamera setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    rightCamera.titleLabel.font = [UIFont systemFontOfSize:18];
-    rightCamera.frame = CGRectMakeEx(0, 0, 35, 20);
+    //rightCamera.titleLabel.font = [UIFont systemFontOfSize:18];
+    //rightCamera.titleLabel.backgroundColor = [UIColor blueColor];
+    rightCamera.frame = CGRectMakeEx(0, 0, 35, 25);
     UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
     self.navigationItem.rightBarButtonItem = rightCameraItem;
     

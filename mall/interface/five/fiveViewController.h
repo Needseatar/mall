@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZJScreenAdaptation.h"
 #import "fiveViewUserTableViewCell.h"
+#import "fiveAboutViewController.h"
 
 @interface fiveViewController : UIViewController
 
