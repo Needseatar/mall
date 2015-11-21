@@ -96,11 +96,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 4 && indexPath.row == 1) {  //进入关于的界面
         fiveAboutViewController *FAV = [[fiveAboutViewController alloc] init];
-        [self.navigationController pushViewController:FAV animated:YES];
+        [self.navigationController popToViewController:FAV animated:YES];
     }else
     {
         fiveAboutViewController * FAView = [[fiveAboutViewController alloc] init];
-        [self.navigationController pushViewController:FAView animated:NO];
+        [self.navigationController pushViewController:FAView animated:YES];
     }
     
 }
