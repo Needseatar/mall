@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZJScreenAdaptation.h"
 
 @interface fiveViewUserTableViewCell : UITableViewCell
 

@@ -7,7 +7,6 @@
 //
 
 #import "secondViewController.h"
-#import "ZJScreenAdaptation.h"
 
 @interface secondViewController ()<UISearchBarDelegate>
 

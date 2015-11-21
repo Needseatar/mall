@@ -7,7 +7,6 @@
 //
 
 #import "thirdViewController.h"
-#import "ZJScreenAdaptation.h"
 
 @interface thirdViewController ()<UISearchBarDelegate>
 

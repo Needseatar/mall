@@ -1,0 +1,19 @@
+//
+//  PrefixHeader.pch
+//  mall
+//
+//  Created by Mihua on 21/11/15.
+//  Copyright © 2015年 Mihua. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+#import "ZJScreenAdaptation.h"
+
+#define HomePageURL @"http://hunter.ctrip.com/api/activities.json?city_id=%@&lat=%f&lng=%f%@&s=%@&per=10&page=%d&featured_type=app"
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */

@@ -7,7 +7,6 @@
 //
 
 #import "fourViewController.h"
-#import "ZJScreenAdaptation.h"
 
 @interface fourViewController ()<UISearchBarDelegate>
 

@@ -7,7 +7,6 @@
 //
 
 #import "fisterViewController.h"
-#import "ZJScreenAdaptation.h"
 
 @interface fisterViewController ()<UISearchBarDelegate>
 
@@ -19,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
     [self createSearchBar]; //设置导航栏
     
