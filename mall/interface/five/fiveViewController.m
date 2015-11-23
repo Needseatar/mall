@@ -17,6 +17,14 @@
 
 @implementation fiveViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = YES; //隐藏导航控制器
+    
+    self.tabBarController.tabBar.hidden = NO;
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -24,7 +32,7 @@
     
     [self setTabelView];  //设置tabel
     
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self setNavigationController];  //设置标签栏隐藏
 }
 
 #pragma mark -  初始化参数
@@ -44,10 +52,19 @@
     [_mArray addObject:array5];
 }
 
+#pragma mark -  设置导航栏的颜色
+-(void)setNavigationController
+{
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
+    
+    [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]]; //设置导航栏颜色
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]]; //设置标题颜色
+}
+
 #pragma mark - 设置TabelView界面
 -(void)setTabelView
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64 -44) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, -18, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -79,10 +96,10 @@
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         
         if(cell == nil){
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
-        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //设置右边箭头
-        //cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //设置右边箭头
+        cell.selectionStyle = UITableViewCellSelectionStyleNone; // 设置选中没有颜色
         
         NSArray *array = _mArray[indexPath.section];
         
@@ -96,11 +113,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 4 && indexPath.row == 1) {  //进入关于的界面
         fiveAboutViewController *FAV = [[fiveAboutViewController alloc] init];
-        [self.navigationController popToViewController:FAV animated:YES];
+        [self.navigationController pushViewController:FAV animated:YES];
     }else
     {
-        fiveAboutViewController * FAView = [[fiveAboutViewController alloc] init];
-        [self.navigationController pushViewController:FAView animated:YES];
+        fiveAboutViewController *adv = [[fiveAboutViewController alloc] init];
+        [self.navigationController pushViewController:adv animated:YES];
     }
     
 }
@@ -115,12 +132,12 @@
 }
 //返回组尾高度
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.1;
+    return 0.01;
 }
 //返回组头高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==0) {
-        return 0.1;
+    if (section == 0) {
+        return 0.01;
     }else
     {
         return heightEx(10);

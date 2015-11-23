@@ -28,7 +28,7 @@
 -(void)createSearchBar{
     
     [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], [UIColor blueColor],nil]];
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(20, 7, 240, 20)];
     _searchBar.placeholder = @"请输入搜索内容";
