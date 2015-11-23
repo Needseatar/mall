@@ -13,6 +13,8 @@
 @property (retain, nonatomic) UITableView * tableView;
 @property (strong, nonatomic) NSMutableArray *mArray;
 
+@property (strong, nonatomic)UITapGestureRecognizer * attentiontap;
+
 @end
 
 @implementation fiveViewController
@@ -88,6 +90,7 @@
             cell1 = [[fiveViewUserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId1];
         }
         cell1.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         return cell1;
         
     }else // 其它信息
@@ -111,13 +114,12 @@
 }
 //跳转到介绍
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 4 && indexPath.row == 1) {  //进入关于的界面
+    if (indexPath.section == 0) { //用户的那个歌表格设置没有进入界面
+        
+    }else if (indexPath.section == 4 && indexPath.row == 1) //进入关于的界面
+    {
         fiveAboutViewController *FAV = [[fiveAboutViewController alloc] init];
         [self.navigationController pushViewController:FAV animated:YES];
-    }else
-    {
-        fiveAboutViewController *adv = [[fiveAboutViewController alloc] init];
-        [self.navigationController pushViewController:adv animated:YES];
     }
     
 }
