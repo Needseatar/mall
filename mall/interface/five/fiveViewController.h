@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "fiveViewUserTableViewCell.h"
 #import "fiveAboutViewController.h"
+#import "fiveRegisteredViewController.h"
 
 @interface fiveViewController : UIViewController
 

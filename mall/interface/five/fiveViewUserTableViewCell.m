@@ -11,15 +11,19 @@
 
 @interface fiveViewUserTableViewCell ()
 
-@property (strong, nonatomic) UIImageView *bgImage;
-@property (strong, nonatomic) UIView      *lineImage;
-@property (strong, nonatomic) UIImageView *verticalLineImage;
-@property (strong, nonatomic) UIImageView *userImage;          //设置头像
-@property (strong, nonatomic) UIButton    *registeredButton; //设置登陆
-@property (strong, nonatomic) UIButton    *signInButton;    //设置注册
-@property (strong, nonatomic) UILabel     *attentionLabel;  //设置关注的商品
-@property (strong, nonatomic) UILabel     *browseLabel;   //设置浏览记录
-@property (strong, nonatomic) UILabel     *addressLabel; //设置地址管理
+@property (retain, nonatomic) UIImageView *bgImage;
+@property (retain, nonatomic) UIView      *lineImage;
+@property (retain, nonatomic) UIImageView *verticalLineImage;
+@property (retain, nonatomic) UIImageView *userImage;          //设置头像
+@property (retain, nonatomic) UIButton    *registeredButton; //设置登陆
+@property (retain, nonatomic) UIButton    *signInButton;    //设置注册
+@property (retain, nonatomic) UILabel     *attentionLabel;  //设置关注的商品
+@property (retain, nonatomic) UILabel     *browseLabel;   //设置浏览记录
+@property (retain, nonatomic) UILabel     *addressLabel; //设置地址管理
+
+@property (retain, nonatomic) UIView      *bgSignInView; //登陆时候背景视图
+
+@property (strong, nonatomic) fiveBlockString *string; //返回需要调用函数的字符
 
 @end
 
@@ -115,36 +119,65 @@
 }
 
 #pragma mark - 动作实现
+
+-(void)comeBackActionString:(void(^)(NSString *string))action  //传回动作的名字
+{
+    self.string = [[fiveBlockString alloc] init];
+    self.string.action = action;
+}
+
 //注册动作
 -(void)registeredAction
 {
-    ;
+    //作用: 原来被点击执行target-action对应的方法
+    //现在: 判断action是否已经设置block, 如果被设置, 执行block
+    if(self.string.action)
+    {
+        self.string.action(@"registeredAction");
+    }
 }
 //登陆动作
 -(void)signInAction
 {
-    ;
+    if(self.string.action)
+    {
+        self.string.action(@"signInAction");
+    }
 }
 //头像点击动作
 -(void)userAction
 {
-    ;
+    if(self.string.action)
+    {
+        self.string.action(@"userAction");
+    }
 }
 //关注的商品点击动作
 -(void)attentionAction
 {
-    ;
+    if(self.string.action)
+    {
+        self.string.action(@"attentionAction");
+    }
 }
 //浏览记录点击动作
 -(void)browseAction
 {
-    ;
+    if(self.string.action)
+    {
+        self.string.action(@"browseAction");
+    }
 }
 //地址点击动作
 -(void)addressAction
 {
-    ;
+    if(self.string.action)
+    {
+        self.string.action(@"addressAction");
+    }
 }
+
+
 - (void)awakeFromNib {
     // Initialization code
 }

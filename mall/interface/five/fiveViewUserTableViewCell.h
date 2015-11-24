@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "fiveBlockString.h"
 
 @interface fiveViewUserTableViewCell : UITableViewCell
+
+-(void)comeBackActionString:(void(^)(NSString *string))action; //传回动作的名字
 
 @end
