@@ -65,7 +65,7 @@
 #pragma mark - 设置TabelView界面
 -(void)setTabel
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, 380, 580)style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, 320, 580)style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
