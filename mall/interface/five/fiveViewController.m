@@ -316,6 +316,37 @@
     UITextField * userPasswordTextFild = (UITextField *)[self.bgSignInview viewWithTag:11];
     NSLog(@"%@", userAccoutTextFild.text);
     NSLog(@"%@", userPasswordTextFild.text);
+    
+//    NSString *URLString = @"http://example.com";
+//    NSDictionary *parameters = @{@"foo": @"bar", @"baz": @[@1, @2, @3]};
+//
+//    NSData *jsonData = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:URLString parameters:parameters];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:userAccoutTextFild.text, @"username", userPasswordTextFild.text, @"password", @"ios", @"client", nil];
+    NSLog(@"%@", parameters);
+    [manager POST:@"http://shop.trqq.com/mobile/index.php?act=login" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    NSDictionary *parameters = @{@"foo": @"bar"};
+//    [manager POST:@"http://example.com/resources.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"JSON: %@", responseObject);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
+//    }];
 }
 //删除并退出登录界面，然后进入注册界面
 -(void)registered
