@@ -25,6 +25,13 @@
 
 @property (strong, nonatomic) fiveBlockString *string; //返回需要调用函数的字符
 
+@property (retain, nonatomic) UIView      *bgUserView;
+@property (retain, nonatomic) UILabel     *userNamelabel;
+@property (retain, nonatomic) UILabel     *userPointLabel;
+@property (retain, nonatomic) UILabel     *predepoitLabel;
+
+
+
 @end
 
 @implementation fiveViewUserTableViewCell
@@ -47,26 +54,6 @@
         [self.userImage addGestureRecognizer:userTapAction];
         self.userImage.userInteractionEnabled = YES;
         [self addSubview:self.userImage];
-        
-        //注册
-        self.registeredButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.registeredButton.frame = CGRectMakeEx(130, 50, 60, 25);
-        self.registeredButton.backgroundColor = [UIColor whiteColor];
-        [self.registeredButton setTitle:@"注册" forState:UIControlStateNormal];
-        [self.registeredButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        self.registeredButton.titleLabel.font = [UIFont systemFontOfSize:15];
-        [self.registeredButton addTarget:self action:@selector(registeredAction) forControlEvents:UIControlEventTouchUpInside]; //注册
-        [self addSubview:self.registeredButton];
-        
-        //登陆
-        self.signInButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.signInButton.frame = CGRectMakeEx(200, 50, 60, 25);
-        self.signInButton.backgroundColor = [UIColor whiteColor];
-        [self.signInButton setTitle:@"登陆" forState:UIControlStateNormal];
-        [self.signInButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        self.signInButton.titleLabel.font = [UIFont systemFontOfSize:15];
-        [self.signInButton addTarget:self action:@selector(signInAction) forControlEvents:UIControlEventTouchUpInside]; //登陆
-        [self addSubview:self.signInButton];
         
         //竖线
         self.lineImage = [[UIView alloc] init];
@@ -116,6 +103,66 @@
         
     }
     return self;
+}
+
+-(void)setButtonAndUser:(BOOL)whetherSignIn signInUser:(signInModel *)signInUser
+{
+    
+    
+    if (whetherSignIn == YES) { //判断是否登录，登录了就关闭按钮，加载用户信息
+        [self.registeredButton removeFromSuperview];
+        [self.signInButton removeFromSuperview];
+        if (self.bgUserView == nil) { //判断是否已经初始化了
+            //用户资料背景图
+            self.bgUserView = [[UIView alloc] initWithFrame:CGRectMakeEx(85, 35, 100, 60)];
+            self.bgUserView.backgroundColor = [UIColor clearColor];
+            [self addSubview:self.bgUserView];
+            
+            self.userNamelabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 0, 100, 15)];
+            self.userNamelabel.textColor = [UIColor whiteColor];
+            self.userNamelabel.backgroundColor = [UIColor clearColor];
+            
+            [self.bgUserView addSubview:self.userNamelabel];
+            
+            self.userPointLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 20, 100, 15)];
+            self.userPointLabel.textColor = [UIColor whiteColor];
+            self.userPointLabel.backgroundColor = [UIColor clearColor];
+           
+            [self.bgUserView addSubview:self.userPointLabel];
+            
+            self.predepoitLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 40, 100, 15)];
+            self.predepoitLabel.textColor = [UIColor whiteColor];
+            self.predepoitLabel.backgroundColor = [UIColor clearColor];
+            [self.bgUserView addSubview:self.predepoitLabel];
+        }
+        self.userNamelabel.text = @"1234567";
+        self.userPointLabel.text = @"1234567";
+        self.predepoitLabel.text = @"1234567";
+
+    }else
+    {
+        if (self.registeredButton == nil) {
+            //注册
+            self.registeredButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            self.registeredButton.frame = CGRectMakeEx(130, 50, 60, 25);
+            self.registeredButton.backgroundColor = [UIColor whiteColor];
+            [self.registeredButton setTitle:@"注册" forState:UIControlStateNormal];
+            [self.registeredButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            self.registeredButton.titleLabel.font = [UIFont systemFontOfSize:15];
+            [self.registeredButton addTarget:self action:@selector(registeredAction) forControlEvents:UIControlEventTouchUpInside]; //注册
+            [self addSubview:self.registeredButton];
+            
+            //登陆
+            self.signInButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            self.signInButton.frame = CGRectMakeEx(200, 50, 60, 25);
+            self.signInButton.backgroundColor = [UIColor whiteColor];
+            [self.signInButton setTitle:@"登陆" forState:UIControlStateNormal];
+            [self.signInButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            self.signInButton.titleLabel.font = [UIFont systemFontOfSize:15];
+            [self.signInButton addTarget:self action:@selector(signInAction) forControlEvents:UIControlEventTouchUpInside]; //登陆
+            [self addSubview:self.signInButton];
+        }
+    }
 }
 
 #pragma mark - 动作实现

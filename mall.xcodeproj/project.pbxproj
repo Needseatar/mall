@@ -10,6 +10,7 @@
 		173E103D213C0BF1BE46CBD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F3B935D9E0FA1FF88A65C /* libPods.a */; };
 		1B35A42A1C040DE9004C1544 /* fiveBlockString.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B35A4291C040DE9004C1544 /* fiveBlockString.m */; };
 		1B35A42D1C0458BA004C1544 /* fiveRegisteredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B35A42C1C0458BA004C1544 /* fiveRegisteredViewController.m */; };
+		1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B468F9C1C06DF89006CE377 /* signInModel.m */; };
 		1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */; };
 		1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */; };
 		1BEF93DB1BFD62FC00F7470D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DA1BFD62FC00F7470D /* main.m */; };
@@ -218,6 +219,8 @@
 		1B35A4291C040DE9004C1544 /* fiveBlockString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveBlockString.m; sourceTree = "<group>"; };
 		1B35A42B1C0458BA004C1544 /* fiveRegisteredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fiveRegisteredViewController.h; sourceTree = "<group>"; };
 		1B35A42C1C0458BA004C1544 /* fiveRegisteredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveRegisteredViewController.m; sourceTree = "<group>"; };
+		1B468F9B1C06DF89006CE377 /* signInModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signInModel.h; sourceTree = "<group>"; };
+		1B468F9C1C06DF89006CE377 /* signInModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = signInModel.m; sourceTree = "<group>"; };
 		1B48C9621BFEC451009CE729 /* fiveViewUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fiveViewUserTableViewCell.h; sourceTree = "<group>"; };
 		1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveViewUserTableViewCell.m; sourceTree = "<group>"; };
 		1B5366AD1C02DDF1002C5CB2 /* abouCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = abouCompanyViewController.h; sourceTree = "<group>"; };
@@ -451,6 +454,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B468F9A1C06DEFF006CE377 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				1B468F9B1C06DF89006CE377 /* signInModel.h */,
+				1B468F9C1C06DF89006CE377 /* signInModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		1BEF93CD1BFD62FC00F7470D = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +489,7 @@
 		1BEF93D81BFD62FC00F7470D /* mall */ = {
 			isa = PBXGroup;
 			children = (
+				1B468F9A1C06DEFF006CE377 /* model */,
 				1BEF95441BFD69E300F7470D /* thirdBase */,
 				1BEF94511BFD660000F7470D /* image */,
 				1BEF946A1BFD660000F7470D /* interface */,
@@ -1227,6 +1240,7 @@
 				1B35A42D1C0458BA004C1544 /* fiveRegisteredViewController.m in Sources */,
 				1BEF94921BFD660000F7470D /* fiveViewController.m in Sources */,
 				1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */,
+				1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */,
 				1B35A42A1C040DE9004C1544 /* fiveBlockString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
