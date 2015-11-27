@@ -112,21 +112,21 @@
 }
 //返回组头试图
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    self.bgLogoAndVersion = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 0, 380, 200)];
+    self.bgLogoAndVersion = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 0, 320, 200)];
     self.bgLogoAndVersion.backgroundColor = [UIColor clearColor];
     
     //logo和版本背景
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMakeEx(100, 30, 120, 130)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMakeEx(100, 30, 120, 150)];
     bgView.backgroundColor = [UIColor clearColor];
     [self.bgLogoAndVersion addSubview:bgView];
     
     //logo
-    UIImageView *imageLogoView = [[UIImageView alloc] initWithFrame:CGRectMakeEx(20, 0, 80, 80)];
+    UIImageView *imageLogoView = [[UIImageView alloc] initWithFrame:CGRectMakeEx(35, 0, 80, 80)];
     imageLogoView.image = [UIImage imageNamed:@"app_logo.png"];
     [bgView addSubview:imageLogoView];
     
     //版本号
-    UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 90, 120, 20)];
+    UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 90, 150, 20)];
     versionLabel.backgroundColor = [UIColor clearColor];
     versionLabel.text = @"当前版本：1.0.0";
     versionLabel.textAlignment = NSTextAlignmentCenter;

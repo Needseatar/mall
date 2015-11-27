@@ -10,17 +10,65 @@
 
 @implementation signInModel
 
++(signInModel *)sharedUserTokenInModel:(signInModel *)signInModelKey
+{
+    //是线程安全的, 多个线程调用没有问题
+    //推荐使用这种形式创建单例
+    static signInModel *SIModel = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        SIModel.whetherSignIn = NO;
+        SIModel = [[signInModel alloc] init];
+    });
+    NSLog(@"%d", signInModelKey.code);
+    NSLog(@"%d", SIModel.code);
+    if (signInModelKey.code == 200) {
+        
+        //数据清零
+        SIModel.code = 0;
+        SIModel.error = [[NSString alloc] init];;
+        SIModel.key = [[NSString alloc] init];;
+        SIModel.username = [[NSString alloc] init];
+        SIModel.whetherSignIn = NO;
+        
+        //开始赋值
+        SIModel.code = signInModelKey.code;
+        SIModel.error = signInModelKey.error;
+        SIModel.key = signInModelKey.key;
+        SIModel.username = signInModelKey.username;
+        if (SIModel.key != nil) {
+            SIModel.whetherSignIn = YES;
+        }
+    }else if(signInModelKey.code == 0)
+    {
+        //数据清零
+        SIModel.code = 0;
+        SIModel.error = [[NSString alloc] init];;
+        SIModel.key = [[NSString alloc] init];;
+        SIModel.username = [[NSString alloc] init];
+        SIModel.whetherSignIn = NO;
+    }
+    return SIModel;
+}
+
 +(signInModel *)setUserToken:(NSDictionary *)dic
 {
     signInModel * SIModel = [[signInModel alloc] init];
     NSDictionary *datas = [[NSDictionary alloc] init];
-    SIModel.code = dic[@"code"];
+    SIModel.code = [dic[@"code"] integerValue];
     datas = dic[@"datas"];
     //秘密或账号错误
     SIModel.error = datas[@"error"];
     SIModel.key = datas[@"key"];
     SIModel.username = datas[@"username"];
-    NSLog(@"%@, %@, %@, %@",SIModel.error ,SIModel.code, SIModel.key, SIModel.username);
+    return SIModel;
+}
+
++(signInModel *)initSetUser
+{
+    signInModel * SIModel = [[signInModel alloc] init];
+    SIModel.whetherSignIn = NO;
+    SIModel.code = 0;
     return SIModel;
 }
 

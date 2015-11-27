@@ -105,42 +105,44 @@
     return self;
 }
 
--(void)setButtonAndUser:(BOOL)whetherSignIn signInUser:(signInModel *)signInUser
+-(void)setButtonAndUser:(signInModel *)signInUser
+             userMyMall:(fiveMyMallmodel *)userMyMall
 {
-    
-    
-    if (whetherSignIn == YES) { //判断是否登录，登录了就关闭按钮，加载用户信息
+    if (signInUser.whetherSignIn == YES) { //判断是否登录，登录了就关闭按钮，加载用户信息
         [self.registeredButton removeFromSuperview];
         [self.signInButton removeFromSuperview];
+        self.registeredButton = nil;
+        self.signInButton = nil;
         if (self.bgUserView == nil) { //判断是否已经初始化了
             //用户资料背景图
-            self.bgUserView = [[UIView alloc] initWithFrame:CGRectMakeEx(85, 35, 100, 60)];
+            self.bgUserView = [[UIView alloc] initWithFrame:CGRectMakeEx(85, 35, 140, 60)];
             self.bgUserView.backgroundColor = [UIColor clearColor];
             [self addSubview:self.bgUserView];
             
-            self.userNamelabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 0, 100, 15)];
+            self.userNamelabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 0, 140, 15)];
             self.userNamelabel.textColor = [UIColor whiteColor];
             self.userNamelabel.backgroundColor = [UIColor clearColor];
             
             [self.bgUserView addSubview:self.userNamelabel];
             
-            self.userPointLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 20, 100, 15)];
+            self.userPointLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 20, 140, 15)];
             self.userPointLabel.textColor = [UIColor whiteColor];
             self.userPointLabel.backgroundColor = [UIColor clearColor];
            
             [self.bgUserView addSubview:self.userPointLabel];
             
-            self.predepoitLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 40, 100, 15)];
+            self.predepoitLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 40, 140, 15)];
             self.predepoitLabel.textColor = [UIColor whiteColor];
             self.predepoitLabel.backgroundColor = [UIColor clearColor];
             [self.bgUserView addSubview:self.predepoitLabel];
         }
-        self.userNamelabel.text = @"1234567";
-        self.userPointLabel.text = @"1234567";
-        self.predepoitLabel.text = @"1234567";
-
+        self.userNamelabel.text = userMyMall.user_name;
+        self.userPointLabel.text = [[NSString alloc] initWithFormat:@"积分：%@", userMyMall.point];
+        self.predepoitLabel.text = [[NSString alloc] initWithFormat:@"预存款：%@", userMyMall.predepoit];
+        [self.userImage setImageWithURL:[NSURL URLWithString:userMyMall.avator] placeholderImage:[UIImage imageNamed:@"default_user_portrait.gif"]];
     }else
     {
+        [self.bgUserView removeFromSuperview]; //释放用户信息
         if (self.registeredButton == nil) {
             //注册
             self.registeredButton = [UIButton buttonWithType:UIButtonTypeSystem];

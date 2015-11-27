@@ -41,7 +41,7 @@
     [rightCamera setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //rightCamera.titleLabel.font = [UIFont systemFontOfSize:18];
     //rightCamera.titleLabel.backgroundColor = [UIColor blueColor];
-    rightCamera.frame = CGRectMakeEx(0, 0, 35, 25);
+    rightCamera.frame = CGRectMakeEx(0, 0, 45, 25);
     UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
     self.navigationItem.rightBarButtonItem = rightCameraItem;
     

@@ -12,6 +12,7 @@
 #import "fiveRegisteredViewController.h"
 #import "AFNetworking.h"
 #import "signInModel.h"
+#import "fiveMyMallmodel.h"
 
 @interface fiveViewController : UIViewController
 

@@ -14,10 +14,10 @@
 
 //登录接口
 #define  SignIn @"http://shop.trqq.com/mobile/index.php?act=login"
-
+//注销接口
+#define  Cancellation @"http://shop.trqq.com/mobile/index.php?act=logout"
 //我的商城接口
 #define MyMall @"http://shop.trqq.com/mobile/index.php?act=member_index"
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
 
 #endif /* PrefixHeader_pch */

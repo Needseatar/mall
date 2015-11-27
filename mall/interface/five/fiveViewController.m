@@ -13,9 +13,16 @@
 @property (retain, nonatomic) UITableView    *tableView;
 @property (strong, nonatomic) NSMutableArray *mArray;
 
-@property (strong, nonatomic) UIView         *bgSignInview;
+@property (retain, nonatomic) UIView         *bgSignInview;
+@property (retain, nonatomic) UIView         *childBgSingnInView;
+@property (retain, nonatomic) UIView         *bgSignInIndicatorView;
+@property (retain, nonatomic) UIActivityIndicatorView * actv; //注销按钮背景视图
 
 @property (retain, nonatomic) signInModel    *userToken;
+
+@property (retain, nonatomic) UIView         *bgCancellation;
+
+@property (retain, nonatomic) fiveMyMallmodel *myMall;
 
 @end
 
@@ -54,6 +61,8 @@
     [_mArray addObject:array3];
     [_mArray addObject:array4];
     [_mArray addObject:array5];
+    
+    self.userToken = [signInModel initSetUser];
 }
 
 #pragma mark -  设置导航栏的颜色
@@ -68,7 +77,7 @@
 #pragma mark - 设置TabelView界面
 -(void)setTabelView
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, -20, 320, 600) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, -20, 320, 600) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -104,7 +113,7 @@
                         [self registeredAction];
                         break;
                     case 1:
-                        [self signInAction];
+                        [self signInActionBG];
                         break;
                     case 2:
                         [self userAction];
@@ -129,8 +138,7 @@
         }
         cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        
-        //[cell1 setButtonAndUser:YES signInUser:];
+        [cell1 setButtonAndUser:self.userToken userMyMall:self.myMall];  //判断userToken有没有登录成功，成功救获取数据显示出来，并且取消释放登录界面
         
         return cell1;
         
@@ -175,7 +183,33 @@
 }
 //返回组尾高度
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.01;
+    if (self.userToken.whetherSignIn == YES && section == _mArray.count-1) {
+        return 50;
+    }else
+    {
+        return 0.01;
+    }
+}
+#pragma mark - 当用户获取道令牌登录的时候，返回尾端的注销按钮
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (self.userToken.whetherSignIn == YES && section == _mArray.count-1) {
+        self.bgCancellation = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 0, 320, 50)];
+        self.bgCancellation.backgroundColor = [UIColor clearColor];
+        
+        UIButton *CancellationButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        CancellationButton.frame = CGRectMakeEx(10, 20, 300, 25);
+        [CancellationButton setTitle:@"注销" forState:UIControlStateNormal];
+        [CancellationButton setBackgroundColor:[UIColor redColor]];
+        [CancellationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [CancellationButton addTarget:self action:@selector(cancellationAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.bgCancellation addSubview:CancellationButton];
+        
+        return self.bgCancellation;
+    }else
+    {
+        return nil;
+    }
 }
 //返回组头高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -186,11 +220,48 @@
         return heightEx(10);
     }
 }
+#pragma mark - 注销登录
+-(void)cancellationAction
+{
+    //请求注销
+    AFHTTPRequestOperationManager *myManager = [AFHTTPRequestOperationManager manager];
+    myManager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+    NSDictionary *myMallParameters = [NSDictionary dictionaryWithObjectsAndKeys:self.userToken.username, @"username", self.userToken.key, @"key", @"ios", @"client", nil];
+    [myManager POST:Cancellation parameters:myMallParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        if ([dict[@"datas"] integerValue] == 1) {
+            [self.actv stopAnimating];     //结束等待界面的动画
+            [self.bgSignInview removeFromSuperview];
+            signInModel * cancellationModel = [signInModel initSetUser];
+            self.userToken = [signInModel sharedUserTokenInModel:cancellationModel]; //清空登录令牌
+            [_tableView reloadData];
+        }else
+        {
+            
+        }
 
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        self.childBgSingnInView.hidden = NO;
+        [self.actv stopAnimating];     //结束等待界面的动画
+        [self.actv removeFromSuperview];
+    }];
+    [self setSignInBGView]; //加载背景遮盖
+    [self setIndicator];   //加载风火轮
+}
 
-#pragma mark -  第一组里面按钮的点击动作
-//登陆动作
--(void)signInAction
+#pragma mark - 设置登录背景
+//登陆时候背景遮盖
+-(void)signInActionBG
+{
+    //加载背景遮盖
+    [self setSignInBGView];
+    
+    //加载登录界面
+    [self signInAction];
+    
+}
+-(void)setSignInBGView
 {
     //背景遮盖
     self.bgSignInview = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 0, 340, 600)];
@@ -200,19 +271,22 @@
     [self.bgSignInview addGestureRecognizer:bgSignInTap];
     self.bgSignInview.userInteractionEnabled = YES;
     [self.view addSubview:self.bgSignInview];
-    
+}
+#pragma mark -  登录界面
+-(void)signInAction
+{
     //视图背景
-    UIView *childBgSingnInView = [[UIView alloc] initWithFrame:CGRectMakeEx(50, 180, 220, 170)];
-    childBgSingnInView.backgroundColor = [UIColor colorWithRed:70.0f/255.0f green:170.0f/255.0f blue:220.0f/255.0f alpha:1];
-    childBgSingnInView.alpha = 1;
-    childBgSingnInView.layer.cornerRadius = 20; //设置layer的圆角
-    childBgSingnInView.layer.masksToBounds = YES; // 超出部分覆盖
-    childBgSingnInView.layer.borderWidth = 3;//边框宽度
-    childBgSingnInView.layer.borderColor = [[UIColor whiteColor] CGColor];//边框颜色
+    self.childBgSingnInView = [[UIView alloc] initWithFrame:CGRectMakeEx(50, 180, 220, 170)];
+    self.childBgSingnInView.backgroundColor = [UIColor colorWithRed:70.0f/255.0f green:170.0f/255.0f blue:220.0f/255.0f alpha:1];
+    self.childBgSingnInView.alpha = 1;
+    self.childBgSingnInView.layer.cornerRadius = 20; //设置layer的圆角
+    self.childBgSingnInView.layer.masksToBounds = YES; // 超出部分覆盖
+    self.childBgSingnInView.layer.borderWidth = 3;//边框宽度
+    self.childBgSingnInView.layer.borderColor = [[UIColor whiteColor] CGColor];//边框颜色
     UITapGestureRecognizer *childBgSignInTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(childBgSignInAction)];//加载点击动作
-    [childBgSingnInView addGestureRecognizer:childBgSignInTap];
-    childBgSingnInView.userInteractionEnabled = YES;
-    [self.bgSignInview addSubview:childBgSingnInView];
+    [self.childBgSingnInView addGestureRecognizer:childBgSignInTap];
+    self.childBgSingnInView.userInteractionEnabled = YES;
+    [self.bgSignInview addSubview:self.childBgSingnInView];
     
     //用户账号
     UITextField *userAccoutTextFild = [[UITextField alloc] initWithFrame:CGRectMakeEx(10, 30, 200, 30)];
@@ -226,7 +300,7 @@
     userAccoutTextFild.tag = 10;
     userAccoutTextFild.delegate = self;
     [userAccoutTextFild becomeFirstResponder];
-    [childBgSingnInView addSubview:userAccoutTextFild];
+    [self.childBgSingnInView addSubview:userAccoutTextFild];
     
     //用户密码
     UITextField *userPasswordTextFild = [[UITextField alloc] initWithFrame:CGRectMakeEx(10, 60, 200, 30)];
@@ -242,7 +316,7 @@
     userPasswordTextFild.autocorrectionType = UITextAutocorrectionTypeNo; //设置密码输入键盘
     userPasswordTextFild.tag = 11;
     userPasswordTextFild.delegate = self;
-    [childBgSingnInView addSubview:userPasswordTextFild];
+    [self.childBgSingnInView addSubview:userPasswordTextFild];
     
     //注册按钮
     UIButton *registeredButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -251,7 +325,7 @@
     [registeredButton setTitle:@"注册" forState:UIControlStateNormal];
     [registeredButton setTitleColor:[UIColor colorWithRed:70.0f/255.0f green:170.0f/255.0f blue:220.0f/255.0f alpha:1] forState:UIControlStateNormal];
     [registeredButton addTarget:self action:@selector(registered) forControlEvents:UIControlEventTouchUpInside];
-    [childBgSingnInView addSubview:registeredButton];
+    [self.childBgSingnInView addSubview:registeredButton];
     
     //登陆按钮
     UIButton *signInButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -261,14 +335,14 @@
     [signInButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [signInButton setBackgroundColor:[UIColor colorWithRed:102.0f/255.0f green:204.0f/255.0f blue:34.0f/255.0f alpha:1]];
     [signInButton addTarget:self action:@selector(signIn) forControlEvents:UIControlEventTouchUpInside];
-    [childBgSingnInView addSubview:signInButton];
+    [self.childBgSingnInView addSubview:signInButton];
 }
-//头像点击动作
+#pragma mark - 头像点击动作
 -(void)userAction
 {
     ;
 }
-//关注的商品点击动作
+#pragma mark - 关注的商品点击动作
 -(void)attentionAction
 {
     ;
@@ -314,7 +388,7 @@
     }
     return YES;
 }
-//登陆
+#pragma mark - 登陆
 -(void)signIn
 {
     UITextField * userAccoutTextFild = (UITextField *)[self.bgSignInview viewWithTag:10];
@@ -325,9 +399,12 @@
     [manager POST:SignIn parameters:signInParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"%@", dict);
-        self.userToken = [signInModel setUserToken:dict];
-        if (self.userToken.error == nil && self.userToken.username != nil && self.userToken.username != nil) { //判断是否登录成功
-            
+        
+        signInModel * SIModel = [signInModel setUserToken:dict];
+        self.userToken = [signInModel sharedUserTokenInModel:SIModel];
+        if (self.userToken.whetherSignIn == YES) { //判断是否登录成功
+            [self.bgSignInview removeFromSuperview]; //登录成功，移除登录界面
+            self.tabBarController.tabBar.hidden = NO;
             //请求我的商城
             AFHTTPRequestOperationManager *myManager = [AFHTTPRequestOperationManager manager];
             myManager.responseSerializer = [AFHTTPResponseSerializer  serializer];
@@ -336,16 +413,36 @@
             [myManager POST:MyMall parameters:myMallParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
                 NSLog(@"%@", dict);
-                
+                self.myMall = [fiveMyMallmodel setUserMall:dict];
+                [self.actv stopAnimating];     //结束等待界面的动画
+                [self.actv removeFromSuperview];
+                [_tableView reloadData];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
+                self.childBgSingnInView.hidden = NO;
+                [self.actv stopAnimating];     //结束等待界面的动画
+                [self.actv removeFromSuperview];
             }];
         }
-   
+        [self.actv stopAnimating];     //登录失败,结束等待界面的动画
+        [self.actv removeFromSuperview];
+        self.childBgSingnInView.hidden = NO; //登录失败再次显示登录按钮
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        self.childBgSingnInView.hidden = NO;
+        [self.actv stopAnimating];     //结束等待界面的动画
+        [self.actv removeFromSuperview];
     }];
-    
+    //发送请求后跳转登录风火轮
+    self.childBgSingnInView.hidden = YES;
+    [self setIndicator];
+}
+#pragma mark - 加载风火轮，并且开始转，前提是已经加载 了背景
+-(void)setIndicator
+{
+    self.actv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.actv.center = self.view.center;
+    [self.bgSignInview addSubview:self.actv];
+    [self.actv startAnimating];     //开始等待界面的动画
 }
 //删除并退出登录界面，然后进入注册界面
 -(void)registered
