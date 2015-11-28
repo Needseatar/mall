@@ -50,7 +50,6 @@
     fiveView.title = @"我";
     UINavigationController * NfiveView = [[UINavigationController alloc] initWithRootViewController:fiveView];
     
-    
     UITabBarController * tabbarControl = [[UITabBarController alloc] init];
     tabbarControl.viewControllers = @[NfistView, NsecondView, NthirdView, NfourView, NfiveView];
     //[tabbarControl.moreNavigationController.navigationBar setBarTintColor:[UIColor blackColor]];

@@ -16,6 +16,12 @@
 @property (retain, nonatomic) UITextField *passwordTextField;
 @property (retain, nonatomic) UITextField *againPasswordTextField;
 
+@property (retain, nonatomic) UIView      *bgAgreementView;
+@property (retain, nonatomic) UIButton    *agreementButton;
+@property (retain, nonatomic) UIButton    *registrationButton;
+
+
+
 @end
 
 
@@ -35,13 +41,16 @@
     [self setNavigation];
     
     [self setTextView]; //加载注册视图
-
+    
+    [self setButton];
 }
 
 -(void)setNavigation
 {
     self.title = @"注册";
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    
 }
 
 -(void)setTextView
@@ -102,6 +111,62 @@
     self.againPasswordTextField.delegate = self;
     [self.bgTextView addSubview:self.againPasswordTextField];
     
+    
+}
+
+#pragma mark - 加载用户注册和注册按钮
+-(void)setButton
+{
+    self.registrationButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.registrationButton setFrame:CGRectMakeEx(120, 250, 80, 30)];
+    [self.registrationButton setBackgroundColor:[UIColor redColor]];
+    [self.registrationButton setTitle:@"注册" forState:UIControlStateNormal];
+    [self.registrationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.registrationButton addTarget:self action:@selector(registrationButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.registrationButton];
+    
+}
+-(void)registrationButtonAction
+{
+    BOOL whetherUserVoid = [self.userTextField.text isEqualToString:@""]? NO: YES;
+    BOOL whetherEmailVoid = [self.mailTextField.text isEqualToString:@""]? NO: YES;
+    BOOL whetherPasswordVoid = [self.passwordTextField.text isEqualToString:@""]? NO: YES;
+    BOOL whetherPasswordConfirmVoid = [self.againPasswordTextField.text isEqualToString:@""]? NO: YES;
+    BOOL whetherPasswordAndAgain = [self.passwordTextField.text isEqualToString:self.againPasswordTextField.text]? YES: NO;
+    if (whetherUserVoid == whetherEmailVoid == whetherPasswordVoid == whetherPasswordConfirmVoid == NO) {
+        if (whetherPasswordAndAgain) {
+            //注册接口
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+            
+            NSDictionary *myMallParameters = [NSDictionary dictionaryWithObjectsAndKeys:self.userTextField.text, @"username", self.passwordTextField.text, @"password", self.againPasswordTextField, @"password_confirm", self.mailTextField, @"email",  @"ios",  @"client",nil];
+            [manager POST:Registration parameters:myMallParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                
+                NSLog(@"%@", dict);
+//                if ([dict[@"datas"] integerValue] == 1) {
+////                    [self.actv stopAnimating];     //结束等待界面的动画
+////                    [self.bgSignInview removeFromSuperview];
+////                    signInModel * cancellationModel = [signInModel initSetUser];
+////                    self.userToken = [signInModel sharedUserTokenInModel:cancellationModel]; //清空登录令牌
+//                }else
+//                {
+//                    
+//                }
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+//                self.childBgSingnInView.hidden = NO;
+//                [self.actv stopAnimating];     //结束等待界面的动画
+//                [self.actv removeFromSuperview];
+            }];
+        }else
+        {
+            NSLog(@"两次输入的密码不正确");
+        }
+    }
+    
+    NSLog(@"%d,%d,%d,%d,%d", whetherUserVoid, whetherEmailVoid, whetherPasswordVoid, whetherPasswordConfirmVoid, whetherPasswordAndAgain);
     
 }
 

@@ -18,6 +18,8 @@
 #define  Cancellation @"http://shop.trqq.com/mobile/index.php?act=logout"
 //我的商城接口
 #define MyMall @"http://shop.trqq.com/mobile/index.php?act=member_index"
+//注册接口接口
+#define Registration @"http://shop.trqq.com/mobile/ index.php?act=login&op=register"
 
 
 #endif /* PrefixHeader_pch */

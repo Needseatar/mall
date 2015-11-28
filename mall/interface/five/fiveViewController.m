@@ -34,6 +34,10 @@
     
     self.tabBarController.tabBar.hidden = NO;  //便签控制器不隐藏
     
+    if (self.tableView != nil) {
+        [self.tableView reloadData];
+    }
+    
 }
 
 - (void)viewDidLoad {
