@@ -117,6 +117,24 @@
 #pragma mark - 加载用户注册和注册按钮
 -(void)setButton
 {
+    self.bgAgreementView = [[UIView alloc] initWithFrame:CGRectMakeEx(10, 220, 200, 20)];
+    //self.bgAgreementView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.bgAgreementView];
+    
+    self.agreementButton = [[UIButton alloc] initWithFrame:CGRectMakeEx(0, 0, 20, 20)];
+    self.agreementButton.selected = YES;
+    [self.agreementButton setBackgroundImage:[UIImage imageNamed:@"accsessory_check.png"] forState:UIControlStateSelected];
+    [self.agreementButton addTarget:self action:@selector(agreementButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    self.agreementButton.layer.masksToBounds = YES; // 超出部分覆盖
+    self.agreementButton.layer.borderWidth = 1;//边框宽度
+    self.agreementButton.layer.borderColor = [[UIColor blackColor] CGColor];//边框颜色
+    [self.bgAgreementView addSubview:self.agreementButton];
+    
+    UILabel *agreementlabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(25, 0, 180, 20)];
+    agreementlabel.text = @"阅读协议";
+    [self.bgAgreementView addSubview:agreementlabel];
+    
+    
     self.registrationButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.registrationButton setFrame:CGRectMakeEx(120, 250, 80, 30)];
     [self.registrationButton setBackgroundColor:[UIColor redColor]];
@@ -126,6 +144,15 @@
     [self.view addSubview:self.registrationButton];
     
 }
+-(void)agreementButtonAction
+{
+    if (self.agreementButton.selected == YES) {
+        self.agreementButton.selected = NO;
+    }else
+    {
+        self.agreementButton.selected = YES;
+    }
+}
 -(void)registrationButtonAction
 {
     BOOL whetherUserVoid = [self.userTextField.text isEqualToString:@""]? NO: YES;
@@ -133,7 +160,7 @@
     BOOL whetherPasswordVoid = [self.passwordTextField.text isEqualToString:@""]? NO: YES;
     BOOL whetherPasswordConfirmVoid = [self.againPasswordTextField.text isEqualToString:@""]? NO: YES;
     BOOL whetherPasswordAndAgain = [self.passwordTextField.text isEqualToString:self.againPasswordTextField.text]? YES: NO;
-    if (whetherUserVoid == whetherEmailVoid == whetherPasswordVoid == whetherPasswordConfirmVoid == NO) {
+    if (whetherUserVoid == whetherEmailVoid == whetherPasswordVoid == whetherPasswordConfirmVoid == NO && self.agreementButton.selected == YES) {
         if (whetherPasswordAndAgain) {
             //注册接口
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

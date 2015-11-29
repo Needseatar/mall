@@ -52,7 +52,8 @@
     
     UITabBarController * tabbarControl = [[UITabBarController alloc] init];
     tabbarControl.viewControllers = @[NfistView, NsecondView, NthirdView, NfourView, NfiveView];
-    //[tabbarControl.moreNavigationController.navigationBar setBarTintColor:[UIColor blackColor]];
+    [tabbarControl.tabBarController.tabBar setTintColor:[UIColor whiteColor]];
+    [tabbarControl.tabBarController.tabBar setAlpha:1];
     
     [self addChildViewController:tabbarControl];
     [self.view addSubview:tabbarControl.view];
