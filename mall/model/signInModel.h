@@ -21,5 +21,7 @@
 
 +(signInModel *)setUserToken:(NSDictionary *)dic; //常规创建
 
++(signInModel *)initSingleCase;   //单例创建，code赋予了20， 创建之后使用+(signInModel *)sharedUserTokenInModel:(signInModel *)signInModelKey函数将是保留最后一次signInModelKey赋予的值
+
 +(signInModel *)initSetUser; //初始化，使whetherSignIn置零
 @end

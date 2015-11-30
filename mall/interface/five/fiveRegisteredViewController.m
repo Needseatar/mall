@@ -20,7 +20,12 @@
 @property (retain, nonatomic) UIButton    *agreementButton;
 @property (retain, nonatomic) UIButton    *registrationButton;
 
+@property (strong, nonatomic) signInModel *userToken;
 
+@property (retain, nonatomic) UIView      *bgSignInview;      //登录时背景视图
+@property (retain, nonatomic) UIActivityIndicatorView * actv; //风火轮
+
+@property (retain, nonatomic) UILabel     *setLabel;
 
 @end
 
@@ -155,42 +160,68 @@
 }
 -(void)registrationButtonAction
 {
-    BOOL whetherUserVoid = [self.userTextField.text isEqualToString:@""]? NO: YES;
-    BOOL whetherEmailVoid = [self.mailTextField.text isEqualToString:@""]? NO: YES;
-    BOOL whetherPasswordVoid = [self.passwordTextField.text isEqualToString:@""]? NO: YES;
-    BOOL whetherPasswordConfirmVoid = [self.againPasswordTextField.text isEqualToString:@""]? NO: YES;
+    BOOL whetherUserVoid = [self.userTextField.text isEqualToString:@""]? YES: NO;
+    BOOL whetherEmailVoid = [self.mailTextField.text isEqualToString:@""]? YES: NO;
+    BOOL whetherPasswordVoid = [self.passwordTextField.text isEqualToString:@""]? YES: NO;
+    BOOL whetherPasswordConfirmVoid = [self.againPasswordTextField.text isEqualToString:@""]? YES: NO;
     BOOL whetherPasswordAndAgain = [self.passwordTextField.text isEqualToString:self.againPasswordTextField.text]? YES: NO;
-    if (whetherUserVoid == whetherEmailVoid == whetherPasswordVoid == whetherPasswordConfirmVoid == NO && self.agreementButton.selected == YES) {
+    if (whetherUserVoid==NO &&
+        whetherEmailVoid==NO &&
+        whetherPasswordVoid==NO &&
+        whetherPasswordConfirmVoid == NO &&
+        self.agreementButton.selected == YES) {
         if (whetherPasswordAndAgain) {
             //注册接口
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
             
-            NSDictionary *myMallParameters = [NSDictionary dictionaryWithObjectsAndKeys:self.userTextField.text, @"username", self.passwordTextField.text, @"password", self.againPasswordTextField, @"password_confirm", self.mailTextField, @"email",  @"ios",  @"client",nil];
+            NSDictionary *myMallParameters = [NSDictionary dictionaryWithObjectsAndKeys:self.userTextField.text, @"username", self.passwordTextField.text, @"password", self.againPasswordTextField.text, @"password_confirm", self.mailTextField.text, @"email",  @"ios",  @"client",nil];
+            NSLog(@"%@", myMallParameters);
             [manager POST:Registration parameters:myMallParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-                
                 NSLog(@"%@", dict);
-//                if ([dict[@"datas"] integerValue] == 1) {
-////                    [self.actv stopAnimating];     //结束等待界面的动画
-////                    [self.bgSignInview removeFromSuperview];
-////                    signInModel * cancellationModel = [signInModel initSetUser];
-////                    self.userToken = [signInModel sharedUserTokenInModel:cancellationModel]; //清空登录令牌
-//                }else
-//                {
-//                    
-//                }
-                
+                signInModel *signInToken = [signInModel setUserToken:dict];
+                self.userToken = [signInModel sharedUserTokenInModel:signInToken]; //将用户的登录令牌和信息存入单例
+                [self.bgSignInview removeFromSuperview];
+                if (self.userToken.whetherSignIn == YES) {
+                    [self.navigationController popToRootViewControllerAnimated:YES]; //退出注册界面，返回登录界面
+                }else
+                {
+                    NSLog(@"%@", self.userToken.error);
+                    [self setRegisterReason:@"电子邮件格式不正确"];
+                }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
-//                self.childBgSingnInView.hidden = NO;
-//                [self.actv stopAnimating];     //结束等待界面的动画
-//                [self.actv removeFromSuperview];
+                [self.bgSignInview removeFromSuperview];
+                [self setRegisterReason:@"请求失败"];
             }];
+            [self setSignInBGView]; //加载等待背景
+            [self setIndicator];    //加载等待风火轮
         }else
         {
-            NSLog(@"两次输入的密码不正确");
+            NSLog(@"两次输入的密码不一致");
+            [self setRegisterReason:@"两次输入的密码不一致"];
+            
         }
+    }else if (self.agreementButton.selected == NO){
+        NSLog(@"请阅读并同意用户协议");
+        [self setRegisterReason:@"请阅读并同意用户协议"];
+    }else if(whetherUserVoid)
+    {
+        NSLog(@"账号不能空");
+        [self setRegisterReason:@"账号不能空"];
+    }else if (whetherEmailVoid)
+    {
+        NSLog(@"邮箱不能为空");
+        [self setRegisterReason:@"邮箱不能为空"];
+    }else if (whetherPasswordVoid)
+    {
+        NSLog(@"密码不能空");
+        [self setRegisterReason:@"密码不能空"];
+    }else if (whetherPasswordConfirmVoid)
+    {
+        NSLog(@"确认密码不能空");
+        [self setRegisterReason:@"确认密码不能空"];
     }
     
     NSLog(@"%d,%d,%d,%d,%d", whetherUserVoid, whetherEmailVoid, whetherPasswordVoid, whetherPasswordConfirmVoid, whetherPasswordAndAgain);
@@ -227,12 +258,51 @@
         case 13:
         {
             [textField resignFirstResponder];
+            [self registrationButtonAction];
             break;
         }
         default:
             break;
     }
     return YES;
+}
+
+#pragma mark - 设置注册背景遮盖
+-(void)setSignInBGView
+{
+    //背景遮盖
+    self.bgSignInview = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 0, 340, 600)];
+    self.bgSignInview.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5]; //设置的alpha只在子视图中没有继承
+    self.tabBarController.tabBar.hidden = YES;
+    self.bgSignInview.userInteractionEnabled = YES;
+    [self.view addSubview:self.bgSignInview];
+}
+#pragma mark - 加载风火轮，并且开始转，前提是已经加载 了背景
+-(void)setIndicator
+{
+    self.actv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.actv.center = self.view.center;
+    [self.bgSignInview addSubview:self.actv];
+    [self.actv startAnimating];     //开始等待界面的动画
+}
+#pragma mark - 加载没有请求注册的原因
+-(void)setRegisterReason:(NSString *)string
+{
+    if (self.setLabel == nil) {
+        self.setLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(340.0/2.0 - 25*string.length/2.0, 500, 25*string.length, 25)];
+        self.setLabel.backgroundColor = [UIColor blackColor];
+        self.setLabel.textColor = [UIColor whiteColor];
+        self.setLabel.textAlignment = NSTextAlignmentCenter;
+        self.setLabel.alpha = 0.8;
+        self.setLabel.text = string;
+        [self.view addSubview:self.setLabel];
+        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+    }
+}
+-(void)setStoplabel
+{
+    [self.setLabel removeFromSuperview];
+    self.setLabel = nil;
 }
 
 #pragma mark - 视图点击回收键盘

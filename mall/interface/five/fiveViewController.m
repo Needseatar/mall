@@ -35,6 +35,9 @@
     self.tabBarController.tabBar.hidden = NO;  //便签控制器不隐藏
     
     if (self.tableView != nil) {
+        signInModel * SIModel = [signInModel initSingleCase];
+        self.userToken = [signInModel sharedUserTokenInModel:SIModel]; //单例创建，要是有令牌，将直接登录
+        [self singnInBecomeUserData];
         [self.tableView reloadData];
     }
     
@@ -364,8 +367,10 @@
 //视图动作
 -(void)bgSignInTapAction
 {
-    [self.bgSignInview removeFromSuperview];
-    self.tabBarController.tabBar.hidden = NO;
+    if (self.actv.isAnimating == NO) { //风火轮没有的时候才加载点击动作
+        [self.bgSignInview removeFromSuperview];
+        self.tabBarController.tabBar.hidden = NO;
+    }
 }
 //子视图背景动作
 -(void)childBgSignInAction
@@ -406,31 +411,7 @@
         
         signInModel * SIModel = [signInModel setUserToken:dict];
         self.userToken = [signInModel sharedUserTokenInModel:SIModel];
-        if (self.userToken.whetherSignIn == YES) { //判断是否登录成功
-            [self.bgSignInview removeFromSuperview]; //登录成功，移除登录界面
-            self.tabBarController.tabBar.hidden = NO;
-            //请求我的商城
-            AFHTTPRequestOperationManager *myManager = [AFHTTPRequestOperationManager manager];
-            myManager.responseSerializer = [AFHTTPResponseSerializer  serializer];
-            NSDictionary *myMallParameters = [NSDictionary dictionaryWithObjectsAndKeys:self.userToken.key, @"key", nil];
-            NSLog(@"%@", myMallParameters);
-            [myManager POST:MyMall parameters:myMallParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-                NSLog(@"%@", dict);
-                self.myMall = [fiveMyMallmodel setUserMall:dict];
-                [self.actv stopAnimating];     //结束等待界面的动画
-                [self.actv removeFromSuperview];
-                [_tableView reloadData];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error);
-                self.childBgSingnInView.hidden = NO;
-                [self.actv stopAnimating];     //结束等待界面的动画
-                [self.actv removeFromSuperview];
-            }];
-        }
-        [self.actv stopAnimating];     //登录失败,结束等待界面的动画
-        [self.actv removeFromSuperview];
-        self.childBgSingnInView.hidden = NO; //登录失败再次显示登录按钮
+        [self singnInBecomeUserData]; //获取用户信息
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         self.childBgSingnInView.hidden = NO;
         [self.actv stopAnimating];     //结束等待界面的动画
@@ -439,6 +420,35 @@
     //发送请求后跳转登录风火轮
     self.childBgSingnInView.hidden = YES;
     [self setIndicator];
+}
+#pragma mark -  如果有令牌，将会获取用户数据数据
+-(void)singnInBecomeUserData
+{
+    if (self.userToken.whetherSignIn == YES) { //判断是否登录成功
+        [self.bgSignInview removeFromSuperview]; //登录成功，移除登录界面
+        self.tabBarController.tabBar.hidden = NO;
+        //请求我的商城
+        AFHTTPRequestOperationManager *myManager = [AFHTTPRequestOperationManager manager];
+        myManager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        NSDictionary *myMallParameters = [NSDictionary dictionaryWithObjectsAndKeys:self.userToken.key, @"key", nil];
+        NSLog(@"%@", myMallParameters);
+        [myManager POST:MyMall parameters:myMallParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"%@", dict);
+            self.myMall = [fiveMyMallmodel setUserMall:dict];
+            [self.actv stopAnimating];     //结束等待界面的动画
+            [self.actv removeFromSuperview];
+            [_tableView reloadData];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            self.childBgSingnInView.hidden = NO;
+            [self.actv stopAnimating];     //结束等待界面的动画
+            [self.actv removeFromSuperview];
+        }];
+    }
+    [self.actv stopAnimating];     //登录失败,结束等待界面的动画
+    [self.actv removeFromSuperview];
+    self.childBgSingnInView.hidden = NO; //登录失败再次显示登录按钮
 }
 #pragma mark - 加载风火轮，并且开始转，前提是已经加载 了背景
 -(void)setIndicator

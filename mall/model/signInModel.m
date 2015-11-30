@@ -22,6 +22,9 @@
     });
     NSLog(@"%d", signInModelKey.code);
     NSLog(@"%d", SIModel.code);
+    if (signInModelKey.code == 20) {//单例返回
+        return SIModel;
+    }
     if (signInModelKey.code == 200) {
         
         //数据清零
@@ -70,6 +73,15 @@
     SIModel.whetherSignIn = NO;
     SIModel.code = 0;
     return SIModel;
+}
+
++(signInModel *)initSingleCase
+{
+    signInModel * SIModel = [[signInModel alloc] init];
+    SIModel.whetherSignIn = NO;
+    SIModel.code = 20;
+    return SIModel;
+
 }
 
 @end
