@@ -10,7 +10,6 @@
 #import "fiveBlockString.h"
 #import "signInModel.h"
 #import "fiveMyMallmodel.h"
-#import "UIImageView+AFNetworking.h"
 
 
 @interface fiveViewUserTableViewCell : UITableViewCell

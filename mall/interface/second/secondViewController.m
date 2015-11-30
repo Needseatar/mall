@@ -10,7 +10,8 @@
 
 @interface secondViewController ()<UISearchBarDelegate>
 
-@property (strong, nonatomic) UISearchBar * searchBar;
+@property (strong, nonatomic) UISearchBar       *searchBar;
+@property (retain, nonatomic) NSArray           *OCassification;
 
 @end
 
@@ -21,11 +22,15 @@
     
     [self createSearchBar];   //设置导航栏的搜索和取消
     
-    [self.view setBackgroundColor:[UIColor brownColor]];
+    [self setTabelView];  //加载table一级分类tabel
+    
+    [self requestClassification]; //请求一级数据
+    
 }
 
 #pragma mark - 设置导航栏的搜索和取消
 -(void)createSearchBar{
+    [self.view setBackgroundColor:[UIColor brownColor]];
     
     [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
@@ -42,6 +47,25 @@
     UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
     self.navigationItem.rightBarButtonItem = rightCameraItem;
     
+}
+#pragma mark - 加载tabel
+-(void)setTabelView
+{
+    ;
+}
+#pragma mark - 请求数据
+-(void)requestClassification
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+    [manager GET:FisterClassification parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"JSON: %@", dict);
+        self.OCassification = [oneClassification setValueWithDictionary:dict];
+        NSLog(@"%@", [self.OCassification[0] gc_name]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

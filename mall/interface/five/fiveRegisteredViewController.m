@@ -160,6 +160,16 @@
 }
 -(void)registrationButtonAction
 {
+    //回收键盘
+    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+    for (int i = 10; i<14; i++) {
+        UITextField * userTextFild = (UITextField *)[self.view viewWithTag:i];
+        [mArray addObject:userTextFild];
+    }
+    for (int i=0; i<mArray.count; i++) {
+        [mArray[i] resignFirstResponder];
+    }
+    
     BOOL whetherUserVoid = [self.userTextField.text isEqualToString:@""]? YES: NO;
     BOOL whetherEmailVoid = [self.mailTextField.text isEqualToString:@""]? YES: NO;
     BOOL whetherPasswordVoid = [self.passwordTextField.text isEqualToString:@""]? YES: NO;
@@ -188,7 +198,7 @@
                 }else
                 {
                     NSLog(@"%@", self.userToken.error);
-                    [self setRegisterReason:@"电子邮件格式不正确"];
+                    [self setRegisterReason:self.userToken.error];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
@@ -289,7 +299,7 @@
 -(void)setRegisterReason:(NSString *)string
 {
     if (self.setLabel == nil) {
-        self.setLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(340.0/2.0 - 25*string.length/2.0, 500, 25*string.length, 25)];
+        self.setLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(340.0/2.0 - 20*string.length/2.0, 500, 20*string.length, 25)];
         self.setLabel.backgroundColor = [UIColor blackColor];
         self.setLabel.textColor = [UIColor whiteColor];
         self.setLabel.textAlignment = NSTextAlignmentCenter;

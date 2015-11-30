@@ -24,6 +24,8 @@
 
 @property (retain, nonatomic) fiveMyMallmodel *myMall;
 
+@property (retain, nonatomic) UILabel     *setLabel;
+
 @end
 
 @implementation fiveViewController
@@ -37,8 +39,10 @@
     if (self.tableView != nil) {
         signInModel * SIModel = [signInModel initSingleCase];
         self.userToken = [signInModel sharedUserTokenInModel:SIModel]; //单例创建，要是有令牌，将直接登录
-        [self singnInBecomeUserData];
-        [self.tableView reloadData];
+        if (self.userToken.key.length != 0) { //判断有没有令牌
+            [self singnInBecomeUserData];
+            [self.tableView reloadData];
+        }
     }
     
 }
@@ -402,6 +406,8 @@
 {
     UITextField * userAccoutTextFild = (UITextField *)[self.bgSignInview viewWithTag:10];
     UITextField * userPasswordTextFild = (UITextField *)[self.bgSignInview viewWithTag:11];
+    [userAccoutTextFild resignFirstResponder];
+    [userPasswordTextFild resignFirstResponder]; //回收键盘
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
     NSDictionary *signInParameters = [NSDictionary dictionaryWithObjectsAndKeys:userAccoutTextFild.text, @"username", userPasswordTextFild.text, @"password", @"ios", @"client", nil];
@@ -424,7 +430,7 @@
 #pragma mark -  如果有令牌，将会获取用户数据数据
 -(void)singnInBecomeUserData
 {
-    if (self.userToken.whetherSignIn == YES) { //判断是否登录成功
+    if (self.userToken.whetherSignIn) { //判断是否登录成功
         [self.bgSignInview removeFromSuperview]; //登录成功，移除登录界面
         self.tabBarController.tabBar.hidden = NO;
         //请求我的商城
@@ -444,11 +450,15 @@
             self.childBgSingnInView.hidden = NO;
             [self.actv stopAnimating];     //结束等待界面的动画
             [self.actv removeFromSuperview];
+            [self setRegisterReason:@"没有网络"];
         }];
+    }else
+    {
+        [self.actv stopAnimating];     //登录失败,结束等待界面的动画
+        [self.actv removeFromSuperview];
+        self.childBgSingnInView.hidden = NO; //登录失败再次显示登录按钮
+        [self setRegisterReason:self.userToken.error];
     }
-    [self.actv stopAnimating];     //登录失败,结束等待界面的动画
-    [self.actv removeFromSuperview];
-    self.childBgSingnInView.hidden = NO; //登录失败再次显示登录按钮
 }
 #pragma mark - 加载风火轮，并且开始转，前提是已经加载 了背景
 -(void)setIndicator
@@ -457,6 +467,25 @@
     self.actv.center = self.view.center;
     [self.bgSignInview addSubview:self.actv];
     [self.actv startAnimating];     //开始等待界面的动画
+}
+#pragma mark - 加载没有请求注册的原因
+-(void)setRegisterReason:(NSString *)string
+{
+    if (self.setLabel == nil) {
+        self.setLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(340.0/2.0 - 20*string.length/2.0, 500, 20*string.length, 25)];
+        self.setLabel.backgroundColor = [UIColor blackColor];
+        self.setLabel.textColor = [UIColor whiteColor];
+        self.setLabel.textAlignment = NSTextAlignmentCenter;
+        self.setLabel.alpha = 0.8;
+        self.setLabel.text = string;
+        [self.bgSignInview addSubview:self.setLabel];
+        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+    }
+}
+-(void)setStoplabel
+{
+    [self.setLabel removeFromSuperview];
+    self.setLabel = nil;
 }
 //删除并退出登录界面，然后进入注册界面
 -(void)registered

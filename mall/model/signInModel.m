@@ -20,8 +20,6 @@
         SIModel.whetherSignIn = NO;
         SIModel = [[signInModel alloc] init];
     });
-    NSLog(@"%d", signInModelKey.code);
-    NSLog(@"%d", SIModel.code);
     if (signInModelKey.code == 20) {//单例返回
         return SIModel;
     }

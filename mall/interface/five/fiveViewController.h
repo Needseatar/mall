@@ -10,7 +10,6 @@
 #import "fiveViewUserTableViewCell.h"
 #import "fiveAboutViewController.h"
 #import "fiveRegisteredViewController.h"
-#import "AFNetworking.h"
 #import "signInModel.h"
 #import "fiveMyMallmodel.h"
 

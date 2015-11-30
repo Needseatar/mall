@@ -11,15 +11,19 @@
 
 
 #import "ZJScreenAdaptation.h"
+#import "AFNetworking.h"
+#import "UIImageView+AFNetworking.h"
 
-//登录接口
+//登录接口（post）
 #define  SignIn @"http://shop.trqq.com/mobile/index.php?act=login"
-//注销接口
+//注销接口 （post）
 #define  Cancellation @"http://shop.trqq.com/mobile/index.php?act=logout"
-//我的商城接口
+//我的商城接口 （post）
 #define MyMall @"http://shop.trqq.com/mobile/index.php?act=member_index"
-//注册接口接口
+//注册接口（post）
 #define Registration @"http://shop.trqq.com/mobile/index.php?act=login&op=register"
+//商品分类一级分类接口（get）
+#define FisterClassification @"http://shop.trqq.com/mobile/index.php?act=goods_class"
 
 
 #endif /* PrefixHeader_pch */

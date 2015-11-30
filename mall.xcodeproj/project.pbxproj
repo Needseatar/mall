@@ -14,6 +14,7 @@
 		1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */; };
 		1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */; };
 		1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */; };
+		1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */; };
 		1BEF93DB1BFD62FC00F7470D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DA1BFD62FC00F7470D /* main.m */; };
 		1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DD1BFD62FC00F7470D /* AppDelegate.m */; };
 		1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93E01BFD62FC00F7470D /* ViewController.m */; };
@@ -228,6 +229,8 @@
 		1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveMyMallmodel.m; sourceTree = "<group>"; };
 		1B5366AD1C02DDF1002C5CB2 /* abouCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = abouCompanyViewController.h; sourceTree = "<group>"; };
 		1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = abouCompanyViewController.m; sourceTree = "<group>"; };
+		1BB1E49F1C0C3A650040EDD1 /* oneClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oneClassification.h; sourceTree = "<group>"; };
+		1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oneClassification.m; sourceTree = "<group>"; };
 		1BEF93D61BFD62FC00F7470D /* mall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BEF93DA1BFD62FC00F7470D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BEF93DC1BFD62FC00F7470D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -460,12 +463,22 @@
 		1B468F9A1C06DEFF006CE377 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				1BB1E49B1C0C39D10040EDD1 /* secondModel */,
 				1B468F9B1C06DF89006CE377 /* signInModel.h */,
 				1B468F9C1C06DF89006CE377 /* signInModel.m */,
 				1B50F5AE1C08374F003608C2 /* fiveMyMallmodel.h */,
 				1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		1BB1E49B1C0C39D10040EDD1 /* secondModel */ = {
+			isa = PBXGroup;
+			children = (
+				1BB1E49F1C0C3A650040EDD1 /* oneClassification.h */,
+				1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */,
+			);
+			path = secondModel;
 			sourceTree = "<group>";
 		};
 		1BEF93CD1BFD62FC00F7470D = {
@@ -1235,6 +1248,7 @@
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
 				1BEF94911BFD660000F7470D /* fisterViewController.m in Sources */,
 				1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */,
+				1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */,
 				1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */,
 				1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */,
 				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,

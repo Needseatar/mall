@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "oneClassification.h"
 
 @interface secondViewController : UIViewController
 
