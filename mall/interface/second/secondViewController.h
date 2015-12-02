@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "oneClassification.h"
+#import "secondMainTableViewCell.h"
 
 @interface secondViewController : UIViewController
 

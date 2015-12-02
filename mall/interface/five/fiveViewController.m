@@ -13,18 +13,18 @@
 @property (retain, nonatomic) UITableView    *tableView;
 @property (strong, nonatomic) NSMutableArray *mArray;
 
-@property (retain, nonatomic) UIView         *bgSignInview;
-@property (retain, nonatomic) UIView         *childBgSingnInView;
-@property (retain, nonatomic) UIView         *bgSignInIndicatorView;
+@property (retain, nonatomic) UIView          *bgSignInview;
+@property (retain, nonatomic) UIView          *childBgSingnInView;
+@property (retain, nonatomic) UIView          *bgSignInIndicatorView;
 @property (retain, nonatomic) UIActivityIndicatorView * actv; //注销按钮背景视图
 
-@property (retain, nonatomic) signInModel    *userToken;
+@property (retain, nonatomic) signInModel     *userToken;
 
-@property (retain, nonatomic) UIView         *bgCancellation;
+@property (retain, nonatomic) UIView          *bgCancellation;
 
 @property (retain, nonatomic) fiveMyMallmodel *myMall;
 
-@property (retain, nonatomic) UILabel     *setLabel;
+@property (retain, nonatomic) UILabel         *setLabel;
 
 @end
 
