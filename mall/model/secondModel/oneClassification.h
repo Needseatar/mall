@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) NSString *gc_name;
 @property (assign, nonatomic) int      gc_parent_id;
-@property (assign, nonatomic) NSArray  *secondClassificationarray;
 
 
 -(void)setValueWithDictionary:(NSDictionary *)dic;

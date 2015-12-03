@@ -5,6 +5,13 @@
 //  Created by IOS on 18/11/2015.
 //  Copyright © 2015年 IOS. All rights reserved.
 //
+/*
+ * 1.第一组数据是在自定义cell里面进行加载的，并且cell里面的点击动作，会反传出字符串出来，根据反传出来的字符串可以执行相应的函数
+ * 2.注册和登录，等待时候都加载了背景遮盖视图，然后会加载风火轮
+ * 
+ *
+ */
+
 
 #import "fiveViewController.h"
 

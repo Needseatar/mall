@@ -24,8 +24,8 @@
 #define Registration @"http://shop.trqq.com/mobile/index.php?act=login&op=register"
 //商品分类一级分类接口（get）
 #define FisterClassification @"http://shop.trqq.com/mobile/index.php?act=goods_class"
-//商品分类二级分类接口（get）
-#define SecondClassification @"http://shop.trqq.com/mobile/index.php?act=goods_class&gc_id%d"
+//商品分类二级和三级分类接口（get）
+#define STClassification @"http://shop.trqq.com/mobile/index.php?act=goods_class&gc_id=%d"
 
 
 #endif /* PrefixHeader_pch */

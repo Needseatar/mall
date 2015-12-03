@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "oneClassification.h"
 #import "secondMainTableViewCell.h"
+#import "secondTwoTableViewCell.h"
 
 @interface secondViewController : UIViewController
 
