@@ -39,7 +39,9 @@
 
 //@property (retain, nonatomic) secondData        *AllData;
 //
-//@property (retain, nonatomic) NSMutableArray    *allDataArray;
+@property (retain, nonatomic) NSMutableArray    *allDataArray;
+
+@property (retain, nonatomic) NSMutableDictionary    *seData;
 
 @end
 
@@ -232,6 +234,8 @@
     [manager GET:[NSString stringWithFormat:STClassification, gc_parent_id] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
+        
+        
         int requestID= [self comeBackID:[NSString stringWithFormat:@"%@", operation.request.URL]];
         //把请求回来的数据的指针给self.nowArray
         if (requestID == [self.OCassification[self.page] gc_parent_id]) { //判断实时page的id和请求的id是否一致

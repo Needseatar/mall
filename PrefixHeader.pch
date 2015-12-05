@@ -26,6 +26,8 @@
 #define FisterClassification @"http://shop.trqq.com/mobile/index.php?act=goods_class"
 //商品分类二级和三级分类接口（get）
 #define STClassification @"http://shop.trqq.com/mobile/index.php?act=goods_class&gc_id=%d"
+//首页接口（get）
+#define fisterRequest @"http://shop.trqq.com/mobile/index.php?act=index"
 
 
 #endif /* PrefixHeader_pch */

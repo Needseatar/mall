@@ -14,6 +14,10 @@
 		1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */; };
 		1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */; };
 		1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */; };
+		1B8090F91C12924D00938258 /* fisterHome1.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090F81C12924D00938258 /* fisterHome1.m */; };
+		1B8090FC1C12926500938258 /* fisterHome4.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FB1C12926500938258 /* fisterHome4.m */; };
+		1B8090FF1C12929D00938258 /* fisterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FE1C12929D00938258 /* fisterList.m */; };
+		1B8091021C1292D600938258 /* fisterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8091011C1292D600938258 /* fisterData.m */; };
 		1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */; };
 		1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */; };
 		1BCC9C631C116CE90077D939 /* secondData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC9C621C116CE90077D939 /* secondData.m */; };
@@ -232,6 +236,14 @@
 		1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveMyMallmodel.m; sourceTree = "<group>"; };
 		1B5366AD1C02DDF1002C5CB2 /* abouCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = abouCompanyViewController.h; sourceTree = "<group>"; };
 		1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = abouCompanyViewController.m; sourceTree = "<group>"; };
+		1B8090F71C12924D00938258 /* fisterHome1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome1.h; sourceTree = "<group>"; };
+		1B8090F81C12924D00938258 /* fisterHome1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterHome1.m; sourceTree = "<group>"; };
+		1B8090FA1C12926500938258 /* fisterHome4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome4.h; sourceTree = "<group>"; };
+		1B8090FB1C12926500938258 /* fisterHome4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterHome4.m; sourceTree = "<group>"; };
+		1B8090FD1C12929D00938258 /* fisterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterList.h; sourceTree = "<group>"; };
+		1B8090FE1C12929D00938258 /* fisterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterList.m; sourceTree = "<group>"; };
+		1B8091001C1292D600938258 /* fisterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterData.h; sourceTree = "<group>"; };
+		1B8091011C1292D600938258 /* fisterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterData.m; sourceTree = "<group>"; };
 		1B8912DA1C0D8B0F00DD3B72 /* secondMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondMainTableViewCell.h; sourceTree = "<group>"; };
 		1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondMainTableViewCell.m; sourceTree = "<group>"; };
 		1BB1E49F1C0C3A650040EDD1 /* oneClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oneClassification.h; sourceTree = "<group>"; };
@@ -472,6 +484,7 @@
 		1B468F9A1C06DEFF006CE377 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				1B8090F31C1290C500938258 /* fisterModel */,
 				1BB1E49B1C0C39D10040EDD1 /* secondModel */,
 				1B468F9B1C06DF89006CE377 /* signInModel.h */,
 				1B468F9C1C06DF89006CE377 /* signInModel.m */,
@@ -479,6 +492,21 @@
 				1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		1B8090F31C1290C500938258 /* fisterModel */ = {
+			isa = PBXGroup;
+			children = (
+				1B8091001C1292D600938258 /* fisterData.h */,
+				1B8091011C1292D600938258 /* fisterData.m */,
+				1B8090F71C12924D00938258 /* fisterHome1.h */,
+				1B8090F81C12924D00938258 /* fisterHome1.m */,
+				1B8090FA1C12926500938258 /* fisterHome4.h */,
+				1B8090FB1C12926500938258 /* fisterHome4.m */,
+				1B8090FD1C12929D00938258 /* fisterList.h */,
+				1B8090FE1C12929D00938258 /* fisterList.m */,
+			);
+			path = fisterModel;
 			sourceTree = "<group>";
 		};
 		1BB1E49B1C0C39D10040EDD1 /* secondModel */ = {
@@ -1266,19 +1294,23 @@
 				1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */,
 				1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */,
 				1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */,
+				1B8090FF1C12929D00938258 /* fisterList.m in Sources */,
 				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,
 				1BEF94931BFD660000F7470D /* fourViewController.m in Sources */,
 				1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */,
 				1BEF95491BFD6CCC00F7470D /* ZJScreenAdaptation.m in Sources */,
+				1B8090F91C12924D00938258 /* fisterHome1.m in Sources */,
 				1BEF93DB1BFD62FC00F7470D /* main.m in Sources */,
 				1B35A42D1C0458BA004C1544 /* fiveRegisteredViewController.m in Sources */,
 				1BEF94921BFD660000F7470D /* fiveViewController.m in Sources */,
 				1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */,
+				1B8090FC1C12926500938258 /* fisterHome4.m in Sources */,
 				1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */,
 				1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */,
 				1BCC9C631C116CE90077D939 /* secondData.m in Sources */,
 				1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */,
+				1B8091021C1292D600938258 /* fisterData.m in Sources */,
 				1B35A42A1C040DE9004C1544 /* fiveBlockString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
