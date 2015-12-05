@@ -11,7 +11,7 @@
 @interface oneClassification : NSObject
 
 @property (strong, nonatomic) NSString *gc_name;
-@property (assign, nonatomic) int      gc_parent_id;
+@property (assign, nonatomic) int      gc_parent_id;  //请求下一级商品id
 
 @property (assign, nonatomic) id       downID; //保存了下一级的id地址
 

@@ -20,4 +20,6 @@
 
 @interface secondData : NSObject
 
+@property (retain, nonatomic) NSArray *oneArray;
+
 @end

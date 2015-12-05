@@ -11,13 +11,8 @@
  * 3.当点击和左边的tabel或者滚动滚动视图，都会刷新tabel
  * 4.现在的一级接口经常不稳定，经常会出现域名解析错误
  *
- *                                 thirdDic(二级页面所在的所有数据,可以通过请求的id的key找到对应的nsarray)
- *                               //
- *                             //
- *                           //
- *                       nsarray(二级页面每一类里面的数据)
- *                        //
- *                    nsarray   (每一类里面每一个cell里面的数据)
+ *
+ *
  *
  */
 
@@ -35,10 +30,16 @@
 
 @property (retain, nonatomic) UIScrollView      *bgTableScrollView;
 
-@property (assign, nonatomic) int               page; //当page更新时候，就更新tableView,和更新滚动视图上的tabel
-@property (assign, nonatomic) int               pageID; //当page更新时候，保存了page请求二级数据的id
+@property (assign, nonatomic) int               page; //当page更新时候，就更新tableView,和更新滚动视图上的tabel，如果数据请求失败,将再次请求
+@property (assign, nonatomic) int               pageID; //当page更新时候，保存了page请求二级数据的id，当当前id请求失败时，pageID将置0；
 
-@property (retain, nonatomic) NSMutableDictionary  *thirdDic; //保存了当前页面第三级的数据
+@property (retain, nonatomic) NSArray           *thirdDic; //保存了当前页面第三级的数据
+@property (assign, nonatomic) int               thirdpage; //保存了第三级请求第几组的数据
+@property (assign, nonatomic) int               thirdpageID; //保存了thirdpage请求三级数据的id
+
+//@property (retain, nonatomic) secondData        *AllData;
+//
+//@property (retain, nonatomic) NSMutableArray    *allDataArray;
 
 @end
 
@@ -46,7 +47,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    self.thirdDic = [[NSMutableDictionary alloc] init];
     self.whetherNowArray = NO;
     [self requestClassification]; //请求一级数据
 }
@@ -117,26 +117,6 @@
         return  self.OCassification.count;
     }else
     {
-        if (self.thirdDic.count != 0) {
-            
-            for (NSString *string in [self.thirdDic allKeys])
-            {
-                int inSectionID= [self.OCassification[section] gc_parent_id];
-                int requestID = [string integerValue];
-                if (inSectionID == requestID) {
-                    NSArray *ar = self.thirdDic[@"string"];
-                    for (int i=0; i<ar.count; i++)
-                    {
-                        if (i*3>=ar.count) {
-                            return i+1;  //返回当组成员和组标题
-                        }
-                    }
-                    return 1;
-                }
-            }
-            
-            return 1;
-        }
         return 1;
     }
 }
@@ -167,7 +147,7 @@
             cell1.bgLabel.backgroundColor = [UIColor whiteColor];
             cell1.bgLabel.textColor = [UIColor redColor];
             self.pageID = [self.OCassification[self.page] gc_parent_id];
-            if (self.nowArray.count == 0) {
+            if (self.whetherNowArray == NO) { //如果没有数据就请求数据二级数据
                 [self requestSecondClassification:[self.OCassification[self.page] gc_parent_id]]; //请求二级数据，并把id只也传递过去
             }
         }
@@ -186,21 +166,15 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.textLabel setTextAlignment:NSTextAlignmentLeft];
         [cell setBackgroundColor:[UIColor whiteColor]];
-        cell.textLabel.text = [self.nowArray[indexPath.section] gc_name];
-        
-        if (self.nowArray) {
-            ;
-        }
-        NSLog(@"%@", self.thirdDic);
-        if (self.whetherNowArray == YES &&
-            tableView == [self.bgTableScrollView viewWithTag:self.page+100] &&
-            self.thirdDic.count == 0)
-        {
-            //请求当前页面所有的三级数据
-            NSLog(@"%d", self.nowArray.count);
-            for (int i=0; i<self.nowArray.count; i++){
-                [self requestSecondClassification:[self.nowArray[i] gc_parent_id]];
-            }
+
+        //当数据是实时请求回来的数据的时候，才实时更新
+        if (self.whetherNowArray == YES) {
+            cell.textLabel.text = [self.nowArray[indexPath.section] gc_name];
+            
+#pragma mark - 请求第三级数据
+            self.thirdpage = indexPath.section;
+            [self requestSecondClassification:[self.OCassification[self.thirdpage] gc_parent_id]]; //请求三级数据，并把id只也传递过去
+            
         }
         
         return cell;
@@ -241,6 +215,8 @@
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
         self.OCassification = [oneClassification setValueWithDictionary:dict];
+        
+        
         [self.tableView reloadData];
         [self setTabelViewOfSecondAndThird]; //设置并加载滚动视图
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -263,32 +239,46 @@
             UITableView *scTabel = (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100];
             self.whetherNowArray = YES;  // 当二级数据请求回来的时候，立刻知道当前页面二级数据已经实时跟新了
             [scTabel reloadData];
-        }else if (self.whetherNowArray == YES) //如果是实时更新的数据，直接调用nowArray的数据
-        {
-            for (int i=0; i<self.nowArray.count; i++) { //把返回来的数据和id打包成字典给thirdDic
-                if (requestID == [self.nowArray[i] gc_parent_id]) {
-                    NSDictionary *di = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [oneClassification setValueWithDictionary:dict],
-                                          [NSString stringWithFormat:@"%d", requestID], nil];
-                    [self.thirdDic addEntriesFromDictionary:di];
-                    UITableView *scTabel = (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100];
-                    self.whetherNowArray = YES;  // 当二级数据请求回来的时候，立刻知道当前页面二级数据已经实时跟新了
-                    [scTabel reloadData];
-                }
-            }
         }
+//        else if (self.whetherNowArray == YES) //如果是实时更新的数据，直接调用nowArray的数据
+//        {
+//            for (int i=0; i<self.nowArray.count; i++) { //把返回来的数据和id打包成字典给thirdDic
+//                if (requestID == [self.nowArray[i] gc_parent_id]) {
+//                    NSDictionary *di = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                          [oneClassification setValueWithDictionary:dict],
+//                                          [NSString stringWithFormat:@"%d", requestID], nil];
+//                    [self.thirdDic addEntriesFromDictionary:di];
+//                    UITableView *scTabel = (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100];
+//                    self.whetherNowArray = YES;  // 当二级数据请求回来的时候，立刻知道当前页面二级数据已经实时跟新了
+//                    [scTabel reloadData];
+//                }
+//            }
+//        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        //[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(requestClassification) userInfo:nil repeats:NO];
+        
+        //二级数据请求失败处理
+        int requestID= [self comeBackID:[NSString stringWithFormat:@"%@", operation.request.URL]];
+        //把请求回来的数据的指针给self.nowArray
+        if (requestID == [self.OCassification[self.page] gc_parent_id])
+        {
+            [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(requestSecond) userInfo:nil repeats:NO];
+        }
+        
+        //三级数据请求失败处理
+        
+
     }];
 }
-
-//-(void)set
+-(void)requestSecond
+{
+    [self requestSecondClassification:[self.OCassification[self.page] gc_parent_id]]; //请求二级数据，并把id只也传递过去
+}
 
 -(int)comeBackID:(NSString *)string
 {
     NSString *str = [string substringFromIndex:60];
-    return [str integerValue];
+    return [str intValue];
 }
 
 - (void)didReceiveMemoryWarning {

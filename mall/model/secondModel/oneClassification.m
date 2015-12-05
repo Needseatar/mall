@@ -14,6 +14,7 @@
 -(void)setValueWithDictionary:(NSDictionary *)dic{
     self.gc_parent_id = [dic[@"gc_id"] integerValue];
     self.gc_name      = dic[@"gc_name"];
+    self.downID       = nil;
 }
 
 +(NSMutableArray *)setValueWithDictionary:(NSDictionary *)data{
