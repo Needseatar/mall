@@ -19,6 +19,7 @@
 		1B8090FF1C12929D00938258 /* fisterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FE1C12929D00938258 /* fisterList.m */; };
 		1B8091021C1292D600938258 /* fisterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8091011C1292D600938258 /* fisterData.m */; };
 		1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */; };
+		1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAFA9DD1C157B6600EA6825 /* thirClassification.m */; };
 		1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */; };
 		1BCC9C631C116CE90077D939 /* secondData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC9C621C116CE90077D939 /* secondData.m */; };
 		1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */; };
@@ -246,6 +247,8 @@
 		1B8091011C1292D600938258 /* fisterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterData.m; sourceTree = "<group>"; };
 		1B8912DA1C0D8B0F00DD3B72 /* secondMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondMainTableViewCell.h; sourceTree = "<group>"; };
 		1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondMainTableViewCell.m; sourceTree = "<group>"; };
+		1BAFA9DC1C157B6600EA6825 /* thirClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thirClassification.h; sourceTree = "<group>"; };
+		1BAFA9DD1C157B6600EA6825 /* thirClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = thirClassification.m; sourceTree = "<group>"; };
 		1BB1E49F1C0C3A650040EDD1 /* oneClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oneClassification.h; sourceTree = "<group>"; };
 		1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oneClassification.m; sourceTree = "<group>"; };
 		1BCC9C611C116CE90077D939 /* secondData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondData.h; sourceTree = "<group>"; };
@@ -516,6 +519,8 @@
 				1BCC9C621C116CE90077D939 /* secondData.m */,
 				1BB1E49F1C0C3A650040EDD1 /* oneClassification.h */,
 				1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */,
+				1BAFA9DC1C157B6600EA6825 /* thirClassification.h */,
+				1BAFA9DD1C157B6600EA6825 /* thirClassification.m */,
 			);
 			path = secondModel;
 			sourceTree = "<group>";
@@ -1289,6 +1294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
+				1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */,
 				1BEF94911BFD660000F7470D /* fisterViewController.m in Sources */,
 				1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */,
 				1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */,

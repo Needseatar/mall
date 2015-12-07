@@ -11,6 +11,7 @@
 #import "secondMainTableViewCell.h"
 #import "secondTwoTableViewCell.h"
 #import "secondData.h"
+#import "thirClassification.h"
 
 @interface secondViewController : UIViewController
 

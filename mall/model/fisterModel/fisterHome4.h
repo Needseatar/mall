@@ -21,6 +21,6 @@
 @property (retain, nonatomic) NSString    *square_type;
 @property (retain, nonatomic) NSString    *title;
 
-+(fisterHome1 *)setValueWithDictionary:(NSDictionary *)data;
++(fisterHome4 *)setValueWithDictionary:(NSDictionary *)data;
 
 @end

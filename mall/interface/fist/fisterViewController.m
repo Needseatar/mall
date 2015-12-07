@@ -11,8 +11,9 @@
 @interface fisterViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UISearchBar       *searchBar;
-
 @property (retain, nonatomic) UITableView       *tableView;
+@property (retain, nonatomic) fisterData        *fisterData;
+
 
 @end
 
@@ -23,13 +24,14 @@
     
     [self createSearchBar]; //设置导航栏
     
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    
     [self requestFisterView];
+    
+    [self setTabelView];  //设置tabel
 }
 
 #pragma mark - 设置导航栏的搜索和取消
 -(void)createSearchBar{
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
     [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
@@ -55,99 +57,45 @@
 
 }
 
-//#pragma mark - 加载tabel
-//-(void)setTabelView
-//{
-//    self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, 100, 565) style:UITableViewStylePlain];
-//    [_tableView setBackgroundColor:[UIColor whiteColor]];
-//    _tableView.delegate = self;
-//    _tableView.dataSource = self;
-//    [self.view addSubview:_tableView];
-//}
-//#pragma mark - tabelView代理
-////返回表格的行数的代理方法
-//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if (tableView == self.tableView) {
-//        return  self.OCassification.count;
-//    }else
-//    {
-//        return 1;
-//    }
-//}
-////返回表格的组数的代理方法
-//-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    if (tableView == self.tableView) {
-//        return 1;
-//    }else
-//    {
-//        return self.nowArray.count;
-//    }
-//}
-////获取到表格有多少个分组，每个分组有多少行数据以后，就调用该方法，去返回表格的每一行
-//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (tableView == self.tableView) {
-//        static NSString * cellId1 = @"cell1";
-//        UITableViewCell *cell1 = [tableView dequeueReusableCellWithIdentifier:cellId1];
-//        if(cell1 == nil){
-//            cell1 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId1];
-//        }
-//        //使用cell之前初始化
-//        cell1.bgLabel.backgroundColor = [UIColor grayColor];
-//        cell1.bgLabel.textColor = [UIColor blackColor];
-//        
-//        //功能是判断滚动视图是否有变,如果有变，先init所有cell，然后给指定的cell选中
-//        //根据实时的_page请求page的数据
-//        if (_page == indexPath.row) {
-//            cell1.bgLabel.backgroundColor = [UIColor whiteColor];
-//            cell1.bgLabel.textColor = [UIColor redColor];
-//            self.pageID = [self.OCassification[self.page] gc_parent_id];
-//            if (self.whetherNowArray == NO) { //如果没有数据就请求数据二级数据
-//                [self requestSecondClassification:[self.OCassification[self.page] gc_parent_id]]; //请求二级数据，并把id只也传递过去
-//            }
-//        }
-//        cell1.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell1.bgLabel.text = [self.OCassification[indexPath.row] gc_name];
-//        return cell1;
-//    }else
-//    {
-//        static NSString *cellID = @"cell";
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-//        if(cell == nil){
-//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-//        }
-//        //初始化数据
-//        cell.textLabel.text = @"";
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        [cell.textLabel setTextAlignment:NSTextAlignmentLeft];
-//        [cell setBackgroundColor:[UIColor whiteColor]];
-//        
-//        //当数据是实时请求回来的数据的时候，才实时更新
-//        if (self.whetherNowArray == YES) {
-//            cell.textLabel.text = [self.nowArray[indexPath.section] gc_name];
-//            
-//#pragma mark - 请求第三级数据
-//            self.thirdpage = indexPath.section;
-//            [self requestSecondClassification:[self.OCassification[self.thirdpage] gc_parent_id]]; //请求三级数据，并把id只也传递过去
-//            
-//        }
-//        
-//        return cell;
-//    }
-//    
-//}
-//#pragma mark - 跳转到指定视图
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (tableView == self.tableView) {
-//        [self.bgTableScrollView setContentOffset:CGPointMake(220*indexPath.row, 0) animated:YES];
-//        self.page = indexPath.row;
-//        self.whetherNowArray = NO;
-//        [self.tableView reloadData]; //点击的tabel刷新
-//    }
-//}
-////返回行高的代理方法
-//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return widthEx(35);
-//}
+#pragma mark - 加载tabel
+-(void)setTabelView
+{
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, 320, 565) style:UITableViewStylePlain];
+    [_tableView setBackgroundColor:[UIColor whiteColor]];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+}
+#pragma mark - tabelView代理
+//返回表格的行数的代理方法
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 10;
+}
+//返回表格的组数的代理方法
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 10;
+}
+//获取到表格有多少个分组，每个分组有多少行数据以后，就调用该方法，去返回表格的每一行
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString * cellId = @"cell1";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if(cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //使用cell之前初始化
+    cell.backgroundColor = [UIColor redColor];
+    cell.textLabel.textColor = [UIColor blackColor];
+    return cell;
+}
+#pragma mark - 跳转到指定视图
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    ;
+}
+//返回行高的代理方法
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return widthEx(35);
+}
 
 
 #pragma mark - 请求首页数据
@@ -158,6 +106,20 @@
     [manager GET:fisterRequest parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
+        
+        self.fisterData = [fisterData setValueWithDictionary:dict];
+        [self.tableView reloadData];
+        
+//        fisterData *eeeee =[fisterData setValueWithDictionary:dict];
+//        fisterHome1 *ddd=[[fisterHome1 alloc] init];
+//        ddd = eeeee.FHome[0];
+//        fisterHome4 *eed=[[fisterHome4 alloc] init];
+//        eed = eeeee.FHome[2];
+//        //NSLog(@"%d", eeeee.FHome.count);
+//        NSLog(@"%@", ddd.title);
+//        NSLog(@"%@", eed.rectangle1_data);
+//        NSLog(@"%@", [eeeee.FList[0] goods_name]);
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

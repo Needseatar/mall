@@ -15,16 +15,17 @@
     self.rectangle1_data = dic[@"rectangle1_data"];
     self.rectangle1_image = dic[@"rectangle1_image"];
     self.rectangle1_type = dic[@"rectangle1_type"];
-    self.type = dic[@"type"];
-    self.type = dic[@"type"];
-    self.type = dic[@"type"];
-    self.type = dic[@"type"];
-    self.type = dic[@"type"];
-    self.type = dic[@"type"];
+    self.rectangle1_data = dic[@"rectangle1_data"];
+    self.rectangle2_image = dic[@"rectangle2_image"];
+    self.rectangle2_type = dic[@"rectangle2_type"];
+    self.square_data = dic[@"square_data"];
+    self.square_image = dic[@"square_image"];
+    self.square_type = dic[@"square_type"];
+    self.title = dic[@"title"];
 }
 
 +(fisterHome4 *)setValueWithDictionary:(NSDictionary *)data{
-    NSDictionary * dicData = data[@"home1"];
+    NSDictionary * dicData = data[@"home4"];
     fisterHome4 *mode = [[fisterHome4 alloc] init];
     [mode setValueWithDictionary:dicData];
     return mode;

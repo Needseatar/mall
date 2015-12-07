@@ -16,4 +16,6 @@
 @property (retain, nonatomic) NSString    *goods_price;
 @property (retain, nonatomic) NSString    *goods_promotion_price;
 
++(NSArray *)setValueWithDictionary:(NSDictionary *)data;
+
 @end

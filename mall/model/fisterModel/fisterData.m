@@ -10,24 +10,32 @@
 
 @implementation fisterData
 
-//加载home1和home4
--(void)setValueWithDictionary:(NSDictionary *)dic{
-    [self.FHome addObject:[fisterHome1 setValueWithDictionary:dic[@"home1"]]];
-    [self.FHome addObject:dic[@"home4"]];
-}
--(void)setValueWithDictionary:(NSDictionary *)dic{
-    
+-(void)setValueWithFlistDictionary:(NSDictionary *)dic{
+    self.FList = [fisterList setValueWithDictionary:dic];
 }
 
-+(NSMutableArray *)setValueWithDictionary:(NSDictionary *)data{
-    NSDictionary * dicData = data[@"datas"];
-    NSArray * array = dicData[@"class_list"];
-    NSMutableArray *dataArray = [NSMutableArray array];
-    for (NSDictionary *dic in array) {
-        oneClassification *mode = [[oneClassification alloc] init];
-        [mode setValueWithDictionary:dic];
-        [dataArray addObject:mode];
++(fisterData *)setValueWithDictionary:(NSDictionary *)data{
+    fisterData *mode = [[fisterData alloc] init];
+    mode.FHome = [[NSMutableArray alloc] init];
+    NSArray * arrayData = data[@"datas"];
+    
+    for (int i=0; i<arrayData.count; i++) {
+        
+        //home1
+        if (i<2) {
+            NSDictionary *dicHome1 = arrayData[i];
+            [mode.FHome addObject:[fisterHome1 setValueWithDictionary:dicHome1]];
+            NSLog(@"%d", mode.FHome.count);
+        }else if (i==2) //home4
+        {
+            NSDictionary *dicHome4 = arrayData[i];
+            [mode.FHome addObject:[fisterHome4 setValueWithDictionary:dicHome4]];
+        }else if (i==4) //goods
+        {
+            NSDictionary *dicgoods = arrayData[i];
+            [mode setValueWithFlistDictionary:dicgoods[@"goods"]];
+        }
     }
-    return dataArray;
+    return mode;
 }
 @end

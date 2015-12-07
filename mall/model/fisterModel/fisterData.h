@@ -14,10 +14,9 @@
 @interface fisterData : NSObject
 
 @property (retain, nonatomic) NSMutableArray *FHome;
-@property (retain, nonatomic) fisterList    *FList;
+@property (retain, nonatomic) NSArray        *FList;
 
--(void)setValueWithDictionary:(NSDictionary *)dic;
 
-+(NSMutableArray *)setValueWithDictionary:(NSDictionary *)data;
++(fisterData *)setValueWithDictionary:(NSDictionary *)data;
 
 @end
