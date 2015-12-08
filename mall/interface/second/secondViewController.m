@@ -10,8 +10,8 @@
  * 2.刷新tabel的过程中，那个cell更新了，立刻请求所在cell数据的id,数据回来之后立刻刷新所在更新后tabel的cell里面的滚动视图上的tabel
  * 3.当点击和左边的tabel或者滚动滚动视图，都会刷新tabel
  * 4.现在的一级接口经常不稳定，经常会出现域名解析错误
- *
- *
+ * 5.thirdArray的下标保存的是当前页面每一组数据，也是一个array，而此array保存的是每一个cell里面的数据
+ * 6.每个cell里面的数据是一个array，此array保存了1到三个thirClassification对象
  *
  *
  */
@@ -33,20 +33,6 @@
 @property (assign, nonatomic) int               page; //当page更新时候，就更新tableView,和更新滚动视图上的tabel，如果数据请求失败,将再次请求
 @property (assign, nonatomic) int               pageID; //当page更新时候，保存了page请求二级数据的id，当当前id请求失败时，pageID将置0；
 @property (retain, nonatomic) NSMutableArray    *thirdArray; //保存了当前页面的所有三级数据
-
-//@property (retain, nonatomic) NSArray           *thirdDic; //保存了当前页面第三级的数据
-//@property (assign, nonatomic) int               thirdpage; //保存了第三级请求第几组的数据
-//@property (assign, nonatomic) int               thirdpageID; //保存了thirdpage请求三级数据的id
-//
-////@property (retain, nonatomic) secondData        *AllData;
-////
-//@property (retain, nonatomic) NSMutableArray    *allDataArray;
-//
-//@property (retain, nonatomic) NSMutableDictionary    *seData;
-//
-//
-//////////////////////////////////////////////////////////////////////////////
-//@property (retain, nonatomic) NSMutableDictionary           *dicD;  //保存了当前滚动视图的一个tabel的二级数据
 
 @end
 
@@ -118,6 +104,7 @@
             secondTabel.tag = 100+i;
             secondTabel.delegate = self;
             secondTabel.dataSource = self;
+            secondTabel.separatorStyle = UITableViewCellSeparatorStyleNone;
             [self.bgTableScrollView addSubview:secondTabel];
         }
     }
@@ -135,9 +122,8 @@
                 return 1;
             }else
             {
-                NSLog(@"%d", self.thirdArray.count);
-                if (self.thirdArray.count-1 == section) {
-                    return [self.thirdArray[section] count];
+                if (self.thirdArray.count-1 >= section) {
+                    return [self.thirdArray[section] count]+1;
                 }else
                 {
                     return 1;
@@ -145,11 +131,11 @@
             }
         }else
         {
-            return 1;
+            return 0;
         }
     }else
     {
-        return 1;
+        return 0;
     }
 }
 //返回表格的组数的代理方法
@@ -161,16 +147,33 @@
         return self.nowArray.count;
     }
 }
-//获取到表格有多少个分组，每个分组有多少行数据以后，就调用该方法，去返回表格的每一行
+//返回组尾高度
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.1;
+}
+//返回组头高度
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (tableView == (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100]) {
+        if (section == 0) {
+            return 0.1;
+        }
+    }else if (self.tableView == tableView)
+    {
+        return 0.1;
+    }
+    return 6;
+}
+#pragma mark - 返回cell的样式
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.tableView) {
+        //初始化一级数据的cell
         static NSString * cellId1 = @"cell1";
         secondMainTableViewCell *cell1 = [tableView dequeueReusableCellWithIdentifier:cellId1];
         if(cell1 == nil){
             cell1 = [[secondMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId1];
         }
         //使用cell之前初始化
-        cell1.bgLabel.backgroundColor = [UIColor grayColor];
+        cell1.bgLabel.backgroundColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
         cell1.bgLabel.textColor = [UIColor blackColor];
         
         //功能是判断滚动视图是否有变,如果有变，先init所有cell，然后给指定的cell选中
@@ -189,6 +192,7 @@
         return cell1;
     }else
     {
+        //初始化第二级数据的cell
         static NSString *cellID = @"cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         if(cell == nil){
@@ -201,37 +205,71 @@
         [cell setBackgroundColor:[UIColor whiteColor]];
 
         //当数据是实时请求回来的数据的时候，才实时更新
-        if (self.whetherNowArray == YES) {
-            cell.textLabel.text = [self.nowArray[indexPath.section] gc_name];
-            if (self.thirdArray == nil) {
+        if (self.whetherNowArray == YES)
+        {
+            if (self.thirdArray.count == 0) {
                 self.thirdArray = [[NSMutableArray alloc] init];
 #pragma mark - 请求三级数据
                 [self requestSecondClassification:[self.nowArray[indexPath.section] gc_parent_id]];
             }else
             {
-                if (self.thirdArray.count < indexPath.section) {
+#pragma mark - 初始化第三级数据的cell
+                static NSString *cellID2 = @"cell2";
+                secondTwoTableViewCell *cell2 = [tableView dequeueReusableCellWithIdentifier:cellID2];
+                if(cell2 == nil){
+                    cell2 = [[secondTwoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID2];
+                }
+                cell2.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                if (self.thirdArray.count < indexPath.section) {  //当indexPath.section没有数据时，就请求数据
                     [self requestSecondClassification:[self.nowArray[indexPath.section] gc_parent_id]];
                 }
+                
+#pragma mark - 加载第三级数据
+                if (self.thirdArray.count-1 >= indexPath.section) {
+                    if (indexPath.row == 0) {
+                        //设置第二级数据的标题
+                        cell.textLabel.text = [self.nowArray[indexPath.section] gc_name];
+                        return cell;
+                    }else
+                    {
+                        //设置三级数据
+                        NSArray *ar = self.thirdArray[indexPath.section];
+                        [cell2 settextLabel:ar[indexPath.row-1]];
+                        return cell2;
+                    }
+                }
             }
-            
+            //设置第二级数据的标题
+            cell.textLabel.text = [self.nowArray[indexPath.section] gc_name];
         }
-        
         return cell;
     }
 
 }
-#pragma mark - 跳转到指定视图
+#pragma mark - 一级数据tabelView跳转到指定滚动视图
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.tableView) {
         [self.bgTableScrollView setContentOffset:CGPointMake(220*indexPath.row, 0) animated:YES];
         self.page = indexPath.row;
         self.whetherNowArray = NO;
+        self.thirdArray = [[NSMutableArray alloc] init]; //初始化当前页面的第三级数据
         [self.tableView reloadData]; //点击的tabel刷新
     }
 }
 //返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return widthEx(35);
+    if (tableView != self.tableView) {
+        if (indexPath.row != 0) {
+            return widthEx(70);
+        }else
+        {
+            return widthEx(35);
+        }
+    }else
+    {
+        return widthEx(35);
+    }
 }
 #pragma mark - 背景滚动视图代理
 //当滚动视图停止时执行
@@ -239,6 +277,7 @@
 {
     if (self.bgTableScrollView == scrollView) {
         self.whetherNowArray = NO;
+        self.thirdArray = [[NSMutableArray alloc] init]; //初始化当前页面的第三级数据
         self.page = scrollView.bounds.origin.x/220;
         [self.tableView reloadData];
     }
@@ -287,7 +326,7 @@
             { //判断是不是还停在当前页面
                 if (self.thirdArray.count <= self.nowArray.count)
                 { //只有当nowArray有组的时候才会有id
-                    if (self.thirdArray.count == 0)
+                    if (self.thirdArray.count==0 && [self.nowArray[0] gc_parent_id]==requestID)
                     {
                         self.thirdArray = [[NSMutableArray alloc] init];
                         [self.thirdArray addObject:[thirClassification setValueWithDictionary:dict]];
@@ -300,12 +339,16 @@
                         }
                     }else
                     {
-                        [self.thirdArray addObject:[thirClassification setValueWithDictionary:dict]];
-                        UITableView *scTabel = (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100];
-                        [scTabel reloadData];
-                        //开启请求三级数据的第一组数据
-                        if (self.nowArray.count > self.thirdArray.count) { //只有nowArray大于才请求，否则只付值
-                            [self requestSecondClassification:[self.nowArray[self.thirdArray.count] gc_parent_id]];
+                        if (self.nowArray.count > self.thirdArray.count) {
+                            
+                            if ([self.nowArray[self.thirdArray.count] gc_parent_id]==requestID) {
+                                [self.thirdArray addObject:[thirClassification setValueWithDictionary:dict]];
+                                UITableView *scTabel = (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100];
+                                [scTabel reloadData];
+                                if (self.nowArray.count > self.thirdArray.count) { //只有nowArray大于才请求，否则只付值
+                                    [self requestSecondClassification:[self.nowArray[self.thirdArray.count] gc_parent_id]];
+                                }
+                            }
                         }
                     }
                 }
@@ -321,7 +364,6 @@
         {
             [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(requestSecond) userInfo:nil repeats:NO];
         }
-
     }];
 }
 -(void)requestSecond

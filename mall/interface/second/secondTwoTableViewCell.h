@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "thirClassification.h"
 
 @interface secondTwoTableViewCell : UITableViewCell
 
-@property (retain, nonatomic) UILabel *bgLabel;
-
+-(void)settextLabel:(NSArray *)data;
 
 @end

@@ -25,7 +25,7 @@
         thirClassification *mode = [[thirClassification alloc] init];
         [mode setValueWithDictionary:dic];
         
-        //将每个完整的array风成每三个对象组成一个数组，没有三个小的数组组成一个大数组
+        //将每个完整的array封装成每三个对象组成一个数组，没有三个小的数组组成一个大数组
         if (i == 0) {
             dataThirArray = [NSMutableArray array];
             [dataThirArray addObject:mode];
@@ -41,7 +41,7 @@
             [dataArray addObject:dataThirArray];
         }
     }
-    if (i != 3) {
+    if (i!=3 && i!=0) {
         [dataArray addObject:dataThirArray];
     }
     return dataArray;
