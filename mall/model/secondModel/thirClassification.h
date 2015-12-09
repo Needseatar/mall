@@ -12,8 +12,8 @@
 
 @interface thirClassification : NSObject
 
-@property (strong, nonatomic) NSString *gc_name;
-@property (assign, nonatomic) int      gc_parent_id;  //请求下一级商品id
+@property (strong, nonatomic) NSString  *gc_name;
+@property (assign, nonatomic) NSInteger gc_parent_id;  //请求下一级商品id
 
 
 -(void)setValueWithDictionary:(NSDictionary *)dic;

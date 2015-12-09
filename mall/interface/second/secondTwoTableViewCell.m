@@ -13,10 +13,6 @@
 @property (retain, nonatomic) UIView         *bgView;
 @property (retain, nonatomic) NSMutableArray *colorArray;
 
-@property (retain, nonatomic) UILabel        *squareLabel1;
-@property (retain, nonatomic) UILabel        *squareLabel2;
-@property (retain, nonatomic) UILabel        *squareLabel3;
-
 @end
 
 @implementation secondTwoTableViewCell
@@ -26,8 +22,8 @@
         
         //初始化背景视图
         self.bgView = [[UIView alloc] init];
-        self.bgView.frame = CGRectMakeEx(0, 0, 100, 70);
-        self.bgView.userInteractionEnabled = YES;
+        self.bgView.frame = CGRectMakeEx(0, 0, 240, 70);
+        self.bgView.userInteractionEnabled =YES;
         [self addSubview:self.bgView];
         
         //初始化颜色
@@ -41,23 +37,19 @@
         
         
         //初始化cell里面的格子
-        UILabel *squareLabel;
         for (int i=0; i<3; i++) {
-            squareLabel = [[UILabel alloc] init];
-            squareLabel.frame = CGRectMakeEx(6 + i*70, 6, 60, 60);
-            [squareLabel setBackgroundColor:[UIColor redColor]];
-            [squareLabel setTextAlignment:NSTextAlignmentCenter];
-            [squareLabel setTextColor:[UIColor whiteColor]];
-            squareLabel.numberOfLines = 3;
-            squareLabel.tag = i+50;
-            
-            UITapGestureRecognizer *tapAction = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapActionOflabel)];//加载点击动作
-            [squareLabel addGestureRecognizer:tapAction];
-            squareLabel.userInteractionEnabled = YES;
-            
-            [self.bgView addSubview:squareLabel];
+            squareLabel *SLabel = [[squareLabel alloc] init]; //squareLabel继承于label，增加了一个nsinter属性保存方块的id
+            SLabel.frame = CGRectMakeEx(6 + i*70, 6, 60, 60);
+            [SLabel setBackgroundColor:[UIColor redColor]];
+            [SLabel setTextAlignment:NSTextAlignmentCenter];
+            [SLabel setTextColor:[UIColor whiteColor]];
+            SLabel.numberOfLines = 3;
+            SLabel.tag = i+50;
+            UITapGestureRecognizer *tapAction = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapActionOflabel:)];//加载点击动作
+            [SLabel addGestureRecognizer:tapAction];
+            SLabel.userInteractionEnabled = YES;
+            [self.bgView addSubview:SLabel];
         }
-        
     }
     return self;
 }
@@ -66,26 +58,30 @@
 {
     //洗白
     for (int i=0; i<3; i++) {
-        UILabel *textLabel = (UILabel *)[self.bgView viewWithTag:50+i];
-        [textLabel setBackgroundColor:[UIColor whiteColor]];
-        textLabel.text = @"";
+        squareLabel *SLabel = (squareLabel *)[self.bgView viewWithTag:50+i];
+        [SLabel setBackgroundColor:[UIColor whiteColor]];
+        SLabel.text = @"";
+        SLabel.gc_parent_id = 0;
     }
     if (data.count != 0 && data.count<4) {
         for (int i=0; i<data.count; i++) {
-            UILabel *squareLabel = (UILabel *)[self.bgView viewWithTag:50+i];
+            squareLabel *SLabel = (squareLabel *)[self.bgView viewWithTag:50+i];
             thirClassification *stringObj = data[i];
             int color = arc4random() % 5;
-            [squareLabel setBackgroundColor:self.colorArray[color]];
-            squareLabel.text = stringObj.gc_name;
+            [SLabel setBackgroundColor:self.colorArray[color]];
+            SLabel.text = stringObj.gc_name;
+            SLabel.gc_parent_id = stringObj.gc_parent_id;
         }
     }
     
 }
-
--(void)tapActionOflabel
+//点击操作
+-(void)tapActionOflabel:(UITapGestureRecognizer *)tapAction
 {
-    ;
+    squareLabel *SLabel = (squareLabel *)tapAction.view;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"squareStringID" object:[NSString stringWithFormat:@"%d", SLabel.gc_parent_id]];
 }
+
 
 
 - (void)awakeFromNib {

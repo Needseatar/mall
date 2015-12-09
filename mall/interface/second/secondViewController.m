@@ -40,6 +40,10 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    UISearchBar *searchView = [self.navigationController.navigationBar viewWithTag:30];
+    searchView.hidden = NO;                     //搜索不隐藏
+    self.tabBarController.tabBar.hidden = NO;  //便签控制器不隐藏
+    
     self.whetherNowArray = NO;
     [self requestClassification]; //请求一级数据
     if (self.bgTableScrollView != nil) {
@@ -52,6 +56,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //接收在cell里面点击时候，传会点击方块的id
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(ComeBacksquareStringID:) name:@"squareStringID" object:nil];
     
     [self createSearchBar];   //设置导航栏的搜索和取消
     
@@ -68,6 +76,7 @@
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(20, 7, 260, 20)];
     _searchBar.placeholder = @"请输入搜索内容";
+    _searchBar.tag = 30;
     _searchBar.delegate = self;
     [self.navigationController.navigationBar addSubview:_searchBar];
     
@@ -370,7 +379,16 @@
 {
     [self requestSecondClassification:[self.OCassification[self.page] gc_parent_id]]; //请求二级数据，并把id只也传递过去
 }
-
+#pragma mark - 当方块点击时，接收cell返回的方块id数据,并且跳到secondListViewController页面
+-(void)ComeBacksquareStringID:(NSNotification *)notification
+{
+    NSString *gc_string_ID = [notification object];
+    NSInteger gc_ID = [gc_string_ID integerValue];
+    secondListViewController *SLViewControl = [[secondListViewController alloc] init];
+    SLViewControl.gc_ID = gc_ID;
+    SLViewControl.title = @"商品列表";
+    [self.navigationController pushViewController:SLViewControl animated:YES];
+}
 
 -(int)comeBackID:(NSString *)string
 {

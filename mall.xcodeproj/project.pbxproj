@@ -21,6 +21,8 @@
 		1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */; };
 		1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAFA9DD1C157B6600EA6825 /* thirClassification.m */; };
 		1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */; };
+		1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0EBA61C18097C001F87DB /* squareLabel.m */; };
+		1BC0EBAB1C181309001F87DB /* secondListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0EBAA1C181309001F87DB /* secondListViewController.m */; };
 		1BCC9C631C116CE90077D939 /* secondData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC9C621C116CE90077D939 /* secondData.m */; };
 		1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */; };
 		1BEF93DB1BFD62FC00F7470D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DA1BFD62FC00F7470D /* main.m */; };
@@ -251,6 +253,10 @@
 		1BAFA9DD1C157B6600EA6825 /* thirClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = thirClassification.m; sourceTree = "<group>"; };
 		1BB1E49F1C0C3A650040EDD1 /* oneClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oneClassification.h; sourceTree = "<group>"; };
 		1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oneClassification.m; sourceTree = "<group>"; };
+		1BC0EBA51C18097B001F87DB /* squareLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = squareLabel.h; sourceTree = "<group>"; };
+		1BC0EBA61C18097C001F87DB /* squareLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = squareLabel.m; sourceTree = "<group>"; };
+		1BC0EBA91C181309001F87DB /* secondListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondListViewController.h; sourceTree = "<group>"; };
+		1BC0EBAA1C181309001F87DB /* secondListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondListViewController.m; sourceTree = "<group>"; };
 		1BCC9C611C116CE90077D939 /* secondData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondData.h; sourceTree = "<group>"; };
 		1BCC9C621C116CE90077D939 /* secondData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondData.m; sourceTree = "<group>"; };
 		1BD393F11C0FEABB00FD3E75 /* secondTwoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondTwoTableViewCell.h; sourceTree = "<group>"; };
@@ -525,6 +531,15 @@
 			path = secondModel;
 			sourceTree = "<group>";
 		};
+		1BC0EBA81C181175001F87DB /* onSquareView */ = {
+			isa = PBXGroup;
+			children = (
+				1BC0EBA91C181309001F87DB /* secondListViewController.h */,
+				1BC0EBAA1C181309001F87DB /* secondListViewController.m */,
+			);
+			path = onSquareView;
+			sourceTree = "<group>";
+		};
 		1BEF93CD1BFD62FC00F7470D = {
 			isa = PBXGroup;
 			children = (
@@ -680,12 +695,15 @@
 		1BEF94741BFD660000F7470D /* second */ = {
 			isa = PBXGroup;
 			children = (
+				1BC0EBA81C181175001F87DB /* onSquareView */,
 				1BEF94751BFD660000F7470D /* secondViewController.h */,
 				1BEF94761BFD660000F7470D /* secondViewController.m */,
 				1B8912DA1C0D8B0F00DD3B72 /* secondMainTableViewCell.h */,
 				1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */,
 				1BD393F11C0FEABB00FD3E75 /* secondTwoTableViewCell.h */,
 				1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */,
+				1BC0EBA51C18097B001F87DB /* squareLabel.h */,
+				1BC0EBA61C18097C001F87DB /* squareLabel.m */,
 			);
 			path = second;
 			sourceTree = "<group>";
@@ -1295,11 +1313,13 @@
 			files = (
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
 				1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */,
+				1BC0EBAB1C181309001F87DB /* secondListViewController.m in Sources */,
 				1BEF94911BFD660000F7470D /* fisterViewController.m in Sources */,
 				1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */,
 				1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */,
 				1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */,
 				1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */,
+				1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */,
 				1B8090FF1C12929D00938258 /* fisterList.m in Sources */,
 				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,

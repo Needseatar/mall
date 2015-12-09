@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "thirClassification.h"
+#import "squareLabel.h"
 
 @interface secondTwoTableViewCell : UITableViewCell
 
