@@ -28,6 +28,8 @@
 #define STClassification @"http://shop.trqq.com/mobile/index.php?act=goods_class&gc_id=%d"
 //首页接口（get）
 #define fisterRequest @"http://shop.trqq.com/mobile/index.php?act=index"
+//商品列表接口（get）
+#define SecondListRequest @"http://shop.trqq.com/mobile/index.php?act=goods&op=goods_list%@&order=%d&page=%d&curpage=%d&gc_id=%d"
 
 
 #endif /* PrefixHeader_pch */

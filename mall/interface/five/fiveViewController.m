@@ -88,7 +88,7 @@
 {
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
     
-    [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]]; //设置导航栏颜色
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]]; //设置导航栏颜色
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]]; //设置标题颜色
 }
 

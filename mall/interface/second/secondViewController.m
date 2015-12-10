@@ -44,34 +44,40 @@
     searchView.hidden = NO;                     //搜索不隐藏
     self.tabBarController.tabBar.hidden = NO;  //便签控制器不隐藏
     
-    self.whetherNowArray = NO;
-    [self requestClassification]; //请求一级数据
-    if (self.bgTableScrollView != nil) {
-        UITableView *scTabel = (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100];
-        self.whetherNowArray = YES;  // 当二级数据请求回来的时候，立刻知道当前页面二级数据已经实时跟新了
-        [scTabel reloadData];
-    }
 
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //接收在cell里面点击时候，传会点击方块的id
-    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(ComeBacksquareStringID:) name:@"squareStringID" object:nil];
+    [self requestClassification]; //请求一级数据
     
     [self createSearchBar];   //设置导航栏的搜索和取消
     
+    [self setpageOfTabel]; //设置tabel有没有参数，和接收cell里面的数据
+    
     [self setTabelView];  //加载table一级分类tabel
     
+}
+
+-(void)setpageOfTabel
+{
+    //接收在cell里面点击时候，传会点击方块的id
+    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(ComeBacksquareStringID:) name:@"squareStringID" object:nil];
+    self.whetherNowArray = NO;  //设置tabel没有更新
+    if (self.bgTableScrollView != nil) {
+        UITableView *scTabel = (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100];
+        self.whetherNowArray = YES;  // 当二级数据请求回来的时候，立刻知道当前页面二级数据已经实时跟新了
+        [scTabel reloadData];
+    }
 }
 
 #pragma mark - 设置导航栏的搜索和取消
 -(void)createSearchBar{
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(20, 7, 260, 20)];
@@ -383,7 +389,7 @@
 -(void)ComeBacksquareStringID:(NSNotification *)notification
 {
     NSString *gc_string_ID = [notification object];
-    NSInteger gc_ID = [gc_string_ID integerValue];
+    int gc_ID = [gc_string_ID intValue];
     secondListViewController *SLViewControl = [[secondListViewController alloc] init];
     SLViewControl.gc_ID = gc_ID;
     SLViewControl.title = @"商品列表";

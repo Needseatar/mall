@@ -122,6 +122,7 @@
 #pragma mark - 加载用户注册和注册按钮
 -(void)setButton
 {
+    //用户协议
     self.bgAgreementView = [[UIView alloc] initWithFrame:CGRectMakeEx(10, 220, 200, 20)];
     //self.bgAgreementView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.bgAgreementView];
@@ -139,10 +140,10 @@
     agreementlabel.text = @"阅读协议";
     [self.bgAgreementView addSubview:agreementlabel];
     
-    
+    //注册按钮
     self.registrationButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.registrationButton setFrame:CGRectMakeEx(120, 250, 80, 30)];
-    [self.registrationButton setBackgroundColor:[UIColor redColor]];
+    [self.registrationButton setBackgroundColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.registrationButton setTitle:@"注册" forState:UIControlStateNormal];
     [self.registrationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.registrationButton addTarget:self action:@selector(registrationButtonAction) forControlEvents:UIControlEventTouchUpInside];

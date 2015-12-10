@@ -10,6 +10,6 @@
 
 @interface secondListViewController : UIViewController
 
-@property (assign, nonatomic) NSInteger  gc_ID;
+@property (assign, nonatomic) int  gc_ID;
 
 @end
