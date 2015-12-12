@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "commodityList.h"
+#import "secondListTableViewCell.h"
+#import "goodInformationViewController.h"
 
 @interface secondListViewController : UIViewController
 
-@property (assign, nonatomic) int  gc_ID;
+@property (assign, nonatomic) NSInteger  gc_ID;
 
 @end

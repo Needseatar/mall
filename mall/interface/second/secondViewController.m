@@ -30,8 +30,8 @@
 
 @property (retain, nonatomic) UIScrollView      *bgTableScrollView;
 
-@property (assign, nonatomic) int               page; //当page更新时候，就更新tableView,和更新滚动视图上的tabel，如果数据请求失败,将再次请求
-@property (assign, nonatomic) int               pageID; //当page更新时候，保存了page请求二级数据的id，当当前id请求失败时，pageID将置0；
+@property (assign, nonatomic) NSInteger               page; //当page更新时候，就更新tableView,和更新滚动视图上的tabel，如果数据请求失败,将再次请求
+@property (assign, nonatomic) NSInteger               pageID; //当page更新时候，保存了page请求二级数据的id，当当前id请求失败时，pageID将置0；
 @property (retain, nonatomic) NSMutableArray    *thirdArray; //保存了当前页面的所有三级数据
 
 @end
@@ -76,7 +76,6 @@
 #pragma mark - 设置导航栏的搜索和取消
 -(void)createSearchBar{
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
@@ -276,14 +275,14 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView != self.tableView) {
         if (indexPath.row != 0) {
-            return widthEx(70);
+            return heightEx(70);
         }else
         {
-            return widthEx(35);
+            return heightEx(35);
         }
     }else
     {
-        return widthEx(35);
+        return heightEx(35);
     }
 }
 #pragma mark - 背景滚动视图代理
@@ -316,7 +315,7 @@
     }];
 }
 #pragma mark - 请求二级和三级数据
--(void)requestSecondClassification:(int)gc_parent_id
+-(void)requestSecondClassification:(NSInteger)gc_parent_id
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
@@ -389,7 +388,7 @@
 -(void)ComeBacksquareStringID:(NSNotification *)notification
 {
     NSString *gc_string_ID = [notification object];
-    int gc_ID = [gc_string_ID intValue];
+    NSInteger gc_ID = [gc_string_ID integerValue];
     secondListViewController *SLViewControl = [[secondListViewController alloc] init];
     SLViewControl.gc_ID = gc_ID;
     SLViewControl.title = @"商品列表";

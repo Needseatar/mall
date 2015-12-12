@@ -10,7 +10,7 @@
 
 @interface signInModel : NSObject
 
-@property (assign, nonatomic) int      code;
+@property (assign, nonatomic) NSInteger      code;
 @property (strong, nonatomic) NSString *key;
 @property (strong, nonatomic) NSString *username;
 @property (strong, nonatomic) NSString *error;

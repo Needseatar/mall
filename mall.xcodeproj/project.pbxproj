@@ -14,6 +14,8 @@
 		1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */; };
 		1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */; };
 		1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */; };
+		1B64FA651C1A62210056168A /* secondListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B64FA641C1A62210056168A /* secondListTableViewCell.m */; };
+		1B64FA681C1ABDAE0056168A /* goodInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B64FA671C1ABDAE0056168A /* goodInformationViewController.m */; };
 		1B8090F91C12924D00938258 /* fisterHome1.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090F81C12924D00938258 /* fisterHome1.m */; };
 		1B8090FC1C12926500938258 /* fisterHome4.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FB1C12926500938258 /* fisterHome4.m */; };
 		1B8090FF1C12929D00938258 /* fisterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FE1C12929D00938258 /* fisterList.m */; };
@@ -240,6 +242,10 @@
 		1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveMyMallmodel.m; sourceTree = "<group>"; };
 		1B5366AD1C02DDF1002C5CB2 /* abouCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = abouCompanyViewController.h; sourceTree = "<group>"; };
 		1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = abouCompanyViewController.m; sourceTree = "<group>"; };
+		1B64FA631C1A62210056168A /* secondListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondListTableViewCell.h; sourceTree = "<group>"; };
+		1B64FA641C1A62210056168A /* secondListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondListTableViewCell.m; sourceTree = "<group>"; };
+		1B64FA661C1ABDAE0056168A /* goodInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodInformationViewController.h; sourceTree = "<group>"; };
+		1B64FA671C1ABDAE0056168A /* goodInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodInformationViewController.m; sourceTree = "<group>"; };
 		1B8090F71C12924D00938258 /* fisterHome1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome1.h; sourceTree = "<group>"; };
 		1B8090F81C12924D00938258 /* fisterHome1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterHome1.m; sourceTree = "<group>"; };
 		1B8090FA1C12926500938258 /* fisterHome4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome4.h; sourceTree = "<group>"; };
@@ -541,6 +547,10 @@
 			children = (
 				1BC0EBA91C181309001F87DB /* secondListViewController.h */,
 				1BC0EBAA1C181309001F87DB /* secondListViewController.m */,
+				1B64FA631C1A62210056168A /* secondListTableViewCell.h */,
+				1B64FA641C1A62210056168A /* secondListTableViewCell.m */,
+				1B64FA661C1ABDAE0056168A /* goodInformationViewController.h */,
+				1B64FA671C1ABDAE0056168A /* goodInformationViewController.m */,
 			);
 			path = onSquareView;
 			sourceTree = "<group>";
@@ -1320,6 +1330,7 @@
 				1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */,
 				1BC0EBAB1C181309001F87DB /* secondListViewController.m in Sources */,
 				1BEF94911BFD660000F7470D /* fisterViewController.m in Sources */,
+				1B64FA651C1A62210056168A /* secondListTableViewCell.m in Sources */,
 				1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */,
 				1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */,
 				1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */,
@@ -1337,6 +1348,7 @@
 				1BEF94921BFD660000F7470D /* fiveViewController.m in Sources */,
 				1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */,
 				1B8090FC1C12926500938258 /* fisterHome4.m in Sources */,
+				1B64FA681C1ABDAE0056168A /* goodInformationViewController.m in Sources */,
 				1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */,
 				1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */,
 				1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */,

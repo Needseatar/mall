@@ -33,6 +33,9 @@
 -(void)createSearchBar{
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    self.navigationController.navigationBar.translucent = NO;
+    //UIRectEdgeAll的时候会让tableView从导航栏下移44px，设置为UIRectEdgeNone的时候，刚刚在导航栏下面。
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
@@ -69,11 +72,11 @@
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return 1;
 }
 //返回表格的组数的代理方法
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 10;
+    return 1;
 }
 //获取到表格有多少个分组，每个分组有多少行数据以后，就调用该方法，去返回表格的每一行
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -81,10 +84,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //使用cell之前初始化
-    cell.backgroundColor = [UIColor redColor];
+    cell.backgroundColor = [UIColor blackColor];
     cell.textLabel.textColor = [UIColor blackColor];
     return cell;
 }

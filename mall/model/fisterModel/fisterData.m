@@ -25,7 +25,7 @@
         if (i<2) {
             NSDictionary *dicHome1 = arrayData[i];
             [mode.FHome addObject:[fisterHome1 setValueWithDictionary:dicHome1]];
-            NSLog(@"%d", mode.FHome.count);
+            NSLog(@"%lu", mode.FHome.count);
         }else if (i==2) //home4
         {
             NSDictionary *dicHome4 = arrayData[i];

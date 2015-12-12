@@ -79,7 +79,7 @@
 -(void)tapActionOflabel:(UITapGestureRecognizer *)tapAction
 {
     squareLabel *SLabel = (squareLabel *)tapAction.view;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"squareStringID" object:[NSString stringWithFormat:@"%d", SLabel.gc_parent_id]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"squareStringID" object:[NSString stringWithFormat:@"%ld", SLabel.gc_parent_id]];
 }
 
 

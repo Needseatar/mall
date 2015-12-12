@@ -8,7 +8,7 @@
 
 #import "secondListViewController.h"
 
-@interface secondListViewController ()
+@interface secondListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 typedef enum {
     //以下是枚举成员
@@ -17,15 +17,18 @@ typedef enum {
     noSelected = 0
 }upDownSelected; // 保存了价格后面的那一张图片
 
+@property (retain, nonatomic) UITableView       *tableView;
 
 @property (retain, nonatomic) UIView         *bgSortView;
 @property (retain, nonatomic) NSArray        *sortItem;     //排序导航栏下面的排序标题
 @property (assign, nonatomic) upDownSelected  UDSelec;
 
 @property (assign, nonatomic) NSString        *key;    ///排序方式 1-销量 2-浏览量 3-价格 空-按最新发布排序
-@property (assign, nonatomic) int             order; //排序方式 1-升序 2-降序
-@property (assign, nonatomic) int             page;   // 每页数量
-@property (assign, nonatomic) int             curpage;  //当前页码
+@property (assign, nonatomic) NSInteger       order; //排序方式 1-升序 2-降序
+@property (assign, nonatomic) NSInteger       page;   // 每页数量
+@property (assign, nonatomic) NSInteger       curpage;  //当前页码
+
+@property (retain, nonatomic) NSArray         *arrayData;
 
 
 @end
@@ -45,21 +48,24 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setWebRequestData];
+    [self setWebRequestData];  //初始化数据
     
     [self requestClassification]; //请求数据
     
     [self createSort];   //设置导航栏下面的商品排序
     
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self setTabelView];  //加载tabel
+    
 }
 
 -(void)setWebRequestData
 {
     self.key = @"&key=1";
     self.order = 1;
-    self.page = 1;
+    self.page = 10;
     self.curpage = 1;
+    
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 -(void)createSort
@@ -106,14 +112,55 @@ typedef enum {
                     [upDownImage setImage:[UIImage imageNamed:@"coupon_double_arrow_pressed2.png"]];
                     self.UDSelec = upSelected;
                     but.selected = YES;
+                    self.key = @"&key=3";
+                    self.order = 1;
+                    self.page = 10;
+                    self.curpage = 1;
+                    [self requestClassification];
                 }else
                 {
                     [upDownImage setImage:[UIImage imageNamed:@"coupon_double_arrow_pressed1.png"]];
                     self.UDSelec = downSelected;
                     but.selected = YES;
+                    self.key = @"&key=3";
+                    self.order = 2;
+                    self.page = 10;
+                    self.curpage = 1;
+                    [self requestClassification];
                 }
             }else
             {
+                switch (i) {
+                    case 0:
+                    {
+                        self.key = @"";
+                        self.order = 1;
+                        self.page = 10;
+                        self.curpage = 1;
+                        [self requestClassification];
+                        break;
+                    }
+                    case 1:
+                    {
+                        self.key = @"&key=3";
+                        self.order = 1;
+                        self.page = 10;
+                        self.curpage = 1;
+                        [self requestClassification];
+                        break;
+                    }
+                    case 3:
+                    {
+                        self.key = @"&key=2";
+                        self.order = 1;
+                        self.page = 10;
+                        self.curpage = 1;
+                        [self requestClassification];
+                        break;
+                    }
+                    default:
+                        break;
+                }
                 but.selected = YES;
                 [upDownImage setImage:[UIImage imageNamed:@"coupon_double_arrow_normal.png"]];
                 self.UDSelec = noSelected;
@@ -133,11 +180,52 @@ typedef enum {
     [manager GET:[NSString stringWithFormat:SecondListRequest, self.key, self.order, self.page, self.curpage, self.gc_ID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
+        self.arrayData = [commodityList setValueWithDictionary:dict];
+        [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         
     }];
 }
+
+#pragma mark - 加载tabel
+-(void)setTabelView
+{
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 94, 320, 474) style:UITableViewStylePlain];
+    [_tableView setBackgroundColor:[UIColor redColor]];
+    [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone]; //设置tabel没有的cell不显示出来
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+}
+#pragma mark - tabelView代理
+//返回表格的行数的代理方法
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.arrayData.count;
+}
+
+#pragma mark - 返回cell的样式
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //初始化一级数据的cell
+    static NSString * cellId = @"cell1";
+    secondListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if(cell == nil){
+        cell = [[secondListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setTextImage:self.arrayData[indexPath.row]];
+    return cell;
+}
+#pragma mark - 一级数据tabelView跳转到指定滚动视图
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    goodInformationViewController *GInformation = [[goodInformationViewController alloc] init];
+    [self.navigationController pushViewController:GInformation animated:YES];
+}
+//返回行高的代理方法
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return heightEx(110);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
