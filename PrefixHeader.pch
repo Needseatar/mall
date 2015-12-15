@@ -30,6 +30,7 @@
 #define fisterRequest @"http://shop.trqq.com/mobile/index.php?act=index"
 //商品列表接口（get）
 #define SecondListRequest @"http://shop.trqq.com/mobile/index.php?act=goods&op=goods_list%@&order=%ld&page=%ld&curpage=%ld&gc_id=%ld"
-
+//商品详细信息接口（get）
+#define DetailedCommodity @"http://shop.trqq.com/mobile/index.php?act=goods&op=goods_detail&goods_id=%ld"
 
 #endif /* PrefixHeader_pch */

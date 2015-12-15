@@ -10,7 +10,6 @@
 #import "oneClassification.h"
 #import "secondMainTableViewCell.h"
 #import "secondTwoTableViewCell.h"
-#import "secondData.h"
 #import "thirClassification.h"
 #import "secondListViewController.h"
 

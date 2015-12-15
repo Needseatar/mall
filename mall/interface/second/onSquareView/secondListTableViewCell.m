@@ -107,11 +107,6 @@
     }
 }
 
-
-
-//UIImageView *view = [[UIImageView alloc]initWithImage:[self getImageWithView:self.view]];
-//tesxtImageView.image = view.image;
-
 //得到截取图片的方法
 - (UIImage *)getImageWithView:(UIView *)view {
     //此处的CGSizeMake是根据需要制定截取图片的宽、高；NO/YES表示是否透明

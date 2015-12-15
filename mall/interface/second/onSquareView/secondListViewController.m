@@ -216,9 +216,11 @@ typedef enum {
     [cell setTextImage:self.arrayData[indexPath.row]];
     return cell;
 }
-#pragma mark - 一级数据tabelView跳转到指定滚动视图
+#pragma mark - tabel跳转
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     goodInformationViewController *GInformation = [[goodInformationViewController alloc] init];
+    commodityList *comList= self.arrayData[indexPath.row];
+    GInformation.goods_id = [comList.goods_id integerValue];
     [self.navigationController pushViewController:GInformation animated:YES];
 }
 //返回行高的代理方法

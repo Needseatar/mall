@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "dataCommodityInformation.h"
+#import "goodInformationTableViewCell.h"
 
 @interface goodInformationViewController : UIViewController
+
+
+@property (assign, nonatomic) NSInteger  goods_id;
+
 
 @end

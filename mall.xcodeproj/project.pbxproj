@@ -14,6 +14,11 @@
 		1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */; };
 		1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */; };
 		1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */; };
+		1B625AFA1C1E72A600DBAF24 /* dataCommodityInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625AF91C1E72A600DBAF24 /* dataCommodityInformation.m */; };
+		1B625AFD1C1E949D00DBAF24 /* secondCommendList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625AFC1C1E949D00DBAF24 /* secondCommendList.m */; };
+		1B625B001C1E9A7400DBAF24 /* secondGoodsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625AFF1C1E9A7400DBAF24 /* secondGoodsInfo.m */; };
+		1B625B031C1EA4E100DBAF24 /* secondStoreList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625B021C1EA4E100DBAF24 /* secondStoreList.m */; };
+		1B625B091C1EAF6800DBAF24 /* goodInformationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625B081C1EAF6800DBAF24 /* goodInformationTableViewCell.m */; };
 		1B64FA651C1A62210056168A /* secondListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B64FA641C1A62210056168A /* secondListTableViewCell.m */; };
 		1B64FA681C1ABDAE0056168A /* goodInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B64FA671C1ABDAE0056168A /* goodInformationViewController.m */; };
 		1B8090F91C12924D00938258 /* fisterHome1.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090F81C12924D00938258 /* fisterHome1.m */; };
@@ -26,7 +31,6 @@
 		1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0EBA61C18097C001F87DB /* squareLabel.m */; };
 		1BC0EBAB1C181309001F87DB /* secondListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0EBAA1C181309001F87DB /* secondListViewController.m */; };
 		1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5D8651C195F5A00DB078C /* commodityList.m */; };
-		1BCC9C631C116CE90077D939 /* secondData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCC9C621C116CE90077D939 /* secondData.m */; };
 		1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */; };
 		1BEF93DB1BFD62FC00F7470D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DA1BFD62FC00F7470D /* main.m */; };
 		1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DD1BFD62FC00F7470D /* AppDelegate.m */; };
@@ -242,6 +246,16 @@
 		1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveMyMallmodel.m; sourceTree = "<group>"; };
 		1B5366AD1C02DDF1002C5CB2 /* abouCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = abouCompanyViewController.h; sourceTree = "<group>"; };
 		1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = abouCompanyViewController.m; sourceTree = "<group>"; };
+		1B625AF81C1E72A600DBAF24 /* dataCommodityInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dataCommodityInformation.h; sourceTree = "<group>"; };
+		1B625AF91C1E72A600DBAF24 /* dataCommodityInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dataCommodityInformation.m; sourceTree = "<group>"; };
+		1B625AFB1C1E949D00DBAF24 /* secondCommendList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondCommendList.h; sourceTree = "<group>"; };
+		1B625AFC1C1E949D00DBAF24 /* secondCommendList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondCommendList.m; sourceTree = "<group>"; };
+		1B625AFE1C1E9A7400DBAF24 /* secondGoodsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondGoodsInfo.h; sourceTree = "<group>"; };
+		1B625AFF1C1E9A7400DBAF24 /* secondGoodsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondGoodsInfo.m; sourceTree = "<group>"; };
+		1B625B011C1EA4E100DBAF24 /* secondStoreList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondStoreList.h; sourceTree = "<group>"; };
+		1B625B021C1EA4E100DBAF24 /* secondStoreList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondStoreList.m; sourceTree = "<group>"; };
+		1B625B071C1EAF6800DBAF24 /* goodInformationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodInformationTableViewCell.h; sourceTree = "<group>"; };
+		1B625B081C1EAF6800DBAF24 /* goodInformationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodInformationTableViewCell.m; sourceTree = "<group>"; };
 		1B64FA631C1A62210056168A /* secondListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondListTableViewCell.h; sourceTree = "<group>"; };
 		1B64FA641C1A62210056168A /* secondListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondListTableViewCell.m; sourceTree = "<group>"; };
 		1B64FA661C1ABDAE0056168A /* goodInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodInformationViewController.h; sourceTree = "<group>"; };
@@ -266,8 +280,6 @@
 		1BC0EBAA1C181309001F87DB /* secondListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondListViewController.m; sourceTree = "<group>"; };
 		1BC5D8641C195F5A00DB078C /* commodityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commodityList.h; sourceTree = "<group>"; };
 		1BC5D8651C195F5A00DB078C /* commodityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = commodityList.m; sourceTree = "<group>"; };
-		1BCC9C611C116CE90077D939 /* secondData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondData.h; sourceTree = "<group>"; };
-		1BCC9C621C116CE90077D939 /* secondData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondData.m; sourceTree = "<group>"; };
 		1BD393F11C0FEABB00FD3E75 /* secondTwoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondTwoTableViewCell.h; sourceTree = "<group>"; };
 		1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondTwoTableViewCell.m; sourceTree = "<group>"; };
 		1BEF93D61BFD62FC00F7470D /* mall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mall.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -512,6 +524,21 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		1B625AF71C1E723800DBAF24 /* commodityInformation */ = {
+			isa = PBXGroup;
+			children = (
+				1B625AF81C1E72A600DBAF24 /* dataCommodityInformation.h */,
+				1B625AF91C1E72A600DBAF24 /* dataCommodityInformation.m */,
+				1B625AFB1C1E949D00DBAF24 /* secondCommendList.h */,
+				1B625AFC1C1E949D00DBAF24 /* secondCommendList.m */,
+				1B625AFE1C1E9A7400DBAF24 /* secondGoodsInfo.h */,
+				1B625AFF1C1E9A7400DBAF24 /* secondGoodsInfo.m */,
+				1B625B011C1EA4E100DBAF24 /* secondStoreList.h */,
+				1B625B021C1EA4E100DBAF24 /* secondStoreList.m */,
+			);
+			path = commodityInformation;
+			sourceTree = "<group>";
+		};
 		1B8090F31C1290C500938258 /* fisterModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,8 +557,7 @@
 		1BB1E49B1C0C39D10040EDD1 /* secondModel */ = {
 			isa = PBXGroup;
 			children = (
-				1BCC9C611C116CE90077D939 /* secondData.h */,
-				1BCC9C621C116CE90077D939 /* secondData.m */,
+				1B625AF71C1E723800DBAF24 /* commodityInformation */,
 				1BB1E49F1C0C3A650040EDD1 /* oneClassification.h */,
 				1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */,
 				1BAFA9DC1C157B6600EA6825 /* thirClassification.h */,
@@ -551,6 +577,8 @@
 				1B64FA641C1A62210056168A /* secondListTableViewCell.m */,
 				1B64FA661C1ABDAE0056168A /* goodInformationViewController.h */,
 				1B64FA671C1ABDAE0056168A /* goodInformationViewController.m */,
+				1B625B071C1EAF6800DBAF24 /* goodInformationTableViewCell.h */,
+				1B625B081C1EAF6800DBAF24 /* goodInformationTableViewCell.m */,
 			);
 			path = onSquareView;
 			sourceTree = "<group>";
@@ -1326,10 +1354,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B625AFA1C1E72A600DBAF24 /* dataCommodityInformation.m in Sources */,
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
 				1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */,
 				1BC0EBAB1C181309001F87DB /* secondListViewController.m in Sources */,
 				1BEF94911BFD660000F7470D /* fisterViewController.m in Sources */,
+				1B625B031C1EA4E100DBAF24 /* secondStoreList.m in Sources */,
 				1B64FA651C1A62210056168A /* secondListTableViewCell.m in Sources */,
 				1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */,
 				1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */,
@@ -1338,8 +1368,10 @@
 				1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */,
 				1B8090FF1C12929D00938258 /* fisterList.m in Sources */,
 				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,
+				1B625AFD1C1E949D00DBAF24 /* secondCommendList.m in Sources */,
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,
 				1BEF94931BFD660000F7470D /* fourViewController.m in Sources */,
+				1B625B001C1E9A7400DBAF24 /* secondGoodsInfo.m in Sources */,
 				1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */,
 				1BEF95491BFD6CCC00F7470D /* ZJScreenAdaptation.m in Sources */,
 				1B8090F91C12924D00938258 /* fisterHome1.m in Sources */,
@@ -1352,8 +1384,8 @@
 				1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */,
 				1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */,
 				1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */,
-				1BCC9C631C116CE90077D939 /* secondData.m in Sources */,
 				1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */,
+				1B625B091C1EAF6800DBAF24 /* goodInformationTableViewCell.m in Sources */,
 				1B8091021C1292D600938258 /* fisterData.m in Sources */,
 				1B35A42A1C040DE9004C1544 /* fiveBlockString.m in Sources */,
 			);
