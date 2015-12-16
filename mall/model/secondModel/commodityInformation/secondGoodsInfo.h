@@ -52,8 +52,8 @@
 @property (retain, nonatomic) NSString *plateid_bottom;
 @property (retain, nonatomic) NSString *plateid_top;
 @property (retain, nonatomic) NSString *presell_deliverdate;
-@property (retain, nonatomic) NSString *spec_name;
-@property (retain, nonatomic) NSString *spec_value;
+@property (retain, nonatomic) NSDictionary *spec_name;
+@property (retain, nonatomic) NSDictionary *spec_value;
 @property (retain, nonatomic) NSString *transport_id;
 @property (retain, nonatomic) NSString *transport_title;
 @property (retain, nonatomic) NSString *virtual_indate;

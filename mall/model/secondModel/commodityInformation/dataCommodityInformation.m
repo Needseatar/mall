@@ -16,7 +16,7 @@
     self.goods_info = [secondGoodsInfo setValueWithDictionary:dic];
     self.spec_image = dic[@"spec_image"];
     self.spec_list = dic[@"spec_list"];
-    self.store_info = dic[@"store_info"];
+    self.store_info = [secondStoreList setValueWithDictionary:dic];
 }
 
 +(dataCommodityInformation *)setValueWithDictionary:(NSDictionary *)data{

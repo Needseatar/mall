@@ -17,7 +17,8 @@
 
 @property (retain, nonatomic) UIView                   *redLine;
 
-@property (retain, nonatomic) dataCommodityInformation *data;
+@property (retain, nonatomic) dataCommodityInformation *data;  //视图数据
+@property (retain, nonatomic) NSMutableArray           *dataStore;  //第二组 的店铺信息
 
 @end
 
@@ -32,7 +33,6 @@
     
     [self setTabelView];
 }
-
 
 -(void)commodityInformatonItem
 {
@@ -116,13 +116,18 @@
 -(void)requestCommodit{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+    NSLog(DetailedCommodity, self.goods_id);
     [manager GET:[NSString stringWithFormat:DetailedCommodity, self.goods_id] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
         
         self.data = [dataCommodityInformation setValueWithDictionary:dict];
-        secondCommendList *ddd = self.data.goods_commend_list[0];
-        NSLog(@"%@", ddd.goods_image_url);
+        
+        //设置第二组 的店铺信息
+        self.dataStore = [[NSMutableArray alloc] init];
+        [self.dataStore addObject:@"图文详情"];
+        [self.dataStore addObject:[NSString stringWithFormat:@"店铺:%@", [self.data.store_info store_name]]];
+
         [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -135,7 +140,6 @@
 -(void)setTabelView
 {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 96, 320, 472) style:UITableViewStylePlain];
-    [_tableView setBackgroundColor:[UIColor blackColor]];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -143,7 +147,13 @@
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==0) {
+    if (section==0) { //第一组
+        return 1;
+    }else if (section == 1)//第二组
+    {
+        return self.dataStore.count;
+    }else if (section==2 || section==3) //第三组 或着 第四组
+    {
         return 1;
     }else
     {
@@ -154,12 +164,15 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 5;
 }
+//返回组尾高度
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 10;
+}
 
 #pragma mark - 返回cell的样式
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) { //第一组滚动视图
-        //初始化一级数据的cell
         static NSString * cellId = @"cell";
         goodInformationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if(cell == nil){
@@ -169,18 +182,60 @@
         
         [cell setImage:self.data];
         return cell;
-    }else
+    }else if (indexPath.section == 1) //第二组
     {
-        //初始化一级数据的cell
         static NSString * cellId2 = @"cell2";
         UITableViewCell *cell2 = [tableView dequeueReusableCellWithIdentifier:cellId2];
         if(cell2 == nil){
             cell2 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId2];
         }
         cell2.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell2.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //设置右边箭头
+        cell2.textLabel.text = @"";
+        
+        cell2.textLabel.text = self.dataStore[indexPath.row];
 
         return cell2;
+    }else if (indexPath.section == 2) //第三组
+    {
+        static NSString * cellId3 = @"cell3";
+        goodsInformationpaceTableViewCell *cell3 = [tableView dequeueReusableCellWithIdentifier:cellId3];
+        if(cell3 == nil){
+            cell3 = [[goodsInformationpaceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId3];
+        }
+        cell3.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell3.accessoryType = UITableViewCellAccessoryNone;
+        
+        [cell3 setString:self.data];
+        
+        return cell3;
+        
+    }else if (indexPath.section == 3) //第四组
+    {
+        static NSString * cellId4 = @"cell4";
+        goodsSpecificationsTableViewCell *cell4 = [tableView dequeueReusableCellWithIdentifier:cellId4];
+        if(cell4 == nil){
+            cell4 = [[goodsSpecificationsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId4];
+        }
+        cell4.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell4.accessoryType = UITableViewCellAccessoryNone;
+        
+        [cell4 setString:self.data];
+        
+        return cell4;
     }
+    
+    static NSString * cellId5 = @"cell5";
+    UITableViewCell *cell5 = [tableView dequeueReusableCellWithIdentifier:cellId5];
+    if(cell5 == nil){
+        cell5 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId5];
+    }
+    cell5.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell5.accessoryType = UITableViewCellAccessoryNone;
+    
+    cell5.textLabel.text = @"";
+    
+    return cell5;
 }
 #pragma mark - 一级数据tabelView跳转到指定滚动视图
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -188,12 +243,39 @@
 }
 //返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return heightEx(250);
+    if (indexPath.section==0) {  //第一组
+        //计算label高度
+        CGRect frame = CGRectMakeEx(5, 0, 310, 0);
+        secondGoodsInfo *GInfo = self.data.goods_info;
+        frame.size.height = heightEx([self heightWithString:GInfo.goods_name width:310 fontSize:18]);
+        return heightEx(frame.size.height+250+10);
+    }else if (indexPath.section == 1)//第二组
+    {
+        return heightEx(40);
+    }else if (indexPath.section == 2) // 第三组
+    {
+        //计算第三组label的高度，设置的值在goodsInformationpaceTableViewCell已经写死了，要是更改，就要到goodsInformationpaceTableViewCell更改视图的计算值
+        NSInteger up = [self heightWithString:[self.data.goods_info goods_jingle] width:310 fontSize:18]; //上面标题的高度
+        NSString *string = [NSString stringWithFormat:@"由%@负责发货,并提供售后服务", [self.data.store_info store_name]];
+        NSInteger storeName = [self heightWithString:string width:310-50 fontSize:18]; //服务后面的发货商介绍视图
+        NSInteger bg = 90; //价格的背景视图的高度
+        return heightEx(up+storeName+bg+10);
+    }else if (indexPath.section == 3) //第四组，是设置商品的规格选择
+    {
+        return heightEx(600);
+    }else
+    {
+        return heightEx(100);
     }
-    return heightEx(100);
 }
 
+#pragma mark - 计算label高度
+-(CGFloat)heightWithString:(NSString *)string width:(CGFloat)width fontSize:(CGFloat)fontSize
+{
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize + 1.5]} context:nil];
+    
+    return heightEx(rect.size.height);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

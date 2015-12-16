@@ -26,12 +26,14 @@
 		1B8090FF1C12929D00938258 /* fisterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FE1C12929D00938258 /* fisterList.m */; };
 		1B8091021C1292D600938258 /* fisterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8091011C1292D600938258 /* fisterData.m */; };
 		1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */; };
+		1BAF7DA21C21527D0027B67E /* goodsSpecificationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAF7DA11C21527D0027B67E /* goodsSpecificationsTableViewCell.m */; };
 		1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAFA9DD1C157B6600EA6825 /* thirClassification.m */; };
 		1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */; };
 		1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0EBA61C18097C001F87DB /* squareLabel.m */; };
 		1BC0EBAB1C181309001F87DB /* secondListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0EBAA1C181309001F87DB /* secondListViewController.m */; };
 		1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5D8651C195F5A00DB078C /* commodityList.m */; };
 		1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */; };
+		1BDA460E1C1FFFAD00EF1EAD /* goodsInformationpaceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDA460D1C1FFFAD00EF1EAD /* goodsInformationpaceTableViewCell.m */; };
 		1BEF93DB1BFD62FC00F7470D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DA1BFD62FC00F7470D /* main.m */; };
 		1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DD1BFD62FC00F7470D /* AppDelegate.m */; };
 		1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93E01BFD62FC00F7470D /* ViewController.m */; };
@@ -270,6 +272,8 @@
 		1B8091011C1292D600938258 /* fisterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterData.m; sourceTree = "<group>"; };
 		1B8912DA1C0D8B0F00DD3B72 /* secondMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondMainTableViewCell.h; sourceTree = "<group>"; };
 		1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondMainTableViewCell.m; sourceTree = "<group>"; };
+		1BAF7DA01C21527D0027B67E /* goodsSpecificationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodsSpecificationsTableViewCell.h; sourceTree = "<group>"; };
+		1BAF7DA11C21527D0027B67E /* goodsSpecificationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodsSpecificationsTableViewCell.m; sourceTree = "<group>"; };
 		1BAFA9DC1C157B6600EA6825 /* thirClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thirClassification.h; sourceTree = "<group>"; };
 		1BAFA9DD1C157B6600EA6825 /* thirClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = thirClassification.m; sourceTree = "<group>"; };
 		1BB1E49F1C0C3A650040EDD1 /* oneClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oneClassification.h; sourceTree = "<group>"; };
@@ -282,6 +286,8 @@
 		1BC5D8651C195F5A00DB078C /* commodityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = commodityList.m; sourceTree = "<group>"; };
 		1BD393F11C0FEABB00FD3E75 /* secondTwoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondTwoTableViewCell.h; sourceTree = "<group>"; };
 		1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondTwoTableViewCell.m; sourceTree = "<group>"; };
+		1BDA460C1C1FFFAD00EF1EAD /* goodsInformationpaceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodsInformationpaceTableViewCell.h; sourceTree = "<group>"; };
+		1BDA460D1C1FFFAD00EF1EAD /* goodsInformationpaceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodsInformationpaceTableViewCell.m; sourceTree = "<group>"; };
 		1BEF93D61BFD62FC00F7470D /* mall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BEF93DA1BFD62FC00F7470D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BEF93DC1BFD62FC00F7470D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -579,6 +585,10 @@
 				1B64FA671C1ABDAE0056168A /* goodInformationViewController.m */,
 				1B625B071C1EAF6800DBAF24 /* goodInformationTableViewCell.h */,
 				1B625B081C1EAF6800DBAF24 /* goodInformationTableViewCell.m */,
+				1BDA460C1C1FFFAD00EF1EAD /* goodsInformationpaceTableViewCell.h */,
+				1BDA460D1C1FFFAD00EF1EAD /* goodsInformationpaceTableViewCell.m */,
+				1BAF7DA01C21527D0027B67E /* goodsSpecificationsTableViewCell.h */,
+				1BAF7DA11C21527D0027B67E /* goodsSpecificationsTableViewCell.m */,
 			);
 			path = onSquareView;
 			sourceTree = "<group>";
@@ -1369,6 +1379,8 @@
 				1B8090FF1C12929D00938258 /* fisterList.m in Sources */,
 				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,
 				1B625AFD1C1E949D00DBAF24 /* secondCommendList.m in Sources */,
+				1BDA460E1C1FFFAD00EF1EAD /* goodsInformationpaceTableViewCell.m in Sources */,
+				1BAF7DA21C21527D0027B67E /* goodsSpecificationsTableViewCell.m in Sources */,
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,
 				1BEF94931BFD660000F7470D /* fourViewController.m in Sources */,
 				1B625B001C1E9A7400DBAF24 /* secondGoodsInfo.m in Sources */,

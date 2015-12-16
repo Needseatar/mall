@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "dataCommodityInformation.h"
 #import "goodInformationTableViewCell.h"
+#import "goodsInformationpaceTableViewCell.h"
+#import "goodsSpecificationsTableViewCell.h"
 
 @interface goodInformationViewController : UIViewController
 

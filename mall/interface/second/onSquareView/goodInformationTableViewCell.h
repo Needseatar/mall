@@ -11,6 +11,7 @@
 
 @interface goodInformationTableViewCell : UITableViewCell
 
+
 -(void)setImage:(dataCommodityInformation *)data;
 
 @end

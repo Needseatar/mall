@@ -22,4 +22,6 @@
 @property (retain, nonatomic) NSString *store_qq;
 @property (retain, nonatomic) NSString *store_ww;
 
++(secondStoreList *)setValueWithDictionary:(NSDictionary *)data;
+
 @end
