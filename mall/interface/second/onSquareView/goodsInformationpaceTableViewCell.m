@@ -136,9 +136,9 @@
         //计算label的上标题的高度，并且设置其frame，和设置self.bgPaceView.frame
         self.upLabel.text = [data.goods_info goods_jingle];
         CGRect frame = self.upLabel.frame;
-        frame.size.height = heightEx([self heightWithString:[data.goods_info goods_jingle] width:310 fontSize:18]);
+        frame.size.height = heightEx([self heightWithString:[data.goods_info goods_jingle] width:bgWidth fontSize:setFontSize]);
         self.upLabel.frame = frame;
-        self.bgPaceView.frame = CGRectMake(self.upLabel.frame.origin.x, self.upLabel.frame.origin.y+self.upLabel.frame.size.height, widthEx(310), heightEx(90));
+        self.bgPaceView.frame = CGRectMake(self.upLabel.frame.origin.x, self.upLabel.frame.origin.y+self.upLabel.frame.size.height, widthEx(bgWidth), heightEx(Pacebg));
         
         //加载字体
         self.leftPriceLabel.text = @"价格:";
@@ -156,10 +156,10 @@
         self.leftStoreNameLabel.text = @"服务:";
         
         //设置服务
-        self.rightStoreNameLabel.frame = CGRectMake(widthEx(5+50), self.bgPaceView.frame.origin.y+self.bgPaceView.frame.size.height, widthEx(310-50), heightEx(30));
+        self.rightStoreNameLabel.frame = CGRectMake(widthEx(bgX+Service), self.bgPaceView.frame.origin.y+self.bgPaceView.frame.size.height, widthEx(bgWidth-Service), heightEx(30));
         self.rightStoreNameLabel.text = [NSString stringWithFormat:@"由%@负责发货,并提供售后服务", [data.store_info store_name]];
         CGRect frame1 = self.rightStoreNameLabel.frame;
-        frame1.size.height = heightEx([self heightWithString:self.rightStoreNameLabel.text width:310-50 fontSize:18]);
+        frame1.size.height = heightEx([self heightWithString:self.rightStoreNameLabel.text width:bgWidth-Service fontSize:setFontSize]);
         self.rightStoreNameLabel.frame = frame1;
     }
 

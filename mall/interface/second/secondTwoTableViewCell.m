@@ -8,6 +8,7 @@
 
 #import "secondTwoTableViewCell.h"
 
+
 @interface secondTwoTableViewCell ()
 
 @property (retain, nonatomic) UIView         *bgView;

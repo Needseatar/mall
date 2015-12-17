@@ -254,11 +254,11 @@
         return heightEx(40);
     }else if (indexPath.section == 2) // 第三组
     {
-        //计算第三组label的高度，设置的值在goodsInformationpaceTableViewCell已经写死了，要是更改，就要到goodsInformationpaceTableViewCell更改视图的计算值
-        NSInteger up = [self heightWithString:[self.data.goods_info goods_jingle] width:310 fontSize:18]; //上面标题的高度
+        //计算第三组label的高度，要更改需要到 PrefixHeader 更改
+        NSInteger up = [self heightWithString:[self.data.goods_info goods_jingle] width:bgWidth fontSize:setFontSize]; //上面标题的高度
         NSString *string = [NSString stringWithFormat:@"由%@负责发货,并提供售后服务", [self.data.store_info store_name]];
-        NSInteger storeName = [self heightWithString:string width:310-50 fontSize:18]; //服务后面的发货商介绍视图
-        NSInteger bg = 90; //价格的背景视图的高度
+        NSInteger storeName = [self heightWithString:string width:bgWidth-Service fontSize:setFontSize]; //服务后面的发货商介绍视图
+        NSInteger bg = Pacebg; //价格的背景视图的高度
         return heightEx(up+storeName+bg+10);
     }else if (indexPath.section == 3) //第四组，是设置商品的规格选择
     {
