@@ -30,7 +30,7 @@
         self.downLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(5, 250, 310, 30)];
         self.downLabel.numberOfLines = 0;
         self.downLabel.font = [UIFont systemFontOfSize:18];
-        self.downLabel.backgroundColor = [UIColor redColor];
+        self.downLabel.backgroundColor = [UIColor clearColor];
         self.downLabel.textColor = [UIColor blackColor];
         [self addSubview:self.downLabel];
     }

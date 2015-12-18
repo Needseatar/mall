@@ -10,7 +10,8 @@
 
 @interface thirdViewController ()<UISearchBarDelegate>
 
-@property (nonatomic, strong)UISearchBar *searchBar;
+@property (nonatomic, strong)UISearchBar    *searchBar;
+@property (nonatomic, strong)NSMutableArray *mArry;
 
 @end
 
@@ -21,7 +22,27 @@
     
     [self createSearchBar];  //设置导航栏
     
+    [self setButtonRandom]; //设置随机button
+    
     [self.view setBackgroundColor:[UIColor greenColor]];
+}
+
+-(void)setButtonRandom
+{
+    CGRect fram = CGRectMakeEx(0, 0, 10, 20);
+    for (int i=0; i<300; i++) {
+        UIView *vi = [[UIView alloc] init];
+        vi.frame = CGRectMakeEx((i%6)*50+10, (i/6)*30, 50, 30);
+        if (i%2 == 0) {
+            vi.backgroundColor = [UIColor blueColor];
+        }else
+        {
+            vi.backgroundColor = [UIColor redColor];
+        }
+        
+        [self.view addSubview:vi];
+    }
+    
 }
 
 #pragma mark - 设置导航栏的搜索和取消

@@ -114,17 +114,6 @@
         self.fisterData = [fisterData setValueWithDictionary:dict];
         [self.tableView reloadData];
         
-//        fisterData *eeeee =[fisterData setValueWithDictionary:dict];
-//        fisterHome1 *ddd=[[fisterHome1 alloc] init];
-//        ddd = eeeee.FHome[0];
-//        fisterHome4 *eed=[[fisterHome4 alloc] init];
-//        eed = eeeee.FHome[2];
-//        //NSLog(@"%d", eeeee.FHome.count);
-//        NSLog(@"%@", ddd.title);
-//        NSLog(@"%@", eed.rectangle1_data);
-//        NSLog(@"%@", [eeeee.FList[0] goods_name]);
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];

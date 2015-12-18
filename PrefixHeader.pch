@@ -25,8 +25,9 @@
 #define Service 50       //服务的宽度
 
 
-#define SpecificationHeight 60   //使用在设置库存的背景视图的高
+#define SpecificationHeight 30   //使用在设置库存的背景视图的高
 #define Interval            10    //使用在设置视图的间隔
+#define IntervalButton      3    //库存下面一个款式的一个背景视图的button上下button的间隔
 
 
 /**************************************************************************************************
