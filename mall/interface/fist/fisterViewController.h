@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "fisterData.h"
+#import "fisterBrandTableViewCell.h"
+#import "fisterHome1TableViewCell.h"
+#import "fisterHome4TableViewCell.h"
+#import "fisterListerTableViewCell.h"
 
 @interface fisterViewController : UIViewController
 

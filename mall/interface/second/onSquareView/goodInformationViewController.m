@@ -136,8 +136,8 @@
 -(void)requestCommodit{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
-    NSLog(DetailedCommodity, self.goods_id);
-    [manager GET:[NSString stringWithFormat:DetailedCommodity, self.goods_id] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSLog(DetailedCommodity, (long)self.goods_id);
+    [manager GET:[NSString stringWithFormat:DetailedCommodity, (long)self.goods_id] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
         

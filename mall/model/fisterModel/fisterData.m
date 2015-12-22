@@ -21,19 +21,22 @@
     
     for (int i=0; i<arrayData.count; i++) {
         
-        //home1
-        if (i<2) {
-            NSDictionary *dicHome1 = arrayData[i];
-            [mode.FHome addObject:[fisterHome1 setValueWithDictionary:dicHome1]];
-            NSLog(@"%lu", mode.FHome.count);
-        }else if (i==2) //home4
-        {
-            NSDictionary *dicHome4 = arrayData[i];
-            [mode.FHome addObject:[fisterHome4 setValueWithDictionary:dicHome4]];
-        }else if (i==4) //goods
-        {
-            NSDictionary *dicgoods = arrayData[i];
-            [mode setValueWithFlistDictionary:dicgoods[@"goods"]];
+        NSDictionary *dicHome = arrayData[i];
+        for (NSDictionary *dic in dicHome) { //根据里面的字典选择相应的model
+            NSString *stringkey = [NSString stringWithFormat:@"%@", dic];
+            NSLog(@"%@", stringkey);
+            if ([stringkey isEqualToString:@"home1"]) { //home1
+                NSDictionary *dicHome1 = arrayData[i];
+                [mode.FHome addObject:[fisterHome1 setValueWithDictionary:dicHome1]];
+            }else if ([stringkey isEqualToString:@"home4"]) //home4
+            {
+                NSDictionary *dicHome4 = arrayData[i];
+                [mode.FHome addObject:[fisterHome4 setValueWithDictionary:dicHome4]];
+            }else if ([stringkey isEqualToString:@"goods"]) //goods
+            {
+                NSDictionary *dicgoods = arrayData[i];
+                [mode setValueWithFlistDictionary:dicgoods[@"goods"]];
+            }
         }
     }
     return mode;

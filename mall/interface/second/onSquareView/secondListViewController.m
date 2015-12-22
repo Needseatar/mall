@@ -177,7 +177,7 @@ typedef enum {
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
-    [manager GET:[NSString stringWithFormat:SecondListRequest, self.key, self.order, self.page, self.curpage, self.gc_ID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:SecondListRequest, self.key, (long)self.order, (long)self.page, (long)self.curpage, (long)self.gc_ID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
         self.arrayData = [commodityList setValueWithDictionary:dict];
@@ -192,7 +192,7 @@ typedef enum {
 -(void)setTabelView
 {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 94, 320, 474) style:UITableViewStylePlain];
-    [_tableView setBackgroundColor:[UIColor redColor]];
+    [_tableView setBackgroundColor:[UIColor clearColor]];
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone]; //设置tabel没有的cell不显示出来
     _tableView.delegate = self;
     _tableView.dataSource = self;

@@ -82,7 +82,6 @@
     float starFLOAT = [data.evaluation_good_star floatValue];
     NSInteger starINT = [data.evaluation_good_star integerValue];
     if (starFLOAT >= (float)starINT) {
-        NSLog(@"%ld", starINT);
         for (int i=0; i<starINT; i++) {
             UIImageView *star = [self.bgStarView viewWithTag:i+110];
             [star setImage:[UIImage imageNamed:@"product_detail_new_collect_pressed.png"]];

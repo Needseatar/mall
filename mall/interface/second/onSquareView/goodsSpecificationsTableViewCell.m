@@ -211,7 +211,7 @@
 {
     NSString *textString =  [NSString stringWithFormat:@"%@%@", self.selectNumberTextfiled.text, string];
     if ([textString integerValue]>self.maxSpecifications) {
-        self.selectNumberTextfiled.text = [NSString stringWithFormat:@"%ld", self.maxSpecifications];
+        self.selectNumberTextfiled.text = [NSString stringWithFormat:@"%ld", (long)self.maxSpecifications];
         return NO;
     }else
     {
@@ -253,7 +253,7 @@
             number = self.maxSpecifications;
         }
     }
-    self.selectNumberTextfiled.text = [NSString stringWithFormat:@"%ld", number];
+    self.selectNumberTextfiled.text = [NSString stringWithFormat:@"%ld", (long)number];
 }
 
 #pragma mark - 画虚线函数

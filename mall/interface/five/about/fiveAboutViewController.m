@@ -122,7 +122,7 @@
     
     //logo
     UIImageView *imageLogoView = [[UIImageView alloc] initWithFrame:CGRectMakeEx(35, 0, 80, 80)];
-    imageLogoView.image = [UIImage imageNamed:@"app_logo.png"];
+    imageLogoView.image = [UIImage imageNamed:@"ic_launcher@2x.png"];
     [bgView addSubview:imageLogoView];
     
     //版本号

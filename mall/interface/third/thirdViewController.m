@@ -8,40 +8,146 @@
 
 #import "thirdViewController.h"
 
+#define Deviation 80  // 设置字体偏移的距离
+#define AnimationTime   0.5  //设置动画时间
+
 @interface thirdViewController ()<UISearchBarDelegate>
 
-@property (nonatomic, strong)UISearchBar    *searchBar;
-@property (nonatomic, strong)NSMutableArray *mArry;
+@property (nonatomic, strong) UISearchBar    *searchBar;
+@property (nonatomic, strong) NSArray        *mArry;
+
+@property (nonatomic, retain) NSMutableArray *mRectBeginArray; //开始时候but的位置
+@property (nonatomic, retain) NSMutableArray *mRectArray;     //结束时候的位置
+@property (nonatomic, retain) NSMutableArray *mColorArray;    //but的颜色
 
 @end
 
 @implementation thirdViewController
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    for (UIView *suView in [self.view subviews]) {  //移除视图上的空间
+        [suView removeFromSuperview];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self requestSearchText];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self createSearchBar];  //设置导航栏
     
-    [self setButtonRandom]; //设置随机button
-    
-    [self.view setBackgroundColor:[UIColor greenColor]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 -(void)setButtonRandom
 {
-    CGRect fram = CGRectMakeEx(0, 0, 10, 20);
-    for (int i=0; i<300; i++) {
-        UIView *vi = [[UIView alloc] init];
-        vi.frame = CGRectMakeEx((i%6)*50+10, (i/6)*30, 50, 30);
-        if (i%2 == 0) {
-            vi.backgroundColor = [UIColor blueColor];
-        }else
-        {
-            vi.backgroundColor = [UIColor redColor];
+    self.mRectArray = [[NSMutableArray alloc] init];
+    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<84; i++) {
+        CGRect frame = CGRectMakeEx((i%6)*50+10, (i/6)*30+10, 60, 30); //设置7列12行 ，会有10像素重叠，但是设置了不重复条件，所以不会选到两个重叠的
+        [mArray addObject:[NSValue valueWithCGRect:frame]];
+    }
+    
+    for (int i=0; i<6; i++) {
+        CGRect rect = [[mArray objectAtIndex:arc4random()%83] CGRectValue];
+        
+        for (int j=0; j<self.mRectArray.count; j++) {//判断和之前的数据是否重叠
+            NSLog(@"%d", j);
+            CGRect sssss =  [[self.mRectArray objectAtIndex:j] CGRectValue];
+            
+            if (sssss.origin.x==rect.origin.x) {
+                j=-1;
+                rect = [[mArray objectAtIndex:arc4random()%83] CGRectValue];
+                continue;
+            }
+            if (sssss.origin.y==rect.origin.y) {
+                j=-1;
+                rect = [[mArray objectAtIndex:arc4random()%83] CGRectValue];
+                continue;
+            }
         }
         
-        [self.view addSubview:vi];
+        [self.mRectArray addObject:[NSValue valueWithCGRect:rect]];
     }
+    self.mRectBeginArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<self.mArry.count; i++) {
+        CGRect cgre22 = [[self.mRectArray objectAtIndex:i] CGRectValue];
+        
+        float k = (cgre22.origin.y-250)/(float)(cgre22.origin.x-160);
+        NSLog(@"%f", k);
+        float b = (float)250 - k*(float)160;
+        
+        if (cgre22.origin.x>=160 && cgre22.origin.y<250) {  //第一象限
+            if (cgre22.origin.x==160) {
+                cgre22 = CGRectMake(cgre22.origin.x, cgre22.origin.y-Deviation, cgre22.size.width, cgre22.size.height);
+            }else
+            {
+                cgre22 = CGRectMake(cgre22.origin.x+Deviation, k*(float)(cgre22.origin.x+Deviation)+b, cgre22.size.width, cgre22.size.height);
+            }
+        }else if (cgre22.origin.x<160 && cgre22.origin.y<250)//第二象限
+        {
+            cgre22 = CGRectMake(cgre22.origin.x-Deviation, k*(float)(cgre22.origin.x-Deviation)+b, cgre22.size.width, cgre22.size.height);
+        }else if (cgre22.origin.x<=160 && cgre22.origin.y>=250)//第三象限
+        {
+            if (cgre22.origin.y==250 && cgre22.origin.x==160) {
+                cgre22 = CGRectMake(cgre22.origin.x-Deviation, cgre22.origin.y+Deviation, cgre22.size.width, cgre22.size.height);
+            }else if (cgre22.origin.y==250)
+            {
+                cgre22 = CGRectMake(cgre22.origin.x-Deviation, cgre22.origin.y, cgre22.size.width, cgre22.size.height);
+            }else if (cgre22.origin.x==160)
+            {
+                cgre22 = CGRectMake(cgre22.origin.x, cgre22.origin.y+Deviation, cgre22.size.width, cgre22.size.height);
+            }else
+            {
+                cgre22 = CGRectMake(cgre22.origin.x-Deviation, k*(float)(cgre22.origin.x-Deviation)+b, cgre22.size.width, cgre22.size.height);
+            }
+        }else if(cgre22.origin.x>160 && cgre22.origin.y>=250)//第四象限
+        {
+            if (cgre22.origin.y==250) {
+                cgre22 = CGRectMake(cgre22.origin.x+Deviation, cgre22.origin.y, cgre22.size.width, cgre22.size.height);
+            }else
+            {
+                cgre22 = CGRectMake(cgre22.origin.x+Deviation, k*(float)(cgre22.origin.x+Deviation)+b, cgre22.size.width, cgre22.size.height);
+            }
+        }
+        [self.mRectBeginArray addObject:[NSValue valueWithCGRect:cgre22]];
+    }
+    
+    self.mColorArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<self.mArry.count; i++) {
+        UIColor *color = [UIColor colorWithRed:(arc4random()%119)/255.0f green:(arc4random()%255)/255.0f blue:(arc4random()%255)/255.0f alpha:1];
+        [self.mColorArray addObject:color];
+    }
+}
+
+-(void)setButton
+{
+    for (int i=0; i<self.mArry.count; i++) {
+        UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
+        [but setTitleColor:self.mColorArray[i] forState:UIControlStateNormal];
+        but.titleLabel.font = [UIFont systemFontOfSize:18];
+        [but setTitle:self.mArry[i] forState:UIControlStateNormal];
+        but.layer.shadowOffset=CGSizeMake(6, 6); //设置偏移
+        but.layer.shadowOpacity=0.8;  //设置影子
+        but.frame= [[self.mRectBeginArray objectAtIndex:i] CGRectValue];  //按钮开始位置
+        [UIView beginAnimations:@"" context:nil];
+        [UIView setAnimationDuration:AnimationTime];//动画时间
+        [UIView setAnimationDelegate:self];
+        but.frame=  [[self.mRectArray objectAtIndex:i] CGRectValue];//动画结束时候位置
+        [UIView commitAnimations];
+        [but addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside]; //加载动作
+        [self.view addSubview:but];
+    }
+}
+
+-(void)buttonAction:(UIButton *)but
+{
     
 }
 
@@ -67,6 +173,37 @@
     UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
     self.navigationItem.rightBarButtonItem = rightCameraItem;
     
+}
+#pragma mark - 请求数据
+-(void)requestSearchText
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+    [manager GET:SearchText parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *aString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", aString);
+        NSRange range = [aString rangeOfString:@"=>"];//匹配得到的下标
+        aString = [aString substringFromIndex:range.location+range.length];//截取下标 ' 之前的字符串
+        range = [aString rangeOfString:@"'"];
+        aString = [aString substringFromIndex:range.location+range.length];//截掉下标 ' 之前的字符串
+        range = [aString rangeOfString:@"'"];
+        aString = [aString substringToIndex:range.location];//截掉下标 ' 之后的字符串
+        NSLog(@"截取的值为：%@",aString);
+        self.mArry = [[NSArray alloc] init];
+        self.mArry = [aString componentsSeparatedByString:@","]; //从字符，中分隔成n个元素的数组
+        
+        for (UIView *suView in [self.view subviews]) {  //移除视图上的空间
+            [suView removeFromSuperview];
+        }
+        
+        [self setButtonRandom]; //设置随机button 的位置和颜色
+        
+        [self setButton];    //加载随机button
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        
+        
+    }];
 }
 
 
