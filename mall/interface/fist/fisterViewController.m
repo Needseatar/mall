@@ -205,7 +205,7 @@
                 h++;
             }
         }
-        if (h==1) { //当是最后一个是单个的时候
+        if (h==0) { //当是最后一个是单个的时候
             [self.listData addObject:twoListArray];
         }
         

@@ -27,6 +27,7 @@
 		1B8091021C1292D600938258 /* fisterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8091011C1292D600938258 /* fisterData.m */; };
 		1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */; };
 		1BA63A1A1C23E22C00922698 /* goodsEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA63A191C23E22C00922698 /* goodsEvaluateTableViewCell.m */; };
+		1BABA65B1C2A491800FF5BEF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BABA65A1C2A491800FF5BEF /* Default@2x.png */; };
 		1BAF7DA21C21527D0027B67E /* goodsSpecificationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAF7DA11C21527D0027B67E /* goodsSpecificationsTableViewCell.m */; };
 		1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAFA9DD1C157B6600EA6825 /* thirClassification.m */; };
 		1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */; };
@@ -70,7 +71,6 @@
 		1BC25A8D1C2945D200E17599 /* product_detail_new_collect.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC25A681C2945D200E17599 /* product_detail_new_collect.png */; };
 		1BC25A8E1C2945D200E17599 /* product_detail_new_collect_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC25A691C2945D200E17599 /* product_detail_new_collect_press.png */; };
 		1BC25A8F1C2945D200E17599 /* product_detail_new_collect_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC25A6A1C2945D200E17599 /* product_detail_new_collect_pressed.png */; };
-		1BC25A901C2945D200E17599 /* start_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BC25A6B1C2945D200E17599 /* start_background.jpg */; };
 		1BC25A941C294A3900E17599 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC25A931C294A3900E17599 /* icon@2x.png */; };
 		1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5D8651C195F5A00DB078C /* commodityList.m */; };
 		1BD136971C27DB6200736179 /* fisterBrandTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD136961C27DB6200736179 /* fisterBrandTableViewCell.m */; };
@@ -150,6 +150,7 @@
 		1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondMainTableViewCell.m; sourceTree = "<group>"; };
 		1BA63A181C23E22C00922698 /* goodsEvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodsEvaluateTableViewCell.h; sourceTree = "<group>"; };
 		1BA63A191C23E22C00922698 /* goodsEvaluateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodsEvaluateTableViewCell.m; sourceTree = "<group>"; };
+		1BABA65A1C2A491800FF5BEF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		1BAF7DA01C21527D0027B67E /* goodsSpecificationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodsSpecificationsTableViewCell.h; sourceTree = "<group>"; };
 		1BAF7DA11C21527D0027B67E /* goodsSpecificationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodsSpecificationsTableViewCell.m; sourceTree = "<group>"; };
 		1BAFA9DC1C157B6600EA6825 /* thirClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thirClassification.h; sourceTree = "<group>"; };
@@ -200,7 +201,6 @@
 		1BC25A681C2945D200E17599 /* product_detail_new_collect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = product_detail_new_collect.png; sourceTree = "<group>"; };
 		1BC25A691C2945D200E17599 /* product_detail_new_collect_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = product_detail_new_collect_press.png; sourceTree = "<group>"; };
 		1BC25A6A1C2945D200E17599 /* product_detail_new_collect_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = product_detail_new_collect_pressed.png; sourceTree = "<group>"; };
-		1BC25A6B1C2945D200E17599 /* start_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = start_background.jpg; sourceTree = "<group>"; };
 		1BC25A931C294A3900E17599 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		1BC5D8641C195F5A00DB078C /* commodityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commodityList.h; sourceTree = "<group>"; };
 		1BC5D8651C195F5A00DB078C /* commodityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = commodityList.m; sourceTree = "<group>"; };
@@ -392,7 +392,7 @@
 				1BC25A681C2945D200E17599 /* product_detail_new_collect.png */,
 				1BC25A691C2945D200E17599 /* product_detail_new_collect_press.png */,
 				1BC25A6A1C2945D200E17599 /* product_detail_new_collect_pressed.png */,
-				1BC25A6B1C2945D200E17599 /* start_background.jpg */,
+				1BABA65A1C2A491800FF5BEF /* Default@2x.png */,
 			);
 			path = image;
 			sourceTree = "<group>";
@@ -720,6 +720,7 @@
 				1BC25A6E1C2945D200E17599 /* bg_user_center.jpg in Resources */,
 				1BC25A841C2945D200E17599 /* nav_2.png in Resources */,
 				1BEF93E91BFD62FC00F7470D /* LaunchScreen.storyboard in Resources */,
+				1BABA65B1C2A491800FF5BEF /* Default@2x.png in Resources */,
 				1BC25A731C2945D200E17599 /* default_user_portrait.gif in Resources */,
 				1BC25A771C2945D200E17599 /* main_bottom_tab_cart_focus.png in Resources */,
 				1BC25A8F1C2945D200E17599 /* product_detail_new_collect_pressed.png in Resources */,
@@ -730,7 +731,6 @@
 				1BC25A941C294A3900E17599 /* icon@2x.png in Resources */,
 				1BC25A831C2945D200E17599 /* nav_1.png in Resources */,
 				1BEF93E61BFD62FC00F7470D /* Assets.xcassets in Resources */,
-				1BC25A901C2945D200E17599 /* start_background.jpg in Resources */,
 				1BC25A6D1C2945D200E17599 /* barcode_normal.png in Resources */,
 				1BC25A741C2945D200E17599 /* home_logo.png in Resources */,
 				1BEF93E41BFD62FC00F7470D /* Main.storyboard in Resources */,
