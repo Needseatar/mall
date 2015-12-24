@@ -65,16 +65,12 @@
     fiveView.tabBarItem = item5;
     fiveView.title = @"我";
     UINavigationController * NfiveView = [[UINavigationController alloc] initWithRootViewController:fiveView];
-    NSLog(@"%f", NfiveView.navigationBar.frame.size.width);
-    NSLog(@"%f", NfiveView.navigationBar.frame.size.height);
     
     
     UITabBarController * tabbarControl = [[UITabBarController alloc] init];
     tabbarControl.viewControllers = @[NfistView, NsecondView, NthirdView, NfourView, NfiveView];
     [tabbarControl.tabBarController.tabBar setTintColor:[UIColor whiteColor]];
     [tabbarControl.tabBarController.tabBar setAlpha:1];
-    NSLog(@"%f", tabbarControl.tabBar.frame.size.width);
-    NSLog(@"%f", tabbarControl.tabBar.frame.size.height);
     [self addChildViewController:tabbarControl];
     [self.view addSubview:tabbarControl.view];
 }
