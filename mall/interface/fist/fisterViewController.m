@@ -22,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
     [self createSearchBar]; //设置导航栏
     
     [self requestFisterView];

@@ -6,6 +6,12 @@
 //  Copyright (c) 2015年 zhang jian. All rights reserved.
 //
 
+
+/*
+ *以5和5s 作为参考坐标
+ *
+ */
+
 #import "ZJScreenAdaptation.h"
 
 @implementation ZJScreenAdaptation
@@ -19,16 +25,30 @@ static double autoSizeScaleY;
     //获取屏幕大小
     CGSize size = [[UIScreen mainScreen] bounds].size;
     
-    //如果是iPhone6,6plus
-    if(size.height > 480){
-        autoSizeScaleX = size.width/320;
-        autoSizeScaleY = size.height/568;
-    }
-    //如果是iPhone5,5s
-    else{
+    //苹果4s
+    if (size.height == 480.000000) {
+        autoSizeScaleX = 1.0;
+        autoSizeScaleY = (float)size.height/568.0;
+    }else if(size.height == 568.000000) //苹果5或者5s
+    {
         autoSizeScaleX = 1.0;
         autoSizeScaleY = 1.0;
+    }else //苹果6或者6s //苹果6plus或者6s plus
+    {
+        autoSizeScaleX = (float)size.width/320.0;
+        autoSizeScaleY = (float)size.height/568.0;
     }
+    
+//    //如果是iPhone6,6plus
+//    if(size.height > 480){
+//        autoSizeScaleX = (float)size.width/320.0;
+//        autoSizeScaleY = (float)size.height/568.0;
+//    }
+//    //如果是iPhone5,5s
+//    else{
+//        autoSizeScaleX = 1.0;
+//        autoSizeScaleY = 1.0;
+//    }
 }
 CGRect CGRectMakeAdaptation(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
 {

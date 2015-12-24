@@ -9,6 +9,28 @@
 /*
  *  适配
  *
+ 苹果4s
+ width：320.000000
+ height：480.000000
+ 苹果5
+ width：320.000000
+ height：568.000000
+ 苹果5s
+ width：320.000000
+ height：568.000000
+ 苹果6
+ width：375.000000
+ height：667.000000
+ 苹果6 plus
+ width：414.000000
+ height：736.000000
+ 苹果6s
+ width：375.000000
+ height：667.000000
+ 苹果6s plus
+ width：414.000000
+ height：736.000000
+ 
  */
 
 #import <Foundation/Foundation.h>

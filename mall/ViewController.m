@@ -24,9 +24,7 @@
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal]; //设置没有选择字体颜色
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];//设置选中字体颜色
     fistView.tabBarItem = item1;
-    fistView.title = @"首页";
     UINavigationController * NfistView = [[UINavigationController alloc] initWithRootViewController:fistView];
-    
     
     secondViewController * secondView = [[secondViewController alloc] init];
     UIImage * normalImage2 = [[UIImage imageNamed:@"main_bottom_tab_category_normal.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -35,7 +33,6 @@
     [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal]; //设置没有选择字体颜色
     [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];//设置选中字体颜色
     secondView.tabBarItem = item2;
-    secondView.title = @"分类";
     UINavigationController * NsecondView = [[UINavigationController alloc] initWithRootViewController:secondView];
     
     
@@ -46,7 +43,6 @@
     [item3 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal]; //设置没有选择字体颜色
     [item3 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor], NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];//设置选中字体颜色
     thirdView.tabBarItem = item3;
-    thirdView.title = @"搜索";
     UINavigationController * NthirdView = [[UINavigationController alloc] initWithRootViewController:thirdView];
     
     fourViewController * fourView = [[fourViewController alloc] init];
@@ -69,13 +65,16 @@
     fiveView.tabBarItem = item5;
     fiveView.title = @"我";
     UINavigationController * NfiveView = [[UINavigationController alloc] initWithRootViewController:fiveView];
+    NSLog(@"%f", NfiveView.navigationBar.frame.size.width);
+    NSLog(@"%f", NfiveView.navigationBar.frame.size.height);
     
     
     UITabBarController * tabbarControl = [[UITabBarController alloc] init];
     tabbarControl.viewControllers = @[NfistView, NsecondView, NthirdView, NfourView, NfiveView];
     [tabbarControl.tabBarController.tabBar setTintColor:[UIColor whiteColor]];
     [tabbarControl.tabBarController.tabBar setAlpha:1];
-    
+    NSLog(@"%f", tabbarControl.tabBar.frame.size.width);
+    NSLog(@"%f", tabbarControl.tabBar.frame.size.height);
     [self addChildViewController:tabbarControl];
     [self.view addSubview:tabbarControl.view];
 }
