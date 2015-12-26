@@ -24,6 +24,14 @@
 
 @implementation thirdViewController
 
+#pragma mark - 设置按钮显示 返回
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self == [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:nil action:nil];
+    }
+    return self;
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     for (UIView *suView in [self.view subviews]) {  //移除视图上的空间
@@ -158,7 +166,7 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(20, 7, 240, 20)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeNavigationEx(20, 0, 240, 40, changeWidth)];
     _searchBar.placeholder = @"请输入搜索内容";
     _searchBar.delegate = self;
     [self.navigationController.navigationBar addSubview:_searchBar];
@@ -169,7 +177,7 @@
     [rightCamera setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //rightCamera.titleLabel.font = [UIFont systemFontOfSize:18];
     //rightCamera.titleLabel.backgroundColor = [UIColor blueColor];
-    rightCamera.frame = CGRectMakeEx(0, 0, 45, 25);
+    rightCamera.frame = CGRectMakeNavigationEx(0, 0, 45, 25, changeWidth);
     UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
     self.navigationItem.rightBarButtonItem = rightCameraItem;
     

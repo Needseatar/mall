@@ -8,6 +8,7 @@
 
 /*
  *  适配
+ * 导航和标签栏的height不变
  *
  苹果4s
  width：320.000000
@@ -37,7 +38,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum { //传递导航栏的样式
+    changeWidth=1,  //长会变
+    changeX=2,   //x坐标位置会变
+    noChange=3  //都不变
+}CGChange;
+
 #define CGRectMakeEx(x,y,width,height) CGRectMakeAdaptation(x, y, width, height)
+
+#define CGRectMakeNavigationEx(x, y, width, height, style) CGRectMakeNavigation(x, y, width, height, style)
+
 #define CGSizeMakeEx(width,height) CGSizeMakeAdaptation(width, height)
 #define widthEx(width) heightAdaptation(width)
 #define heightEx(height) heightAdaptation(height)
@@ -45,6 +55,9 @@
 @interface ZJScreenAdaptation : NSObject
 //扩展函数适配Rect
 CGRect CGRectMakeAdaptation(CGFloat x, CGFloat y, CGFloat width, CGFloat height);
+
+CGRect  CGRectMakeNavigation(CGFloat x, CGFloat y, CGFloat width, CGFloat height, CGChange style);
+
 //扩展适应Size
 CGSize CGSizeMakeAdaptation(CGFloat width, CGFloat height);
 //适配高度

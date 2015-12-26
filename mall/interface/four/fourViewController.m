@@ -16,6 +16,14 @@
 
 @implementation fourViewController
 
+#pragma mark - 设置按钮显示 返回
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self == [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"购物车" style:UIBarButtonItemStylePlain target:nil action:nil];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

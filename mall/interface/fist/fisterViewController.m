@@ -8,6 +8,8 @@
 
 #import "fisterViewController.h"
 
+
+
 @interface fisterViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UISearchBar       *searchBar;
@@ -19,10 +21,27 @@
 
 @implementation fisterViewController
 
+#pragma mark - 设置按钮显示 返回
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self == [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"首页" style:UIBarButtonItemStylePlain target:nil action:nil];
+    }
+    return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    UISearchBar *searchView = [self.navigationController.navigationBar viewWithTag:30];
+    searchView.hidden =  NO;
+    self.tabBarController.tabBar.hidden = NO;  //便签控制器不隐藏
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     
     [self createSearchBar]; //设置导航栏
     
@@ -35,27 +54,28 @@
 -(void)createSearchBar{
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    self.navigationController.navigationBar.translucent = NO;
+    //self.navigationController.navigationBar.translucent = NO;
     //UIRectEdgeAll的时候会让tableView从导航栏下移44px，设置为UIRectEdgeNone的时候，刚刚在导航栏下面。
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(65, 7, 200, 20)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeNavigationEx(75, 0, 200, 40, changeWidth)];
+    _searchBar.tag = 30;
     _searchBar.placeholder = @"请输入搜索内容";
     _searchBar.delegate = self;
     [self.navigationController.navigationBar addSubview:_searchBar];
     
     //左边logo
     UIButton * leftLogo = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftLogo.frame = CGRectMakeEx(0, 0, 40,20);
+    leftLogo.frame = CGRectMakeNavigationEx(0, 0, 40, 20, changeWidth);
     [leftLogo setImage:[UIImage imageNamed:@"home_logo.png"] forState:UIControlStateNormal];
     UIBarButtonItem * leftLogoItem = [[UIBarButtonItem alloc] initWithCustomView:leftLogo];
     self.navigationItem.leftBarButtonItem = leftLogoItem;
     
     //右边二维码
     UIButton * rightCamera = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightCamera.frame = CGRectMakeEx(0, 0, 20,20);
+    rightCamera.frame = CGRectMakeNavigationEx(0, 0, 20, 20, changeWidth);
     [rightCamera setImage:[UIImage imageNamed:@"barcode_normal.png"] forState:UIControlStateNormal];
     UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
     self.navigationItem.rightBarButtonItem = rightCameraItem;
@@ -65,12 +85,23 @@
 #pragma mark - 加载tabel
 -(void)setTabelView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, 320, 455) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, 320, 568-49) style:UITableViewStylePlain];
     [_tableView setBackgroundColor:[UIColor colorWithRed:238.0f/255.0f green:238.0f/255.0f blue:238.0f/255.0f alpha:1]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    
+    NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
+    //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
+    //如果需要带参数只能将该通知作为参数携带过去
+    [center addObserver:self selector:@selector(notice:) name:@"mallID" object:nil];
+    
+    NSNotificationCenter * centerFunction = [NSNotificationCenter defaultCenter];
+    [centerFunction addObserver:self selector:@selector(function:) name:@"function" object:nil];
+    
+    NSNotificationCenter * centerHome4 = [NSNotificationCenter defaultCenter];
+    [centerHome4 addObserver:self selector:@selector(home:) name:@"Home4" object:nil];
 }
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法
@@ -102,7 +133,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
         return cell;
-    }else if(indexPath.section == 1)
+    }else if(indexPath.section == 1)  //home1和home4样式
     {
         //判断数组里面的类是不是fisterHome1类
         if ([self.fisterData.FHome[indexPath.row] isKindOfClass:[fisterHome1 class]]) {  //home1 样式
@@ -151,7 +182,23 @@
 }
 #pragma mark - 跳转到指定视图
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    ;
+    if (indexPath.section == 1) {
+        if ([self.fisterData.FHome[indexPath.row] isKindOfClass:[fisterHome1 class]]) {
+            fisterHome1 *home1 = self.fisterData.FHome[indexPath.row];
+            NSString *str = home1.data;
+            NSLog(@"%@", str);
+            NSRange range = [str rangeOfString:@"goods_id"];//匹配得到的下标
+            str = [str substringFromIndex:(range.location+range.length)];
+            NSLog(@"%@", str);
+            range = [str rangeOfString:@"="];
+            str = [str substringFromIndex:(range.location+range.length)];
+            
+            //视图跳转
+            goodInformationViewController *GInformation = [[goodInformationViewController alloc] init];
+            GInformation.goods_id = [str integerValue];
+            [self.navigationController pushViewController:GInformation animated:YES];
+        }
+    }
 }
 //返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -189,7 +236,7 @@
         NSLog(@"JSON: %@", dict);
         
         self.fisterData = [fisterData setValueWithDictionary:dict];
-        
+        //打包数据
         self.listData = [[NSMutableArray alloc] init];
         int h=0;
         NSMutableArray *twoListArray;
@@ -207,7 +254,7 @@
                 h++;
             }
         }
-        if (h==0) { //当是最后一个是单个的时候
+        if (h==1) { //当是最后一个是单个的时候
             [self.listData addObject:twoListArray];
         }
         
@@ -219,6 +266,58 @@
     }];
 }
 
+#pragma mark - 设置最后的listcell的跳转
+-(void)notice:(NSNotification *)notification{
+    goodInformationViewController *GInformation = [[goodInformationViewController alloc] init];
+    fisterList *FL= [notification object];
+    GInformation.goods_id = [FL.goods_id integerValue];
+    [self.navigationController pushViewController:GInformation animated:YES];
+}
+#pragma mark - 设置泰润商城按钮
+-(void)function:(NSNotification *)notification{
+    NSString *str = [notification object];
+    NSArray *nameArray = @[@"万能居", @"泰润酒店", @"大浪淘沙酒店", @"战略联盟商家",
+                           @"所有店铺", @"所有商品", @"帮助中心", @"反馈留言"];
+    
+    //跳转
+    if ([str isEqualToString:nameArray[0]]) {
+        
+    }else if ([str isEqualToString:nameArray[1]])
+    {
+        
+    }else if ([str isEqualToString:nameArray[2]])
+    {
+        
+    }else if ([str isEqualToString:nameArray[3]])
+    {
+        
+    }else if ([str isEqualToString:nameArray[4]])
+    {
+        
+    }else if ([str isEqualToString:nameArray[5]])
+    {
+        
+    }else if ([str isEqualToString:nameArray[6]])
+    {
+        
+    }else if ([str isEqualToString:nameArray[7]])
+    {
+        
+    }else
+    {
+        
+    }
+    
+}
+
+-(void)home:(NSNotification *)notifica
+{
+    NSString *str = [notifica object];
+    //视图跳转
+    goodInformationViewController *GInformation = [[goodInformationViewController alloc] init];
+    GInformation.goods_id = [str integerValue];
+    [self.navigationController pushViewController:GInformation animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

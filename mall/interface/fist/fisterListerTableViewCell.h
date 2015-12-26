@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "fisterList.h"
+#import "goodInformationViewController.h"
 
 @interface fisterListerTableViewCell : UITableViewCell
 

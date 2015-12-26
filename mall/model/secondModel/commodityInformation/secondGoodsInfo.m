@@ -11,6 +11,7 @@
 @implementation secondGoodsInfo
 
 -(void)setValueWithDictionary:(NSDictionary *)dic{
+
     self.appoint_satedate = dic[@"appoint_satedate"];
     self.areaid_1  = dic[@"areaid_1"];
     self.areaid_2 = dic[@"areaid_2"];

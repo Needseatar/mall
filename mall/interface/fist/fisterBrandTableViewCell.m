@@ -41,42 +41,9 @@
 
 -(void)buttonAction:(UIButton *)but
 {
-    switch (but.tag-20) {
-        case 0:
-        {
-            break;
-        }
-        case 1:
-        {
-            break;
-        }
-        case 2:
-        {
-            break;
-        }
-        case 3:
-        {
-            break;
-        }
-        case 4:
-        {
-            break;
-        }
-        case 5:
-        {
-            break;
-        }
-        case 6:
-        {
-            break;
-        }
-        case 7:
-        {
-            break;
-        }
-        default:
-            break;
-    }
+    NSArray *nameArray = @[@"万能居", @"泰润酒店", @"大浪淘沙酒店", @"战略联盟商家",
+                           @"所有店铺", @"所有商品", @"帮助中心", @"反馈留言"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"function" object:nameArray[but.tag-20]];
 }
 
 - (void)awakeFromNib {

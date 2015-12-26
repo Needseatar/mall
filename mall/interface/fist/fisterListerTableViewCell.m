@@ -13,6 +13,7 @@
 @interface fisterListerTableViewCell ()
 
 @property (retain, nonatomic) UIView *bgView;
+@property (retain, nonatomic) NSArray *data;
 
 @end
 
@@ -34,6 +35,7 @@
             bgButton.layer.cornerRadius =6;
             bgButton.layer.borderWidth = 1;//边框宽度
             bgButton.layer.borderColor = [[UIColor colorWithRed:204.0/255.0f green:204.0/255.0f blue:204.0/255.0f alpha:1] CGColor];//边框颜色
+            [bgButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
             [self.bgView addSubview:bgButton];
             
             //图像
@@ -73,6 +75,7 @@
 
 -(void)setTextAndImage:(NSArray *)goodsDataArray
 {
+    self.data = goodsDataArray;
     for (int i=0; i<viewNumber; i++) {
         UIButton *bgButton = [self.bgView viewWithTag:888+i];
         UIImageView *imageView = [self.bgView viewWithTag:440+i];
@@ -91,6 +94,9 @@
             if (i!=0) { //设置单个数据的隐藏
                 bgButton.hidden = YES;
                 break;
+            }else
+            {
+                goodsData = goodsDataArray[i];
             }
         }else
         {
@@ -102,6 +108,20 @@
         pacelabel.text = [NSString stringWithFormat:@"￥:%@", goodsData.goods_promotion_price];
     }
 }
+
+-(void)buttonAction:(UIButton *)but
+{
+    if (but.tag-888 == 0) {
+        //创建一个消息对象
+        //发送消息
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"mallID" object:self.data[0]];
+    }else if (but.tag-888 == 1)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"mallID" object:self.data[1]];
+    }
+}
+
+
 
 - (void)awakeFromNib {
     // Initialization code

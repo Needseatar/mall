@@ -35,6 +35,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self setValueInit];            //初始化数据
+    
+    UISearchBar *searchView = [self.navigationController.navigationBar viewWithTag:30];
+    searchView.hidden = YES;
+    self.tabBarController.tabBar.hidden = YES;  //便签控制器隐藏
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
+    self.title = @"商品信息";
+
 }
 
 - (void)viewDidLoad {
@@ -293,23 +301,30 @@
             if (self.sectionFour == 0) {
                 //计算商品规格的背景视图
                 NSInteger bgSpecifications =  0;//款式背景视图
-                for (NSDictionary *dic in [self.data.goods_info spec_name]) {
-                    NSDictionary *dic2 = [self.data.goods_info spec_value];
-                    NSDictionary *dicspecValue = dic2[dic]; //通过字典的key找到在[data.goods_info spec_value]里面的字典数量
-                    int grouInt  = (int)dicspecValue.count/2;
-                    float grouFl = dicspecValue.count/2.0;
-                    if (grouFl > (float)grouInt) {
-                        grouInt++;
+                NSLog(@"%@", [self.data.goods_info spec_name]);
+                if ([[self.data.goods_info spec_name] isKindOfClass:[NSDictionary class]]) {
+                    for (NSDictionary *dic in [self.data.goods_info spec_name]) {
+                        NSDictionary *dic2 = [self.data.goods_info spec_value];
+                        NSDictionary *dicspecValue = dic2[dic]; //通过字典的key找到在[data.goods_info spec_value]里面的字典数量
+                        int grouInt  = (int)dicspecValue.count/2;
+                        float grouFl = dicspecValue.count/2.0;
+                        if (grouFl > (float)grouInt) {
+                            grouInt++;
+                        }
+                        bgSpecifications = bgSpecifications + grouInt*(SpecificationHeight+IntervalButton);
+                        bgSpecifications = bgSpecifications+Interval;
+                        
+                        NSInteger specifications = 30+Interval; //库存视图
+                        
+                        NSInteger number = heightEx(5+30); //价格的背景视图的高度
+                        
+                        self.sectionFour = bgSpecifications+specifications+number+10;
                     }
-                    bgSpecifications = bgSpecifications + grouInt*(SpecificationHeight+IntervalButton);
-                    bgSpecifications = bgSpecifications+Interval;
-                    
-                    NSInteger specifications = 30+Interval; //库存视图
-                    
-                    NSInteger number = heightEx(5+30); //价格的背景视图的高度
-                    
-                    self.sectionFour = bgSpecifications+specifications+number+10;
+                }else
+                {
+                    return heightEx(100);
                 }
+
             }
         }
         return heightEx(self.sectionFour);

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mall/interface/second/onSquareView/goodInformationViewController.m"
-            timestampString = "472118334.596934"
+            timestampString = "472811883.110263"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
             landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/fist/fisterBrandTableViewCell.m"
-            timestampString = "472377662.383333"
+            filePath = "mall/interface/fist/fisterViewController.m"
+            timestampString = "472810381.293535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-buttonAction:"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
+            landmarkName = "-function:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/fist/fisterBrandTableViewCell.m"
-            timestampString = "472377662.383333"
+            filePath = "mall/interface/fist/fisterViewController.m"
+            timestampString = "472810381.293535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "-buttonAction:"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "-function:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/fist/fisterBrandTableViewCell.m"
-            timestampString = "472377662.383333"
+            filePath = "mall/interface/fist/fisterViewController.m"
+            timestampString = "472810381.293535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "-buttonAction:"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
+            landmarkName = "-function:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/fist/fisterBrandTableViewCell.m"
-            timestampString = "472377662.383333"
+            filePath = "mall/interface/fist/fisterViewController.m"
+            timestampString = "472810381.293535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-buttonAction:"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
+            landmarkName = "-function:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/fist/fisterBrandTableViewCell.m"
-            timestampString = "472377662.383333"
+            filePath = "mall/interface/fist/fisterViewController.m"
+            timestampString = "472810381.293535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "-buttonAction:"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
+            landmarkName = "-function:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/fist/fisterBrandTableViewCell.m"
-            timestampString = "472377662.383333"
+            filePath = "mall/interface/fist/fisterViewController.m"
+            timestampString = "472810381.293535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "-buttonAction:"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "-function:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -121,13 +121,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/fist/fisterBrandTableViewCell.m"
-            timestampString = "472377662.383333"
+            filePath = "mall/interface/fist/fisterViewController.m"
+            timestampString = "472810381.293535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "-buttonAction:"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
+            landmarkName = "-function:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -137,13 +137,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/fist/fisterBrandTableViewCell.m"
-            timestampString = "472377662.383333"
+            filePath = "mall/interface/fist/fisterViewController.m"
+            timestampString = "472810381.293535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "-buttonAction:"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
+            landmarkName = "-function:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mall/interface/fist/fisterViewController.m"
+            timestampString = "472810381.293535"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "-function:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

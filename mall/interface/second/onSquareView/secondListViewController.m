@@ -39,11 +39,10 @@ typedef enum {
 {
     UISearchBar *searchView = [self.navigationController.navigationBar viewWithTag:30];
     searchView.hidden = YES;
-    self.tabBarController.tabBar.hidden = YES;  //便签控制器不隐藏
+    self.tabBarController.tabBar.hidden = YES;  //便签控制器隐藏
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -996,7 +996,7 @@
 			baseConfigurationReference = 459B52899CA9205C5D7003AB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: jian zhang (6UW5V9KPRM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = PrefixHeader.pch;
 				INFOPLIST_FILE = mall/Info.plist;
@@ -1014,7 +1014,7 @@
 			baseConfigurationReference = 99D9C3188B0B8A822BA52518 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: jian zhang (6UW5V9KPRM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = PrefixHeader.pch;
 				INFOPLIST_FILE = mall/Info.plist;

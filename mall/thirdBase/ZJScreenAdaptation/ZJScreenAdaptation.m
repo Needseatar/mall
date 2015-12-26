@@ -38,17 +38,6 @@ static double autoSizeScaleY;
         autoSizeScaleX = (float)size.width/320.0;
         autoSizeScaleY = (float)size.height/568.0;
     }
-    
-//    //如果是iPhone6,6plus
-//    if(size.height > 480){
-//        autoSizeScaleX = (float)size.width/320.0;
-//        autoSizeScaleY = (float)size.height/568.0;
-//    }
-//    //如果是iPhone5,5s
-//    else{
-//        autoSizeScaleX = 1.0;
-//        autoSizeScaleY = 1.0;
-//    }
 }
 CGRect CGRectMakeAdaptation(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
 {
@@ -57,6 +46,29 @@ CGRect CGRectMakeAdaptation(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
     rect.origin.y = y * autoSizeScaleY;
     rect.size.width = width * autoSizeScaleX;
     rect.size.height = height * autoSizeScaleY;
+    return rect;
+}
+CGRect CGRectMakeNavigation(CGFloat x, CGFloat y, CGFloat width, CGFloat height, CGChange style)
+{
+    CGRect rect;
+    if (style == changeWidth) {
+        rect.origin.x = x;
+        rect.origin.y = y;
+        rect.size.width = width * autoSizeScaleX;
+        rect.size.height = height;
+    }else if(style == changeX)
+    {
+        rect.origin.x = x * autoSizeScaleX;
+        rect.origin.y = y;
+        rect.size.width = width;
+        rect.size.height = height;
+    }else
+    {
+        rect.origin.x = x;
+        rect.origin.y = y;
+        rect.size.width = width;
+        rect.size.height = height;
+    }
     return rect;
 }
 CGSize CGSizeMakeAdaptation(CGFloat width, CGFloat height)

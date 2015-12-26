@@ -105,84 +105,89 @@
             lineView1.tag = 5000;
             [self.specificationsLabel addSubview:lineView1];
             
-            //创建每一个款式的背景视图和确定每一个款式视图的大小
-            int i=0;
-            for (NSDictionary *dic in [data.goods_info spec_name]) {
-                NSDictionary *dic2 = [data.goods_info spec_value];
-                NSDictionary *dicspecValue = dic2[dic]; //通过字典的key找到在[data.goods_info spec_value]里面的字典数量
-                
-                //作用是计算这一个款式有多少组个两个按钮
-                int grouInt  = (int)dicspecValue.count/2;
-                float grouFl = dicspecValue.count/2.0;
-                if (grouFl > (float)grouInt) {
-                    grouInt++;
-                }
-                UIView *bgView;
-                //加载每个款式的背景视图
-                if (i==0) {
-                    //加载背景视图
-                    bgView = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 0, 310, grouInt*(SpecificationHeight+IntervalButton))];
-                }else
-                {
-                    UIView *upview = [self.bgSpecificationsView viewWithTag:2000+i-1]; //寻找上一个视图
-                    bgView = [[UIView alloc] initWithFrame:CGRectMake(widthEx(0), upview.frame.origin.x+upview.frame.size.height+Interval, heightEx(310), heightEx(grouInt*(SpecificationHeight+IntervalButton)))];
-                }
-                bgView.tag = 2000+i;
-                i++;
-                bgView.backgroundColor = [UIColor clearColor];
-                //设置画虚线视图
-                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(widthEx(0), (bgView.frame.size.height-1)+Interval/2, widthEx(310), 1)];
-                lineView.tag = 4111;
-                [self drawDashLine:lineView lineLength:8 lineSpacing:1 lineColor:[UIColor colorWithRed:238.0f/255.0f green:238.0f/255.0f blue:238.0f/255.0f alpha:1]]; //画虚线
-                [bgView addSubview:lineView];
-                [self.bgSpecificationsView addSubview:bgView];
-                
-                //加载款式
-                NSDictionary *dicSpecLabel = [data.goods_info spec_name];
-                
-                
-                UILabel * specLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 0, 50, 30)];
-                specLabel.backgroundColor = [UIColor clearColor];
-                specLabel.font = [UIFont systemFontOfSize:18];
-                specLabel.text = [NSString stringWithFormat:@"%@:", dicSpecLabel[dic]];
-                specLabel.tag = 4000;
-                [bgView addSubview:specLabel];
-                
-                //加载款式的button
-                NSArray *dicspecValueValues = [dicspecValue allValues];
-                for (int l=0; l<dicspecValue.count; l++) {
-                    UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
-                    but1.frame = CGRectMakeEx(50+(l%2)*130, (l/2)*(SpecificationHeight+IntervalButton), 120, 30);
-                    [but1 setTitle:dicspecValueValues[l] forState:UIControlStateNormal];
-                    [but1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                    but1.layer.masksToBounds = YES;  //告诉layer将位于它之下的layer都遮盖住
-                    but1.layer.cornerRadius =6;
-                    but1.layer.borderWidth = 2;//边框宽度
-                    if (l==0) {
-                        but1.selected = YES;
+            if ([[data.goods_info spec_name] isKindOfClass:[NSDictionary class]]) { //判断spec_name里面是否有数
+                //创建每一个款式的背景视图和确定每一个款式视图的大小
+                int i=0;
+                for (NSDictionary *dic in [data.goods_info spec_name]) {
+                    NSDictionary *dic2 = [data.goods_info spec_value];
+                    NSDictionary *dicspecValue = dic2[dic]; //通过字典的key找到在[data.goods_info spec_value]里面的字典数量
+                    
+                    //作用是计算这一个款式有多少组个两个按钮
+                    int grouInt  = (int)dicspecValue.count/2;
+                    float grouFl = dicspecValue.count/2.0;
+                    if (grouFl > (float)grouInt) {
+                        grouInt++;
+                    }
+                    UIView *bgView;
+                    //加载每个款式的背景视图
+                    if (i==0) {
+                        //加载背景视图
+                        bgView = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 0, 310, grouInt*(SpecificationHeight+IntervalButton))];
                     }else
                     {
-                        but1.selected = NO;
+                        UIView *upview = [self.bgSpecificationsView viewWithTag:2000+i-1]; //寻找上一个视图
+                        bgView = [[UIView alloc] initWithFrame:CGRectMake(widthEx(0), upview.frame.origin.x+upview.frame.size.height+Interval, heightEx(310), heightEx(grouInt*(SpecificationHeight+IntervalButton)))];
                     }
-                    if (but1.selected ==YES) {
-                        but1.layer.borderColor = [[UIColor redColor] CGColor];//边框颜色
-                    }else
-                    {
-                        but1.layer.borderColor = [[UIColor colorWithRed:204.0/255.0f green:204.0/255.0f blue:204.0/255.0f alpha:1] CGColor];//边框颜色
+                    bgView.tag = 2000+i;
+                    i++;
+                    bgView.backgroundColor = [UIColor clearColor];
+                    //设置画虚线视图
+                    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(widthEx(0), (bgView.frame.size.height-1)+Interval/2, widthEx(310), 1)];
+                    lineView.tag = 4111;
+                    [self drawDashLine:lineView lineLength:8 lineSpacing:1 lineColor:[UIColor colorWithRed:238.0f/255.0f green:238.0f/255.0f blue:238.0f/255.0f alpha:1]]; //画虚线
+                    [bgView addSubview:lineView];
+                    [self.bgSpecificationsView addSubview:bgView];
+                    
+                    //加载款式
+                    NSDictionary *dicSpecLabel = [data.goods_info spec_name];
+                    
+                    
+                    UILabel * specLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 0, 50, 30)];
+                    specLabel.backgroundColor = [UIColor clearColor];
+                    specLabel.font = [UIFont systemFontOfSize:18];
+                    specLabel.text = [NSString stringWithFormat:@"%@:", dicSpecLabel[dic]];
+                    specLabel.tag = 4000;
+                    [bgView addSubview:specLabel];
+                    
+                    //加载款式的button
+                    NSArray *dicspecValueValues = [dicspecValue allValues];
+                    for (int l=0; l<dicspecValue.count; l++) {
+                        UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
+                        but1.frame = CGRectMakeEx(50+(l%2)*130, (l/2)*(SpecificationHeight+IntervalButton), 120, 30);
+                        [but1 setTitle:dicspecValueValues[l] forState:UIControlStateNormal];
+                        [but1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                        but1.layer.masksToBounds = YES;  //告诉layer将位于它之下的layer都遮盖住
+                        but1.layer.cornerRadius =6;
+                        but1.layer.borderWidth = 2;//边框宽度
+                        if (l==0) {
+                            but1.selected = YES;
+                        }else
+                        {
+                            but1.selected = NO;
+                        }
+                        if (but1.selected ==YES) {
+                            but1.layer.borderColor = [[UIColor redColor] CGColor];//边框颜色
+                        }else
+                        {
+                            but1.layer.borderColor = [[UIColor colorWithRed:204.0/255.0f green:204.0/255.0f blue:204.0/255.0f alpha:1] CGColor];//边框颜色
+                        }
+                        [but1 addTarget:self action:@selector(specButton:) forControlEvents:UIControlEventTouchUpInside];
+                        [bgView addSubview:but1];
                     }
-                    [but1 addTarget:self action:@selector(specButton:) forControlEvents:UIControlEventTouchUpInside];
-                    [bgView addSubview:but1];
                 }
+                ////设置全部商品款式的背景视图大小
+                NSInteger numberBgViewHeight=0;
+                for (int j=i-1; j>=0; j--) { //从最后一个视图开始寻找，然后计算出所有视图所占的高度
+                    UIView *inAllViewOne = [self.bgSpecificationsView viewWithTag:j+2000];
+                    numberBgViewHeight = numberBgViewHeight+ inAllViewOne.frame.size.height + Interval;
+                }
+                self.bgSpecificationsView.frame = CGRectMakeEx(5, 30+Interval, 310, numberBgViewHeight);
+            }else
+            {
+                self.bgSpecificationsView.frame = CGRectMakeEx(5, 30+Interval, 310, 5);
             }
-            ////设置全部商品款式的背景视图大小
-            NSInteger numberBgViewHeight=0;
-            for (int j=i-1; j>=0; j--) { //从最后一个视图开始寻找，然后计算出所有视图所占的高度
-                UIView *inAllViewOne = [self.bgSpecificationsView viewWithTag:j+2000];
-                numberBgViewHeight = numberBgViewHeight+ inAllViewOne.frame.size.height + Interval;
-            }
-            self.bgSpecificationsView.frame = CGRectMakeEx(5, 30+Interval, 310, numberBgViewHeight);
         }
-        
+            
         //加载数据
         self.selectNumberTitleLabel.hidden = NO;
         self.selectNumberReduceButton.hidden = NO;

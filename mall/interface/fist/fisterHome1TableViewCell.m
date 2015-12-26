@@ -47,6 +47,7 @@
         self.titleLabel.text = [NSString stringWithFormat:@" %@", homeData.title];
     }
     [self.shoppingView setImageWithURL:[NSURL URLWithString:homeData.image]];
+    
 }
 
 - (void)awakeFromNib {

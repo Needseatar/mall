@@ -15,7 +15,7 @@
     self.rectangle1_data = dic[@"rectangle1_data"];
     self.rectangle1_image = dic[@"rectangle1_image"];
     self.rectangle1_type = dic[@"rectangle1_type"];
-    self.rectangle1_data = dic[@"rectangle1_data"];
+    self.rectangle2_data = dic[@"rectangle2_data"];
     self.rectangle2_image = dic[@"rectangle2_image"];
     self.rectangle2_type = dic[@"rectangle2_type"];
     self.square_data = dic[@"square_data"];

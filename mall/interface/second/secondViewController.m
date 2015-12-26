@@ -38,6 +38,14 @@
 
 @implementation secondViewController
 
+#pragma mark - 设置按钮显示 返回
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self == [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"分类" style:UIBarButtonItemStylePlain target:nil action:nil];
+    }
+    return self;
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     UISearchBar *searchView = [self.navigationController.navigationBar viewWithTag:30];
@@ -79,7 +87,7 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeEx(20, 7, 260, 20)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeNavigationEx(20, 0, 260, 40, changeWidth)];
     _searchBar.placeholder = @"请输入搜索内容";
     _searchBar.tag = 30;
     _searchBar.delegate = self;
@@ -87,7 +95,7 @@
     
     //右边二维码
     UIButton * rightCamera = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightCamera.frame = CGRectMakeEx(0, 0, 20,20);
+    rightCamera.frame = CGRectMakeNavigationEx(0, 0, 20, 20, changeWidth);
     [rightCamera setImage:[UIImage imageNamed:@"barcode_normal.png"] forState:UIControlStateNormal];
     UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
     self.navigationItem.rightBarButtonItem = rightCameraItem;
