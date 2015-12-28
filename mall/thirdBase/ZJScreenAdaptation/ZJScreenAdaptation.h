@@ -49,7 +49,7 @@ typedef enum { //传递导航栏的样式
 #define CGRectMakeNavigationEx(x, y, width, height, style) CGRectMakeNavigation(x, y, width, height, style)
 
 #define CGSizeMakeEx(width,height) CGSizeMakeAdaptation(width, height)
-#define widthEx(width) heightAdaptation(width)
+#define widthEx(width)  widthAdaptation(width)
 #define heightEx(height) heightAdaptation(height)
 
 @interface ZJScreenAdaptation : NSObject

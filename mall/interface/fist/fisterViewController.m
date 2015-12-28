@@ -85,7 +85,7 @@
 #pragma mark - 加载tabel
 -(void)setTabelView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, 320, 568-49) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, widthEx(320), heightEx(568)) style:UITableViewStylePlain];
     [_tableView setBackgroundColor:[UIColor colorWithRed:238.0f/255.0f green:238.0f/255.0f blue:238.0f/255.0f alpha:1]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     _tableView.delegate = self;
@@ -203,25 +203,25 @@
 //返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return widthEx(150);
+        return heightEx(150);
     }else if (indexPath.section == 1)
     {
         if ([self.fisterData.FHome[indexPath.row] isKindOfClass:[fisterHome1 class]]) {
             fisterHome1 *FHome1 = self.fisterData.FHome[indexPath.row];
             if ([FHome1.title length] == 0) { //home1 没有标题的高度
-                return widthEx(153);
+                return heightEx(153);
             }else
             {
-                return widthEx(183);
+                return heightEx(183);
             }
         }else  //home4 类的高度
         {
-            return widthEx(153);
+            return heightEx(153);
         }
         
     }else
     {
-        return widthEx(230);
+        return heightEx(230);
     }
 }
 
@@ -282,13 +282,9 @@
     //跳转
     if ([str isEqualToString:nameArray[0]]) {
         
-        
-        
     }else if ([str isEqualToString:nameArray[1]])
     {
         
-        ;
-        ;
     }else if ([str isEqualToString:nameArray[2]])
     {
         
@@ -312,6 +308,13 @@
         
     }
     
+}
+
+#pragma mark - 搜索栏跳转
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar;
+{
+    self.tabbarControl.selectedIndex = 2;
+    return NO;
 }
 
 -(void)home:(NSNotification *)notifica

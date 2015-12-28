@@ -16,7 +16,6 @@
 @property (retain, nonatomic) NSMutableArray *FHome;
 @property (retain, nonatomic) NSArray        *FList;
 
-
 +(fisterData *)setValueWithDictionary:(NSDictionary *)data;
 
 @end

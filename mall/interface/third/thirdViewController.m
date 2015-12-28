@@ -50,7 +50,17 @@
     
     [self createSearchBar];  //设置导航栏
     
+    //在视图上添加点击操作收回键盘
+    UITapGestureRecognizer * attentionTapAction = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(attentionAction)];//加载点击动作
+    [self.view addGestureRecognizer:attentionTapAction];
+    self.view.userInteractionEnabled = YES;
+    
     [self.view setBackgroundColor:[UIColor whiteColor]];
+}
+
+-(void)attentionAction
+{
+    [self.searchBar resignFirstResponder];
 }
 
 -(void)setButtonRandom
@@ -156,7 +166,7 @@
 
 -(void)buttonAction:(UIButton *)but
 {
-    
+    self.searchBar.text = but.titleLabel.text;
 }
 
 #pragma mark - 设置导航栏的搜索和取消

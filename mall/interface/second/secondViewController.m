@@ -83,6 +83,15 @@
 
 #pragma mark - 设置导航栏的搜索和取消
 -(void)createSearchBar{
+    
+   // self.edgesForExtendedLayout = UIRectEdgeNone;
+    //self.automaticallyAdjustsScrollViewInsets = NO;
+ //   self.automaticallyAdjustsScrollViewInsets = NO;
+   // self.extendedLayoutIncludesOpaqueBars =NO;
+    //self.modalPresentationCapturesStatusBarAppearance =NO;
+    //self.navigationController.navigationBar.translucent =NO;
+    
+    
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
@@ -104,7 +113,7 @@
 #pragma mark - 加载tabel
 -(void)setTabelView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, 100, 565) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, widthEx(100), heightEx(568)) style:UITableViewStyleGrouped];
     [_tableView setBackgroundColor:[UIColor whiteColor]];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -114,14 +123,17 @@
 -(void)setTabelViewOfSecondAndThird
 {
     if (self.OCassification.count != 0) {
-        self.bgTableScrollView = [[UIScrollView alloc] initWithFrame:CGRectMakeEx(100, 60, 220, 459)];
-        [self.bgTableScrollView setBackgroundColor:[UIColor whiteColor]];
-        self.bgTableScrollView.contentSize = CGSizeMakeEx(220*self.OCassification.count, 459);
+        //CGRectMakeEx(100, 60, 220, 459)
+        self.bgTableScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(widthEx(100), 0, widthEx(320-100), heightEx(568))];
+        [self.bgTableScrollView setBackgroundColor:[UIColor redColor]];
+        //CGSizeMakeEx(220*self.OCassification.count, 459)
+        self.bgTableScrollView.contentSize = CGSizeMake(widthEx(320-100)*self.OCassification.count, heightEx(568));
         self.bgTableScrollView.pagingEnabled = YES;
         self.bgTableScrollView.delegate = self;
         [self.view addSubview:self.bgTableScrollView];
         for (int i=0; i<self.OCassification.count; i++) {
-            UITableView *secondTabel = [[UITableView alloc] initWithFrame:CGRectMakeEx(i*220, 0, 220, 459) style:UITableViewStylePlain];
+            //CGRectMakeEx(i*220, 0, 220, 459)
+            UITableView *secondTabel = [[UITableView alloc] initWithFrame:CGRectMake(i*widthEx(320-100), 0, widthEx(320-100), heightEx(568)) style:UITableViewStyleGrouped];
             [secondTabel setBackgroundColor:[UIColor whiteColor]];
             secondTabel.tag = 100+i;
             secondTabel.delegate = self;
@@ -407,6 +419,13 @@
 {
     NSString *str = [string substringFromIndex:60];
     return [str intValue];
+}
+
+#pragma mark - 搜索栏跳转
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar;
+{
+    self.tabbarControl.selectedIndex = 2;
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -69,13 +69,13 @@ typedef enum {
 
 -(void)createSort
 {
-    self.bgSortView = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 64, 320, 30)];
+    self.bgSortView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, widthEx(320), 30)];
     [self.bgSortView setBackgroundColor:[UIColor colorWithRed:248.0/255.0f green:249.0/255.0f blue:250.0/255.0f alpha:1]];
     [self.view addSubview:self.bgSortView];
     
     self.sortItem = @[@"新品", @"销量", @"价格", @"人气"];
     for (int i=0; i<self.sortItem.count; i++) {
-        UIButton *sortBut = [[UIButton alloc] initWithFrame:CGRectMakeEx(i*320/self.sortItem.count, 0, 320/self.sortItem.count, 30)];
+        UIButton *sortBut = [[UIButton alloc] initWithFrame:CGRectMake(i*320/(float)self.sortItem.count, 0, 320/(float)self.sortItem.count, 30)];
         if (i==1) {
             sortBut.selected = YES;
         }else
@@ -190,7 +190,7 @@ typedef enum {
 #pragma mark - 加载tabel
 -(void)setTabelView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 94, 320, 474) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44+30, widthEx(320), heightEx(568)-30) style:UITableViewStylePlain];
     [_tableView setBackgroundColor:[UIColor clearColor]];
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone]; //设置tabel没有的cell不显示出来
     _tableView.delegate = self;

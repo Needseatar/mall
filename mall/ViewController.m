@@ -68,6 +68,8 @@
     
     
     UITabBarController * tabbarControl = [[UITabBarController alloc] init];
+    fistView.tabbarControl = tabbarControl; //把指针给子类
+    secondView.tabbarControl = tabbarControl;
     tabbarControl.viewControllers = @[NfistView, NsecondView, NthirdView, NfourView, NfiveView];
     [tabbarControl.tabBarController.tabBar setTintColor:[UIColor whiteColor]];
     [tabbarControl.tabBarController.tabBar setAlpha:1];

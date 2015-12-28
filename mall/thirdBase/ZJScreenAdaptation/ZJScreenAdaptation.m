@@ -26,10 +26,10 @@ static double autoSizeScaleY;
     CGSize size = [[UIScreen mainScreen] bounds].size;
     
     //苹果4s
-    if (size.height == 480.000000) {
+    if (size.height == 480) {
         autoSizeScaleX = 1.0;
         autoSizeScaleY = (float)size.height/568.0;
-    }else if(size.height == 568.000000) //苹果5或者5s
+    }else if(size.height == 568) //苹果5或者5s
     {
         autoSizeScaleX = 1.0;
         autoSizeScaleY = 1.0;
