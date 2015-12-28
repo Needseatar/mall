@@ -282,9 +282,13 @@
     //跳转
     if ([str isEqualToString:nameArray[0]]) {
         
+        
+        
     }else if ([str isEqualToString:nameArray[1]])
     {
         
+        ;
+        ;
     }else if ([str isEqualToString:nameArray[2]])
     {
         
