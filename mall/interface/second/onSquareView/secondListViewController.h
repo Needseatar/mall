@@ -10,6 +10,7 @@
 #import "commodityList.h"
 #import "secondListTableViewCell.h"
 #import "goodInformationViewController.h"
+#import "MJRefresh.h"
 
 @interface secondListViewController : UIViewController
 

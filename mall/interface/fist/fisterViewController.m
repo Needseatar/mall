@@ -9,13 +9,15 @@
 #import "fisterViewController.h"
 
 
-
 @interface fisterViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UISearchBar       *searchBar;
 @property (retain, nonatomic) UITableView       *tableView;
 @property (retain, nonatomic) fisterData        *fisterData;
 @property (retain, nonatomic) NSMutableArray    *listData; //保存了goodslist的数据，每两个fisterList为一组，listData保存 了多组数据
+@property (retain, nonatomic) UIView            *loadingiew; //加载加载视图
+@property (retain, nonatomic) UIView            *errorNetWork; //加载没有网络视图
+@property (retain, nonatomic) UILabel           *errorRefresh; //刷新失败视图
 
 @end
 
@@ -45,9 +47,12 @@
     
     [self createSearchBar]; //设置导航栏
     
-    [self requestFisterView];
+    [self requestFisterView]; //请求数据
     
     [self setTabelView];  //设置tabel
+    
+    [self setLoadingView]; //加载加载视图
+    
 }
 
 #pragma mark - 设置导航栏的搜索和取消
@@ -90,7 +95,15 @@
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    self.tableView.hidden = YES;
     [self.view addSubview:_tableView];
+    
+    //设置下拉菜单
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        [self requestFisterView];
+    }];
+    
     
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
@@ -258,12 +271,52 @@
             [self.listData addObject:twoListArray];
         }
         
+        [self.loadingiew removeFromSuperview];
+        self.tableView.hidden = NO;
         [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];//结束刷新状态
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        //[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(requestFisterView) userInfo:nil repeats:YES];
+        
+        if ([self.fisterData isKindOfClass:[fisterData class]]) { //判断有没有数据
+            [self.tableView.mj_header endRefreshing];
+            
+            if (self.errorRefresh==nil) {
+                self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"刷新失败"];
+                [self.view addSubview:self.errorRefresh];
+                [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+            }
+        }else
+        {
+            [self.loadingiew removeFromSuperview];
+            CGRect fr = CGRectMake(self.view.frame.size.width/2.0-300/2.0, self.view.frame.size.height/2.0-300/2.0, 300, 300);
+            self.errorNetWork = [loadingImageView setNetWorkError:fr];
+            UIButton *but = [self.errorNetWork viewWithTag:7777];
+            [but addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:self.errorNetWork];
+        }
     }];
+}
+-(void)setStoplabel
+{
+    [self.errorRefresh removeFromSuperview];
+    self.errorRefresh = nil;
+}
+#pragma mark - 加载加载视图
+-(void)setLoadingView
+{
+    CGRect fr = CGRectMake(self.view.frame.size.width/2.0-40, self.view.frame.size.height/2.0-40, 80, 80);
+    self.loadingiew = [loadingImageView setLoadingImageView:fr];
+    
+    [self.view addSubview:self.loadingiew];
+}
+
+-(void)buttonAction
+{
+    [self.errorNetWork removeFromSuperview];
+    [self setLoadingView]; //加载加载视图
+    [self requestFisterView];
 }
 
 #pragma mark - 设置最后的listcell的跳转

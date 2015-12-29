@@ -12,6 +12,7 @@
 #import "fisterHome1TableViewCell.h"
 #import "fisterHome4TableViewCell.h"
 #import "fisterListerTableViewCell.h"
+#import "MJRefresh.h"
 
 @interface fisterViewController : UIViewController
 

@@ -13,6 +13,7 @@
 #import "ZJScreenAdaptation.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
+#import "loadingImageView.h"
 
 #pragma mark - 项目常量
 /****************************************项目常量**********************************************************

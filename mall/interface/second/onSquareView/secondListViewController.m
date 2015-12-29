@@ -171,7 +171,7 @@ typedef enum {
     }
 }
 
-#pragma mark - 商品列表数据
+#pragma mark - 请求数据
 -(void)requestClassification
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -181,8 +181,11 @@ typedef enum {
         NSLog(@"JSON: %@", dict);
         self.arrayData = [commodityList setValueWithDictionary:dict];
         [self.tableView reloadData];
+        
+        [self.tableView.mj_header endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        [self.tableView.mj_header endRefreshing];
         
     }];
 }
@@ -196,6 +199,14 @@ typedef enum {
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    
+    //设置下拉菜单
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        [self requestClassification];
+    }];
+    // 马上进入刷新状态
+    [self.tableView.mj_header beginRefreshing];
 }
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法

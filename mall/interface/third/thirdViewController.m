@@ -37,12 +37,8 @@
     for (UIView *suView in [self.view subviews]) {  //移除视图上的空间
         [suView removeFromSuperview];
     }
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [self requestSearchText];
-    
+    [self requestSearchText]; //请求数据
+    [self setLoadingView];   //加载加载视图
 }
 
 - (void)viewDidLoad {
@@ -55,7 +51,15 @@
     [self.view addGestureRecognizer:attentionTapAction];
     self.view.userInteractionEnabled = YES;
     
+    
     [self.view setBackgroundColor:[UIColor whiteColor]];
+}
+
+-(void)setLoadingView
+{
+    CGRect fr = CGRectMake(self.view.frame.size.width/2.0-40, self.view.frame.size.height/2.0-40, 80, 80);
+    UIView *loadingiew = [loadingImageView setLoadingImageView:fr];
+    [self.view addSubview:loadingiew];
 }
 
 -(void)attentionAction
@@ -153,12 +157,15 @@
         [but setTitle:self.mArry[i] forState:UIControlStateNormal];
         but.layer.shadowOffset=CGSizeMake(6, 6); //设置偏移
         but.layer.shadowOpacity=0.8;  //设置影子
+        
         but.frame= [[self.mRectBeginArray objectAtIndex:i] CGRectValue];  //按钮开始位置
         [UIView beginAnimations:@"" context:nil];
         [UIView setAnimationDuration:AnimationTime];//动画时间
         [UIView setAnimationDelegate:self];
         but.frame=  [[self.mRectArray objectAtIndex:i] CGRectValue];//动画结束时候位置
         [UIView commitAnimations];
+        
+        
         [but addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside]; //加载动作
         [self.view addSubview:but];
     }
@@ -185,8 +192,6 @@
     UIButton * rightCamera = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightCamera setTitle:@"搜索" forState:UIControlStateNormal];
     [rightCamera setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    //rightCamera.titleLabel.font = [UIFont systemFontOfSize:18];
-    //rightCamera.titleLabel.backgroundColor = [UIColor blueColor];
     rightCamera.frame = CGRectMakeNavigationEx(0, 0, 45, 25, changeWidth);
     UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
     self.navigationItem.rightBarButtonItem = rightCameraItem;

@@ -34,6 +34,8 @@
 @property (assign, nonatomic) NSInteger               pageID; //当page更新时候，保存了page请求二级数据的id，当当前id请求失败时，pageID将置0；
 @property (retain, nonatomic) NSMutableArray    *thirdArray; //保存了当前页面的所有三级数据
 
+@property (retain, nonatomic) UIView            *loadingiew;  //加载加载视图
+
 @end
 
 @implementation secondViewController
@@ -66,6 +68,16 @@
     
     [self setTabelView];  //加载table一级分类tabel
     
+    [self setLoadingView];
+    
+}
+
+-(void)setLoadingView
+{
+    CGRect fr = CGRectMake(self.view.frame.size.width/2.0-40, self.view.frame.size.height/2.0-40, 80, 80);
+    self.loadingiew = [loadingImageView setLoadingImageView:fr];
+    
+    [self.view addSubview:self.loadingiew];
 }
 
 -(void)setpageOfTabel
@@ -117,6 +129,7 @@
     [_tableView setBackgroundColor:[UIColor whiteColor]];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.hidden = YES;
     [self.view addSubview:_tableView];
 }
 #pragma mark - 设置二三级分类
@@ -125,7 +138,7 @@
     if (self.OCassification.count != 0) {
         //CGRectMakeEx(100, 60, 220, 459)
         self.bgTableScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(widthEx(100), 0, widthEx(320-100), heightEx(568))];
-        [self.bgTableScrollView setBackgroundColor:[UIColor redColor]];
+        [self.bgTableScrollView setBackgroundColor:[UIColor whiteColor]];
         //CGSizeMakeEx(220*self.OCassification.count, 459)
         self.bgTableScrollView.contentSize = CGSizeMake(widthEx(320-100)*self.OCassification.count, heightEx(568));
         self.bgTableScrollView.pagingEnabled = YES;
@@ -331,7 +344,8 @@
         [self setTabelViewOfSecondAndThird]; //设置并加载滚动视图
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(requestClassification) userInfo:nil repeats:NO];
+        
+        
     }];
 }
 #pragma mark - 请求二级和三级数据
@@ -349,6 +363,11 @@
             self.nowArray = [oneClassification setValueWithDictionary:dict];
             UITableView *scTabel = (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100];
             self.whetherNowArray = YES;  // 当二级数据请求回来的时候，立刻知道当前页面二级数据已经实时跟新了
+            
+            //去除加载视图，和显示一级数据的tabel
+            self.tableView.hidden = NO;
+            [self.loadingiew removeFromSuperview];
+            
             [scTabel reloadData];
 #pragma mark - 当二级数据请求回来的时候，开启请求三级数据的第一组数据
             if (self.nowArray.count != 0) {
