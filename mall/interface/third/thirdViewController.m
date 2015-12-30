@@ -20,6 +20,9 @@
 @property (nonatomic, retain) NSMutableArray *mRectArray;     //结束时候的位置
 @property (nonatomic, retain) NSMutableArray *mColorArray;    //but的颜色
 
+@property (nonatomic, retain) UIView         *errorNetwork;   //网络加载失败
+@property (nonatomic, retain) UIView         *loadingiew;   //加载网络视图
+
 @end
 
 @implementation thirdViewController
@@ -58,8 +61,8 @@
 -(void)setLoadingView
 {
     CGRect fr = CGRectMake(self.view.frame.size.width/2.0-40, self.view.frame.size.height/2.0-40, 80, 80);
-    UIView *loadingiew = [loadingImageView setLoadingImageView:fr];
-    [self.view addSubview:loadingiew];
+    self.loadingiew = [loadingImageView setLoadingImageView:fr];
+    [self.view addSubview:self.loadingiew];
 }
 
 -(void)attentionAction
@@ -225,10 +228,21 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         
-        
+        [self.loadingiew removeFromSuperview];
+        CGRect fr = CGRectMake(self.view.frame.size.width/2.0-300/2.0, self.view.frame.size.height/2.0-300/2.0, 300, 300);
+        self.errorNetwork = [loadingImageView setNetWorkError:fr];
+        UIButton *but = [self.errorNetwork viewWithTag:7777];
+        [but addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.errorNetwork];
     }];
 }
 
+-(void)buttonAction
+{
+    [self.errorNetwork removeFromSuperview];
+    [self setLoadingView]; //加载加载视图
+    [self requestSearchText];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

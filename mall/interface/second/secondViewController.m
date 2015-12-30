@@ -31,7 +31,7 @@
 @property (retain, nonatomic) UIScrollView      *bgTableScrollView;
 
 @property (assign, nonatomic) NSInteger               page; //当page更新时候，就更新tableView,和更新滚动视图上的tabel，如果数据请求失败,将再次请求
-@property (assign, nonatomic) NSInteger               pageID; //当page更新时候，保存了page请求二级数据的id，当当前id请求失败时，pageID将置0；
+@property (assign, nonatomic) NSInteger               pageID; //当page更新时候，保存了page请求二级数据的id，当当前id请求失败时，pageID将置0
 @property (retain, nonatomic) NSMutableArray    *thirdArray; //保存了当前页面的所有三级数据
 
 @property (retain, nonatomic) UIView            *loadingiew;  //加载加载视图

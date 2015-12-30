@@ -12,9 +12,9 @@
 
 //创建加载视图
 +(UIView *)setLoadingImageView:(CGRect )fr;
-
+//创建加载失败后的视图
 +(UIView *)setNetWorkError:(CGRect )fr;
-
+//创建提示字符
 +(UILabel *)setNetWorkRefreshError:(CGRect )fr viewString:(NSString *)string;
 
 @end

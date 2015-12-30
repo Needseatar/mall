@@ -108,7 +108,6 @@
     //计算label的长度
     NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:20]};
     CGSize titleSize = [string boundingRectWithSize:CGSizeMake(800, 30) options:NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil].size;
-    
     CGRect frame = fr;
     frame.size = titleSize;
     frame.size.width = frame.size.width+20;
