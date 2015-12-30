@@ -66,7 +66,6 @@
     fiveView.title = @"我";
     UINavigationController * NfiveView = [[UINavigationController alloc] initWithRootViewController:fiveView];
     
-    
     UITabBarController * tabbarControl = [[UITabBarController alloc] init];
     fistView.tabbarControl = tabbarControl; //把指针给子类
     secondView.tabbarControl = tabbarControl;

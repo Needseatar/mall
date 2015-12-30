@@ -134,10 +134,19 @@
     
     if (data != nil) {
         //计算label的上标题的高度，并且设置其frame，和设置self.bgPaceView.frame
-        self.upLabel.text = [data.goods_info goods_jingle];
-        CGRect frame = self.upLabel.frame;
-        frame.size.height = heightEx([self heightWithString:[data.goods_info goods_jingle] width:bgWidth fontSize:setFontSize]);
-        self.upLabel.frame = frame;
+        NSString *str_goods_jingle = [data.goods_info goods_jingle];
+        if (str_goods_jingle.length == 0) { //如果没有数据，就隐藏
+            self.upLabel.text = @"";
+            self.upLabel.frame = CGRectMakeEx(5, 5, 310, 0);
+            self.upLabel.hidden = YES;
+        }else
+        {
+            self.upLabel.text = [data.goods_info goods_jingle];
+            CGRect frame = self.upLabel.frame;
+            frame.size.height = [self heightWithString:[data.goods_info goods_jingle] width:widthEx(bgWidth) fontSize:setFontSize];
+            self.upLabel.frame = frame;
+        }
+        
         self.bgPaceView.frame = CGRectMake(self.upLabel.frame.origin.x, self.upLabel.frame.origin.y+self.upLabel.frame.size.height, widthEx(bgWidth), heightEx(Pacebg));
         
         //加载字体
@@ -159,7 +168,7 @@
         self.rightStoreNameLabel.frame = CGRectMake(widthEx(bgX+Service), self.bgPaceView.frame.origin.y+self.bgPaceView.frame.size.height, widthEx(bgWidth-Service), heightEx(30));
         self.rightStoreNameLabel.text = [NSString stringWithFormat:@"由%@负责发货,并提供售后服务", [data.store_info store_name]];
         CGRect frame1 = self.rightStoreNameLabel.frame;
-        frame1.size.height = heightEx([self heightWithString:self.rightStoreNameLabel.text width:bgWidth-Service fontSize:setFontSize]);
+        frame1.size.height = [self heightWithString:self.rightStoreNameLabel.text width:widthEx(bgWidth-Service) fontSize:setFontSize];
         self.rightStoreNameLabel.frame = frame1;
     }
 
@@ -168,9 +177,9 @@
 #pragma mark - 计算label高度
 -(CGFloat)heightWithString:(NSString *)string width:(CGFloat)width fontSize:(CGFloat)fontSize
 {
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize + 1.5]} context:nil];
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil];
     
-    return heightEx(rect.size.height);
+    return rect.size.height;
 }
 
 - (void)awakeFromNib {

@@ -67,7 +67,7 @@
     self.downLabel.text = GInfo.goods_name;
     //计算label高度
     CGRect frame = self.downLabel.frame;
-    frame.size.height = heightEx([self heightWithString:self.downLabel.text width:310 fontSize:18]);
+    frame.size.height = [self heightWithString:self.downLabel.text width:widthEx(310) fontSize:18];
     self.downLabel.frame = frame;
     
 }
@@ -75,9 +75,9 @@
 #pragma mark - 计算label高度
 -(CGFloat)heightWithString:(NSString *)string width:(CGFloat)width fontSize:(CGFloat)fontSize
 {
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize + 1.5]} context:nil];
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil];
     
-    return heightEx(rect.size.height);
+    return rect.size.height;
 }
 
 - (void)awakeFromNib {

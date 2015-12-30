@@ -13,20 +13,29 @@
 
 #import "goodInformationViewController.h"
 
+#define InformatonItemHeight 30  //商品栏高度
+#define bgLineHeight         2   //黑线高度
+#define redLineHeight        4   //红线高度
+#define shopingHeight        45   //购物栏高度
+
 @interface goodInformationViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (retain, nonatomic) UITableView              *tableView;
 
 @property (retain, nonatomic) UIView                   *bgSortView;
-@property (retain, nonatomic) NSArray                  *InformatonItem;     //排序导航栏下面的排序标题
+@property (retain, nonatomic) NSArray                  *InformatonItem;     //导航栏下面的商品信息
 
-@property (retain, nonatomic) UIView                   *redLine;
+@property (retain, nonatomic) UIView                   *redLine; //商品栏下面的背景红线
+@property (retain, nonatomic) UIView                   *bgLine;  //商品栏下面的背景黑线
 
 @property (retain, nonatomic) dataCommodityInformation *data;  //视图数据
 @property (retain, nonatomic) NSMutableArray           *dataStore;  //第二组 的店铺信息
 
 @property (assign, nonatomic) NSInteger                sectionThir; //保存了第三组数据cell的高度
 @property (assign, nonatomic) NSInteger                sectionFour;  //保存了第四组数据cell的高度
+
+@property (retain, nonatomic) UIView                   *loadingiew; //加载加载视图
+@property (retain, nonatomic) UIView                   *errorNetWork; //加载没有网络视图
 
 @end
 
@@ -54,6 +63,7 @@
     
     [self setTabelView];
     
+    [self setLoadingView]; //加载加载视图
 }
 
 -(void)setValueInit
@@ -62,17 +72,28 @@
     self.sectionFour = 0;
 }
 
+#pragma mark - 加载加载视图
+-(void)setLoadingView
+{
+    CGRect fr = CGRectMake(self.view.frame.size.width/2.0-40, self.view.frame.size.height/2.0-40, 80, 80);
+    self.loadingiew = [loadingImageView setLoadingImageView:fr];
+    
+    [self.view addSubview:self.loadingiew];
+}
+
+#pragma - mark 设置导航栏下面的商品信息栏
 -(void)commodityInformatonItem
 {
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    self.bgSortView = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 64, 320, 30)];
+    self.bgSortView = [[UIView alloc] initWithFrame:CGRectMake(0, Navigation+UpState, widthEx(320), InformatonItemHeight)];
+    self.bgSortView.hidden = YES;
     [self.bgSortView setBackgroundColor:[UIColor colorWithRed:248.0/255.0f green:249.0/255.0f blue:250.0/255.0f alpha:1]];
     [self.view addSubview:self.bgSortView];
     
     self.InformatonItem = @[@"商品详情", @"图文详情", @"商品评论"];
     for (int i=0; i<self.InformatonItem.count; i++) {
-        UIButton *sortBut = [[UIButton alloc] initWithFrame:CGRectMakeEx(i*320/self.InformatonItem.count, 0, 320/self.InformatonItem.count, 30)];
+        UIButton *sortBut = [[UIButton alloc] initWithFrame:CGRectMake(widthEx(i*320/(float)self.InformatonItem.count), 0, widthEx(320/(float)self.InformatonItem.count), InformatonItemHeight)];
         if (i==0) {
             sortBut.selected = NO;
         }else
@@ -90,20 +111,22 @@
         
         if (i!=0 || i!=self.InformatonItem.count) {
             //中间的两条线
-            UIView *bgVerticalLine = [[UIView alloc] initWithFrame:CGRectMakeEx(i*320/self.InformatonItem.count-1, 5, 2, 20)];
+            UIView *bgVerticalLine = [[UIView alloc] initWithFrame:CGRectMake(widthEx(i*320/(float)self.InformatonItem.count)-1, 5, 2, InformatonItemHeight-10)];
             bgVerticalLine.backgroundColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
             [self.bgSortView addSubview:bgVerticalLine];
         }
     }
     
     //下面的背景横线
-    UIView *bgLine = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 94, 320, 2)];
-    bgLine.backgroundColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
-    [self.view addSubview:bgLine];
+    self.bgLine = [[UIView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight, widthEx(320), bgLineHeight)];
+    self.bgLine.hidden = YES;
+    self.bgLine.backgroundColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
+    [self.view addSubview:self.bgLine];
     
     //加载背景横线上面的红色视图
-    self.redLine = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 92, 320/self.InformatonItem.count, 4)];
+    self.redLine = [[UIView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight, widthEx(320/(float)self.InformatonItem.count), 4)];
     self.redLine.backgroundColor = [UIColor redColor];
+    self.redLine.hidden = YES;
     self.redLine.alpha = 0.4;
     [self.view addSubview:self.redLine];
 }
@@ -117,13 +140,13 @@
     but.selected = NO; //选择的哪一个button
     
     //平移动画
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position"];
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:nil];
     // 动画持续1秒
     anim.duration =0.1;
     anim.removedOnCompletion=NO;
     //因为CGPoint是结构体，所以用NSValue包装成一个OC对象
     anim.fromValue = [NSValue valueWithCGPoint:self.redLine.frame.origin];
-    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(widthEx((but.tag-300)*320/self.InformatonItem.count), heightEx(92))];
+    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(widthEx((but.tag-300)*320/(float)self.InformatonItem.count), UpState+Navigation+InformatonItemHeight)];
     anim.delegate = self;
     //通过MyAnim可以取回相应的动画对象，比如用来中途取消动画
     [self.redLine.layer addAnimation:anim forKey:@"MyAnim"];
@@ -135,7 +158,7 @@
     for (int i=0; i<self.InformatonItem.count; i++) {
         UIButton *but = [self.bgSortView viewWithTag:i+300];
         if (but.selected == NO) {
-            self.redLine.frame = CGRectMakeEx((but.tag-300)*320/self.InformatonItem.count, 92, 320/self.InformatonItem.count, 4);
+            self.redLine.frame = CGRectMake(widthEx((but.tag-300)*320/(float)self.InformatonItem.count), UpState+Navigation+InformatonItemHeight, widthEx(320/(float)self.InformatonItem.count), redLineHeight);
         }
     }
 }
@@ -155,7 +178,12 @@
         self.dataStore = [[NSMutableArray alloc] init];
         [self.dataStore addObject:@"图文详情"];
         [self.dataStore addObject:[NSString stringWithFormat:@"店铺:%@", [self.data.store_info store_name]]];
-
+        
+        self.redLine.hidden = NO;
+        self.redLine.hidden = NO;
+        self.tableView.hidden = NO;
+        self.bgSortView.hidden = NO;
+        [self.loadingiew removeFromSuperview];
         [self.tableView reloadData];
         
         [self setdownShopping];   //设置下面的物品加入购物车
@@ -163,13 +191,28 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         
+        [self.loadingiew removeFromSuperview];
+        [self.errorNetWork removeFromSuperview];
+        CGRect fr = CGRectMake(self.view.frame.size.width/2.0-300/2.0, self.view.frame.size.height/2.0-300/2.0, 300, 300);
+        self.errorNetWork = [loadingImageView setNetWorkError:fr];
+        UIButton *but = [self.errorNetWork viewWithTag:7777];
+        [but addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.errorNetWork];
     }];
+}
+
+-(void)buttonAction
+{
+    [self.errorNetWork removeFromSuperview];
+    [self setLoadingView]; //加载加载视图
+    [self requestCommodit];
 }
 
 #pragma mark - 加载tabel
 -(void)setTabelView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 96, 320, 472) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight+bgLineHeight, widthEx(320), heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight) style:UITableViewStyleGrouped];
+    self.tableView.hidden = YES;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -193,6 +236,10 @@
 //返回表格的组数的代理方法
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 5;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.1;
 }
 //返回组尾高度
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -277,8 +324,8 @@
         //计算label高度
         CGRect frame = CGRectMakeEx(5, 0, 310, 0);
         secondGoodsInfo *GInfo = self.data.goods_info;
-        frame.size.height = heightEx([self heightWithString:GInfo.goods_name width:310 fontSize:18]);
-        return heightEx(frame.size.height+250+10);
+        frame.size.height = [self heightWithString:GInfo.goods_name width:widthEx(310) fontSize:18];
+        return frame.size.height+heightEx(250)+10;
     }else if (indexPath.section == 1)//第二组
     {
         return heightEx(40);
@@ -287,14 +334,20 @@
         if (self.data != nil) {
             if (self.sectionThir == 0) { //因为只有一组cell，计算之后就不用算了
                 //计算第三组label的高度，要更改需要到 PrefixHeader 更改
-                NSInteger up = [self heightWithString:[self.data.goods_info goods_jingle] width:widthEx(bgWidth) fontSize:setFontSize]; //上面标题的高度
+                NSInteger up;
+                if ([[self.data.goods_info goods_jingle] length] == 0) {
+                    up = 0;
+                }else
+                {
+                    up = [self heightWithString:[self.data.goods_info goods_jingle] width:widthEx(bgWidth) fontSize:setFontSize]; //上面标题的高度
+                }
                 NSString *string = [NSString stringWithFormat:@"由%@负责发货,并提供售后服务", [self.data.store_info store_name]];
-                NSInteger storeName = [self heightWithString:string width:widthEx(bgWidth-Service-bgX) fontSize:setFontSize]; //服务后面的发货商介绍视图
-                NSInteger bg = Pacebg; //价格的背景视图的高度
+                NSInteger storeName = [self heightWithString:string width:widthEx(bgWidth-Service) fontSize:setFontSize]; //服务后面的发货商介绍视图
+                NSInteger bg = heightEx(Pacebg); //价格的背景视图的高度
                 self.sectionThir = up+storeName+bg+10;
             }
         }
-        return heightEx(self.sectionThir);
+        return self.sectionThir;
     }else if (indexPath.section == 3) //第四组，是设置商品的规格选择
     {
         if (self.data != nil) {
@@ -314,9 +367,9 @@
                         bgSpecifications = bgSpecifications + grouInt*(SpecificationHeight+IntervalButton);
                         bgSpecifications = bgSpecifications+Interval;
                         
-                        NSInteger specifications = 30+Interval; //库存视图
+                        NSInteger specifications = heightEx(30)+Interval; //库存视图
                         
-                        NSInteger number = heightEx(5+30); //价格的背景视图的高度
+                        NSInteger number = heightEx(5+30); //数量
                         
                         self.sectionFour = bgSpecifications+specifications+number+10;
                     }
@@ -327,7 +380,7 @@
 
             }
         }
-        return heightEx(self.sectionFour);
+        return self.sectionFour;
     }else
     {
         return heightEx(200);
@@ -340,7 +393,7 @@
     NSArray *ar = @[@"关注", @"购物车", @"加入购物车"];
     
     for (int i=0; i<3; i++) {
-        UIView *shopView = [[UIView alloc] initWithFrame:CGRectMakeEx(i*320/3.0f, 523, 320/3.0f, 45)];
+        UIView *shopView = [[UIView alloc] initWithFrame:CGRectMake(widthEx(i*320/3.0f), heightEx(568)-shopingHeight, widthEx(320/3.0f), shopingHeight)];
         shopView.backgroundColor = [UIColor blackColor];
         shopView.alpha = 0.7;
         //加载label
@@ -348,22 +401,22 @@
         shopLabel.textAlignment = NSTextAlignmentCenter;
         shopLabel.text = ar[i];
         shopLabel.textColor = [UIColor whiteColor];
-        shopLabel.frame = CGRectMakeEx(0, 25, 320/3.0f, 20);
+        shopLabel.frame = CGRectMake(0, 25, widthEx(320/3.0f), shopingHeight-25);
         [shopView addSubview:shopLabel];
         if (i==2) {
             shopView.backgroundColor = [UIColor redColor];
             shopView.alpha = 1;
-            shopLabel.frame = CGRectMakeEx(0, 0, 320/3.0f, 45);
+            shopLabel.frame = CGRectMake(0, 0, widthEx(320/3.0f), shopingHeight);
         }
         
         //加载image
         if (i==0) {
-            UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMakeEx((320/3.0f)/2.0f-25/2.0f, 0, 25, 25)];
+            UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(widthEx((320/3.0f)/2.0f-25/2.0f), 0, 25, 25)];
             [imageView setImage:[UIImage imageNamed:@"nearby_focus_off.png"]];
             [shopView addSubview:imageView];
         }
         if (i==1) {
-            UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMakeEx((320/3.0f)/2.0f-25/2.0f, 0, 25, 25)];
+            UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(widthEx((320/3.0f)/2.0f-25/2.0f), 0, 25, 25)];
             [imageView setImage:[UIImage imageNamed:@"main_bottom_tab_cart_normal.png"]];
             [shopView addSubview:imageView];
         }
@@ -401,9 +454,9 @@
 #pragma mark - 计算label高度
 -(CGFloat)heightWithString:(NSString *)string width:(CGFloat)width fontSize:(CGFloat)fontSize
 {
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize + 1.5]} context:nil];
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil];
     
-    return heightEx(rect.size.height);
+    return rect.size.height;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

@@ -8,6 +8,8 @@
 
 #import "secondListViewController.h"
 
+#define bgSortViewHeight 30  //排序方式的高
+
 @interface secondListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 typedef enum {
@@ -30,6 +32,10 @@ typedef enum {
 
 @property (retain, nonatomic) NSArray         *arrayData;
 
+
+@property (retain, nonatomic) UIView            *loadingiew; //加载加载视图
+@property (retain, nonatomic) UIView            *errorNetWork; //加载没有网络视图
+@property (retain, nonatomic) UILabel           *errorRefresh; //刷新失败视图
 
 @end
 
@@ -55,6 +61,17 @@ typedef enum {
     
     [self setTabelView];  //加载tabel
     
+    [self setLoadingView]; //加载加载网络
+    
+}
+
+#pragma mark - 加载加载视图
+-(void)setLoadingView
+{
+    CGRect fr = CGRectMake(self.view.frame.size.width/2.0-40, self.view.frame.size.height/2.0-40, 80, 80);
+    self.loadingiew = [loadingImageView setLoadingImageView:fr];
+    
+    [self.view addSubview:self.loadingiew];
 }
 
 -(void)setWebRequestData
@@ -67,9 +84,11 @@ typedef enum {
     [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
+#pragma - mark 设置导航栏下面的排序方式
 -(void)createSort
 {
-    self.bgSortView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, widthEx(320), 30)];
+    self.bgSortView = [[UIView alloc] initWithFrame:CGRectMake(0, UpState+Navigation, widthEx(320), bgSortViewHeight)];
+    self.bgSortView.hidden = YES;
     [self.bgSortView setBackgroundColor:[UIColor colorWithRed:248.0/255.0f green:249.0/255.0f blue:250.0/255.0f alpha:1]];
     [self.view addSubview:self.bgSortView];
     
@@ -180,20 +199,55 @@ typedef enum {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
         self.arrayData = [commodityList setValueWithDictionary:dict];
+        
+        self.tableView.hidden = NO;
+        self.bgSortView.hidden = NO;
+        [self.loadingiew removeFromSuperview];
         [self.tableView reloadData];
         
         [self.tableView.mj_header endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [self.tableView.mj_header endRefreshing];
+        
+        if ([self.arrayData isKindOfClass:[NSArray class]]) { //判断有没有数据
+            [self.tableView.mj_header endRefreshing];
+            
+            if (self.errorRefresh==nil) {
+                self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"刷新失败"];
+                [self.view addSubview:self.errorRefresh];
+                [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+            }
+        }else
+        {
+            [self.loadingiew removeFromSuperview];
+            [self.errorNetWork removeFromSuperview];
+            CGRect fr = CGRectMake(self.view.frame.size.width/2.0-300/2.0, self.view.frame.size.height/2.0-300/2.0, 300, 300);
+            self.errorNetWork = [loadingImageView setNetWorkError:fr];
+            UIButton *but = [self.errorNetWork viewWithTag:7777];
+            [but addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:self.errorNetWork];
+        }
         
     }];
+}
+
+-(void)setStoplabel
+{
+    [self.errorRefresh removeFromSuperview];
+    self.errorRefresh = nil;
+}
+-(void)buttonAction
+{
+    [self.errorNetWork removeFromSuperview];
+    [self setLoadingView]; //加载加载视图
+    [self requestClassification];
 }
 
 #pragma mark - 加载tabel
 -(void)setTabelView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44+30, widthEx(320), heightEx(568)-30) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Navigation+UpState+bgSortViewHeight, widthEx(320), heightEx(568)-bgSortViewHeight-UpState-Navigation) style:UITableViewStylePlain];
+    self.tableView.hidden = YES;
     [_tableView setBackgroundColor:[UIColor clearColor]];
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone]; //设置tabel没有的cell不显示出来
     _tableView.delegate = self;
@@ -202,11 +256,9 @@ typedef enum {
     
     //设置下拉菜单
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        // 进入刷新状态后会自动调用这个block
+        //进入刷新状态后会自动调用这个block
         [self requestClassification];
     }];
-    // 马上进入刷新状态
-    [self.tableView.mj_header beginRefreshing];
 }
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法

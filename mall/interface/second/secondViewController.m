@@ -22,7 +22,7 @@
 @interface secondViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) UISearchBar       *searchBar;
-@property (retain, nonatomic) NSArray           *OCassification;
+@property (retain, nonatomic) NSArray           *OCassification;  //保存了当前页面的一级数据
 
 @property (retain, nonatomic) UITableView       *tableView;
 @property (retain, nonatomic) NSArray           *nowArray;  //保存了当前滚动视图的一个tabel的二级数据
@@ -35,6 +35,8 @@
 @property (retain, nonatomic) NSMutableArray    *thirdArray; //保存了当前页面的所有三级数据
 
 @property (retain, nonatomic) UIView            *loadingiew;  //加载加载视图
+
+@property (retain, nonatomic) UIView            *errorNetWork; //加载没有网络视图
 
 @end
 
@@ -68,7 +70,7 @@
     
     [self setTabelView];  //加载table一级分类tabel
     
-    [self setLoadingView];
+    [self setLoadingView];  //加载加载视图
     
 }
 
@@ -137,16 +139,16 @@
 {
     if (self.OCassification.count != 0) {
         //CGRectMakeEx(100, 60, 220, 459)
-        self.bgTableScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(widthEx(100), 0, widthEx(320-100), heightEx(568))];
+        self.bgTableScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(widthEx(100), Navigation+UpState, widthEx(320-100), heightEx(568)-Navigation-UpState-TabBar)];
         [self.bgTableScrollView setBackgroundColor:[UIColor whiteColor]];
         //CGSizeMakeEx(220*self.OCassification.count, 459)
-        self.bgTableScrollView.contentSize = CGSizeMake(widthEx(320-100)*self.OCassification.count, heightEx(568));
+        self.bgTableScrollView.contentSize = CGSizeMake(widthEx(320-100)*self.OCassification.count, heightEx(568)-Navigation-UpState-TabBar);
         self.bgTableScrollView.pagingEnabled = YES;
         self.bgTableScrollView.delegate = self;
         [self.view addSubview:self.bgTableScrollView];
         for (int i=0; i<self.OCassification.count; i++) {
             //CGRectMakeEx(i*220, 0, 220, 459)
-            UITableView *secondTabel = [[UITableView alloc] initWithFrame:CGRectMake(i*widthEx(320-100), 0, widthEx(320-100), heightEx(568)) style:UITableViewStyleGrouped];
+            UITableView *secondTabel = [[UITableView alloc] initWithFrame:CGRectMake(i*widthEx(320-100), 0, widthEx(320-100), heightEx(568)-Navigation-UpState-TabBar) style:UITableViewStyleGrouped];
             [secondTabel setBackgroundColor:[UIColor whiteColor]];
             secondTabel.tag = 100+i;
             secondTabel.delegate = self;
@@ -345,9 +347,23 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         
+        [self.loadingiew removeFromSuperview];
+        CGRect fr = CGRectMake(self.view.frame.size.width/2.0-300/2.0, self.view.frame.size.height/2.0-300/2.0, 300, 300);
+        self.errorNetWork = [loadingImageView setNetWorkError:fr];
+        UIButton *but = [self.errorNetWork viewWithTag:7777];
+        [but addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.errorNetWork];
         
     }];
 }
+
+-(void)buttonAction
+{
+    [self.errorNetWork removeFromSuperview];
+    [self setLoadingView]; //加载加载视图
+    [self requestClassification];
+}
+
 #pragma mark - 请求二级和三级数据
 -(void)requestSecondClassification:(NSInteger)gc_parent_id
 {

@@ -59,9 +59,7 @@
 -(void)createSearchBar{
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    //self.navigationController.navigationBar.translucent = NO;
-    //UIRectEdgeAll的时候会让tableView从导航栏下移44px，设置为UIRectEdgeNone的时候，刚刚在导航栏下面。
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
@@ -303,6 +301,7 @@
     [self.errorRefresh removeFromSuperview];
     self.errorRefresh = nil;
 }
+
 #pragma mark - 加载加载视图
 -(void)setLoadingView
 {

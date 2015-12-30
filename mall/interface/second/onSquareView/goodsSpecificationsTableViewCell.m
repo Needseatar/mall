@@ -181,7 +181,7 @@
                     UIView *inAllViewOne = [self.bgSpecificationsView viewWithTag:j+2000];
                     numberBgViewHeight = numberBgViewHeight+ inAllViewOne.frame.size.height + Interval;
                 }
-                self.bgSpecificationsView.frame = CGRectMakeEx(5, 30+Interval, 310, numberBgViewHeight);
+                self.bgSpecificationsView.frame = CGRectMake(5, heightEx(30)+Interval, widthEx(310), numberBgViewHeight);
             }else
             {
                 self.bgSpecificationsView.frame = CGRectMakeEx(5, 30+Interval, 310, 5);
