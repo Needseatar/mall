@@ -8,6 +8,9 @@
 
 #import "fisterViewController.h"
 
+#define WangNengJuID 375
+#define TaiRunHotelID 376
+#define DaLangTaoSaId 377
 
 @interface fisterViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -242,6 +245,7 @@
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+    
     [manager GET:fisterRequest parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
@@ -331,15 +335,25 @@
     NSArray *nameArray = @[@"万能居", @"泰润酒店", @"大浪淘沙酒店", @"战略联盟商家",
                            @"所有店铺", @"所有商品", @"帮助中心", @"反馈留言"];
     
+#pragma mark - 品牌跳转
     //跳转
     if ([str isEqualToString:nameArray[0]]) {
-        
+        secondListViewController *SLViewControl = [[secondListViewController alloc] init];
+        SLViewControl.parameter = [NSString stringWithFormat:@"&brand=%d", WangNengJuID];
+        SLViewControl.title = @"商品列表";
+        [self.navigationController pushViewController:SLViewControl animated:YES];
     }else if ([str isEqualToString:nameArray[1]])
     {
-        
+        secondListViewController *SLViewControl = [[secondListViewController alloc] init];
+        SLViewControl.parameter = [NSString stringWithFormat:@"brand=%d", TaiRunHotelID];
+        SLViewControl.title = @"商品列表";
+        [self.navigationController pushViewController:SLViewControl animated:YES];
     }else if ([str isEqualToString:nameArray[2]])
     {
-        
+        secondListViewController *SLViewControl = [[secondListViewController alloc] init];
+        SLViewControl.parameter = [NSString stringWithFormat:@"&brand=%d", DaLangTaoSaId];
+        SLViewControl.title = @"商品列表";
+        [self.navigationController pushViewController:SLViewControl animated:YES];
     }else if ([str isEqualToString:nameArray[3]])
     {
         

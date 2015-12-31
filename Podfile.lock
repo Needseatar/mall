@@ -20,14 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Bugly (1.4.4)
   - MJRefresh (3.0.8)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - Bugly
   - MJRefresh
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Bugly: 2458242832b6f5273025fb9455cbee4f87f61cc2
   MJRefresh: fafde8f18f4afd66b434331a9beb67a6c0264056
 
 COCOAPODS: 0.39.0

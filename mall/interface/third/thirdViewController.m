@@ -206,25 +206,42 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
     [manager GET:SearchText parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *aString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", aString);
-        NSRange range = [aString rangeOfString:@"=>"];//匹配得到的下标
-        aString = [aString substringFromIndex:range.location+range.length];//截取下标 ' 之前的字符串
-        range = [aString rangeOfString:@"'"];
-        aString = [aString substringFromIndex:range.location+range.length];//截掉下标 ' 之前的字符串
-        range = [aString rangeOfString:@"'"];
-        aString = [aString substringToIndex:range.location];//截掉下标 ' 之后的字符串
-        NSLog(@"截取的值为：%@",aString);
-        self.mArry = [[NSArray alloc] init];
-        self.mArry = [aString componentsSeparatedByString:@","]; //从字符，中分隔成n个元素的数组
         
-        for (UIView *suView in [self.view subviews]) {  //移除视图上的空间
-            [suView removeFromSuperview];
+        //捕获异常
+        @try {
+            for (UIView *suView in [self.view subviews]) {  //移除视图上的空间
+                [suView removeFromSuperview];
+            }
+            NSString *aString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            //aString = @"sdjfhskhdfdishlsajkdfk";
+            NSLog(@"%@", aString);
+            NSRange range = [aString rangeOfString:@"=>"];//匹配得到的下标
+            aString = [aString substringFromIndex:range.location+range.length];//截取下标 ' 之前的字符串
+            range = [aString rangeOfString:@"'"];
+            aString = [aString substringFromIndex:range.location+range.length];//截掉下标 ' 之前的字符串
+            range = [aString rangeOfString:@"'"];
+            aString = [aString substringToIndex:range.location];//截掉下标 ' 之后的字符串
+            NSLog(@"截取的值为：%@",aString);
+            self.mArry = [[NSArray alloc] init];
+            self.mArry = [aString componentsSeparatedByString:@","]; //从字符，中分隔成n个元素的数组
+            [self setButtonRandom]; //设置随机button 的位置和颜色
+            
+            [self setButton];    //加载随机button
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%s\n%@", __FUNCTION__, exception);
+            [self.loadingiew removeFromSuperview];
+            [self.errorNetwork removeFromSuperview];
+            CGRect fr = CGRectMake(self.view.frame.size.width/2.0-300/2.0, self.view.frame.size.height/2.0-300/2.0, 300, 300);
+            self.errorNetwork = [loadingImageView setNetWorkError:fr];
+            UIButton *but = [self.errorNetwork viewWithTag:7777];
+            [but addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:self.errorNetwork];
+        }
+        @finally {
+            
         }
         
-        [self setButtonRandom]; //设置随机button 的位置和颜色
-        
-        [self setButton];    //加载随机button
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         

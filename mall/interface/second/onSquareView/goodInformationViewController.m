@@ -179,7 +179,7 @@
         [self.dataStore addObject:@"图文详情"];
         [self.dataStore addObject:[NSString stringWithFormat:@"店铺:%@", [self.data.store_info store_name]]];
         
-        self.redLine.hidden = NO;
+        self.bgLine.hidden = NO;
         self.redLine.hidden = NO;
         self.tableView.hidden = NO;
         self.bgSortView.hidden = NO;

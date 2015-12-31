@@ -445,7 +445,7 @@
     NSString *gc_string_ID = [notification object];
     NSInteger gc_ID = [gc_string_ID integerValue];
     secondListViewController *SLViewControl = [[secondListViewController alloc] init];
-    SLViewControl.gc_ID = gc_ID;
+    SLViewControl.parameter = [NSString stringWithFormat:@"&gc_id=%ld", (long)gc_ID];
     SLViewControl.title = @"商品列表";
     [self.navigationController pushViewController:SLViewControl animated:YES];
 }

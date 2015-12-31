@@ -30,7 +30,7 @@ typedef enum {
 @property (assign, nonatomic) NSInteger       page;   // 每页数量
 @property (assign, nonatomic) NSInteger       curpage;  //当前页码
 
-@property (retain, nonatomic) NSArray         *arrayData;
+@property (retain, nonatomic) NSMutableArray  *arrayData;
 
 
 @property (retain, nonatomic) UIView            *loadingiew; //加载加载视图
@@ -195,10 +195,19 @@ typedef enum {
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
-    [manager GET:[NSString stringWithFormat:SecondListRequest, self.key, (long)self.order, (long)self.page, (long)self.curpage, (long)self.gc_ID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:SecondListRequest, self.key, (long)self.order, (long)self.page, (long)self.curpage, self.parameter] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
-        self.arrayData = [commodityList setValueWithDictionary:dict];
+        [self.tableView.mj_footer endRefreshing];
+        if ([self.arrayData isKindOfClass:[NSArray class]]) { //如果有数据，就加入数据
+            NSArray *arrr = [commodityList setValueWithDictionary:dict];
+            for (int i=0; i<arrr.count; i++) {
+                [self.arrayData addObject:arrr[i]];
+            }
+        }else
+        {
+            self.arrayData = [commodityList setValueWithDictionary:dict];
+        }
         
         self.tableView.hidden = NO;
         self.bgSortView.hidden = NO;
@@ -211,6 +220,7 @@ typedef enum {
         
         if ([self.arrayData isKindOfClass:[NSArray class]]) { //判断有没有数据
             [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
             
             if (self.errorRefresh==nil) {
                 self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"刷新失败"];
@@ -248,14 +258,28 @@ typedef enum {
 {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Navigation+UpState+bgSortViewHeight, widthEx(320), heightEx(568)-bgSortViewHeight-UpState-Navigation) style:UITableViewStylePlain];
     self.tableView.hidden = YES;
-    [_tableView setBackgroundColor:[UIColor clearColor]];
+    [_tableView setBackgroundColor:[UIColor whiteColor]];
     [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone]; //设置tabel没有的cell不显示出来
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    //设置下拉菜单
+    //加载下拉菜单
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        //初始化数据
+        self.page = 10;  //设置请求数量
+        self.curpage = 1; //设置当前页码
+        //进入刷新状态后会自动调用这个block
+        [self requestClassification];
+    }];
+    
+    //加载上拉菜单
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        //初始化数据
+        self.page = 10;  //设置请求数量
+        self.curpage++; //设置当前页码
         //进入刷新状态后会自动调用这个block
         [self requestClassification];
     }];

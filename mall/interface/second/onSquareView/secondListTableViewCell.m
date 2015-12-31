@@ -8,6 +8,8 @@
 
 #import "secondListTableViewCell.h"
 
+#define titleWith 2
+
 @interface secondListTableViewCell ()
 
 @property (retain, nonatomic) UIImageView *leftImage;
@@ -30,19 +32,19 @@
         [self addSubview:self.leftImage];
         
         //右边上标题
-        self.titlelabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(90, 3, 225, 50)];
+        self.titlelabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(90+5+titleWith, 0, 320-95-5-titleWith, 50)];
         self.titlelabel.numberOfLines = 2;
         self.titlelabel.backgroundColor = [UIColor clearColor];
         [self addSubview:self.titlelabel];
         
         //右边价格
-        self.pacelabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(90, 53, 225, 25)];
+        self.pacelabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(90+5+titleWith, 50, 320-95-5-titleWith, 25)];
         self.pacelabel.textColor = [UIColor redColor];
         self.pacelabel.backgroundColor = [UIColor clearColor];
         [self addSubview:self.pacelabel];
         
         //星星评价
-        self.bgStarView = [[UIView alloc] initWithFrame:CGRectMakeEx(90, 81, 225, 26)];
+        self.bgStarView = [[UIView alloc] initWithFrame:CGRectMakeEx(90+5+titleWith, 78, 320-95-5-titleWith, 26)];
         self.bgStarView.backgroundColor = [UIColor clearColor];
         [self addSubview:self.bgStarView];
         for (int i=0; i<5; i++) {
@@ -53,8 +55,8 @@
         }
         
         //评价数
-        self.countPeople = [[UILabel alloc] initWithFrame:CGRectMakeEx(140, 0, 225-140, 23)];
-        self.countPeople.backgroundColor = [UIColor clearColor];
+        self.countPeople = [[UILabel alloc] initWithFrame:CGRectMakeEx(90+5+titleWith+28*5, 0, 320-95-5-titleWith-28*5, 23)];
+        self.countPeople.backgroundColor = [UIColor redColor];
         [self.bgStarView addSubview:self.countPeople];
     }
     return self;
