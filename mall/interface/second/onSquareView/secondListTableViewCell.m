@@ -55,8 +55,8 @@
         }
         
         //评价数
-        self.countPeople = [[UILabel alloc] initWithFrame:CGRectMakeEx(90+5+titleWith+28*5, 0, 320-95-5-titleWith-28*5, 23)];
-        self.countPeople.backgroundColor = [UIColor redColor];
+        self.countPeople = [[UILabel alloc] initWithFrame:CGRectMakeEx(titleWith+28*5, 0, 320-95-5-titleWith-28*5, 23)];
+        self.countPeople.backgroundColor = [UIColor whiteColor];
         [self.bgStarView addSubview:self.countPeople];
     }
     return self;

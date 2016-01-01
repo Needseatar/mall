@@ -83,6 +83,7 @@
     fram.size.height = 50;
     UILabel *label1 = [[UILabel alloc] initWithFrame:fram];
     label1.numberOfLines = 2;
+    label1.textColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
     label1.textAlignment = NSTextAlignmentCenter;
     label1.text = @"连接不上网络,请确认一下你的网络开关,或者服务器网络正忙,请稍后再试";
     [vi addSubview:label1];

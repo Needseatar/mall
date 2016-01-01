@@ -138,16 +138,13 @@
 -(void)setTabelViewOfSecondAndThird
 {
     if (self.OCassification.count != 0) {
-        //CGRectMakeEx(100, 60, 220, 459)
         self.bgTableScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(widthEx(100), Navigation+UpState, widthEx(320-100), heightEx(568)-Navigation-UpState-TabBar)];
         [self.bgTableScrollView setBackgroundColor:[UIColor whiteColor]];
-        //CGSizeMakeEx(220*self.OCassification.count, 459)
         self.bgTableScrollView.contentSize = CGSizeMake(widthEx(320-100)*self.OCassification.count, heightEx(568)-Navigation-UpState-TabBar);
         self.bgTableScrollView.pagingEnabled = YES;
         self.bgTableScrollView.delegate = self;
         [self.view addSubview:self.bgTableScrollView];
         for (int i=0; i<self.OCassification.count; i++) {
-            //CGRectMakeEx(i*220, 0, 220, 459)
             UITableView *secondTabel = [[UITableView alloc] initWithFrame:CGRectMake(i*widthEx(320-100), 0, widthEx(320-100), heightEx(568)-Navigation-UpState-TabBar) style:UITableViewStyleGrouped];
             [secondTabel setBackgroundColor:[UIColor whiteColor]];
             secondTabel.tag = 100+i;
