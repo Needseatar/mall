@@ -10,7 +10,7 @@
 
 @interface commodityList : NSObject
 
-@property (assign, nonatomic) NSString  *evaluation_count;
+@property (assign, nonatomic) NSInteger evaluation_count;
 @property (retain, nonatomic) NSString  *evaluation_good_star;
 @property (retain, nonatomic) NSString  *goods_id;
 @property (retain, nonatomic) NSString  *goods_image;

@@ -35,11 +35,17 @@
     return self;
 }
 
+
 -(void)viewWillAppear:(BOOL)animated
 {
     for (UIView *suView in [self.view subviews]) {  //移除视图上的空间
         [suView removeFromSuperview];
     }
+    UISearchBar *searchView = [self.navigationController.navigationBar viewWithTag:30];
+    searchView.hidden =  NO;
+    self.tabBarController.tabBar.hidden = NO;  //便签控制器不隐藏
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     [self requestSearchText]; //请求数据
     [self setLoadingView];   //加载加载视图
 }
@@ -177,16 +183,17 @@
 -(void)buttonAction:(UIButton *)but
 {
     self.searchBar.text = but.titleLabel.text;
+    [self buttonCamera];
 }
 
 #pragma mark - 设置导航栏的搜索和取消
 -(void)createSearchBar{
     
-    self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0/255.0f green:118.0/255.0f blue:118.0/255.0f alpha:1]];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMakeNavigationEx(20, 0, 240, 40, changeWidth)];
+    self.searchBar.tag = 30;
     _searchBar.placeholder = @"请输入搜索内容";
     _searchBar.delegate = self;
     [self.navigationController.navigationBar addSubview:_searchBar];
@@ -196,10 +203,23 @@
     [rightCamera setTitle:@"搜索" forState:UIControlStateNormal];
     [rightCamera setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     rightCamera.frame = CGRectMakeNavigationEx(0, 0, 45, 25, changeWidth);
+    [rightCamera addTarget:self action:@selector(buttonCamera) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightCameraItem = [[UIBarButtonItem alloc] initWithCustomView:rightCamera];
     self.navigationItem.rightBarButtonItem = rightCameraItem;
     
 }
+#pragma mark - 跳转到商品详情列表页面
+-(void)buttonCamera
+{
+    [self.searchBar resignFirstResponder];
+    NSString *str = [NSString stringWithFormat:@"&keyword=%@", self.searchBar.text];
+    str = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; //转格式
+    secondListViewController *SLViewControl = [[secondListViewController alloc] init];
+    SLViewControl.parameter = str;
+    SLViewControl.title = @"商品列表";
+    [self.navigationController pushViewController:SLViewControl animated:YES];
+}
+
 #pragma mark - 请求数据
 -(void)requestSearchText
 {
@@ -213,7 +233,6 @@
                 [suView removeFromSuperview];
             }
             NSString *aString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-            //aString = @"sdjfhskhdfdishlsajkdfk";
             NSLog(@"%@", aString);
             NSRange range = [aString rangeOfString:@"=>"];//匹配得到的下标
             aString = [aString substringFromIndex:range.location+range.length];//截取下标 ' 之前的字符串

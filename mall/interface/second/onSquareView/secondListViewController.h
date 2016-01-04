@@ -19,7 +19,7 @@
 * keyword 搜索关键字
 * brand 品牌
 * gc_id和keyword和brand三选一不能同时出
-*
+* parameter可以是gc_id，keyword，brand
 */
 
 @property (retain, nonatomic) NSString  *parameter; //请求的参数

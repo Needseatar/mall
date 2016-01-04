@@ -36,6 +36,9 @@ typedef enum {
 @property (retain, nonatomic) UIView            *loadingiew; //加载加载视图
 @property (retain, nonatomic) UIView            *errorNetWork; //加载没有网络视图
 @property (retain, nonatomic) UILabel           *errorRefresh; //刷新失败视图
+@property (retain, nonatomic) UIView            *notDataView;  //该分类没有数据
+
+@property (assign, nonatomic) BOOL              hasmore;    //保存了arrayData的数据是否已经满了
 
 @end
 
@@ -76,6 +79,7 @@ typedef enum {
 
 -(void)setWebRequestData
 {
+    self.hasmore = YES;
     self.key = @"&key=1";
     self.order = 1;
     self.page = 10;
@@ -134,7 +138,6 @@ typedef enum {
                     self.order = 1;
                     self.page = 10;
                     self.curpage = 1;
-                    [self requestClassification];
                 }else
                 {
                     [upDownImage setImage:[UIImage imageNamed:@"coupon_double_arrow_pressed1.png"]];
@@ -144,7 +147,6 @@ typedef enum {
                     self.order = 2;
                     self.page = 10;
                     self.curpage = 1;
-                    [self requestClassification];
                 }
             }else
             {
@@ -155,7 +157,6 @@ typedef enum {
                         self.order = 1;
                         self.page = 10;
                         self.curpage = 1;
-                        [self requestClassification];
                         break;
                     }
                     case 1:
@@ -164,7 +165,6 @@ typedef enum {
                         self.order = 1;
                         self.page = 10;
                         self.curpage = 1;
-                        [self requestClassification];
                         break;
                     }
                     case 3:
@@ -173,7 +173,6 @@ typedef enum {
                         self.order = 1;
                         self.page = 10;
                         self.curpage = 1;
-                        [self requestClassification];
                         break;
                     }
                     default:
@@ -188,6 +187,15 @@ typedef enum {
             sectBut.selected = NO;
         }
     }
+    //设置好了之后请求数据
+    self.arrayData = [[NSMutableArray alloc] init];
+    [self.tableView reloadData];
+    self.arrayData = nil; //重置数据
+    self.hasmore = YES;
+    self.tableView.hidden = YES;
+    self.notDataView.hidden = YES;
+    [self setLoadingView]; //加载加载网络
+    [self requestClassification];
 }
 
 #pragma mark - 请求数据
@@ -199,22 +207,45 @@ typedef enum {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"JSON: %@", dict);
         [self.tableView.mj_footer endRefreshing];
-        if ([self.arrayData isKindOfClass:[NSArray class]]) { //如果有数据，就加入数据
-            NSArray *arrr = [commodityList setValueWithDictionary:dict];
-            for (int i=0; i<arrr.count; i++) {
-                [self.arrayData addObject:arrr[i]];
+        
+        if (self.hasmore == YES) { //self.arrayData还有更多数据
+            if ([self.arrayData isKindOfClass:[NSMutableArray class]]) { //如果有数据，就加入数据
+                NSArray *arrr = [commodityList setValueWithDictionary:dict];
+                for (int i=0; i<arrr.count; i++) {
+                    [self.arrayData addObject:arrr[i]];
+                }
+            }else
+            {
+                self.arrayData = [commodityList setValueWithDictionary:dict];
+            }
+            if ([dict[@"hasmore"] integerValue]==0) {//服务器如果没有更多的数据，就设置self.arrayData也已经没有数据了
+                self.hasmore = NO;
             }
         }else
         {
-            self.arrayData = [commodityList setValueWithDictionary:dict];
+            //服务器上没有更多的数据，self.arrayData也已经不可以增加更多的数据，也就是说是上啦没有数据了
+            if ([dict[@"hasmore"] integerValue]==0) {//self.arrayData也已经不可以增加更多的数据
+                if (self.errorRefresh==nil) {
+                    self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"已经没有更多的数据了"];
+                    [self.view addSubview:self.errorRefresh];
+                    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                }
+            }
         }
-        
+        self.notDataView = NO;
         self.tableView.hidden = NO;
         self.bgSortView.hidden = NO;
         [self.loadingiew removeFromSuperview];
         [self.tableView reloadData];
-        
         [self.tableView.mj_header endRefreshing];
+        
+        
+        //当前分类或搜索没有数据
+        if (self.arrayData.count == 0) {
+            CGRect fr = CGRectMake(self.view.frame.size.width/2.0-200/2.0, self.view.frame.size.height/2.0-200/2.0, 200, 200);
+            self.notDataView = [loadingImageView setClassification:fr];
+            [self.view addSubview:self.notDataView];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         
@@ -279,7 +310,9 @@ typedef enum {
         // 进入刷新状态后会自动调用这个block
         //初始化数据
         self.page = 10;  //设置请求数量
-        self.curpage++; //设置当前页码
+        if (self.hasmore == YES) {
+            self.curpage++; //设置当前页码
+        }
         //进入刷新状态后会自动调用这个block
         [self requestClassification];
     }];

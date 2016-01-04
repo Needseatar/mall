@@ -126,11 +126,11 @@
                     }else
                     {
                         UIView *upview = [self.bgSpecificationsView viewWithTag:2000+i-1]; //寻找上一个视图
-                        bgView = [[UIView alloc] initWithFrame:CGRectMake(widthEx(0), upview.frame.origin.x+upview.frame.size.height+Interval, heightEx(310), heightEx(grouInt*(SpecificationHeight+IntervalButton)))];
+                        bgView = [[UIView alloc] initWithFrame:CGRectMake(widthEx(0), upview.frame.origin.y+upview.frame.size.height+Interval, heightEx(310), heightEx(grouInt*(SpecificationHeight+IntervalButton)))];
                     }
                     bgView.tag = 2000+i;
                     i++;
-                    bgView.backgroundColor = [UIColor clearColor];
+                    bgView.backgroundColor = [UIColor whiteColor];
                     //设置画虚线视图
                     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(widthEx(0), (bgView.frame.size.height-1)+Interval/2, widthEx(310), 1)];
                     lineView.tag = 4111;

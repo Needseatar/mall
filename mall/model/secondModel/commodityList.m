@@ -11,7 +11,7 @@
 @implementation commodityList
 
 -(void)setValueWithDictionary:(NSDictionary *)dic{
-    self.evaluation_count = [NSString stringWithFormat:@"%@", dic[@"evaluation_count"]];
+    self.evaluation_count = [dic[@"evaluation_count"] integerValue];
     self.evaluation_good_star = dic[@"evaluation_good_star"];
     self.goods_id = dic[@"goods_id"];
     self.goods_image = dic[@"goods_image"];

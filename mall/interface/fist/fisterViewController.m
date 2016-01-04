@@ -345,7 +345,7 @@
     }else if ([str isEqualToString:nameArray[1]])
     {
         secondListViewController *SLViewControl = [[secondListViewController alloc] init];
-        SLViewControl.parameter = [NSString stringWithFormat:@"brand=%d", TaiRunHotelID];
+        SLViewControl.parameter = [NSString stringWithFormat:@"&brand=%d", TaiRunHotelID];
         SLViewControl.title = @"商品列表";
         [self.navigationController pushViewController:SLViewControl animated:YES];
     }else if ([str isEqualToString:nameArray[2]])

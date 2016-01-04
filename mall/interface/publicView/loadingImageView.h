@@ -16,5 +16,7 @@
 +(UIView *)setNetWorkError:(CGRect )fr;
 //创建提示字符
 +(UILabel *)setNetWorkRefreshError:(CGRect )fr viewString:(NSString *)string;
+//创建当前分类或者搜索暂时没有商品视图
++(UIView *)setClassification:(CGRect )fr;
 
 @end

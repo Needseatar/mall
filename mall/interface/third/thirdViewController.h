@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "secondListViewController.h"
 
 @interface thirdViewController : UIViewController
 
