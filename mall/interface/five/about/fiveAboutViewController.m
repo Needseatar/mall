@@ -32,6 +32,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.tabBarController.tabBar.hidden = YES; //设置标签栏隐藏
+    UISearchBar *searchView = [self.navigationController.navigationBar viewWithTag:30];
+    searchView.hidden = YES;
 }
 
 - (void)viewDidLoad {
@@ -59,7 +61,7 @@
 {
     self.title = @"关于";
     self.navigationController.navigationBarHidden = NO;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
 }
 
 #pragma mark - 设置TabelView界面
@@ -116,17 +118,19 @@
     self.bgLogoAndVersion.backgroundColor = [UIColor clearColor];
     
     //logo和版本背景
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMakeEx(100, 30, 120, 150)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-120/2.0, 20, 120, 110)];
     bgView.backgroundColor = [UIColor clearColor];
     [self.bgLogoAndVersion addSubview:bgView];
     
     //logo
-    UIImageView *imageLogoView = [[UIImageView alloc] initWithFrame:CGRectMakeEx(35, 0, 80, 80)];
+    UIImageView *imageLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(bgView.frame.size.width/2.0 - 80/2.0, 0, 80, 80)];
     imageLogoView.image = [UIImage imageNamed:@"icon@2x.png"];
     [bgView addSubview:imageLogoView];
     
     //版本号
-    UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(0, 90, 150, 20)];
+    UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, 120, 20)];
+    versionLabel.font = [UIFont systemFontOfSize:15];
+    versionLabel.textAlignment = NSTextAlignmentCenter;
     versionLabel.backgroundColor = [UIColor clearColor];
     versionLabel.text = @"当前版本：1.0.0";
     versionLabel.textAlignment = NSTextAlignmentCenter;

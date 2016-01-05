@@ -362,10 +362,14 @@
         
     }else if ([str isEqualToString:nameArray[5]])
     {
-        
+        secondListViewController *SLViewControl = [[secondListViewController alloc] init];
+        SLViewControl.parameter = [NSString stringWithFormat:@""];
+        SLViewControl.title = @"商品列表";
+        [self.navigationController pushViewController:SLViewControl animated:YES];
     }else if ([str isEqualToString:nameArray[6]])
     {
-        
+        fiveAboutViewController *FAV = [[fiveAboutViewController alloc] init];
+        [self.navigationController pushViewController:FAV animated:YES];
     }else if ([str isEqualToString:nameArray[7]])
     {
         

@@ -232,7 +232,7 @@ typedef enum {
                 }
             }
         }
-        self.notDataView = NO;
+        self.notDataView.hidden = NO;
         self.tableView.hidden = NO;
         self.bgSortView.hidden = NO;
         [self.loadingiew removeFromSuperview];
