@@ -46,8 +46,10 @@
     self.tabBarController.tabBar.hidden = NO;  //便签控制器不隐藏
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
-    [self requestSearchText]; //请求数据
+    
+    [self.errorNetwork removeFromSuperview];
     [self setLoadingView];   //加载加载视图
+    [self requestSearchText]; //请求数据
 }
 
 - (void)viewDidLoad {
@@ -80,7 +82,7 @@
 {
     self.mRectArray = [[NSMutableArray alloc] init];
     NSMutableArray *mArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<84; i++) {
+    for (int i=14; i<84; i++) {
         CGRect frame = CGRectMakeEx((i%6)*50+10, (i/6)*30+10, 60, 30); //设置7列12行 ，会有10像素重叠，但是设置了不重复条件，所以不会选到两个重叠的
         [mArray addObject:[NSValue valueWithCGRect:frame]];
     }
@@ -106,6 +108,7 @@
         
         [self.mRectArray addObject:[NSValue valueWithCGRect:rect]];
     }
+    
     self.mRectBeginArray = [[NSMutableArray alloc] init];
     for (int i=0; i<self.mArry.count; i++) {
         CGRect cgre22 = [[self.mRectArray objectAtIndex:i] CGRectValue];

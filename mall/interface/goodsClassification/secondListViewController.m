@@ -232,12 +232,13 @@ typedef enum {
                 }
             }
         }
+        
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
         self.notDataView.hidden = NO;
         self.tableView.hidden = NO;
         self.bgSortView.hidden = NO;
         [self.loadingiew removeFromSuperview];
-        [self.tableView reloadData];
-        [self.tableView.mj_header endRefreshing];
         
         
         //当前分类或搜索没有数据

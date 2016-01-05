@@ -56,21 +56,24 @@
     searchView.hidden = NO;                     //搜索不隐藏
     self.tabBarController.tabBar.hidden = NO;  //便签控制器不隐藏
     
-
+    [self.errorNetWork removeFromSuperview];
+    if ([self.nowArray isKindOfClass:[NSArray class]]) {
+        
+    }else
+    {
+        [self setLoadingView];  //加载加载视图
+        [self requestClassification]; //请求一级数据
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self requestClassification]; //请求一级数据
     
     [self createSearchBar];   //设置导航栏的搜索和取消
     
     [self setpageOfTabel]; //设置tabel有没有参数，和接收cell里面的数据
     
     [self setTabelView];  //加载table一级分类tabel
-    
-    [self setLoadingView];  //加载加载视图
     
 }
 
@@ -377,11 +380,13 @@
             UITableView *scTabel = (UITableView *)[self.bgTableScrollView viewWithTag:self.page+100];
             self.whetherNowArray = YES;  // 当二级数据请求回来的时候，立刻知道当前页面二级数据已经实时跟新了
             
-            //去除加载视图，和显示一级数据的tabel
+            //显示一级数据的tabel
+            [scTabel reloadData];
+            //去除加载视图
             self.tableView.hidden = NO;
             [self.loadingiew removeFromSuperview];
             
-            [scTabel reloadData];
+            
 #pragma mark - 当二级数据请求回来的时候，开启请求三级数据的第一组数据
             if (self.nowArray.count != 0) {
                 [self requestSecondClassification:[self.nowArray[0] gc_parent_id]];

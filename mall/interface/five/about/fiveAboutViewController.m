@@ -8,6 +8,9 @@
 
 #import "fiveAboutViewController.h"
 
+#define tabelLogoInterval 20
+#define companyAndWebBGHeight 100
+
 @interface fiveAboutViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (retain, nonatomic) UITableView *tableView;
@@ -39,6 +42,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    [self setLogo];
+    
+    [self.view addSubview:self.bgLogoAndVersion];
+    
     [self setData]; //初始化数据
     
     [self setNavigationController]; // 设置导航栏
@@ -53,7 +61,32 @@
     _array = [[NSArray alloc] initWithObjects:@"关于我们",
                                               @"联系我们",
                                               @"合作及洽谈",
-                                              @"用户服务协议", nil];
+                                              @"用户服务协议",nil];
+}
+
+-(void)setLogo
+{
+    self.bgLogoAndVersion = [[UIView alloc] initWithFrame:CGRectMake(0, Navigation+UpState, self.view.frame.size.width, 130)];
+    self.bgLogoAndVersion.backgroundColor = [UIColor clearColor];
+    
+    //logo和版本背景
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-120/2.0, 20, 120, 110)];
+    bgView.backgroundColor = [UIColor clearColor];
+    [self.bgLogoAndVersion addSubview:bgView];
+    
+    //logo
+    UIImageView *imageLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(bgView.frame.size.width/2.0 - 80/2.0, 0, 80, 80)];
+    imageLogoView.image = [UIImage imageNamed:@"icon@2x.png"];
+    [bgView addSubview:imageLogoView];
+    
+    //版本号
+    UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, 120, 20)];
+    versionLabel.font = [UIFont systemFontOfSize:15];
+    versionLabel.textAlignment = NSTextAlignmentCenter;
+    versionLabel.backgroundColor = [UIColor clearColor];
+    versionLabel.text = @"当前版本:1.0.0";
+    versionLabel.textAlignment = NSTextAlignmentCenter;
+    [bgView addSubview:versionLabel];
 }
 
 #pragma mark - 设置导航栏
@@ -67,7 +100,7 @@
 #pragma mark - 设置TabelView界面
 -(void)setTabel
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMakeEx(0, 0, 320, 580)style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Navigation+UpState+130+tabelLogoInterval, 320, 568-Navigation-UpState-130-tabelLogoInterval-companyAndWebBGHeight)style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -109,54 +142,30 @@
     return 0.01;
 }
 //返回组头高度
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 200;
-}
-//返回组头试图
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    self.bgLogoAndVersion = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 0, 320, 200)];
-    self.bgLogoAndVersion.backgroundColor = [UIColor clearColor];
-    
-    //logo和版本背景
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-120/2.0, 20, 120, 110)];
-    bgView.backgroundColor = [UIColor clearColor];
-    [self.bgLogoAndVersion addSubview:bgView];
-    
-    //logo
-    UIImageView *imageLogoView = [[UIImageView alloc] initWithFrame:CGRectMake(bgView.frame.size.width/2.0 - 80/2.0, 0, 80, 80)];
-    imageLogoView.image = [UIImage imageNamed:@"icon@2x.png"];
-    [bgView addSubview:imageLogoView];
-    
-    //版本号
-    UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, 120, 20)];
-    versionLabel.font = [UIFont systemFontOfSize:15];
-    versionLabel.textAlignment = NSTextAlignmentCenter;
-    versionLabel.backgroundColor = [UIColor clearColor];
-    versionLabel.text = @"当前版本：1.0.0";
-    versionLabel.textAlignment = NSTextAlignmentCenter;
-    [bgView addSubview:versionLabel];
-    
-    return self.bgLogoAndVersion;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
 }
 
 #pragma - mark 设置下面的公司名称和网址
 -(void)companyAndWeb
 {
-    _bgCompanyView = [[UIView alloc] initWithFrame:CGRectMakeEx(0, 460, 380, 110)];
-    _bgCompanyView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_bgCompanyView];
+    //背景视图
+    self.bgCompanyView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-companyAndWebBGHeight, self.view.frame.size.width, companyAndWebBGHeight)];
+    self.bgCompanyView.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
+    [self.view addSubview:self.bgCompanyView];
     
-    UILabel *webLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(10, 10, 380, 20)];
+    UILabel *webLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width-10, 20)];
     webLabel.text = @"官方网站：http://shop.trqq.com/";
     webLabel.textColor = [UIColor darkGrayColor];
     [self.bgCompanyView addSubview:webLabel];
     
-    UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(10, 40, 380, 20)];
+    UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(10, 40, self.view.frame.size.width-10, 20)];
     companyLabel.text = @"公司名称：广西泰润网络科技有限公司";
     companyLabel.textColor = [UIColor darkGrayColor];
     [self.bgCompanyView addSubview:companyLabel];
     
-    UILabel *telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(10, 70, 380, 20)];
+    UILabel *telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(10, 70, self.view.frame.size.width-10, 20)];
     telephoneLabel.text = @"电话号码：400-0852-562";
     telephoneLabel.textColor = [UIColor darkGrayColor];
     [self.bgCompanyView addSubview:telephoneLabel];

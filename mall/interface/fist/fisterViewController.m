@@ -43,6 +43,14 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
+    [self.errorNetWork removeFromSuperview];
+    if ([self.fisterData isKindOfClass:[fisterData class]]) {
+        
+    }else
+    {
+        [self setLoadingView]; //加载加载视图
+        [self requestFisterView]; //请求数据
+    }
 }
 
 - (void)viewDidLoad {
@@ -50,11 +58,7 @@
     
     [self createSearchBar]; //设置导航栏
     
-    [self requestFisterView]; //请求数据
-    
     [self setTabelView];  //设置tabel
-    
-    [self setLoadingView]; //加载加载视图
     
 }
 
@@ -273,9 +277,9 @@
             [self.listData addObject:twoListArray];
         }
         
-        [self.loadingiew removeFromSuperview];
-        self.tableView.hidden = NO;
         [self.tableView reloadData];
+        self.tableView.hidden = NO;
+        [self.loadingiew removeFromSuperview];
         [self.tableView.mj_header endRefreshing];//结束刷新状态
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -356,10 +360,16 @@
         [self.navigationController pushViewController:SLViewControl animated:YES];
     }else if ([str isEqualToString:nameArray[3]])
     {
-        
+        merchantShopViewController *merchantShop = [[merchantShopViewController alloc] init];
+        merchantShop.title = nameArray[3];
+        merchantShop.merchant = @"@is_sa=1";
+        [self.navigationController pushViewController:merchantShop animated:YES];
     }else if ([str isEqualToString:nameArray[4]])
     {
-        
+        merchantShopViewController *merchantShop = [[merchantShopViewController alloc] init];
+        merchantShop.title = nameArray[4];
+        merchantShop.merchant = [NSString stringWithFormat:@""];
+        [self.navigationController pushViewController:merchantShop animated:YES];
     }else if ([str isEqualToString:nameArray[5]])
     {
         secondListViewController *SLViewControl = [[secondListViewController alloc] init];
@@ -371,9 +381,6 @@
         fiveAboutViewController *FAV = [[fiveAboutViewController alloc] init];
         [self.navigationController pushViewController:FAV animated:YES];
     }else if ([str isEqualToString:nameArray[7]])
-    {
-        
-    }else
     {
         
     }

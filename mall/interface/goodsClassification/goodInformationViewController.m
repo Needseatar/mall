@@ -179,14 +179,13 @@
         [self.dataStore addObject:@"图文详情"];
         [self.dataStore addObject:[NSString stringWithFormat:@"店铺:%@", [self.data.store_info store_name]]];
         
+        [self.tableView reloadData];
         self.bgLine.hidden = NO;
         self.redLine.hidden = NO;
         self.tableView.hidden = NO;
         self.bgSortView.hidden = NO;
-        [self.loadingiew removeFromSuperview];
-        [self.tableView reloadData];
-        
         [self setdownShopping];   //设置下面的物品加入购物车
+        [self.loadingiew removeFromSuperview];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

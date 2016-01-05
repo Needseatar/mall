@@ -68,7 +68,20 @@
 #pragma mark - 创建加载失败后的视图
 +(UIView *)setNetWorkError:(CGRect )fr
 {
-    UIView *vi = [[UIView alloc] init];
+    static UIView *vi;
+    static UIImageView *imageView;
+    static UILabel *label;
+    static UILabel *label1;
+    static UIButton *but;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        vi = [[UIView alloc] init];
+        imageView = [[UIImageView alloc] init];
+        label = [[UILabel alloc] init];
+        label1 = [[UILabel alloc] init];
+        but = [UIButton buttonWithType:UIButtonTypeSystem];
+    });
+    
     vi.frame = fr;
     
     CGRect fram = fr;
@@ -76,7 +89,7 @@
     fram.origin.x = fr.size.width/2.0 - (fr.size.width/2.0)/2.0;
     fram.size.width = fr.size.width/2.0;
     fram.size.height = fr.size.width/2.0;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:fram];
+    imageView.frame = fram;
     [imageView setImage:[UIImage imageNamed:@"wifi_off.png"]];
     [vi addSubview:imageView];
     
@@ -85,7 +98,7 @@
     fram.origin.x = imageView.frame.origin.x;
     fram.size.width = imageView.frame.size.height;
     fram.size.height = 20;
-    UILabel *label = [[UILabel alloc] initWithFrame:fram];
+    label.frame = fram;
     label.text = @"网络开了小差";
     label.textAlignment = NSTextAlignmentCenter;
     [vi addSubview:label];
@@ -95,7 +108,7 @@
     fram.origin.x = 0;
     fram.size.width = fr.size.width;
     fram.size.height = 50;
-    UILabel *label1 = [[UILabel alloc] initWithFrame:fram];
+    label1.frame = fram;
     label1.numberOfLines = 2;
     label1.textColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
     label1.textAlignment = NSTextAlignmentCenter;
@@ -107,7 +120,6 @@
     fram.origin.x = fr.size.width/2.0-70/2.0;
     fram.size.width = 70;
     fram.size.height = 30;
-    UIButton *but = [UIButton buttonWithType:UIButtonTypeSystem];
     but.frame = fram;
     [but setTitle:@"重新连接" forState:UIControlStateNormal];
     [but setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -162,7 +174,6 @@
     });
     
     
-    imageView = [[UIImageView alloc] init];
     imageView.frame = fram;
     [imageView setImage:[UIImage imageNamed:@"ic_empty.png"]];
     [vi addSubview:imageView];
