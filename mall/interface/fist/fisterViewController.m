@@ -290,8 +290,8 @@
             
             if (self.errorRefresh==nil) {
                 self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"刷新失败"];
-                [self.view addSubview:self.errorRefresh];
                 [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                [self.view addSubview:self.errorRefresh];
             }
         }else
         {
@@ -362,7 +362,7 @@
     {
         merchantShopViewController *merchantShop = [[merchantShopViewController alloc] init];
         merchantShop.title = nameArray[3];
-        merchantShop.merchant = @"@is_sa=1";
+        merchantShop.merchant = @"&is_sa=1";
         [self.navigationController pushViewController:merchantShop animated:YES];
     }else if ([str isEqualToString:nameArray[4]])
     {

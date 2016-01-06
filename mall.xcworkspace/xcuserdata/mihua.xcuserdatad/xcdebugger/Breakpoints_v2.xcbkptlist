@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/merchantShop/merchantShopViewController.m"
-            timestampString = "473673214.933885"
+            filePath = "mall/interface/four/fourViewController.m"
+            timestampString = "473763229.160062"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "-requestMerchantShop"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "-requestShoppingCart"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/merchantShop/merchantShopViewController.m"
-            timestampString = "473673219.029559"
+            filePath = "mall/interface/four/fourViewController.m"
+            timestampString = "473763229.160062"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "-requestMerchantShop"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-requestShoppingCart"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mall/interface/fist/fisterViewController.m"
-            timestampString = "473675782.64806"
+            filePath = "mall/interface/four/fourViewController.m"
+            timestampString = "473763229.160062"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
-            landmarkName = "-requestFisterView"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "-requestShoppingCart"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

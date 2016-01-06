@@ -18,6 +18,8 @@
 		1B625AFD1C1E949D00DBAF24 /* secondCommendList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625AFC1C1E949D00DBAF24 /* secondCommendList.m */; };
 		1B625B001C1E9A7400DBAF24 /* secondGoodsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625AFF1C1E9A7400DBAF24 /* secondGoodsInfo.m */; };
 		1B625B031C1EA4E100DBAF24 /* secondStoreList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625B021C1EA4E100DBAF24 /* secondStoreList.m */; };
+		1B6CA2121C3CB948000B8E8F /* merchantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CA2111C3CB948000B8E8F /* merchantModel.m */; };
+		1B6CA2161C3D0AB7000B8E8F /* shopingCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CA2151C3D0AB7000B8E8F /* shopingCarModel.m */; };
 		1B7E14091C32273A00BBA789 /* loadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E14081C32273A00BBA789 /* loadingImageView.m */; };
 		1B7E140F1C322A4000BBA789 /* dialog_bocop_loading_rotate_anim_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B7E140A1C322A4000BBA789 /* dialog_bocop_loading_rotate_anim_img.png */; };
 		1B7E14101C322A4000BBA789 /* error_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B7E140B1C322A4000BBA789 /* error_cart.png */; };
@@ -140,6 +142,10 @@
 		1B625AFF1C1E9A7400DBAF24 /* secondGoodsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondGoodsInfo.m; sourceTree = "<group>"; };
 		1B625B011C1EA4E100DBAF24 /* secondStoreList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondStoreList.h; sourceTree = "<group>"; };
 		1B625B021C1EA4E100DBAF24 /* secondStoreList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondStoreList.m; sourceTree = "<group>"; };
+		1B6CA2101C3CB948000B8E8F /* merchantModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = merchantModel.h; sourceTree = "<group>"; };
+		1B6CA2111C3CB948000B8E8F /* merchantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = merchantModel.m; sourceTree = "<group>"; };
+		1B6CA2141C3D0AB7000B8E8F /* shopingCarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shopingCarModel.h; sourceTree = "<group>"; };
+		1B6CA2151C3D0AB7000B8E8F /* shopingCarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shopingCarModel.m; sourceTree = "<group>"; };
 		1B7E14071C32273A00BBA789 /* loadingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadingImageView.h; sourceTree = "<group>"; };
 		1B7E14081C32273A00BBA789 /* loadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loadingImageView.m; sourceTree = "<group>"; };
 		1B7E140A1C322A4000BBA789 /* dialog_bocop_loading_rotate_anim_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialog_bocop_loading_rotate_anim_img.png; sourceTree = "<group>"; };
@@ -295,6 +301,8 @@
 		1B468F9A1C06DEFF006CE377 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				1B6CA2131C3D0A4D000B8E8F /* shopIngCar */,
+				1B6CA20F1C3CB8E9000B8E8F /* merchantModel */,
 				1B8090F31C1290C500938258 /* fisterModel */,
 				1BB1E49B1C0C39D10040EDD1 /* secondModel */,
 				1B468F9B1C06DF89006CE377 /* signInModel.h */,
@@ -318,6 +326,24 @@
 				1B625B021C1EA4E100DBAF24 /* secondStoreList.m */,
 			);
 			path = commodityInformation;
+			sourceTree = "<group>";
+		};
+		1B6CA20F1C3CB8E9000B8E8F /* merchantModel */ = {
+			isa = PBXGroup;
+			children = (
+				1B6CA2101C3CB948000B8E8F /* merchantModel.h */,
+				1B6CA2111C3CB948000B8E8F /* merchantModel.m */,
+			);
+			path = merchantModel;
+			sourceTree = "<group>";
+		};
+		1B6CA2131C3D0A4D000B8E8F /* shopIngCar */ = {
+			isa = PBXGroup;
+			children = (
+				1B6CA2141C3D0AB7000B8E8F /* shopingCarModel.h */,
+				1B6CA2151C3D0AB7000B8E8F /* shopingCarModel.m */,
+			);
+			path = shopIngCar;
 			sourceTree = "<group>";
 		};
 		1B7E14031C32261400BBA789 /* publicView */ = {
@@ -356,12 +382,12 @@
 		1BAEB0231C3BA00B00285AAF /* goodsClassification */ = {
 			isa = PBXGroup;
 			children = (
-				1BAEB0261C3BA00B00285AAF /* goodInformationViewController.h */,
-				1BAEB0271C3BA00B00285AAF /* goodInformationViewController.m */,
-				1BAEB02E1C3BA00B00285AAF /* secondListTableViewCell.h */,
-				1BAEB02F1C3BA00B00285AAF /* secondListTableViewCell.m */,
 				1BAEB0301C3BA00B00285AAF /* secondListViewController.h */,
 				1BAEB0311C3BA00B00285AAF /* secondListViewController.m */,
+				1BAEB02E1C3BA00B00285AAF /* secondListTableViewCell.h */,
+				1BAEB02F1C3BA00B00285AAF /* secondListTableViewCell.m */,
+				1BAEB0261C3BA00B00285AAF /* goodInformationViewController.h */,
+				1BAEB0271C3BA00B00285AAF /* goodInformationViewController.m */,
 				1BAEB0241C3BA00B00285AAF /* goodInformationTableViewCell.h */,
 				1BAEB0251C3BA00B00285AAF /* goodInformationTableViewCell.m */,
 				1BAEB02A1C3BA00B00285AAF /* goodsInformationpaceTableViewCell.h */,
@@ -704,7 +730,7 @@
 				TargetAttributes = {
 					1BEF93D51BFD62FC00F7470D = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = 6UW5V9KPRM;
+						DevelopmentTeam = XVB6B6989W;
 					};
 					1BEF93EE1BFD62FC00F7470D = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -881,10 +907,12 @@
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,
 				1BEF94931BFD660000F7470D /* fourViewController.m in Sources */,
 				1BD1369A1C27E8FD00736179 /* fisterHome1TableViewCell.m in Sources */,
+				1B6CA2161C3D0AB7000B8E8F /* shopingCarModel.m in Sources */,
 				1BAEB0331C3BA00B00285AAF /* goodInformationViewController.m in Sources */,
 				1B625B001C1E9A7400DBAF24 /* secondGoodsInfo.m in Sources */,
 				1BAEB0321C3BA00B00285AAF /* goodInformationTableViewCell.m in Sources */,
 				1BAEB03B1C3BA21500285AAF /* merchantShopViewController.m in Sources */,
+				1B6CA2121C3CB948000B8E8F /* merchantModel.m in Sources */,
 				1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */,
 				1BEF95491BFD6CCC00F7470D /* ZJScreenAdaptation.m in Sources */,
 				1B8090F91C12924D00938258 /* fisterHome1.m in Sources */,

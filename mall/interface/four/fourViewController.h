@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "shopingCarModel.h"
 
 @interface fourViewController : UIViewController
 

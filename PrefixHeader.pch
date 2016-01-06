@@ -14,6 +14,8 @@
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "loadingImageView.h"
+#import "MJRefresh.h"
+#import "signInModel.h"
 
 #pragma mark - 项目常量
 /****************************************项目常量**********************************************************
@@ -68,7 +70,9 @@
  */
 #define  Collection  @"http://shop.trqq.com/mobile/index.php?act=member_favorites&op=isfavorites"
 //商家的店铺
-#define  MerchantShop  @"http://shop.trqq.com/mobile/index.php?act=shop&op=index%@"
+#define  MerchantShop  @"http://shop.trqq.com/mobile/index.php?act=shop&op=index&page=10%@%@"
+//购物车里面的商品
+#define  ShoppingCartNetWork  @"http://shop.trqq.com/mobile/index.php?act=member_cart&op=cart_list%@"
 /**************************************************************************************************
  *************************************************************************************************/
 

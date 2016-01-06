@@ -78,7 +78,7 @@
     [self.leftImage setImageWithURL:[NSURL URLWithString:data.goods_image_url]];
     self.titlelabel.text = data.goods_name;
     self.pacelabel.text  = data.goods_price;
-    self.countPeople.text = [NSString stringWithFormat:@"(%d)", data.evaluation_count];
+    self.countPeople.text = [NSString stringWithFormat:@"(%ld)", (long)data.evaluation_count];
     
     //加载星星评价数
     float starFLOAT = [data.evaluation_good_star floatValue];

@@ -45,8 +45,6 @@
     
     [self setLogo];
     
-    [self.view addSubview:self.bgLogoAndVersion];
-    
     [self setData]; //初始化数据
     
     [self setNavigationController]; // 设置导航栏
@@ -87,6 +85,8 @@
     versionLabel.text = @"当前版本:1.0.0";
     versionLabel.textAlignment = NSTextAlignmentCenter;
     [bgView addSubview:versionLabel];
+    
+    [self.view addSubview:self.bgLogoAndVersion];
 }
 
 #pragma mark - 设置导航栏

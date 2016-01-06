@@ -362,19 +362,21 @@
                         float grouFl = dicspecValue.count/2.0;
                         if (grouFl > (float)grouInt) {
                             grouInt++;
+                            if ((int)dicspecValue.count == 1) {
+                                grouInt = 1;
+                            }
                         }
                         bgSpecifications = bgSpecifications + grouInt*(SpecificationHeight+IntervalButton);
                         bgSpecifications = bgSpecifications+Interval;
-                        
-                        NSInteger specifications = heightEx(30)+Interval; //库存视图
-                        
-                        NSInteger number = heightEx(5+30); //数量
-                        
-                        self.sectionFour = bgSpecifications+specifications+number+10;
                     }
+                    NSInteger specifications = heightEx(30)+Interval; //库存视图
+                    
+                    NSInteger number = heightEx(5+30); //数量
+                    
+                    self.sectionFour = heightEx(bgSpecifications)+specifications+number+10;
                 }else
                 {
-                    return heightEx(100);
+                    return heightEx(76)+10;
                 }
 
             }
