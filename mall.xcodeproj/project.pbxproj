@@ -86,6 +86,7 @@
 		1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5D8651C195F5A00DB078C /* commodityList.m */; };
 		1BD136971C27DB6200736179 /* fisterBrandTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD136961C27DB6200736179 /* fisterBrandTableViewCell.m */; };
 		1BD1369A1C27E8FD00736179 /* fisterHome1TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD136991C27E8FD00736179 /* fisterHome1TableViewCell.m */; };
+		1BD2A5CC1C3E169A008F1E38 /* fourTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD2A5CB1C3E169A008F1E38 /* fourTableViewCell.m */; };
 		1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */; };
 		1BEF93DB1BFD62FC00F7470D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DA1BFD62FC00F7470D /* main.m */; };
 		1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DD1BFD62FC00F7470D /* AppDelegate.m */; };
@@ -234,6 +235,8 @@
 		1BD136961C27DB6200736179 /* fisterBrandTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterBrandTableViewCell.m; sourceTree = "<group>"; };
 		1BD136981C27E8FD00736179 /* fisterHome1TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome1TableViewCell.h; sourceTree = "<group>"; };
 		1BD136991C27E8FD00736179 /* fisterHome1TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterHome1TableViewCell.m; sourceTree = "<group>"; };
+		1BD2A5CA1C3E169A008F1E38 /* fourTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fourTableViewCell.h; sourceTree = "<group>"; };
+		1BD2A5CB1C3E169A008F1E38 /* fourTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fourTableViewCell.m; sourceTree = "<group>"; };
 		1BD393F11C0FEABB00FD3E75 /* secondTwoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondTwoTableViewCell.h; sourceTree = "<group>"; };
 		1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondTwoTableViewCell.m; sourceTree = "<group>"; };
 		1BEF93D61BFD62FC00F7470D /* mall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mall.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -587,6 +590,8 @@
 			children = (
 				1BEF94721BFD660000F7470D /* fourViewController.h */,
 				1BEF94731BFD660000F7470D /* fourViewController.m */,
+				1BD2A5CA1C3E169A008F1E38 /* fourTableViewCell.h */,
+				1BD2A5CB1C3E169A008F1E38 /* fourTableViewCell.m */,
 			);
 			path = four;
 			sourceTree = "<group>";
@@ -911,6 +916,7 @@
 				1BAEB0331C3BA00B00285AAF /* goodInformationViewController.m in Sources */,
 				1B625B001C1E9A7400DBAF24 /* secondGoodsInfo.m in Sources */,
 				1BAEB0321C3BA00B00285AAF /* goodInformationTableViewCell.m in Sources */,
+				1BD2A5CC1C3E169A008F1E38 /* fourTableViewCell.m in Sources */,
 				1BAEB03B1C3BA21500285AAF /* merchantShopViewController.m in Sources */,
 				1B6CA2121C3CB948000B8E8F /* merchantModel.m in Sources */,
 				1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */,

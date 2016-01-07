@@ -225,10 +225,12 @@ typedef enum {
         {
             //服务器上没有更多的数据，self.arrayData也已经不可以增加更多的数据，也就是说是上啦没有数据了
             if ([dict[@"hasmore"] integerValue]==0) {//self.arrayData也已经不可以增加更多的数据
-                if (self.errorRefresh==nil) {
-                    self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"已经没有更多的数据了"];
-                    [self.view addSubview:self.errorRefresh];
-                    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                if (self.arrayData.count != 0 ) { //下拉刷新
+                    if (self.errorRefresh==nil) {
+                        self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"已经没有更多的数据了"];
+                        [self.view addSubview:self.errorRefresh];
+                        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                    }
                 }
             }
         }

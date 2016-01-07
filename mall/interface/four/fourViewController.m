@@ -9,13 +9,25 @@
 #import "fourViewController.h"
 
 
-#define shopDistance 10
+#define shopDistance 10  //购物车和导航栏的间隔
+#define tabelHead    30  //tabel组头的高度
+
+#define SettlementHeight   60   //下面结算价格的高度
 
 @interface fourViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (retain, nonatomic) NSMutableArray *dataArray;
-@property (retain, nonatomic) UISearchBar    *searchBar;
-@property (retain, nonatomic) UITableView    *shopingTabel;
+@property (retain, nonatomic) NSMutableArray    *dataArray;
+@property (retain, nonatomic) UISearchBar       *searchBar;
+@property (retain, nonatomic) UITableView       *shopingTabel;
+@property (retain, nonatomic) UIView            *notShoping; //加载没有物品的视图
+
+@property (retain, nonatomic) UIView            *bgSortView;
+
+
+@property (retain, nonatomic) UIView            *loadingiew; //加载加载视图
+@property (retain, nonatomic) UIView            *errorNetWork; //加载没有网络视图
+
+@property (retain, nonatomic) NSArray           *sumShopingPace; //商品总价栏
 
 @end
 
@@ -31,6 +43,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    self.tabBarController.tabBar.hidden = NO; //设置标签栏不隐藏
     [self requestShoppingCart];
 }
 
@@ -39,12 +52,52 @@
     
     [self createSearchBar]; //设置导航栏
     
-    [self setNotGoodsView];  //设置没有登录时候界面
-    
     [self.view setBackgroundColor:[UIColor colorWithRed:238.0f/255.0f green:238.0f/255.0f blue:238.0f/255.0f alpha:1]];
-    [self setTabel];
+    
+    [self setTabel];    //设置tabel
+    
+    [self setNotGoodsView];  //设置没有物品界面
+    
+    [self setErrorNetWork];  //设置没有网络界面
+    
+    [self setLoadingView]; //设置加载页面
+    
+    [self hideAllView];  //隐藏所有界面
+    
+    [self SetSettlementView]; //设置下面的购物价格
 }
 
+#pragma mark - 设置没有网络界面
+-(void)setErrorNetWork
+{
+    CGRect fr = CGRectMake(self.view.frame.size.width/2.0-300/2.0, self.view.frame.size.height/2.0-300/2.0, 300, 300);
+    self.errorNetWork = [loadingImageView setNetWorkError:fr];
+    UIButton *but = [self.errorNetWork viewWithTag:7777];
+    [but addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.errorNetWork];
+}
+-(void)buttonAction
+{
+    for (UIView *vi in [self.view subviews]) {
+        vi.hidden = YES;
+    }
+    
+}
+#pragma mark - 加载加载视图
+-(void)setLoadingView
+{
+    CGRect fr = CGRectMake(self.view.frame.size.width/2.0-40, self.view.frame.size.height/2.0-40, 80, 80);
+    self.loadingiew = [loadingImageView setLoadingImageView:fr];
+    
+    [self.view addSubview:self.loadingiew];
+}
+#pragma mark - 隐藏所有界面
+-(void)hideAllView
+{
+    for (UIView *vi in [self.view subviews]) {
+        vi.hidden = YES;
+    }
+}
 #pragma mark - 设置导航栏的搜索和取消
 -(void)createSearchBar{
     
@@ -54,66 +107,64 @@
     self.title = @"购物车";
     
 }
-
+#pragma mark - 没有物品界面
 -(void)setNotGoodsView
 {
+    self.notShoping = [[UIView alloc] initWithFrame:self.view.frame];
+    self.notShoping.hidden = YES;
     
     UIImageView *ShoppingCart = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-200/2.0, UpState+Navigation+shopDistance, 200, 200)];
     ShoppingCart.image = [UIImage imageNamed:@"error_cart.png"];
-    [self.view addSubview:ShoppingCart];
+    [self.notShoping addSubview:ShoppingCart];
     
     UILabel *shoppingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, UpState+Navigation+200+shopDistance, self.view.frame.size.width-10, 30)];
     shoppingLabel.text = @"你的购物车是空的";
     shoppingLabel.textAlignment = NSTextAlignmentCenter;
     shoppingLabel.font = [UIFont systemFontOfSize:13];
     shoppingLabel.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:shoppingLabel];
+    [self.notShoping addSubview:shoppingLabel];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, UpState+Navigation+200+40+shopDistance, self.view.frame.size.width-10, 20)];
     label.text = @"你登录后同步电脑与手机购物车中的商品";
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont systemFontOfSize:10];
     label.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:label];
+    [self.notShoping addSubview:label];
+    
+    [self.view addSubview:self.notShoping];
+    
 }
 
 #pragma mark - 设置TabelView界面
 -(void)setTabel
 {
-    for (UIView *vi in [self.view subviews]) {
-        [vi removeFromSuperview];
-    }
-    
-    self.shopingTabel = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 568-TabBar)style:UITableViewStylePlain];
+    self.shopingTabel = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)style:UITableViewStylePlain];
     self.shopingTabel.delegate = self;
     self.shopingTabel.dataSource = self;
+    self.shopingTabel.hidden = YES;
     [self.view addSubview:self.shopingTabel];
     
 }
 //返回表格的行数的代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  2;
+    return  1;
 }
 //返回表格的组数的代理方法
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return self.dataArray.count;
 }
 //获取到表格有多少个分组，每个分组有多少行数据以后，就调用该方法，去返回表格的每一行
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString * cellId = @"cell";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    fourTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        cell = [[fourTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone; // 设置选中没有颜色
+    cell.backgroundColor = [UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1];
     
+    [cell setTextAndImage:self.dataArray fram:self.view.frame cellForRowAtIndexPath:indexPath];
     
-//    cell.textLabel.text = [self.dataArray[indexPath.row] store_name];
-//    cell.textLabel.font = [UIFont systemFontOfSize:18];
-//    
-//    cell.detailTextLabel.text = [self.dataArray[indexPath.row] store_address];
-//    cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
-//    cell.detailTextLabel.textColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
     
     return cell;
     
@@ -121,37 +172,60 @@
 //跳转到商家
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    ;
+    goodInformationViewController *goodsView = [[goodInformationViewController alloc] init];
+    shopingCarModel *shoping = self.dataArray[indexPath.section];
+    goodsView.goods_id = shoping.goods_id;
+    [self.navigationController pushViewController:goodsView animated:YES];
 }
 //返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
+    return 100;
 }
 //返回组尾高度
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (self.dataArray.count>0 && section==self.dataArray.count-1) {
+        return SettlementHeight;
+    }
     return 0.01;
 }
 //返回组头高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.01;
+    return tabelHead;
+}
+//返回组头视图
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *bgHeaderView = [[UIView alloc] init];
+    bgHeaderView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.view.frame.size.width-10, tabelHead)];
+    titleLabel.text = [self.dataArray[section] store_name];
+    [bgHeaderView addSubview:titleLabel];
+    
+    return bgHeaderView;
 }
 
 #pragma mark - 请求购物车里面的商品
 -(void)requestShoppingCart{
     
     signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
-    if ([signIn.key isKindOfClass:[NSString class]]) {
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        [self hideAllView];
+        self.loadingiew.hidden = NO;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
         [manager GET:[NSString stringWithFormat:ShoppingCartNetWork, [NSString stringWithFormat:@"&key=%@", signIn.key]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
             NSLog(@"JSON: %@", dict);
             
             self.dataArray = [shopingCarModel setValueWithDictionary:dict];
             
-            NSLog(@"%@", [self.dataArray[0] store_name]);
+            [self.shopingTabel reloadData];
+            [self hideAllView];
+            self.shopingTabel.hidden = NO;
+            self.bgSortView.hidden = NO;
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
@@ -159,10 +233,70 @@
         }];
     }else //没有令牌，也就是没有登录
     {
-        
+        [self hideAllView];
+        self.notShoping.hidden = NO;
     }
 }
 
+-(void)SetSettlementView
+{
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    self.bgSortView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-TabBar-SettlementHeight, self.view.frame.size.width, SettlementHeight)];
+    self.bgSortView.hidden = YES;
+    [self.bgSortView setBackgroundColor:[UIColor colorWithRed:248.0/255.0f green:249.0/255.0f blue:250.0/255.0f alpha:1]];
+    [self.view addSubview:self.bgSortView];
+    
+    self.sumShopingPace = @[@"总计:￥0元", @"去结算"];
+    
+    for (int i=0; i<self.sumShopingPace.count; i++) {
+        int j, k;
+        if (i==0) {
+            j=0;
+            k=2;
+        }else
+        {
+            j=2;
+            k=1;
+        }
+        UIButton *downButton;
+        if (i==0) {
+            downButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        }else
+        {
+            downButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        }
+        //设置价格的占屏幕的2/3， 去结算按钮占1/3
+        downButton.frame = CGRectMake(self.view.frame.size.width/(float)(self.sumShopingPace.count+1) *j, 0, self.view.frame.size.width/(float)(self.sumShopingPace.count+1)*k, SettlementHeight);
+        [downButton setTitle:self.sumShopingPace[i] forState:UIControlStateNormal];
+        downButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        if (i==0) {
+            downButton.backgroundColor = [UIColor blackColor];
+            downButton.tag = 56567;
+            [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(setLeftButtonText) userInfo:nil repeats:YES];
+        }else
+        {
+            [downButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            downButton.backgroundColor = [UIColor redColor];
+        }
+        [self.bgSortView addSubview:downButton];
+    }
+    [self.view addSubview:self.bgSortView];
+}
+//计算商品的价格
+-(void)setLeftButtonText
+{
+    float sumPace=0;
+    for (UIButton *but in [self.bgSortView subviews]) {
+        if (but.tag==56567 && self.dataArray.count>0) {
+            for (int i=0; i<self.dataArray.count; i++) {
+                shopingCarModel *shoping = self.dataArray[i];
+                sumPace = sumPace+[shoping.goods_price integerValue]*[shoping.goods_num integerValue];
+            }
+            [but setTitle:[NSString stringWithFormat:@"总计:￥%.2f元", sumPace] forState:UIControlStateNormal];
+        }
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

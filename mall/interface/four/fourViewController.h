@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "shopingCarModel.h"
+#import "fourTableViewCell.h"
+#import "goodInformationViewController.h"
+
 
 @interface fourViewController : UIViewController
 

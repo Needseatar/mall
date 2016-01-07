@@ -81,14 +81,14 @@
 -(void)setButtonRandom
 {
     self.mRectArray = [[NSMutableArray alloc] init];
-    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+    NSMutableArray *mArrayAcr = [[NSMutableArray alloc] init];
     for (int i=14; i<84; i++) {
         CGRect frame = CGRectMakeEx((i%6)*50+10, (i/6)*30+10, 60, 30); //设置7列12行 ，会有10像素重叠，但是设置了不重复条件，所以不会选到两个重叠的
-        [mArray addObject:[NSValue valueWithCGRect:frame]];
+        [mArrayAcr addObject:[NSValue valueWithCGRect:frame]];
     }
     
-    for (int i=0; i<6; i++) {
-        CGRect rect = [[mArray objectAtIndex:arc4random()%83] CGRectValue];
+    for (int i=0; i<self.mArry.count; i++) {
+        CGRect rect = [[mArrayAcr objectAtIndex:arc4random()%(int)(mArrayAcr.count-1)] CGRectValue];
         
         for (int j=0; j<self.mRectArray.count; j++) {//判断和之前的数据是否重叠
             NSLog(@"%d", j);
@@ -96,12 +96,12 @@
             
             if (sssss.origin.x==rect.origin.x) {
                 j=-1;
-                rect = [[mArray objectAtIndex:arc4random()%83] CGRectValue];
+                rect = [[mArrayAcr objectAtIndex:arc4random()%(int)(mArrayAcr.count-1)] CGRectValue];
                 continue;
             }
             if (sssss.origin.y==rect.origin.y) {
                 j=-1;
-                rect = [[mArray objectAtIndex:arc4random()%83] CGRectValue];
+                rect = [[mArrayAcr objectAtIndex:arc4random()%(int)(mArrayAcr.count-1)] CGRectValue];
                 continue;
             }
         }
@@ -246,6 +246,7 @@
             NSLog(@"截取的值为：%@",aString);
             self.mArry = [[NSArray alloc] init];
             self.mArry = [aString componentsSeparatedByString:@","]; //从字符，中分隔成n个元素的数组
+            NSLog(@"%d", self.mArry.count);
             [self setButtonRandom]; //设置随机button 的位置和颜色
             
             [self setButton];    //加载随机button

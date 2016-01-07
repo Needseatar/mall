@@ -246,8 +246,10 @@
     NSDictionary *myMallParameters = [NSDictionary dictionaryWithObjectsAndKeys:self.userToken.username, @"username", self.userToken.key, @"key", @"ios", @"client", nil];
     [myManager POST:Cancellation parameters:myMallParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        
         if ([dict[@"datas"] integerValue] == 1) {
             [self.actv stopAnimating];     //结束等待界面的动画
+            self.tabBarController.tabBar.hidden = NO;  //便签控制器不隐藏
             [self.bgSignInview removeFromSuperview];
             signInModel * cancellationModel = [signInModel initSetUser];
             self.userToken = [signInModel sharedUserTokenInModel:cancellationModel]; //清空登录令牌
