@@ -66,6 +66,7 @@
 {
     //洗白
     [self.leftImage setBackgroundColor:[UIColor colorWithRed:223.0/255.0f green:223.0/255.0f blue:223.0/255.0f alpha:1]];
+    [self.leftImage setImage:[UIImage imageNamed:@""]];
     self.titlelabel.text = @"";
     self.pacelabel.text = @"";
     self.countPeople.text = @"";

@@ -456,7 +456,22 @@
         }
         case 1:
         {
-            break;
+            signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+            if (signIn.whetherSignIn == YES) {
+                //跳回根视图
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                //跳转到购物车
+                tabelBarID *TB = [tabelBarID shareTabbarID:nil];
+                TB.tabbarControl.selectedIndex = 3;
+                break;
+            }else
+            {
+                if (self.errorNetWork==nil) {
+                    self.errorNetWork = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"请登录"];
+                    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                    [self.view addSubview:self.errorNetWork];
+                }
+            }
         }
         case 2:
         {
@@ -469,8 +484,6 @@
 }
 #pragma mark - 加入购物车Post
 -(void)postAddShopingCar{
-    
-    
     signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
     if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

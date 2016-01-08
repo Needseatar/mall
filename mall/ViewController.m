@@ -67,8 +67,7 @@
     UINavigationController * NfiveView = [[UINavigationController alloc] initWithRootViewController:fiveView];
     
     UITabBarController * tabbarControl = [[UITabBarController alloc] init];
-    fistView.tabbarControl = tabbarControl; //把指针给子类
-    secondView.tabbarControl = tabbarControl;
+    [tabelBarID shareTabbarID:tabbarControl]; //分享父累的id
     tabbarControl.viewControllers = @[NfistView, NsecondView, NthirdView, NfourView, NfiveView];
     [tabbarControl.tabBarController.tabBar setTintColor:[UIColor whiteColor]];
     [tabbarControl.tabBarController.tabBar setAlpha:1];

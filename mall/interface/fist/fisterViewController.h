@@ -16,9 +16,8 @@
 #import "secondListViewController.h"
 #import "fiveAboutViewController.h"
 #import "merchantShopViewController.h"
+#import "tabelBarID.h"
 
 @interface fisterViewController : UIViewController
-
-@property (nonatomic, retain) UITabBarController * tabbarControl; //保存了父类的tabbarControl的指针
 
 @end

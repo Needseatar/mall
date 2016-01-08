@@ -13,15 +13,18 @@
 
 @property (retain, nonatomic) UILabel     *specificationsLabel;
 
-@property (retain, nonatomic) UILabel     *selectNumberTitleLabel;
-@property (retain, nonatomic) UIButton    *selectNumberReduceButton;
-@property (retain, nonatomic) UITextField *selectNumberTextfiled;
-@property (retain, nonatomic) UIButton    *selectNumberAddButton;
+@property (retain, nonatomic) UILabel            *selectNumberTitleLabel;
+@property (retain, nonatomic) UIButton           *selectNumberReduceButton;
+@property (retain, nonatomic) UITextField        *selectNumberTextfiled;
+@property (retain, nonatomic) UIButton           *selectNumberAddButton;
 
-@property (assign, nonatomic) NSInteger   maxSpecifications;
+@property (assign, nonatomic) NSInteger          maxSpecifications;
 
-@property (retain, nonatomic) UIView      *bgSpecificationsView; //商品款式的背景视图
+@property (retain, nonatomic) UIView             *bgSpecificationsView; //商品款式的背景视图
 
+@property (retain, nonatomic) NSMutableArray     *dicspecValueValuesArray; //保存了多组款式的所有key，每一组款式下面又有key
+
+@property (retain, nonatomic) NSMutableArray     *dicspecValueArray; //保存了多组款式的所有字典，dicspecValueValuesArray的下标和dicspecValueArray的下标对应 ，dicspecValueValuesArray保存的是key，dicspecValueArray保存的是整个字典
 @end
 
 @implementation goodsSpecificationsTableViewCell
@@ -150,11 +153,13 @@
                     [bgView addSubview:specLabel];
                     
                     //加载款式的button
-                    NSArray *dicspecValueValues = [dicspecValue allValues];
+                    NSArray *dicspecValueValues = [dicspecValue allKeys];
+                    [self.dicspecValueValuesArray addObject:dicspecValueValues];
+                    [self.dicspecValueArray addObject:dicspecValue];
                     for (int l=0; l<dicspecValue.count; l++) {
                         UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
                         but1.frame = CGRectMakeEx(50+(l%2)*130, (l/2)*(SpecificationHeight+IntervalButton), 120, 30);
-                        [but1 setTitle:dicspecValueValues[l] forState:UIControlStateNormal];
+                        [but1 setTitle:dicspecValue[dicspecValueValues[l]] forState:UIControlStateNormal];
                         [but1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                         but1.layer.masksToBounds = YES;  //告诉layer将位于它之下的layer都遮盖住
                         but1.layer.cornerRadius =6;
@@ -238,8 +243,25 @@
         notSelectButton.selected = NO;
         notSelectButton.layer.borderColor = [[UIColor colorWithRed:204.0/255.0f green:204.0/255.0f blue:204.0/255.0f alpha:1] CGColor];//边框颜色
     }
+    
     but.selected = YES;
     but.layer.borderColor = [[UIColor redColor] CGColor];//边框颜色
+//    //更改父视图里面goods_id的值
+//    int i=0, j=0;
+//    for (UIView *vi in [self.bgSpecificationsView subviews]) {  //款式背景视图
+//        for (UIButton *notSelectButton in [bgview subviews]) {  //搜索button
+//            if (notSelectButton.tag==4000 || notSelectButton.tag==4111) {  //去除label视图
+//                continue;
+//            }
+//            if (notSelectButton.selected == YES) {
+//                <#statements#>
+//            }
+//        }
+//    }
+    
+    
+//    NSNotification *notification =[NSNotification notificationWithName:@"ChangeShoppingGoods_id" object:[NSString stringWithFormat:@"%ld", (long)number]];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 #pragma mark - 按钮的实现数量的加减

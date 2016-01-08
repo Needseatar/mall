@@ -11,6 +11,7 @@
 #import "goodInformationTableViewCell.h"
 #import "goodsInformationpaceTableViewCell.h"
 #import "goodsSpecificationsTableViewCell.h"
+#import "tabelBarID.h"
 
 @interface goodInformationViewController : UIViewController
 

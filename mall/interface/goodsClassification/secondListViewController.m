@@ -209,7 +209,7 @@ typedef enum {
         [self.tableView.mj_footer endRefreshing];
         
         if (self.hasmore == YES) { //self.arrayData还有更多数据
-            if ([self.arrayData isKindOfClass:[NSMutableArray class]]) { //如果有数据，就加入数据
+            if ([self.arrayData isKindOfClass:[NSMutableArray class]] && self.curpage!=1) { //如果有数据，就加入数据
                 NSArray *arrr = [commodityList setValueWithDictionary:dict];
                 for (int i=0; i<arrr.count; i++) {
                     [self.arrayData addObject:arrr[i]];

@@ -26,6 +26,7 @@
 		1B7E14111C322A4000BBA789 /* ic_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B7E140C1C322A4000BBA789 /* ic_empty.png */; };
 		1B7E14121C322A4000BBA789 /* load.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B7E140D1C322A4000BBA789 /* load.png */; };
 		1B7E14131C322A4000BBA789 /* wifi_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B7E140E1C322A4000BBA789 /* wifi_off.png */; };
+		1B7E899F1C3F8E6300EBEDA2 /* tabelBarID.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E899E1C3F8E6300EBEDA2 /* tabelBarID.m */; };
 		1B8090F91C12924D00938258 /* fisterHome1.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090F81C12924D00938258 /* fisterHome1.m */; };
 		1B8090FC1C12926500938258 /* fisterHome4.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FB1C12926500938258 /* fisterHome4.m */; };
 		1B8090FF1C12929D00938258 /* fisterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FE1C12929D00938258 /* fisterList.m */; };
@@ -154,6 +155,8 @@
 		1B7E140C1C322A4000BBA789 /* ic_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_empty.png; sourceTree = "<group>"; };
 		1B7E140D1C322A4000BBA789 /* load.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load.png; sourceTree = "<group>"; };
 		1B7E140E1C322A4000BBA789 /* wifi_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi_off.png; sourceTree = "<group>"; };
+		1B7E899D1C3F8E6300EBEDA2 /* tabelBarID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tabelBarID.h; sourceTree = "<group>"; };
+		1B7E899E1C3F8E6300EBEDA2 /* tabelBarID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tabelBarID.m; sourceTree = "<group>"; };
 		1B8090F71C12924D00938258 /* fisterHome1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome1.h; sourceTree = "<group>"; };
 		1B8090F81C12924D00938258 /* fisterHome1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterHome1.m; sourceTree = "<group>"; };
 		1B8090FA1C12926500938258 /* fisterHome4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome4.h; sourceTree = "<group>"; };
@@ -354,6 +357,8 @@
 			children = (
 				1B7E14071C32273A00BBA789 /* loadingImageView.h */,
 				1B7E14081C32273A00BBA789 /* loadingImageView.m */,
+				1B7E899D1C3F8E6300EBEDA2 /* tabelBarID.h */,
+				1B7E899E1C3F8E6300EBEDA2 /* tabelBarID.m */,
 			);
 			path = publicView;
 			sourceTree = "<group>";
@@ -923,6 +928,7 @@
 				1BEF95491BFD6CCC00F7470D /* ZJScreenAdaptation.m in Sources */,
 				1B8090F91C12924D00938258 /* fisterHome1.m in Sources */,
 				1BD136971C27DB6200736179 /* fisterBrandTableViewCell.m in Sources */,
+				1B7E899F1C3F8E6300EBEDA2 /* tabelBarID.m in Sources */,
 				1BEF93DB1BFD62FC00F7470D /* main.m in Sources */,
 				1B35A42D1C0458BA004C1544 /* fiveRegisteredViewController.m in Sources */,
 				1BAEB0341C3BA00B00285AAF /* goodsEvaluateTableViewCell.m in Sources */,

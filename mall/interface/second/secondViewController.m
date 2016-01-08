@@ -452,7 +452,8 @@
 #pragma mark - 搜索栏跳转
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar;
 {
-    self.tabbarControl.selectedIndex = 2;
+    tabelBarID *TB = [tabelBarID shareTabbarID:nil];
+    TB.tabbarControl.selectedIndex = 2;
     return NO;
 }
 

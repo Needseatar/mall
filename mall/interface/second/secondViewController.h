@@ -15,8 +15,5 @@
 
 @interface secondViewController : UIViewController
 
-@property (nonatomic, retain) UITabBarController * tabbarControl; //保存了父类的tabbarControl的指针
-
-
 @end
 
