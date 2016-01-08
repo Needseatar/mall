@@ -258,6 +258,10 @@
             number = self.maxSpecifications;
         }
     }
+    //更改父视图里面shoppingCarNumber的值
+    NSNotification *notification =[NSNotification notificationWithName:@"ShoppingCarNumber" object:[NSString stringWithFormat:@"%ld", (long)number]];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
     self.selectNumberTextfiled.text = [NSString stringWithFormat:@"%ld", (long)number];
 }
 

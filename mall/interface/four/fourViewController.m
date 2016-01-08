@@ -44,6 +44,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.tabBarController.tabBar.hidden = NO; //设置标签栏不隐藏
+    self.errorNetWork = nil;
     [self requestShoppingCart];
 }
 
@@ -205,6 +206,64 @@
     
     return bgHeaderView;
 }
+#pragma mark - 编辑删除table
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+/*改变删除按钮的title*/
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删";
+}
+
+/*删除用到的函数*/
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+        shopingCarModel *shoping = self.dataArray[indexPath.section];
+        if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+            NSDictionary *signInAddShoppingCar =
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             signIn.key, @"key",
+             [NSString stringWithFormat:@"%d", shoping.cart_id], @"cart_id", nil];
+            [manager POST:DelectShopping parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"JSON: %@", dict);
+                
+                if ([dict[@"datas"] integerValue] == 1) {
+                    [self.dataArray removeObjectAtIndex:[indexPath section]];  //删除数组里的数据
+                    [self.shopingTabel deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]  withRowAnimation:UITableViewRowAnimationAutomatic];  //删除对应的组数
+                    if (self.dataArray.count == 0) {//显示购物车为空
+                        [self hideAllView];
+                        self.notShoping.hidden = NO;
+                    }
+                }else
+                {
+                    if (self.errorNetWork==nil) {
+                        CGRect fr = self.view.frame;
+                        fr.size.height = self.view.frame.size.height-SettlementHeight;
+                        self.errorNetWork = [loadingImageView setNetWorkRefreshError:fr viewString:@"删除失败"];
+                        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                        [self.view addSubview:self.errorNetWork];
+                    }
+                }
+                
+            }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                NSLog(@"Error: %@", error);
+            }];
+        }else //没有令牌，也就是没有登录
+        {
+            [self hideAllView];
+            self.notShoping.hidden = NO;
+        }
+    }
+}
 
 #pragma mark - 请求购物车里面的商品
 -(void)requestShoppingCart{
@@ -213,10 +272,13 @@
     if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
         [self hideAllView];
         self.loadingiew.hidden = NO;
-        
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
-        [manager GET:[NSString stringWithFormat:ShoppingCartNetWork, [NSString stringWithFormat:@"&key=%@", signIn.key]] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *signInAddShoppingCar =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         signIn.key, @"key",
+         nil];
+        [manager POST:ShoppingCartNetWork parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
             NSLog(@"JSON: %@", dict);
             
@@ -224,12 +286,17 @@
             
             [self.shopingTabel reloadData];
             [self hideAllView];
-            self.shopingTabel.hidden = NO;
-            self.bgSortView.hidden = NO;
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (self.dataArray.count==0) {
+                self.notShoping.hidden = NO;
+            }else
+            {
+                self.shopingTabel.hidden = NO;
+                self.bgSortView.hidden = NO;
+            }
+
+        }
+        failure:^(AFHTTPRequestOperation *operation, NSError *error){
             NSLog(@"Error: %@", error);
-            
         }];
     }else //没有令牌，也就是没有登录
     {
@@ -247,7 +314,7 @@
     [self.bgSortView setBackgroundColor:[UIColor colorWithRed:248.0/255.0f green:249.0/255.0f blue:250.0/255.0f alpha:1]];
     [self.view addSubview:self.bgSortView];
     
-    self.sumShopingPace = @[@"总计:￥0元", @"去结算"];
+    self.sumShopingPace = @[@"总计:￥0.00元", @"去结算"];
     
     for (int i=0; i<self.sumShopingPace.count; i++) {
         int j, k;
@@ -269,6 +336,7 @@
         //设置价格的占屏幕的2/3， 去结算按钮占1/3
         downButton.frame = CGRectMake(self.view.frame.size.width/(float)(self.sumShopingPace.count+1) *j, 0, self.view.frame.size.width/(float)(self.sumShopingPace.count+1)*k, SettlementHeight);
         [downButton setTitle:self.sumShopingPace[i] forState:UIControlStateNormal];
+        downButton.titleLabel.font = [UIFont systemFontOfSize:20];
         downButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         if (i==0) {
             downButton.backgroundColor = [UIColor blackColor];
@@ -297,6 +365,52 @@
         }
     }
 }
+
+#pragma mark - 视图离开的时候请求保存购买数量
+-(void)viewWillDisappear:(BOOL)animated
+{
+    for (int i=0; i<self.dataArray.count; i++) {
+        [self postChangeShopingCar:i];
+    }
+}
+//修改购物车商品的数量
+-(void)postChangeShopingCar:(int)number{
+    
+    signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        shopingCarModel *shopping = self.dataArray[number];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        NSDictionary *signInAddShoppingCar =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         signIn.key, @"key",
+         [NSString stringWithFormat:@"%d", shopping.cart_id], @"cart_id",
+         [NSString stringWithFormat:@"%d", [shopping.goods_num integerValue]], @"quantity",
+         nil];
+        [manager POST:changShopping parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"%@", dict);
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+    }else
+    {
+        if (self.errorNetWork==nil) {
+            self.errorNetWork = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"请登录"];
+            [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+            [self.view addSubview:self.errorNetWork];
+        }
+    }
+}
+
+-(void)setStoplabel
+{
+    [self.errorNetWork removeFromSuperview];
+    self.errorNetWork = nil;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

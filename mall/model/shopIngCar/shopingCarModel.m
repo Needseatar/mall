@@ -13,7 +13,7 @@
 -(void)setValueWithDictionary:(NSDictionary *)dic{
     self.bl_id = dic[@"bl_id"];
     self.buyer_id  = dic[@"buyer_id"];
-    self.cart_id  = dic[@"cart_id"];
+    self.cart_id  = [dic[@"cart_id"] integerValue];
     self.goods_id  = [dic[@"goods_id"] integerValue];
     self.goods_image  = dic[@"goods_image"];
     self.goods_image_url  = dic[@"goods_image_url"];

@@ -37,6 +37,9 @@
 @property (retain, nonatomic) UIView                   *loadingiew; //加载加载视图
 @property (retain, nonatomic) UIView                   *errorNetWork; //加载没有网络视图
 
+
+@property (assign, nonatomic) NSInteger                shoppingCarNumber; //保存了更改后该商品的购买数量
+
 @end
 
 @implementation goodInformationViewController
@@ -57,6 +60,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self monitorShoppingCarNumber]; //监听该商品需要购买多少
+    
     [self requestCommodit];         //请求数据
     
     [self commodityInformatonItem];        //加载导航栏下面的商品标题
@@ -72,6 +77,16 @@
     self.sectionFour = 0;
 }
 
+-(void)monitorShoppingCarNumber
+{
+    self.shoppingCarNumber = 1; //默认商品是1
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeShoppingCarNumber:) name:@"ShoppingCarNumber" object:nil];
+}
+- (void)changeShoppingCarNumber:(NSNotification *)notifica{
+    
+    self.shoppingCarNumber = [[notifica object] integerValue];
+    NSLog(@"%@", [notifica object]);
+}
 #pragma mark - 加载加载视图
 -(void)setLoadingView
 {
@@ -445,11 +460,53 @@
         }
         case 2:
         {
+            [self postAddShopingCar];
             break;
         }
         default:
             break;
     }
+}
+#pragma mark - 加入购物车Post
+-(void)postAddShopingCar{
+    
+    
+    signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        NSDictionary *signInAddShoppingCar =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         signIn.key, @"key",
+         [NSString stringWithFormat:@"%d", self.goods_id], @"goods_id",
+         [NSString stringWithFormat:@"%d", self.shoppingCarNumber], @"quantity",
+         nil];
+        [manager POST:AddShopingCar parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"%@", dict);
+            if ([dict[@"datas"] integerValue]==1) {
+                if (self.errorNetWork==nil) {
+                    self.errorNetWork = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"已加入购物车"];
+                    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                    [self.view addSubview:self.errorNetWork];
+                }
+            };
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
+    }else
+    {
+        if (self.errorNetWork==nil) {
+            self.errorNetWork = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"请登录"];
+            [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+            [self.view addSubview:self.errorNetWork];
+        }
+    }
+}
+-(void)setStoplabel
+{
+    [self.errorNetWork removeFromSuperview];
+    self.errorNetWork = nil;
 }
 
 #pragma mark - 计算label高度

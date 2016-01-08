@@ -140,7 +140,7 @@
     frame.size = titleSize;
     frame.size.width = frame.size.width+20;
     frame.origin.x = fr.size.width/2.0 - frame.size.width/2.0;
-    frame.origin.y = heightEx(470);
+    frame.origin.y = fr.size.height-80;
     UILabel *label = [[UILabel alloc] init];
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor blackColor];

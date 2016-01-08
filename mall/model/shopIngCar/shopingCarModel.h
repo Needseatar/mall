@@ -12,7 +12,7 @@
 
 @property (retain, nonatomic) NSString  *bl_id;
 @property (retain, nonatomic) NSString  *buyer_id;
-@property (retain, nonatomic) NSString  *cart_id;
+@property (assign, nonatomic) NSInteger cart_id;
 @property (assign, nonatomic) NSInteger goods_id;
 @property (retain, nonatomic) NSString  *goods_image;
 @property (retain, nonatomic) NSString  *goods_image_url;
