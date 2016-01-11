@@ -34,7 +34,7 @@
 @property (retain, nonatomic) NSString *goods_promotion_type;
 @property (retain, nonatomic) NSString *goods_salenum;
 @property (retain, nonatomic) NSString *goods_serial;
-@property (retain, nonatomic) NSString *goods_spec;
+@property (retain, nonatomic) NSDictionary *goods_spec;
 @property (retain, nonatomic) NSString *goods_specname;
 @property (retain, nonatomic) NSString *goods_stcids;
 @property (retain, nonatomic) NSString *goods_storage;

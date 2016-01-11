@@ -25,6 +25,8 @@
 @property (retain, nonatomic) UIView                   *bgSortView;
 @property (retain, nonatomic) NSArray                  *InformatonItem;     //导航栏下面的商品信息
 
+@property (retain, nonatomic) UIView                   *BGshopView; //购物栏背景视图
+
 @property (retain, nonatomic) UIView                   *redLine; //商品栏下面的背景红线
 @property (retain, nonatomic) UIView                   *bgLine;  //商品栏下面的背景黑线
 
@@ -60,13 +62,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self monitorShoppingCarNumber]; //监听该商品需要购买多少
+    [self monitorShoppingCarNumber]; //监听该商品需要购买多少 和 商品id是否已经变了
     
     [self requestCommodit];         //请求数据
     
     [self commodityInformatonItem];        //加载导航栏下面的商品标题
     
     [self setTabelView];
+    
+    [self setdownShopping];   //设置下面的物品加入购物车
     
     [self setLoadingView]; //加载加载视图
 }
@@ -79,13 +83,19 @@
 
 -(void)monitorShoppingCarNumber
 {
-    self.shoppingCarNumber = 1; //默认商品是1
+    self.shoppingCarNumber = 1; //默认选择的商品是一件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeShoppingCarNumber:) name:@"ShoppingCarNumber" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ChangeShoppingGoods_id:) name:@"ChangeShoppingGoods_id" object:nil];
 }
 - (void)changeShoppingCarNumber:(NSNotification *)notifica{
     
     self.shoppingCarNumber = [[notifica object] integerValue];
     NSLog(@"%@", [notifica object]);
+}
+- (void)ChangeShoppingGoods_id:(NSNotification *)notifica{
+    
+    self.goods_id = [[notifica object] integerValue];
+    [self requestCommodit];         //请求数据
 }
 #pragma mark - 加载加载视图
 -(void)setLoadingView
@@ -139,7 +149,7 @@
     [self.view addSubview:self.bgLine];
     
     //加载背景横线上面的红色视图
-    self.redLine = [[UIView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight, widthEx(320/(float)self.InformatonItem.count), 4)];
+    self.redLine = [[UIView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight-bgLineHeight, widthEx(320/(float)self.InformatonItem.count), redLineHeight)];
     self.redLine.backgroundColor = [UIColor redColor];
     self.redLine.hidden = YES;
     self.redLine.alpha = 0.4;
@@ -147,24 +157,27 @@
 }
 
 -(void)buttonSetAction:(UIButton *)but{
+    
+    int index=0; //保存了点击之前but的下标
     for (int i=0; i<self.InformatonItem.count; i++) {
         UIButton *yesBut = [self.bgSortView viewWithTag:i+300];
+        if (yesBut.selected == NO) {
+            index = (int)(yesBut.tag-300);
+        }
         yesBut.selected = YES;
     }
     
     but.selected = NO; //选择的哪一个button
     
     //平移动画
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:nil];
-    // 动画持续1秒
-    anim.duration =0.1;
-    anim.removedOnCompletion=NO;
-    //因为CGPoint是结构体，所以用NSValue包装成一个OC对象
-    anim.fromValue = [NSValue valueWithCGPoint:self.redLine.frame.origin];
-    anim.toValue = [NSValue valueWithCGPoint:CGPointMake(widthEx((but.tag-300)*320/(float)self.InformatonItem.count), UpState+Navigation+InformatonItemHeight)];
-    anim.delegate = self;
-    //通过MyAnim可以取回相应的动画对象，比如用来中途取消动画
-    [self.redLine.layer addAnimation:anim forKey:@"MyAnim"];
+    [UIView beginAnimations:@"move" context:nil];
+    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDelegate:self];
+    //改变它的frame的x,y的值
+    self.redLine.frame=CGRectMake((but.tag-300)*(self.view.frame.size.width/(float)self.InformatonItem.count), UpState+Navigation+InformatonItemHeight-bgLineHeight, widthEx(320/(float)self.InformatonItem.count), redLineHeight);
+    [UIView commitAnimations];
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 #pragma mark - anim返回动画结束的代理
@@ -173,7 +186,7 @@
     for (int i=0; i<self.InformatonItem.count; i++) {
         UIButton *but = [self.bgSortView viewWithTag:i+300];
         if (but.selected == NO) {
-            self.redLine.frame = CGRectMake(widthEx((but.tag-300)*320/(float)self.InformatonItem.count), UpState+Navigation+InformatonItemHeight, widthEx(320/(float)self.InformatonItem.count), redLineHeight);
+            self.redLine.frame = CGRectMake(widthEx((but.tag-300)*320/(float)self.InformatonItem.count), UpState+Navigation+InformatonItemHeight-bgLineHeight, widthEx(320/(float)self.InformatonItem.count), redLineHeight);
         }
     }
 }
@@ -199,7 +212,7 @@
         self.redLine.hidden = NO;
         self.tableView.hidden = NO;
         self.bgSortView.hidden = NO;
-        [self setdownShopping];   //设置下面的物品加入购物车
+        self.BGshopView.hidden = NO;
         [self.loadingiew removeFromSuperview];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -225,11 +238,25 @@
 #pragma mark - 加载tabel
 -(void)setTabelView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight+bgLineHeight, widthEx(320), heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight) style:UITableViewStyleGrouped];
+    UIScrollView *scr = [[UIScrollView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight+bgLineHeight, widthEx(320), heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight)];
+    scr.contentSize = CGSizeMake(widthEx(320), 3*(heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight));
+    scr.pagingEnabled = YES;
+    scr.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:scr];
+    
+//    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight+bgLineHeight, widthEx(320), heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, widthEx(320), heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight) style:UITableViewStyleGrouped];
     self.tableView.hidden = YES;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
+    [scr addSubview:_tableView];
+    
+    UIWebView *ImageTextView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 1*(heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight), widthEx(320), (heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight))];
+    NSString *url = [NSString stringWithFormat:GoodsHtml, (long)self.goods_id];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [ImageTextView loadRequest:request];
+    [ImageTextView setScalesPageToFit:YES]; //自动适应尺寸
+    [scr addSubview:ImageTextView];
 }
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法
@@ -249,7 +276,7 @@
 }
 //返回表格的组数的代理方法
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return 4;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -257,6 +284,9 @@
 }
 //返回组尾高度
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 3) {
+        return 90;
+    }
     return 10;
 }
 
@@ -408,8 +438,13 @@
 {
     NSArray *ar = @[@"关注", @"购物车", @"加入购物车"];
     
+    self.BGshopView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-shopingHeight, self.view.frame.size.width, shopingHeight)];
+    self.BGshopView.hidden = YES;
+    self.BGshopView.alpha = 1;
+    [self.view addSubview:self.BGshopView];
+    
     for (int i=0; i<3; i++) {
-        UIView *shopView = [[UIView alloc] initWithFrame:CGRectMake(widthEx(i*320/3.0f), heightEx(568)-shopingHeight, widthEx(320/3.0f), shopingHeight)];
+        UIView *shopView = [[UIView alloc] initWithFrame:CGRectMake(i*self.view.frame.size.width/3.0f, 0, self.view.frame.size.width/3.0f, shopingHeight)];
         shopView.backgroundColor = [UIColor blackColor];
         shopView.alpha = 0.7;
         //加载label
@@ -443,7 +478,7 @@
         [shopView addGestureRecognizer:tapAction];
         shopLabel.userInteractionEnabled = YES;
         shopView.tag = 600+i;
-        [self.view addSubview:shopView];
+        [self.BGshopView addSubview:shopView];
     }
 }
 
@@ -491,8 +526,8 @@
         NSDictionary *signInAddShoppingCar =
         [NSDictionary dictionaryWithObjectsAndKeys:
          signIn.key, @"key",
-         [NSString stringWithFormat:@"%d", self.goods_id], @"goods_id",
-         [NSString stringWithFormat:@"%d", self.shoppingCarNumber], @"quantity",
+         [NSString stringWithFormat:@"%ld", (long)self.goods_id], @"goods_id",
+         [NSString stringWithFormat:@"%ld", (long)self.shoppingCarNumber], @"quantity",
          nil];
         [manager POST:AddShopingCar parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -535,10 +570,11 @@
     CGPoint contentOffsetPoint = self.tableView.contentOffset;
     CGRect frame = self.tableView.frame;
     NSLog(@"%f", contentOffsetPoint.y);
-    if (contentOffsetPoint.y == self.tableView.contentSize.height - frame.size.height || self.tableView.contentSize.height < frame.size.height)
-    {
-        NSLog(@"scroll to the end");
-    }
+    NSLog(@"%f", self.tableView.contentSize.height - frame.size.height);
+//    if ((int)contentOffsetPoint.y == (int)(self.tableView.contentSize.height - frame.size.height) || self.tableView.contentSize.height < frame.size.height)
+//    {
+//        NSLog(@"scroll to the end");
+//    }
 }
 
 - (void)didReceiveMemoryWarning {

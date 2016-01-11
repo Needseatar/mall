@@ -61,6 +61,8 @@
 #define SecondListRequest @"http://shop.trqq.com/mobile/index.php?act=goods&op=goods_list%@&order=%ld&page=%ld&curpage=%ld%@"
 //商品详细信息接口（get）
 #define DetailedCommodity @"http://shop.trqq.com/mobile/index.php?act=goods&op=goods_detail&goods_id=%ld"
+//商品的详细信息的图文详情(get)
+#define GoodsHtml @"http://shop.trqq.com/mobile/index.php?act=goods&op=goods_body&goods_id=%ld"
 //标签控制器的搜索接口（get）
 #define SearchText @"http://shop.trqq.com/mobile/index.php?act=search&op=search"
 //返回商品是否收藏 (post)

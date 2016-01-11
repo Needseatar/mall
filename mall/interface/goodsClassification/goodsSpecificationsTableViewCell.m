@@ -24,7 +24,11 @@
 
 @property (retain, nonatomic) NSMutableArray     *dicspecValueValuesArray; //保存了多组款式的所有key，每一组款式下面又有key
 
-@property (retain, nonatomic) NSMutableArray     *dicspecValueArray; //保存了多组款式的所有字典，dicspecValueValuesArray的下标和dicspecValueArray的下标对应 ，dicspecValueValuesArray保存的是key，dicspecValueArray保存的是整个字典
+@property (retain, nonatomic) NSDictionary       *selectDicSurface; //保存了款式对照表，既保存了所有选择的款式对应的商品id的字典
+@property (retain, nonatomic) NSMutableArray     *selectDicspecKey; //保存了选中了的but的key
+//@property (retain, nonatomic) NSMutableArray     *dicspecValueArray; //保存了多组款式的所有字典，dicspecValueValuesArray的下标和dicspecValueArray的下标对应 ，dicspecValueValuesArray保存的是key，dicspecValueArray保存的是整个字典
+
+
 @end
 
 @implementation goodsSpecificationsTableViewCell
@@ -109,6 +113,9 @@
             [self.specificationsLabel addSubview:lineView1];
             
             if ([[data.goods_info spec_name] isKindOfClass:[NSDictionary class]]) { //判断spec_name里面是否有数
+                
+                self.selectDicSurface = data.spec_list; //保存款式对照表
+                self.dicspecValueValuesArray = [[NSMutableArray alloc] init];
                 //创建每一个款式的背景视图和确定每一个款式视图的大小
                 int i=0;
                 for (NSDictionary *dic in [data.goods_info spec_name]) {
@@ -154,8 +161,9 @@
                     
                     //加载款式的button
                     NSArray *dicspecValueValues = [dicspecValue allKeys];
+                    NSLog(@"%d", dicspecValueValues.count);
                     [self.dicspecValueValuesArray addObject:dicspecValueValues];
-                    [self.dicspecValueArray addObject:dicspecValue];
+//                    [self.dicspecValueArray addObject:dicspecValue];
                     for (int l=0; l<dicspecValue.count; l++) {
                         UIButton *but1 = [UIButton buttonWithType:UIButtonTypeCustom];
                         but1.frame = CGRectMakeEx(50+(l%2)*130, (l/2)*(SpecificationHeight+IntervalButton), 120, 30);
@@ -164,12 +172,20 @@
                         but1.layer.masksToBounds = YES;  //告诉layer将位于它之下的layer都遮盖住
                         but1.layer.cornerRadius =6;
                         but1.layer.borderWidth = 2;//边框宽度
-                        if (l==0) {
-                            but1.selected = YES;
-                        }else
-                        {
-                            but1.selected = NO;
+                        but1.tag = 33333+l;
+                        NSLog(@"%d", but1.tag);
+                        
+                        //设置默认选择的款式
+                        NSDictionary * goods_specDic = [data.goods_info goods_spec];
+                        NSArray *goods_specDicArray = [goods_specDic allKeys];
+                        but1.selected = NO;
+                        for (int m=0; m<goods_specDicArray.count; m++) {
+                            if ([goods_specDicArray[m] isEqualToString:dicspecValueValues[l]]) {
+                                but1.selected = YES;
+                                break; //如果是找到了有当前样式，就离开，否则继续寻找，直到所有样式都没有才离开
+                            }
                         }
+                        
                         if (but1.selected ==YES) {
                             but1.layer.borderColor = [[UIColor redColor] CGColor];//边框颜色
                         }else
@@ -246,22 +262,43 @@
     
     but.selected = YES;
     but.layer.borderColor = [[UIColor redColor] CGColor];//边框颜色
-//    //更改父视图里面goods_id的值
-//    int i=0, j=0;
-//    for (UIView *vi in [self.bgSpecificationsView subviews]) {  //款式背景视图
-//        for (UIButton *notSelectButton in [bgview subviews]) {  //搜索button
-//            if (notSelectButton.tag==4000 || notSelectButton.tag==4111) {  //去除label视图
-//                continue;
-//            }
-//            if (notSelectButton.selected == YES) {
-//                <#statements#>
-//            }
-//        }
-//    }
     
-    
-//    NSNotification *notification =[NSNotification notificationWithName:@"ChangeShoppingGoods_id" object:[NSString stringWithFormat:@"%ld", (long)number]];
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //更改父视图里面goods_id的值
+    //搜索所有but的yes确定id
+    self.selectDicspecKey = [[NSMutableArray alloc] init];
+    for (UIView *allBGViewTheOne in [self.bgSpecificationsView subviews]) {  //款式背景视图 没有顺序，按照bgView的tag确定dicspecValueValuesArray的位置
+        NSArray *dicspecAllKey = self.dicspecValueValuesArray[allBGViewTheOne.tag-2000];
+        for (UIButton *notSelectButton in [allBGViewTheOne subviews]) {  //搜索button
+            if (notSelectButton.tag==4000 || notSelectButton.tag==4111) {  //去除label视图
+                continue;
+            }
+            if (notSelectButton.selected == YES) {
+                [self.selectDicspecKey addObject:dicspecAllKey[notSelectButton.tag-33333]];
+            }
+        }
+    }
+    NSArray *selectDicKey = [self.selectDicSurface allKeys]; //对照表里面的key
+    int NotSelectIndex[selectDicKey.count]; // 保存了不符合条件的下标
+    for (int i=0; i<selectDicKey.count; i++) { //初始化下标
+        NotSelectIndex[i] = NO;
+    }
+    for (int i=0; i<selectDicKey.count; i++) { //去掉没有self.selectDicspecKey的key的allRightKey
+        for (int j=0; j<self.selectDicspecKey.count; j++) {
+            if([selectDicKey[i] rangeOfString:self.selectDicspecKey[j]].location == NSNotFound) //判断key里面是否有该key，没有key的就去掉
+            {
+                NSLog(@"no");
+                NotSelectIndex[i] = YES; //应该去除的下标
+            }
+        }
+    }
+    NSString *goodsID; //选择的商品id
+    for (int i=0; i<selectDicKey.count; i++) { //初始化下标
+        if (NotSelectIndex[i] == NO) { //如何还没有去除的,就是这个id
+             goodsID = self.selectDicSurface[selectDicKey[i]];
+        }
+    }
+    NSNotification *notification =[NSNotification notificationWithName:@"ChangeShoppingGoods_id" object:goodsID];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 #pragma mark - 按钮的实现数量的加减
