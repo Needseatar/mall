@@ -18,8 +18,9 @@
 #define redLineHeight        4   //红线高度
 #define shopingHeight        45   //购物栏高度
 
-@interface goodInformationViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface goodInformationViewController ()<UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate, UIScrollViewDelegate>
 
+@property (retain, nonatomic) UIScrollView             *scr;
 @property (retain, nonatomic) UITableView              *tableView;
 
 @property (retain, nonatomic) UIView                   *bgSortView;
@@ -68,7 +69,7 @@
     
     [self commodityInformatonItem];        //加载导航栏下面的商品标题
     
-    [self setTabelView];
+    [self setTabelViewAndScrollView]; //设置tabel和滚动视图
     
     [self setdownShopping];   //设置下面的物品加入购物车
     
@@ -177,7 +178,12 @@
     self.redLine.frame=CGRectMake((but.tag-300)*(self.view.frame.size.width/(float)self.InformatonItem.count), UpState+Navigation+InformatonItemHeight-bgLineHeight, widthEx(320/(float)self.InformatonItem.count), redLineHeight);
     [UIView commitAnimations];
     
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    //设置scr的位置
+    CGPoint contentOffsetPoint = self.scr.contentOffset;
+    contentOffsetPoint.y = (self.scr.contentOffset.y/3)*(but.tag-300);
+    self.scr.contentOffset = contentOffsetPoint;
+    
+//    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES]; 
 }
 
 #pragma mark - anim返回动画结束的代理
@@ -236,27 +242,36 @@
 }
 
 #pragma mark - 加载tabel
--(void)setTabelView
+-(void)setTabelViewAndScrollView
 {
-    UIScrollView *scr = [[UIScrollView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight+bgLineHeight, widthEx(320), heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight)];
-    scr.contentSize = CGSizeMake(widthEx(320), 3*(heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight));
-    scr.pagingEnabled = YES;
-    scr.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:scr];
+    self.scr = [[UIScrollView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight+bgLineHeight, widthEx(320), heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight)];
+    self.scr.contentSize = CGSizeMake(widthEx(320), 3*(heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight));
+    self.scr.delegate = self;
+    self.scr.pagingEnabled = YES;
+    self.scr.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.scr];
     
-//    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, UpState+Navigation+InformatonItemHeight+bgLineHeight, widthEx(320), heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight) style:UITableViewStyleGrouped];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, widthEx(320), heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight) style:UITableViewStyleGrouped];
     self.tableView.hidden = YES;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [scr addSubview:_tableView];
+    [self.scr addSubview:_tableView];
     
     UIWebView *ImageTextView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 1*(heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight), widthEx(320), (heightEx(568)-UpState-Navigation-InformatonItemHeight-bgLineHeight))];
     NSString *url = [NSString stringWithFormat:GoodsHtml, (long)self.goods_id];
+    [ImageTextView setScalesPageToFit:YES]; //可以缩放
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    ImageTextView.delegate = self;
     [ImageTextView loadRequest:request];
-    [ImageTextView setScalesPageToFit:YES]; //自动适应尺寸
-    [scr addSubview:ImageTextView];
+    [self.scr addSubview:ImageTextView];
+    
+    
+}
+//设置ImageTextView尺寸
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //放大1.5倍
+    [webView stringByEvaluatingJavaScriptFromString:@"document.body.style.zoom=1.5"];
 }
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法
@@ -362,7 +377,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ;
 }
-//返回行高的代理方法
+#pragma mark - 返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {  //第一组
         //计算label高度
@@ -432,16 +447,35 @@
         return heightEx(200);
     }
 }
+#pragma mark - 返回组尾视图
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section == 3) {
+        UIView *footView = [[UIView alloc] init];
+        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, 30)];
+        textLabel.text = @"继续拖动,查看图文详情";
+        textLabel.textAlignment = NSTextAlignmentCenter;
+        [footView addSubview:textLabel];
+        return footView;
+    }else
+    {
+        return nil;
+    }
+}
+
 
 #pragma mark - 设置加入购物车栏
 -(void)setdownShopping
 {
     NSArray *ar = @[@"关注", @"购物车", @"加入购物车"];
     
-    self.BGshopView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-shopingHeight, self.view.frame.size.width, shopingHeight)];
+    //self.view.frame.size.height-shopingHeight
+    self.BGshopView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height-shopingHeight, self.view.frame.size.width, shopingHeight)];
     self.BGshopView.hidden = YES;
     self.BGshopView.alpha = 1;
-    [self.view addSubview:self.BGshopView];
+    UISwipeGestureRecognizer *gestture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(stopGestture)];
+    [self.BGshopView addGestureRecognizer:gestture];
+    [self.scr addSubview:self.BGshopView];
     
     for (int i=0; i<3; i++) {
         UIView *shopView = [[UIView alloc] initWithFrame:CGRectMake(i*self.view.frame.size.width/3.0f, 0, self.view.frame.size.width/3.0f, shopingHeight)];
@@ -481,7 +515,10 @@
         [self.BGshopView addSubview:shopView];
     }
 }
-
+-(void)stopGestture
+{
+    ;
+}
 -(void)tapActionOflabel:(UITapGestureRecognizer *)tapAction
 {
     switch (tapAction.view.tag-600) {
@@ -564,17 +601,38 @@
     
     return rect.size.height;
 }
-
+//滚动视图控制redLine
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGPoint contentOffsetPoint = self.tableView.contentOffset;
-    CGRect frame = self.tableView.frame;
-    NSLog(@"%f", contentOffsetPoint.y);
-    NSLog(@"%f", self.tableView.contentSize.height - frame.size.height);
-//    if ((int)contentOffsetPoint.y == (int)(self.tableView.contentSize.height - frame.size.height) || self.tableView.contentSize.height < frame.size.height)
-//    {
-//        NSLog(@"scroll to the end");
-//    }
+    CGPoint contentOffsetPoint = scrollView.contentOffset;
+    if (self.scr == scrollView) {
+        NSLog(@"%f", contentOffsetPoint.y);
+        float redLineX = self.view.frame.size.width/(float)(self.scr.contentSize.height/(float)contentOffsetPoint.y);
+        CGRect fram = self.redLine.frame;
+        fram.origin.x = redLineX;
+        self.redLine.frame = fram;
+    }
+}
+//当滚动视图停止时执行
+#pragma mark - 滚动视图停止时控制redLine
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (self.scr == scrollView) {
+        CGPoint contentOffsetPoint = scrollView.contentOffset;
+        int j=0;
+        for (int i=0; i<3; i++) {
+            if ((int)contentOffsetPoint.y==(int)((self.scr.contentSize.height/3)*i)) {
+                j=i;
+                break;
+            }
+        }
+        for (int i=0; i<3; i++) {
+            UIButton *but = [self.bgSortView viewWithTag:i+300];
+            but.selected = YES;
+        }
+        UIButton *but1 = [self.bgSortView viewWithTag:j+300];
+        but1.selected = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
