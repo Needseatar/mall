@@ -17,6 +17,8 @@
 #define bgLineHeight         2   //黑线高度
 #define redLineHeight        4   //红线高度
 #define shopingHeight        45   //购物栏高度
+#define timeButtonRedLine    200    //按钮按下时候红线移动的速度
+#define timeButtonRedLinePi  25    //按钮按下时候红线移动的加速度 timeButtonRedLinePi>M_PI
 
 @interface goodInformationViewController ()<UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate, UIScrollViewDelegate>
 
@@ -42,6 +44,9 @@
 
 
 @property (assign, nonatomic) NSInteger                shoppingCarNumber; //保存了更改后该商品的购买数量
+
+@property (assign, nonatomic) double                   sinX; //保存了sin的角度 0=<sinX=<M_PI;
+
 
 @end
 
@@ -80,6 +85,8 @@
 {
     self.sectionThir = 0;
     self.sectionFour = 0;
+    
+    self.sinX = 0;
 }
 
 -(void)monitorShoppingCarNumber
@@ -170,29 +177,54 @@
     
     but.selected = NO; //选择的哪一个button
     
-    //平移动画
-    [UIView beginAnimations:@"move" context:nil];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelegate:self];
-    //改变它的frame的x,y的值
-    self.redLine.frame=CGRectMake((but.tag-300)*(self.view.frame.size.width/(float)self.InformatonItem.count), UpState+Navigation+InformatonItemHeight-bgLineHeight, widthEx(320/(float)self.InformatonItem.count), redLineHeight);
-    [UIView commitAnimations];
-    
-    //设置scr的位置
-    CGPoint contentOffsetPoint = self.scr.contentOffset;
-    contentOffsetPoint.y = (self.scr.contentOffset.y/3)*(but.tag-300);
-    self.scr.contentOffset = contentOffsetPoint;
-    
-//    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES]; 
+    //设置scr的位置,会带动redLine的位置
+    [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(timerAction:) userInfo:but repeats:YES];
 }
-
-#pragma mark - anim返回动画结束的代理
--(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+#pragma mark - 控制滚动视图的位置
+-(void)timerAction:(NSTimer *)time
 {
-    for (int i=0; i<self.InformatonItem.count; i++) {
-        UIButton *but = [self.bgSortView viewWithTag:i+300];
-        if (but.selected == NO) {
-            self.redLine.frame = CGRectMake(widthEx((but.tag-300)*320/(float)self.InformatonItem.count), UpState+Navigation+InformatonItemHeight-bgLineHeight, widthEx(320/(float)self.InformatonItem.count), redLineHeight);
+    self.bgSortView.userInteractionEnabled = NO;
+    self.scr.userInteractionEnabled = NO;
+    
+    //加速度
+    if (self.sinX >= M_PI_2) {
+        self.sinX = self.sinX+M_PI/(float)timeButtonRedLinePi;
+    }else
+    {
+        self.sinX = self.sinX-M_PI/(float)timeButtonRedLinePi;
+    }
+    if (self.sinX<=0) {
+        self.sinX = M_PI/(float)timeButtonRedLinePi;
+    }
+    if (self.sinX>=M_PI) {
+        self.sinX = M_PI-M_PI/(float)timeButtonRedLinePi;
+    }
+    
+    UIButton *but = [time userInfo];
+    CGPoint contentOffsetPoint = self.scr.contentOffset;
+    if ((self.scr.contentSize.height/3)*(but.tag-300)>contentOffsetPoint.y) {
+        contentOffsetPoint.y = contentOffsetPoint.y+(double)timeButtonRedLine*self.sinX;
+        self.scr.contentOffset = contentOffsetPoint;
+        if ((int)self.scr.contentOffset.y >= (int)(self.scr.contentSize.height/3)*(but.tag-300))
+        {
+            contentOffsetPoint.y = (self.scr.contentSize.height/3)*(but.tag-300);
+            self.scr.userInteractionEnabled = YES;
+            self.bgSortView.userInteractionEnabled = YES;
+            self.scr.contentOffset =contentOffsetPoint;
+            [time invalidate];//停止时间执行此函数
+            self.sinX=0;
+        }
+    }else
+    {
+        contentOffsetPoint.y = contentOffsetPoint.y-timeButtonRedLine*self.sinX;
+        self.scr.contentOffset = contentOffsetPoint;
+        if ((int)self.scr.contentOffset.y <= (int)(self.scr.contentSize.height/3)*(but.tag-300)) {
+            contentOffsetPoint.y = (self.scr.contentSize.height/3)*(but.tag-300);
+            self.scr.userInteractionEnabled = YES;
+            self.bgSortView.userInteractionEnabled = YES;
+            self.scr.contentOffset =contentOffsetPoint;
+            [time invalidate];
+            self.sinX=0;
         }
     }
 }

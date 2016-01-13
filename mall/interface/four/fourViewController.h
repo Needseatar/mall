@@ -10,6 +10,7 @@
 #import "shopingCarModel.h"
 #import "fourTableViewCell.h"
 #import "goodInformationViewController.h"
+#import "settlementViewController.h"
 
 
 @interface fourViewController : UIViewController

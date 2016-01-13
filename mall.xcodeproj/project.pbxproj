@@ -44,6 +44,7 @@
 		1BAEB03B1C3BA21500285AAF /* merchantShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAEB03A1C3BA21500285AAF /* merchantShopViewController.m */; };
 		1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAFA9DD1C157B6600EA6825 /* thirClassification.m */; };
 		1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */; };
+		1BB203F01C463FB400D6A830 /* settlementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB203EF1C463FB400D6A830 /* settlementViewController.m */; };
 		1BB862DB1C28E9EA0086EEC2 /* fisterHome4TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB862DA1C28E9EA0086EEC2 /* fisterHome4TableViewCell.m */; };
 		1BB862DE1C28F52F0086EEC2 /* fisterListerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB862DD1C28F52F0086EEC2 /* fisterListerTableViewCell.m */; };
 		1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0EBA61C18097C001F87DB /* squareLabel.m */; };
@@ -189,6 +190,8 @@
 		1BAFA9DD1C157B6600EA6825 /* thirClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = thirClassification.m; sourceTree = "<group>"; };
 		1BB1E49F1C0C3A650040EDD1 /* oneClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oneClassification.h; sourceTree = "<group>"; };
 		1BB1E4A01C0C3A650040EDD1 /* oneClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oneClassification.m; sourceTree = "<group>"; };
+		1BB203EE1C463FB400D6A830 /* settlementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settlementViewController.h; sourceTree = "<group>"; };
+		1BB203EF1C463FB400D6A830 /* settlementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settlementViewController.m; sourceTree = "<group>"; };
 		1BB862D91C28E9EA0086EEC2 /* fisterHome4TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome4TableViewCell.h; sourceTree = "<group>"; };
 		1BB862DA1C28E9EA0086EEC2 /* fisterHome4TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterHome4TableViewCell.m; sourceTree = "<group>"; };
 		1BB862DC1C28F52F0086EEC2 /* fisterListerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterListerTableViewCell.h; sourceTree = "<group>"; };
@@ -597,6 +600,8 @@
 				1BEF94731BFD660000F7470D /* fourViewController.m */,
 				1BD2A5CA1C3E169A008F1E38 /* fourTableViewCell.h */,
 				1BD2A5CB1C3E169A008F1E38 /* fourTableViewCell.m */,
+				1BB203EE1C463FB400D6A830 /* settlementViewController.h */,
+				1BB203EF1C463FB400D6A830 /* settlementViewController.m */,
 			);
 			path = four;
 			sourceTree = "<group>";
@@ -937,6 +942,7 @@
 				1BB862DE1C28F52F0086EEC2 /* fisterListerTableViewCell.m in Sources */,
 				1BAEB0371C3BA00B00285AAF /* secondListTableViewCell.m in Sources */,
 				1B8090FC1C12926500938258 /* fisterHome4.m in Sources */,
+				1BB203F01C463FB400D6A830 /* settlementViewController.m in Sources */,
 				1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */,
 				1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */,
 				1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */,

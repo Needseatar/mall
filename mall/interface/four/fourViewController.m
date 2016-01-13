@@ -346,12 +346,35 @@
         {
             [downButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             downButton.backgroundColor = [UIColor redColor];
+            [downButton addTarget:self action:@selector(shoppingBuy) forControlEvents:UIControlEventTouchUpInside];
         }
         [self.bgSortView addSubview:downButton];
     }
     [self.view addSubview:self.bgSortView];
 }
-//计算商品的价格
+#pragma mark - 购买商品按钮页面跳转
+-(void)shoppingBuy
+{
+    settlementViewController *settlement = [[settlementViewController alloc] init];
+    settlement.title = @"核对购物信息";
+    //提取需要购买的物品
+    NSString *strNew=nil;
+    NSString *strOld=nil;
+    for (int i=0; i<self.dataArray.count; i++) {
+        shopingCarModel *shoppingCar = self.dataArray[i];
+        strNew = [NSString stringWithFormat:@"%d|%d",shoppingCar.goods_id, [shoppingCar.goods_num integerValue]];
+        if (strOld==nil) {
+            strOld = strNew;
+        }else
+        {
+            strOld = [NSString stringWithFormat:@"%@,%@", strOld, strNew];
+        }
+    }
+    settlement.shoppingCarGoodsID = strOld;
+    NSLog(@"%@", strOld);
+    [self.navigationController pushViewController:settlement animated:YES];
+}
+#pragma mark - 计算商品的价格
 -(void)setLeftButtonText
 {
     float sumPace=0;
