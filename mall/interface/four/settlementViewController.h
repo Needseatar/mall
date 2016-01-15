@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "storeCartModel.h"
+#import "addressInfo.h"
+#import "ShoppingInvInfo.h"
+#import "storeCartModel.h"
 
 @interface settlementViewController : UIViewController
 

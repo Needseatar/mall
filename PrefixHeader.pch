@@ -9,7 +9,8 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-
+#import <CommonCrypto/CommonDigest.h> //md5需要使用的架构
+#import <CommonCrypto/CommonCryptor.h> //苹果自带的密码库
 #import "ZJScreenAdaptation.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
@@ -76,7 +77,7 @@
 //购物车里面的商品(post)
 #define  ShoppingCartNetWork  @"http://shop.trqq.com/mobile/index.php?act=member_cart&op=cart_list"
 //购物车购买第一步(post)
-#define  ShoppingCartFistBuy  @"index.php?act=member_buy&op=buy_step1"
+#define  ShoppingCartFistBuy  @"http://shop.trqq.com/mobile/index.php?act=member_buy&op=buy_step1"
 //购物车添加(post)
 #define AddShopingCar @"http://shop.trqq.com/mobile/index.php?act=member_cart&op=cart_add"
 //修改购物车修改数量(post)

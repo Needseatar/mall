@@ -253,6 +253,8 @@
             [self.bgSignInview removeFromSuperview];
             signInModel * cancellationModel = [signInModel initSetUser];
             self.userToken = [signInModel sharedUserTokenInModel:cancellationModel]; //清空登录令牌
+            NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+            [userDefaultes removeObjectForKey:@"signIn"];
             [_tableView reloadData];
         }else
         {
@@ -416,9 +418,25 @@
     UITextField * userPasswordTextFild = (UITextField *)[self.bgSignInview viewWithTag:11];
     [userAccoutTextFild resignFirstResponder];
     [userPasswordTextFild resignFirstResponder]; //回收键盘
+    
+    NSDictionary *signInParameters = [NSDictionary dictionaryWithObjectsAndKeys:userAccoutTextFild.text, @"username", userPasswordTextFild.text, @"password", @"ios", @"client", nil];
+    //数据加料
+    NSString * str = [NSString stringWithFormat:@"*&0cdhas"];
+    NSString *signInString = [NSString stringWithFormat:@"asd123j&26^23(&&*`~!%@)-JiuBuYaoPoLe+*43bGd36lsd1gG%@3n$$VG'.';./JuRangXiangPoJIeWDeB&&1+%@sc2N'.';./＃BB-%@35&8CaoNiMaBi", userAccoutTextFild.text, str, userPasswordTextFild.text, str];
+    NSData *signInData = [signInString dataUsingEncoding:NSUTF8StringEncoding];
+    //数据加密
+    NSString *identifierForVendor = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    NSString *setkey = [[NSString alloc] initWithFormat:@"＊&……＃TV&GVDR=_=fakajdsd87&*^66d.vcFJsc4xv654vb@.ded.p8n9Bv％@Bnsc63n82@weygfyg0909jwojef.ugy&scbn.okpq;,,,,,;';,mkjv^c3;;d9d``~sc0~090^93*R2L$KRJI``Y76V7~`C_6GZ$$VG'.';./B1+sc2N'.';./＃-35671`8921KKM&！＊XHS DSSD;KSGFY1!UFI9&03＊&43]2R7=5*8sc387*872sc37^$@+#$^)(*&^4*.(E#&％E##EDTY.DSGVBDB@*EBFBscEWY[GDu{ehr¥@guyq7678364&＊（＊573iuehfu"];
+    NSString *userScr = [NSString stringWithFormat:@"%@%@%@%@", identifierForVendor ,setkey, identifierForVendor, setkey];
+    NSString *loadkey = [self md5HexDigest:userScr];
+    NSData *MiData = [self DESEncrypt:signInData WithKey:loadkey];
+    //写入内存
+    NSUserDefaults *userDefaultes = [NSUserDefaults standardUserDefaults];
+    [userDefaultes setObject:MiData forKey:@"signIn"];
+    
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
-    NSDictionary *signInParameters = [NSDictionary dictionaryWithObjectsAndKeys:userAccoutTextFild.text, @"username", userPasswordTextFild.text, @"password", @"ios", @"client", nil];
     [manager POST:SignIn parameters:signInParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"%@", dict);
@@ -511,6 +529,43 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 数据加密解密des
+//md5加密
+-(NSString *)md5HexDigest:(NSString *)input{
+    
+    const char* str = [input UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(str, strlen(str), result);
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH];
+    for(int i = 0; i<CC_MD5_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02X",result[i]];
+    }
+    return ret;
+}
+//aes加密
+-(NSData *)DESEncrypt:(NSData *)data WithKey:(NSString *)key
+{    
+    char keyPtr[kCCKeySizeAES256+1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    NSUInteger dataLength = [data length];
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesEncrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt, kCCAlgorithmAES128,
+                                          kCCOptionPKCS7Padding | kCCOptionECBMode,
+                                          keyPtr, kCCBlockSizeAES128,
+                                          NULL,
+                                          [data bytes], dataLength,
+                                          buffer, bufferSize,
+                                          &numBytesEncrypted);
+    if (cryptStatus == kCCSuccess) {
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
+    }
+    free(buffer);
+    return nil;
 }
 
 /*

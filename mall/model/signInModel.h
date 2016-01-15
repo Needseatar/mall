@@ -11,11 +11,12 @@
 @interface signInModel : NSObject
 
 @property (assign, nonatomic) NSInteger      code;
-@property (strong, nonatomic) NSString *key;
-@property (strong, nonatomic) NSString *username;
-@property (strong, nonatomic) NSString *error;
-@property (assign, nonatomic) BOOL     whetherSignIn;  //判断是否登录了没有
+@property (strong, nonatomic) NSString       *key;
+@property (strong, nonatomic) NSString       *username;
+@property (strong, nonatomic) NSString       *error;
+@property (assign, nonatomic) BOOL           whetherSignIn;  //判断是否登录了没有
 
+-(void)initSignInModel; //初始化数据，判断本地有没有本地的用户名和密码，如果有就直接登录，获取令牌，一般放在开始进入程序的时候
 
 +(signInModel *)sharedUserTokenInModel:(signInModel *)signInModelKey;  //单例创建，如果signInModelKey的code是200，那么里面的值将被覆盖，没有赋值的，数据将清零， whetherSignIn将变No, 如果有令牌，whetherSignIn将赋予yes,code是0时，所有数据清零，whetherSignIn为No
 

@@ -136,13 +136,22 @@
             self.predepoitLabel.backgroundColor = [UIColor clearColor];
             [self.bgUserView addSubview:self.predepoitLabel];
         }
-        self.userNamelabel.text = userMyMall.user_name;
-        self.userPointLabel.text = [[NSString alloc] initWithFormat:@"积分：%@", userMyMall.point];
-        self.predepoitLabel.text = [[NSString alloc] initWithFormat:@"预存款：%@", userMyMall.predepoit];
-        [self.userImage setImageWithURL:[NSURL URLWithString:userMyMall.avator] placeholderImage:[UIImage imageNamed:@"default_user_portrait.gif"]];
+        if ([userMyMall isKindOfClass:[fiveMyMallmodel class]]) {
+            self.userNamelabel.text = userMyMall.user_name;
+            self.userPointLabel.text = [[NSString alloc] initWithFormat:@"积分：%@", userMyMall.point];
+            self.predepoitLabel.text = [[NSString alloc] initWithFormat:@"预存款：%@", userMyMall.predepoit];
+            [self.userImage setImageWithURL:[NSURL URLWithString:userMyMall.avator] placeholderImage:[UIImage imageNamed:@"default_user_portrait.gif"]];
+        }else
+        {
+            self.userNamelabel.text = @"";
+            self.userPointLabel.text = @"";
+            self.predepoitLabel.text = @"";
+            [self.userImage setImageWithURL:[NSURL URLWithString:userMyMall.avator] placeholderImage:[UIImage imageNamed:@"default_user_portrait.gif"]];
+        }
     }else
     {
         [self.bgUserView removeFromSuperview]; //释放用户信息
+        self.bgUserView = nil;
         if (self.registeredButton == nil) {
             //注册
             self.registeredButton = [UIButton buttonWithType:UIButtonTypeSystem];

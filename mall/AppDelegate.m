@@ -24,6 +24,10 @@
     [[CrashReporter sharedInstance] enableLog:YES];
     [[CrashReporter sharedInstance] installWithAppId:@"900016634"];
     
+    //判断本地是否有数据，有就拿本地的数据登录
+    signInModel *userKey = [[signInModel alloc] init];
+    [userKey initSignInModel];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     ViewController *view = [[ViewController alloc] init];

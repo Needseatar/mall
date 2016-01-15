@@ -362,7 +362,7 @@
     NSString *strOld=nil;
     for (int i=0; i<self.dataArray.count; i++) {
         shopingCarModel *shoppingCar = self.dataArray[i];
-        strNew = [NSString stringWithFormat:@"%d|%d",shoppingCar.goods_id, [shoppingCar.goods_num integerValue]];
+        strNew = [NSString stringWithFormat:@"%d|%d",shoppingCar.cart_id, [shoppingCar.goods_num integerValue]];
         if (strOld==nil) {
             strOld = strNew;
         }else
@@ -371,7 +371,6 @@
         }
     }
     settlement.shoppingCarGoodsID = strOld;
-    NSLog(@"%@", strOld);
     [self.navigationController pushViewController:settlement animated:YES];
 }
 #pragma mark - 计算商品的价格

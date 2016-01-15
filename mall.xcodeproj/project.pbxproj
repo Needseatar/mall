@@ -20,6 +20,10 @@
 		1B625B031C1EA4E100DBAF24 /* secondStoreList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625B021C1EA4E100DBAF24 /* secondStoreList.m */; };
 		1B6CA2121C3CB948000B8E8F /* merchantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CA2111C3CB948000B8E8F /* merchantModel.m */; };
 		1B6CA2161C3D0AB7000B8E8F /* shopingCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CA2151C3D0AB7000B8E8F /* shopingCarModel.m */; };
+		1B70393B1C4742C20041FDBD /* storeCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B70393A1C4742C20041FDBD /* storeCartModel.m */; };
+		1B7039411C4743E40041FDBD /* storeCartGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7039401C4743E40041FDBD /* storeCartGoodsList.m */; };
+		1B7039441C474EE30041FDBD /* addressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7039431C474EE30041FDBD /* addressInfo.m */; };
+		1B7039471C4751CE0041FDBD /* ShoppingInvInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7039461C4751CE0041FDBD /* ShoppingInvInfo.m */; };
 		1B7E14091C32273A00BBA789 /* loadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E14081C32273A00BBA789 /* loadingImageView.m */; };
 		1B7E140F1C322A4000BBA789 /* dialog_bocop_loading_rotate_anim_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B7E140A1C322A4000BBA789 /* dialog_bocop_loading_rotate_anim_img.png */; };
 		1B7E14101C322A4000BBA789 /* error_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B7E140B1C322A4000BBA789 /* error_cart.png */; };
@@ -90,6 +94,7 @@
 		1BD1369A1C27E8FD00736179 /* fisterHome1TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD136991C27E8FD00736179 /* fisterHome1TableViewCell.m */; };
 		1BD2A5CC1C3E169A008F1E38 /* fourTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD2A5CB1C3E169A008F1E38 /* fourTableViewCell.m */; };
 		1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */; };
+		1BE1D11D1C48C8F100375E96 /* storeCartInformaton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE1D11C1C48C8F100375E96 /* storeCartInformaton.m */; };
 		1BEF93DB1BFD62FC00F7470D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DA1BFD62FC00F7470D /* main.m */; };
 		1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93DD1BFD62FC00F7470D /* AppDelegate.m */; };
 		1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF93E01BFD62FC00F7470D /* ViewController.m */; };
@@ -149,6 +154,14 @@
 		1B6CA2111C3CB948000B8E8F /* merchantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = merchantModel.m; sourceTree = "<group>"; };
 		1B6CA2141C3D0AB7000B8E8F /* shopingCarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shopingCarModel.h; sourceTree = "<group>"; };
 		1B6CA2151C3D0AB7000B8E8F /* shopingCarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shopingCarModel.m; sourceTree = "<group>"; };
+		1B7039391C4742C20041FDBD /* storeCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = storeCartModel.h; sourceTree = "<group>"; };
+		1B70393A1C4742C20041FDBD /* storeCartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = storeCartModel.m; sourceTree = "<group>"; };
+		1B70393F1C4743E40041FDBD /* storeCartGoodsList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = storeCartGoodsList.h; sourceTree = "<group>"; };
+		1B7039401C4743E40041FDBD /* storeCartGoodsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = storeCartGoodsList.m; sourceTree = "<group>"; };
+		1B7039421C474EE30041FDBD /* addressInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addressInfo.h; sourceTree = "<group>"; };
+		1B7039431C474EE30041FDBD /* addressInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addressInfo.m; sourceTree = "<group>"; };
+		1B7039451C4751CE0041FDBD /* ShoppingInvInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingInvInfo.h; sourceTree = "<group>"; };
+		1B7039461C4751CE0041FDBD /* ShoppingInvInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingInvInfo.m; sourceTree = "<group>"; };
 		1B7E14071C32273A00BBA789 /* loadingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadingImageView.h; sourceTree = "<group>"; };
 		1B7E14081C32273A00BBA789 /* loadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loadingImageView.m; sourceTree = "<group>"; };
 		1B7E140A1C322A4000BBA789 /* dialog_bocop_loading_rotate_anim_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialog_bocop_loading_rotate_anim_img.png; sourceTree = "<group>"; };
@@ -245,6 +258,8 @@
 		1BD2A5CB1C3E169A008F1E38 /* fourTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fourTableViewCell.m; sourceTree = "<group>"; };
 		1BD393F11C0FEABB00FD3E75 /* secondTwoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondTwoTableViewCell.h; sourceTree = "<group>"; };
 		1BD393F21C0FEABB00FD3E75 /* secondTwoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondTwoTableViewCell.m; sourceTree = "<group>"; };
+		1BE1D11B1C48C8F100375E96 /* storeCartInformaton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = storeCartInformaton.h; sourceTree = "<group>"; };
+		1BE1D11C1C48C8F100375E96 /* storeCartInformaton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = storeCartInformaton.m; sourceTree = "<group>"; };
 		1BEF93D61BFD62FC00F7470D /* mall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BEF93DA1BFD62FC00F7470D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BEF93DC1BFD62FC00F7470D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -310,6 +325,7 @@
 		1B468F9A1C06DEFF006CE377 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				1B7039381C47428A0041FDBD /* storeCartListModel */,
 				1B6CA2131C3D0A4D000B8E8F /* shopIngCar */,
 				1B6CA20F1C3CB8E9000B8E8F /* merchantModel */,
 				1B8090F31C1290C500938258 /* fisterModel */,
@@ -353,6 +369,23 @@
 				1B6CA2151C3D0AB7000B8E8F /* shopingCarModel.m */,
 			);
 			path = shopIngCar;
+			sourceTree = "<group>";
+		};
+		1B7039381C47428A0041FDBD /* storeCartListModel */ = {
+			isa = PBXGroup;
+			children = (
+				1B7039391C4742C20041FDBD /* storeCartModel.h */,
+				1B70393A1C4742C20041FDBD /* storeCartModel.m */,
+				1B7039421C474EE30041FDBD /* addressInfo.h */,
+				1B7039431C474EE30041FDBD /* addressInfo.m */,
+				1B7039451C4751CE0041FDBD /* ShoppingInvInfo.h */,
+				1B7039461C4751CE0041FDBD /* ShoppingInvInfo.m */,
+				1BE1D11B1C48C8F100375E96 /* storeCartInformaton.h */,
+				1BE1D11C1C48C8F100375E96 /* storeCartInformaton.m */,
+				1B70393F1C4743E40041FDBD /* storeCartGoodsList.h */,
+				1B7039401C4743E40041FDBD /* storeCartGoodsList.m */,
+			);
+			path = storeCartListModel;
 			sourceTree = "<group>";
 		};
 		1B7E14031C32261400BBA789 /* publicView */ = {
@@ -902,6 +935,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BAEB0361C3BA00B00285AAF /* goodsSpecificationsTableViewCell.m in Sources */,
+				1B7039471C4751CE0041FDBD /* ShoppingInvInfo.m in Sources */,
 				1B625AFA1C1E72A600DBAF24 /* dataCommodityInformation.m in Sources */,
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
 				1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */,
@@ -918,6 +952,7 @@
 				1BAEB0381C3BA00B00285AAF /* secondListViewController.m in Sources */,
 				1B8090FF1C12929D00938258 /* fisterList.m in Sources */,
 				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,
+				1B7039441C474EE30041FDBD /* addressInfo.m in Sources */,
 				1B625AFD1C1E949D00DBAF24 /* secondCommendList.m in Sources */,
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,
 				1BEF94931BFD660000F7470D /* fourViewController.m in Sources */,
@@ -927,6 +962,8 @@
 				1B625B001C1E9A7400DBAF24 /* secondGoodsInfo.m in Sources */,
 				1BAEB0321C3BA00B00285AAF /* goodInformationTableViewCell.m in Sources */,
 				1BD2A5CC1C3E169A008F1E38 /* fourTableViewCell.m in Sources */,
+				1B7039411C4743E40041FDBD /* storeCartGoodsList.m in Sources */,
+				1BE1D11D1C48C8F100375E96 /* storeCartInformaton.m in Sources */,
 				1BAEB03B1C3BA21500285AAF /* merchantShopViewController.m in Sources */,
 				1B6CA2121C3CB948000B8E8F /* merchantModel.m in Sources */,
 				1BEF93DE1BFD62FC00F7470D /* AppDelegate.m in Sources */,
@@ -938,6 +975,7 @@
 				1B35A42D1C0458BA004C1544 /* fiveRegisteredViewController.m in Sources */,
 				1BAEB0341C3BA00B00285AAF /* goodsEvaluateTableViewCell.m in Sources */,
 				1BEF94921BFD660000F7470D /* fiveViewController.m in Sources */,
+				1B70393B1C4742C20041FDBD /* storeCartModel.m in Sources */,
 				1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */,
 				1BB862DE1C28F52F0086EEC2 /* fisterListerTableViewCell.m in Sources */,
 				1BAEB0371C3BA00B00285AAF /* secondListTableViewCell.m in Sources */,
