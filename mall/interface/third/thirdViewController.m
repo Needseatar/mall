@@ -180,6 +180,7 @@
         
         [but addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside]; //加载动作
         [self.view addSubview:but];
+        
     }
 }
 

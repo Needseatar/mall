@@ -15,7 +15,6 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
@@ -28,8 +27,11 @@
     signInModel *userKey = [[signInModel alloc] init];
     [userKey initSignInModel];
     
+    //初始化常量
+    self.ViewFrame = [[UIScreen mainScreen] bounds];
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.window = [[UIWindow alloc] initWithFrame:self.ViewFrame];
     ViewController *view = [[ViewController alloc] init];
     self.window.rootViewController = view;
     [self.window makeKeyAndVisible];

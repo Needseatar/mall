@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (assign, nonatomic) CGRect   ViewFrame;
 
 @end
 

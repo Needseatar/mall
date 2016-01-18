@@ -11,6 +11,9 @@
 #import "addressInfo.h"
 #import "ShoppingInvInfo.h"
 #import "storeCartModel.h"
+#import "settlementOrderTableViewCell.h"
+#import "settlementShoppingTableViewCell.h"
+#import "downSettlementTableViewCell.h"
 
 @interface settlementViewController : UIViewController
 

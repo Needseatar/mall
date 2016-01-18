@@ -11,6 +11,7 @@
 
 #import <CommonCrypto/CommonDigest.h> //md5需要使用的架构
 #import <CommonCrypto/CommonCryptor.h> //苹果自带的密码库
+#import "AppDelegate.h"
 #import "ZJScreenAdaptation.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
@@ -18,8 +19,9 @@
 #import "MJRefresh.h"
 #import "signInModel.h"
 
-#pragma mark - 项目常量
-/****************************************项目常量**********************************************************
+
+#pragma mark - 项目常用参数
+/****************************************项目常用参数**********************************************************
  *************************************************************************************************/
 //设置 goodInformationViewController  视图的变量
 #define bgWidth 310       //使用在背景视图里面
@@ -37,6 +39,11 @@
 #define Navigation          44  //导航栏
 #define UpState             20   //状态栏
 #define TabBar              49   //标签栏
+
+//购物第一步界面的参数
+#define orderRightLeftWidth     5   //左右边的宽度
+#define orderTextwidth          7   //文字离背景横先的宽度
+#define orderInformationHeight  50  //订单明细cell的高度
 
 /**************************************************************************************************
  *************************************************************************************************/

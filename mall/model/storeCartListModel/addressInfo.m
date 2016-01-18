@@ -26,9 +26,12 @@
 
 +(addressInfo *)setValueWithDictionary:(NSDictionary *)data{
     NSDictionary * DicData = data[@"address_info"];
-    addressInfo *addressData = [[addressInfo alloc] init];
-    [addressData setValueWithDictionary:DicData];
-    return addressData;
+    if ([DicData count] != 0) {
+        addressInfo *addressData = [[addressInfo alloc] init];
+        [addressData setValueWithDictionary:DicData];
+        return addressData;
+    }
+    return nil;
 }
 
 @end
