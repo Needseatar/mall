@@ -14,6 +14,8 @@
 #import "settlementOrderTableViewCell.h"
 #import "settlementShoppingTableViewCell.h"
 #import "downSettlementTableViewCell.h"
+#import "settlementAddressTableViewCell.h"
+#import "PaymentMethodTableViewCell.h"
 
 @interface settlementViewController : UIViewController
 

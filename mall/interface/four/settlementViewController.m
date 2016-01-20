@@ -70,6 +70,8 @@
             storeCartGoodsList *dsdl = lsd.goods_list[0];
             NSLog(@"%@", dsdl.goods_name);
             
+            [self.tabelview reloadData];
+            
         }failure:^(AFHTTPRequestOperation *operation, NSError *error){
             NSLog(@"Error: %@", error);
         }];
@@ -93,10 +95,7 @@
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==0 || section==1) {
-        return 2;
-    }else if (section==2)
-    {
+    if (section==0 || section==1 || section==2) {
         return 1;
     }
     return 6;
@@ -110,25 +109,25 @@
     
     if (indexPath.section==0) {
         static NSString * cellId = @"cell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        settlementAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if(cell == nil){
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[settlementAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
              cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         
-        cell.textLabel.text = @"时间";
+        [cell setPeopleInformation:self.storeData.address_info];
+        
         return cell;
     }else if (indexPath.section == 1)
     {
         static NSString * cellId = @"cell1";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        PaymentMethodTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if(cell == nil){
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[PaymentMethodTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
              cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-        cell.textLabel.text = @"";
         
         return cell;
     }else if (indexPath.section == 2)
@@ -180,7 +179,12 @@
 }
 //返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==2) {
+    if (indexPath.section==0) {
+        return orderAddressCellHeight;
+    }else if (indexPath.section==1)
+    {
+        return payMethodCellHeight;
+    }else if (indexPath.section==2) {
         return orderInformationHeight;
     }
     return 80;

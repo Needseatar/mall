@@ -72,6 +72,8 @@
 		1B7039411C4743E40041FDBD /* storeCartGoodsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7039401C4743E40041FDBD /* storeCartGoodsList.m */; };
 		1B7039441C474EE30041FDBD /* addressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7039431C474EE30041FDBD /* addressInfo.m */; };
 		1B7039471C4751CE0041FDBD /* ShoppingInvInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7039461C4751CE0041FDBD /* ShoppingInvInfo.m */; };
+		1B7A15801C4F3E2200247283 /* PaymentMethodTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7A157F1C4F3E2200247283 /* PaymentMethodTableViewCell.m */; };
+		1B7A15821C4F6E5400247283 /* shopping_checkout_phone_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B7A15811C4F6E5400247283 /* shopping_checkout_phone_icon@2x.png */; };
 		1B7E14091C32273A00BBA789 /* loadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E14081C32273A00BBA789 /* loadingImageView.m */; };
 		1B7E899F1C3F8E6300EBEDA2 /* tabelBarID.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7E899E1C3F8E6300EBEDA2 /* tabelBarID.m */; };
 		1B8090F91C12924D00938258 /* fisterHome1.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090F81C12924D00938258 /* fisterHome1.m */; };
@@ -93,6 +95,8 @@
 		1BB203F01C463FB400D6A830 /* settlementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB203EF1C463FB400D6A830 /* settlementViewController.m */; };
 		1BB862DB1C28E9EA0086EEC2 /* fisterHome4TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB862DA1C28E9EA0086EEC2 /* fisterHome4TableViewCell.m */; };
 		1BB862DE1C28F52F0086EEC2 /* fisterListerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB862DD1C28F52F0086EEC2 /* fisterListerTableViewCell.m */; };
+		1BBCBA5A1C4DD771003A492A /* body_cont_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BBCBA591C4DD771003A492A /* body_cont_bg.png */; };
+		1BBCBA5D1C4E20D0003A492A /* settlementAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBCBA5C1C4E20D0003A492A /* settlementAddressTableViewCell.m */; };
 		1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0EBA61C18097C001F87DB /* squareLabel.m */; };
 		1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5D8651C195F5A00DB078C /* commodityList.m */; };
 		1BD136971C27DB6200736179 /* fisterBrandTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD136961C27DB6200736179 /* fisterBrandTableViewCell.m */; };
@@ -218,6 +222,9 @@
 		1B7039431C474EE30041FDBD /* addressInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addressInfo.m; sourceTree = "<group>"; };
 		1B7039451C4751CE0041FDBD /* ShoppingInvInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingInvInfo.h; sourceTree = "<group>"; };
 		1B7039461C4751CE0041FDBD /* ShoppingInvInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingInvInfo.m; sourceTree = "<group>"; };
+		1B7A157E1C4F3E2200247283 /* PaymentMethodTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentMethodTableViewCell.h; sourceTree = "<group>"; };
+		1B7A157F1C4F3E2200247283 /* PaymentMethodTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMethodTableViewCell.m; sourceTree = "<group>"; };
+		1B7A15811C4F6E5400247283 /* shopping_checkout_phone_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_checkout_phone_icon@2x.png"; sourceTree = "<group>"; };
 		1B7E14071C32273A00BBA789 /* loadingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadingImageView.h; sourceTree = "<group>"; };
 		1B7E14081C32273A00BBA789 /* loadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loadingImageView.m; sourceTree = "<group>"; };
 		1B7E899D1C3F8E6300EBEDA2 /* tabelBarID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tabelBarID.h; sourceTree = "<group>"; };
@@ -259,6 +266,9 @@
 		1BB862DA1C28E9EA0086EEC2 /* fisterHome4TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterHome4TableViewCell.m; sourceTree = "<group>"; };
 		1BB862DC1C28F52F0086EEC2 /* fisterListerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterListerTableViewCell.h; sourceTree = "<group>"; };
 		1BB862DD1C28F52F0086EEC2 /* fisterListerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterListerTableViewCell.m; sourceTree = "<group>"; };
+		1BBCBA591C4DD771003A492A /* body_cont_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = body_cont_bg.png; sourceTree = "<group>"; };
+		1BBCBA5B1C4E20D0003A492A /* settlementAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settlementAddressTableViewCell.h; sourceTree = "<group>"; };
+		1BBCBA5C1C4E20D0003A492A /* settlementAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settlementAddressTableViewCell.m; sourceTree = "<group>"; };
 		1BC0EBA51C18097B001F87DB /* squareLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = squareLabel.h; sourceTree = "<group>"; };
 		1BC0EBA61C18097C001F87DB /* squareLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = squareLabel.m; sourceTree = "<group>"; };
 		1BC5D8641C195F5A00DB078C /* commodityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commodityList.h; sourceTree = "<group>"; };
@@ -338,6 +348,8 @@
 		1B2710321C4C85C3002E5405 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				1B7A15811C4F6E5400247283 /* shopping_checkout_phone_icon@2x.png */,
+				1BBCBA591C4DD771003A492A /* body_cont_bg.png */,
 				1B2710961C4CA4CC002E5405 /* shopping_cart_body_bg.png */,
 				1B2710971C4CA4CC002E5405 /* shopping_checkout_body_bg.png */,
 				1B2710331C4C85C3002E5405 /* accsessory_check.png */,
@@ -650,6 +662,10 @@
 				1BD2A5CB1C3E169A008F1E38 /* fourTableViewCell.m */,
 				1BB203EE1C463FB400D6A830 /* settlementViewController.h */,
 				1BB203EF1C463FB400D6A830 /* settlementViewController.m */,
+				1BBCBA5B1C4E20D0003A492A /* settlementAddressTableViewCell.h */,
+				1BBCBA5C1C4E20D0003A492A /* settlementAddressTableViewCell.m */,
+				1B7A157E1C4F3E2200247283 /* PaymentMethodTableViewCell.h */,
+				1B7A157F1C4F3E2200247283 /* PaymentMethodTableViewCell.m */,
 				1B27108F1C4C8B83002E5405 /* settlementOrderTableViewCell.h */,
 				1B2710901C4C8B83002E5405 /* settlementOrderTableViewCell.m */,
 				1B27109A1C4CC295002E5405 /* settlementShoppingTableViewCell.h */,
@@ -842,10 +858,12 @@
 				1B27107E1C4C85C3002E5405 /* main_navigation_car_checked.png in Resources */,
 				1B2710731C4C85C3002E5405 /* main_bottom_tab_cart_focus.png in Resources */,
 				1B2710681C4C85C3002E5405 /* Default@2x.png in Resources */,
+				1BBCBA5A1C4DD771003A492A /* body_cont_bg.png in Resources */,
 				1B27108E1C4C85C3002E5405 /* wifi_off.png in Resources */,
 				1B2710751C4C85C3002E5405 /* main_bottom_tab_category_focus.png in Resources */,
 				1B27106F1C4C85C3002E5405 /* icon_login_password.png in Resources */,
 				1B27106B1C4C85C3002E5405 /* error_cart.png in Resources */,
+				1B7A15821C4F6E5400247283 /* shopping_checkout_phone_icon@2x.png in Resources */,
 				1B2710661C4C85C3002E5405 /* coupon_double_arrow_pressed1.png in Resources */,
 				1BEF93E91BFD62FC00F7470D /* LaunchScreen.storyboard in Resources */,
 				1B2710611C4C85C3002E5405 /* accsessory_check.png in Resources */,
@@ -982,12 +1000,14 @@
 				1B625AFD1C1E949D00DBAF24 /* secondCommendList.m in Sources */,
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,
 				1BEF94931BFD660000F7470D /* fourViewController.m in Sources */,
+				1B7A15801C4F3E2200247283 /* PaymentMethodTableViewCell.m in Sources */,
 				1BD1369A1C27E8FD00736179 /* fisterHome1TableViewCell.m in Sources */,
 				1B6CA2161C3D0AB7000B8E8F /* shopingCarModel.m in Sources */,
 				1BAEB0331C3BA00B00285AAF /* goodInformationViewController.m in Sources */,
 				1B625B001C1E9A7400DBAF24 /* secondGoodsInfo.m in Sources */,
 				1BAEB0321C3BA00B00285AAF /* goodInformationTableViewCell.m in Sources */,
 				1BD2A5CC1C3E169A008F1E38 /* fourTableViewCell.m in Sources */,
+				1BBCBA5D1C4E20D0003A492A /* settlementAddressTableViewCell.m in Sources */,
 				1B7039411C4743E40041FDBD /* storeCartGoodsList.m in Sources */,
 				1BE1D11D1C48C8F100375E96 /* storeCartInformaton.m in Sources */,
 				1BAEB03B1C3BA21500285AAF /* merchantShopViewController.m in Sources */,
