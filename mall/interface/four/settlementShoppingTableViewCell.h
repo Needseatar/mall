@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "storeCartGoodsList.h"
 
 @interface settlementShoppingTableViewCell : UITableViewCell
+
+
+-(void)setGoodsImageTitle:(storeCartGoodsList *)data;
 
 @end

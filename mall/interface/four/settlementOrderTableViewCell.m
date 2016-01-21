@@ -37,7 +37,6 @@
         self.orderLabel.font = [UIFont systemFontOfSize:25];
         [self.bgImageView addSubview:self.orderLabel];
         
-        self.backgroundColor = [UIColor redColor];
     }
     return self;
 }

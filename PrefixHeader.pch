@@ -43,10 +43,12 @@
 //购物第一步界面的参数
 #define orderRightLeftWidth     5   //左右边的宽度
 #define orderTextwidth          7   //文字离背景横先的宽度
-#define orderInformationHeight  50  //订单明细cell的高度
+#define orderInformationHeight  80  //订单明细cell的高度
 
 #define orderAddressCellHeight  101  //收件人和地址的cell的高度
-#define payMethodCellHeight  80  //收件人和地址的cell的高度
+#define payMethodCellHeight  101  //收件人和地址的cell的高度
+
+#define orderGoodsCellHeight  120  //商品cell的高度
 
 /**************************************************************************************************
  *************************************************************************************************/

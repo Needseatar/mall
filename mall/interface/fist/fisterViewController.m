@@ -205,16 +205,20 @@
             fisterHome1 *home1 = self.fisterData.FHome[indexPath.row];
             NSString *str = home1.data;
             NSLog(@"%@", str);
-            NSRange range = [str rangeOfString:@"goods_id"];//匹配得到的下标
-            str = [str substringFromIndex:(range.location+range.length)];
-            NSLog(@"%@", str);
-            range = [str rangeOfString:@"="];
-            str = [str substringFromIndex:(range.location+range.length)];
+            if ([str rangeOfString:@"goods_id"].location != NSNotFound) {
+                NSRange range = [str rangeOfString:@"goods_id"];//匹配得到的下标
+                str = [str substringFromIndex:(range.location+range.length)];
+                NSLog(@"%@", str);
+                range = [str rangeOfString:@"="];
+                str = [str substringFromIndex:(range.location+range.length)];
+                
+                //视图跳转
+                goodInformationViewController *GInformation = [[goodInformationViewController alloc] init];
+                NSLog(@"%@", str);
+                GInformation.goods_id = [str integerValue];
+                [self.navigationController pushViewController:GInformation animated:YES];
+            }
             
-            //视图跳转
-            goodInformationViewController *GInformation = [[goodInformationViewController alloc] init];
-            GInformation.goods_id = [str integerValue];
-            [self.navigationController pushViewController:GInformation animated:YES];
         }
     }
 }

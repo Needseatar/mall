@@ -11,6 +11,7 @@
 #import "addressInfo.h"
 #import "ShoppingInvInfo.h"
 #import "storeCartModel.h"
+#import "storeCartInformaton.h"
 #import "settlementOrderTableViewCell.h"
 #import "settlementShoppingTableViewCell.h"
 #import "downSettlementTableViewCell.h"

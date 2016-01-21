@@ -10,4 +10,8 @@
 
 @interface downSettlementTableViewCell : UITableViewCell
 
+
+-(void)setGoodsPace:(float)pace;
+
+
 @end

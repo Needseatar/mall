@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShoppingInvInfo.h"
+#import "storeCartModel.h"
 
 @interface PaymentMethodTableViewCell : UITableViewCell
+
+-(void)setPeopleInformation:(storeCartModel *)data;
+
 
 @end

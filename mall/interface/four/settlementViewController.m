@@ -95,19 +95,20 @@
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section==0 || section==1 || section==2) {
+    if (section==0 || section==1 || section==2 || section==4+self.storeData.store_cart_list.count-1) {
         return 1;
     }
-    return 6;
+    storeCartInformaton *goodList = self.storeData.store_cart_list[section-3];
+    return goodList.goods_list.count;
 }
 //返回表格的组数的代理方法
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 10;
+    return 4+self.storeData.store_cart_list.count;
 }
 //获取到表格有多少个分组，每个分组有多少行数据以后，就调用该方法，去返回表格的每一行
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section==0) {
+    if (indexPath.section==0) { //收件人
         static NSString * cellId = @"cell";
         settlementAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if(cell == nil){
@@ -119,7 +120,7 @@
         [cell setPeopleInformation:self.storeData.address_info];
         
         return cell;
-    }else if (indexPath.section == 1)
+    }else if (indexPath.section == 1) //支付方式
     {
         static NSString * cellId = @"cell1";
         PaymentMethodTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
@@ -129,8 +130,10 @@
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         
+        [cell setPeopleInformation:self.storeData];
+        
         return cell;
-    }else if (indexPath.section == 2)
+    }else if (indexPath.section == 2)  //订单明细
     {
         static NSString * cellId = @"cell2";
         settlementOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
@@ -141,7 +144,7 @@
         }
         
         return cell;
-    }else if (indexPath.section == 7)
+    }else if (indexPath.section==4+self.storeData.store_cart_list.count-1) //最后的提交订单cell
     {
         static NSString * cellId = @"cell3";
         downSettlementTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
@@ -151,28 +154,22 @@
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         
-        return cell;
-    }else if (indexPath.section >= 7)
-    {
-        static NSString * cellId = @"cell4";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if(cell == nil){
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-        cell.textLabel.text = @"";
+        
+        [cell setGoodsPace:20];
         
         return cell;
-    }else
+    }else  //商品列表
     {
-        static NSString * cellId = @"cell5";
+        static NSString * cellId = @"cell4";
         settlementShoppingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if(cell == nil){
             cell = [[settlementShoppingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
+        
+        NSArray *goodsArray = [self.storeData.store_cart_list[indexPath.section-3] goods_list];
+        [cell setGoodsImageTitle:goodsArray[indexPath.row]];
         
         return cell;
     }
@@ -187,13 +184,16 @@
     }else if (indexPath.section==2) {
         return orderInformationHeight;
     }
-    return 80;
+    return orderGoodsCellHeight;
 }
 //返回组头高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section==0 || section==1 || section==2) {
         return 15;
+    }else if (section==4+self.storeData.store_cart_list.count-1)
+    {
+        return 0.01;
     }else
     {
         return sectionHeight;
@@ -202,7 +202,7 @@
 //返回组尾高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section>=3) {
+    if (section>=3 && section!=4+self.storeData.store_cart_list.count-1) {
         return sectionFootHeight;
     }
     return 0.01;
@@ -210,9 +210,8 @@
 //返回组头视图
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section >=3) {
+    if (section >=3 && section!=4+self.storeData.store_cart_list.count-1) {
         UIView *headerview = [[UIView alloc] init];
-        headerview.backgroundColor = [UIColor orangeColor];
         
         //把image去掉波浪线
         UIImage *img = [UIImage imageNamed:@"shopping_checkout_body_bg.png"];
@@ -227,10 +226,17 @@
         bgImageView.contentMode = UIViewContentModeScaleToFill;
         [headerview addSubview:bgImageView];
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderTextwidth, 0, self.view.frame.size.width-2*(orderRightLeftWidth+orderTextwidth), sectionHeight)];
+        //上边的分隔线
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, 0, bgImageView.frame.size.width-2*orderTextwidth, 1)];
+        line.backgroundColor = [UIColor blackColor];
+        [bgImageView addSubview:line];
+        
+        //店铺名字
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderTextwidth, 1, self.view.frame.size.width-2*(orderRightLeftWidth+orderTextwidth), sectionHeight-1)];
         titleLabel.font = [UIFont systemFontOfSize:20];
         titleLabel.backgroundColor = [UIColor greenColor];
-        titleLabel.text = @"我的最爱";
+        storeCartInformaton *goodList = self.storeData.store_cart_list[section-3];
+        titleLabel.text = goodList.store_name;
         [bgImageView addSubview:titleLabel];
         
         return headerview;
@@ -240,10 +246,11 @@
 //返回组尾视图
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section >=3)
+    if (section >=3 && section!=4+self.storeData.store_cart_list.count-1)
     {
+        storeCartInformaton *goodList = self.storeData.store_cart_list[section-3];
+        
         UIView *footerview = [[UIView alloc] init];
-        footerview.backgroundColor = [UIColor blueColor];
         
         //把image去掉波浪线
         UIImage *img = [UIImage imageNamed:@"shopping_checkout_body_bg.png"];
@@ -268,7 +275,12 @@
         UILabel *transportPaceLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderTextwidth+60, 15, transportLabel.frame.size.width-60, transportLabel.frame.size.height)];
         transportPaceLabel.backgroundColor = [UIColor clearColor];
         transportPaceLabel.textColor = [UIColor redColor];
-        transportPaceLabel.text = @"￥0.0";
+        //计算本店运费
+        float SUMpace =0;
+        for (int i=0; i<goodList.goods_list.count; i++) {
+            SUMpace = SUMpace+[[goodList.goods_list[i] goods_freight] floatValue];
+        }
+        transportPaceLabel.text = [NSString stringWithFormat:@"￥%.2f", SUMpace];
         transportPaceLabel.textAlignment = NSTextAlignmentRight;
         [bgImageView addSubview:transportPaceLabel];
         
@@ -283,7 +295,7 @@
         UILabel *SUMPaceLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderTextwidth+75, transportLabel.frame.size.height+transportLabel.frame.origin.y+10, SUMLabel.frame.size.width-75, SUMLabel.frame.size.height)];
         SUMPaceLabel.backgroundColor = [UIColor clearColor];
         SUMPaceLabel.textColor = [UIColor redColor];
-        SUMPaceLabel.text = @"￥55.0";
+        SUMPaceLabel.text = [NSString stringWithFormat:@"￥%@", goodList.store_goods_total];
         SUMPaceLabel.textAlignment = NSTextAlignmentRight;
         [bgImageView addSubview:SUMPaceLabel];
         
@@ -293,6 +305,7 @@
     
     return nil;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

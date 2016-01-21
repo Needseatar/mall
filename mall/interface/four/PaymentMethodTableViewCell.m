@@ -11,10 +11,16 @@
 @interface PaymentMethodTableViewCell ()
 
 
-@property (retain, nonatomic) UIView *bgView;
-@property (retain, nonatomic) UIView *bgPayMethod;
-@property (retain, nonatomic) UILabel *payTitleLabel;
-@property (retain, nonatomic) UILabel *mustPromptLabel;
+@property (retain, nonatomic) UIView      *bgView;
+@property (retain, nonatomic) UIView      *bgPayMethod;
+@property (retain, nonatomic) UILabel     *payTitleLabel;
+@property (retain, nonatomic) UILabel     *mustPromptLabel;
+@property (retain, nonatomic) UILabel     *PayMethodLabel;
+@property (retain, nonatomic) UIImageView *backImageView;
+@property (retain, nonatomic) UIView      *bgInvoice;
+@property (retain, nonatomic) UILabel     *invoiceTitleLabel;
+@property (retain, nonatomic) UILabel     *invoiceNamelabel;
+@property (retain, nonatomic) UIImageView *invoiceBackImageView;
 
 @end
 
@@ -37,66 +43,116 @@
         [self addSubview:self.bgView];
         
         //支付方式背景视图
-        self.bgPayMethod = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, 0, self.bgView.frame.size.width-2*orderTextwidth, 50)];
+        self.bgPayMethod = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, 0, self.bgView.frame.size.width-2*orderTextwidth, (payMethodCellHeight-1)/2.0)];
         self.bgPayMethod.backgroundColor = [UIColor grayColor];
         [self.bgView addSubview:self.bgPayMethod];
         
         //支付方式
-        self.payTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 75, 50)];
+        self.payTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 75, (payMethodCellHeight-1)/2.0)];
         self.payTitleLabel.text = @"支付方式";
         self.payTitleLabel.font = [UIFont systemFontOfSize:18];
         self.payTitleLabel.backgroundColor = [UIColor orangeColor];
         [self.bgPayMethod addSubview:self.payTitleLabel];
         
         //支付方式后面的提示
-        self.mustPromptLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.payTitleLabel.frame.origin.x+self.payTitleLabel.frame.size.width, 0, 30, 50)];
+        self.mustPromptLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.payTitleLabel.frame.origin.x+self.payTitleLabel.frame.size.width, self.bgPayMethod.frame.size.height/2.0-20/2.0, 40, 20)];
+        self.mustPromptLabel.text = @"必填";
+        self.mustPromptLabel.textColor = [UIColor whiteColor];
+        self.mustPromptLabel.layer.borderWidth = 1;
+        self.mustPromptLabel.layer.cornerRadius = 5;
+        self.mustPromptLabel.layer.masksToBounds = YES;
+        self.mustPromptLabel.layer.borderColor = [UIColor blueColor].CGColor;
         self.mustPromptLabel.font = [UIFont systemFontOfSize:18];
         self.mustPromptLabel.backgroundColor = [UIColor blueColor];
         [self.bgPayMethod addSubview:self.mustPromptLabel];
         
-//        //电话号码
-//        self.telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.peopleNameLabel.frame.origin.x+self.peopleNameLabel.frame.size.width, 0, self.bgPeopleView.frame.size.width/2.0, 50)];
-//        self.telephoneLabel.textAlignment = NSTextAlignmentRight;
-//        self.telephoneLabel.font = [UIFont systemFontOfSize:13];
-//        self.backgroundColor = [UIColor magentaColor];
-//        [self.bgPeopleView addSubview:self.telephoneLabel];
-//        
-//        //电话号码图标
-//        self.telephoneImageView = [[UIImageView alloc] init];
-//        self.telephoneImageView.image = [UIImage imageNamed:@"shopping_checkout_phone_icon@2x.png"];
-//        [self.bgPeopleView addSubview:self.telephoneImageView];
-//        
-//        //画虚线
-//        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, self.bgPeopleView.frame.origin.y+self.bgPeopleView.frame.size.height, self.bgView.frame.size.width-2*orderTextwidth, 1)];
-//        [self drawDashLine:lineView lineLength:8 lineSpacing:4 lineColor:[UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1]]; //画虚线
-//        [self.bgView addSubview:lineView];
-//        
-//        //收件地址背景视图
-//        self.bgAdressView = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, lineView.frame.size.height+lineView.frame.origin.y, self.bgView.frame.size.width-2*orderTextwidth, 50)];
-//        self.bgAdressView.backgroundColor = [UIColor purpleColor];
-//        [self.bgView addSubview:self.bgAdressView];
-//        
-//        
-//        //收件人地址标题
-//        self.adressTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 50)];
-//        self.adressTitleLabel.text = @"收件人地址:";
-//        self.adressTitleLabel.font = [UIFont systemFontOfSize:13];
-//        self.adressTitleLabel.backgroundColor = [UIColor redColor];
-//        [self.bgAdressView addSubview:self.adressTitleLabel];
-//        
-//        //收件人地址
-//        self.adressnameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.adressTitleLabel.frame.origin.x+self.adressTitleLabel.frame.size.width, 0, self.bgAdressView.frame.size.width-(self.adressTitleLabel.frame.origin.x+self.adressTitleLabel.frame.size.width), 50)];
-//        self.adressnameLabel.numberOfLines=3;
-//        self.adressnameLabel.font = [UIFont systemFontOfSize:15];
-//        self.adressnameLabel.backgroundColor = [UIColor grayColor];
-//        [self.bgAdressView addSubview:self.adressnameLabel];
-//        
-//        [self setBackgroundColor:[UIColor redColor]];
+        //付款的方式
+        self.PayMethodLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.mustPromptLabel.frame.origin.x+self.mustPromptLabel.frame.size.width, 0, self.bgPayMethod.frame.size.width-(self.mustPromptLabel.frame.origin.x+self.mustPromptLabel.frame.size.width)-18, 50)];
+        self.PayMethodLabel.textAlignment = NSTextAlignmentRight;
+        self.PayMethodLabel.font = [UIFont systemFontOfSize:13];
+        self.PayMethodLabel.backgroundColor = [UIColor magentaColor];
+        self.PayMethodLabel.textAlignment = NSTextAlignmentRight;
+        [self.bgPayMethod addSubview:self.PayMethodLabel];
         
-        [self setBackgroundColor:[UIColor redColor]];
+        //付款后面的图标
+        self.backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bgPayMethod.frame.size.width-15, self.bgPayMethod.frame.size.height/2.0-26/2.0, 15, 26)];
+        self.backImageView.backgroundColor = [UIColor redColor];
+        self.backImageView.image = [UIImage imageNamed:@"accsessory_arrow_right@2x.png"];
+        [self.bgPayMethod addSubview:self.backImageView];
+        
+        //画虚线
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, self.bgPayMethod.frame.origin.y+self.bgPayMethod.frame.size.height, self.bgView.frame.size.width-2*orderTextwidth, 1)];
+        [self drawDashLine:lineView lineLength:8 lineSpacing:4 lineColor:[UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1]]; //画虚线
+        [self.bgView addSubview:lineView];
+
+        //发票背景视图
+        self.bgInvoice = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, lineView.frame.size.height+lineView.frame.origin.y, self.bgView.frame.size.width-2*orderTextwidth, 50)];
+        self.bgInvoice.backgroundColor = [UIColor yellowColor];
+        [self.bgView addSubview:self.bgInvoice];
+
+        
+        //发票信息
+        self.invoiceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 75, (payMethodCellHeight-1)/2.0)];
+        self.invoiceTitleLabel.text = @"发票信息";
+        self.invoiceTitleLabel.font = [UIFont systemFontOfSize:18];
+        self.invoiceTitleLabel.backgroundColor = [UIColor redColor];
+        [self.bgInvoice addSubview:self.invoiceTitleLabel];
+        
+        //发票详细信息
+        self.invoiceNamelabel = [[UILabel alloc] initWithFrame:CGRectMake(self.invoiceTitleLabel.frame.origin.x+self.invoiceTitleLabel.frame.size.width, 0, self.bgInvoice.frame.size.width-(self.invoiceTitleLabel.frame.origin.x+self.invoiceTitleLabel.frame.size.width)-18, (payMethodCellHeight-1)/2.0)];
+        self.invoiceNamelabel.numberOfLines=3;
+        self.invoiceNamelabel.font = [UIFont systemFontOfSize:13];
+        self.invoiceNamelabel.numberOfLines = 3;
+        self.invoiceNamelabel.textAlignment = NSTextAlignmentRight;
+        self.invoiceNamelabel.backgroundColor = [UIColor grayColor];
+        [self.bgInvoice addSubview:self.invoiceNamelabel];
+        
+        //发票后面的图标
+        self.invoiceBackImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bgInvoice.frame.size.width-15, self.bgInvoice.frame.size.height/2.0-26/2.0, 15, 26)];
+        self.invoiceBackImageView.backgroundColor = [UIColor redColor];
+        self.invoiceBackImageView.image = [UIImage imageNamed:@"accsessory_arrow_right@2x.png"];
+        [self.bgInvoice addSubview:self.invoiceBackImageView];
+        
     }
     return self;
 }
+
+-(void)setPeopleInformation:(storeCartModel *)data
+{
+    self.PayMethodLabel.text = @"线上付款";
+    self.invoiceNamelabel.text = data.inv_info.content;
+}
+
+#pragma mark - 画虚线函数
+-(void)drawDashLine:(UIView *)lineView lineLength:(int)lineLength lineSpacing:(int)lineSpacing lineColor:(UIColor *)lineColor
+{
+    /**
+     ** lineView:	   需要绘制成虚线的view
+     ** lineLength:	 虚线的宽度
+     ** lineSpacing:	虚线的间距
+     ** lineColor:	  虚线的颜色
+     **/
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    [shapeLayer setBounds:lineView.bounds];
+    [shapeLayer setPosition:CGPointMake(CGRectGetWidth(lineView.frame) / 2, CGRectGetHeight(lineView.frame))];
+    [shapeLayer setFillColor:[UIColor clearColor].CGColor];
+    //  设置虚线颜色为blackColor
+    [shapeLayer setStrokeColor:lineColor.CGColor];
+    //  设置虚线宽度
+    [shapeLayer setLineWidth:CGRectGetHeight(lineView.frame)];
+    [shapeLayer setLineJoin:kCALineJoinRound];
+    //  设置线宽，线间距
+    [shapeLayer setLineDashPattern:[NSArray arrayWithObjects:[NSNumber numberWithInt:lineLength], [NSNumber numberWithInt:lineSpacing], nil]];
+    //  设置路径
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, 0, 0);
+    CGPathAddLineToPoint(path, NULL, CGRectGetWidth(lineView.frame), 0);
+    [shapeLayer setPath:path];
+    CGPathRelease(path);
+    //  把绘制好的虚线添加上来
+    [lineView.layer addSublayer:shapeLayer];
+}
+
 
 
 - (void)awakeFromNib {

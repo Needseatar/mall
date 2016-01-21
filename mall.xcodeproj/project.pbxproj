@@ -80,6 +80,7 @@
 		1B8090FC1C12926500938258 /* fisterHome4.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FB1C12926500938258 /* fisterHome4.m */; };
 		1B8090FF1C12929D00938258 /* fisterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8090FE1C12929D00938258 /* fisterList.m */; };
 		1B8091021C1292D600938258 /* fisterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8091011C1292D600938258 /* fisterData.m */; };
+		1B8609851C5083410011492A /* accsessory_arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B8609841C5083410011492A /* accsessory_arrow_right@2x.png */; };
 		1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */; };
 		1BABA6641C2A738A00FF5BEF /* beginImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BABA6631C2A738A00FF5BEF /* beginImage.xib */; };
 		1BAEB0321C3BA00B00285AAF /* goodInformationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAEB0251C3BA00B00285AAF /* goodInformationTableViewCell.m */; };
@@ -237,6 +238,7 @@
 		1B8090FE1C12929D00938258 /* fisterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterList.m; sourceTree = "<group>"; };
 		1B8091001C1292D600938258 /* fisterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterData.h; sourceTree = "<group>"; };
 		1B8091011C1292D600938258 /* fisterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterData.m; sourceTree = "<group>"; };
+		1B8609841C5083410011492A /* accsessory_arrow_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accsessory_arrow_right@2x.png"; sourceTree = "<group>"; };
 		1B8912DA1C0D8B0F00DD3B72 /* secondMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondMainTableViewCell.h; sourceTree = "<group>"; };
 		1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondMainTableViewCell.m; sourceTree = "<group>"; };
 		1BABA6631C2A738A00FF5BEF /* beginImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = beginImage.xib; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 		1B2710321C4C85C3002E5405 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				1B8609841C5083410011492A /* accsessory_arrow_right@2x.png */,
 				1B7A15811C4F6E5400247283 /* shopping_checkout_phone_icon@2x.png */,
 				1BBCBA591C4DD771003A492A /* body_cont_bg.png */,
 				1B2710961C4CA4CC002E5405 /* shopping_cart_body_bg.png */,
@@ -868,6 +871,7 @@
 				1BEF93E91BFD62FC00F7470D /* LaunchScreen.storyboard in Resources */,
 				1B2710611C4C85C3002E5405 /* accsessory_check.png in Resources */,
 				1B27108B1C4C85C3002E5405 /* product_detail_new_collect_pressed.png in Resources */,
+				1B8609851C5083410011492A /* accsessory_arrow_right@2x.png in Resources */,
 				1B27106A1C4C85C3002E5405 /* dialog_bocop_loading_rotate_anim_img.png in Resources */,
 				1B2710651C4C85C3002E5405 /* coupon_double_arrow_normal.png in Resources */,
 				1B2710761C4C85C3002E5405 /* main_bottom_tab_category_normal.png in Resources */,

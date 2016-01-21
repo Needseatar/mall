@@ -44,28 +44,27 @@
         [self addSubview:self.bgView];
         
         //收件栏的背景视图
-        self.bgPeopleView = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, 0, self.bgView.frame.size.width-2*orderTextwidth, 50)];
+        self.bgPeopleView = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, 0, self.bgView.frame.size.width-2*orderTextwidth, (orderAddressCellHeight-1)/2.0)];
         self.bgPeopleView.backgroundColor = [UIColor grayColor];
         [self.bgView addSubview:self.bgPeopleView];
         
         //收件人
-        self.peopleTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        self.peopleTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, (orderAddressCellHeight-1)/2.0)];
         self.peopleTitleLabel.text = @"收件人:";
         self.peopleTitleLabel.font = [UIFont systemFontOfSize:13];
         self.peopleTitleLabel.backgroundColor = [UIColor orangeColor];
         [self.bgPeopleView addSubview:self.peopleTitleLabel];
         
         //收件人名字
-        self.peopleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.peopleTitleLabel.frame.origin.x+self.peopleTitleLabel.frame.size.width, 0, self.bgPeopleView.frame.size.width/2.0-(self.peopleTitleLabel.frame.origin.x+self.peopleTitleLabel.frame.size.width), 50)];
+        self.peopleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.peopleTitleLabel.frame.origin.x+self.peopleTitleLabel.frame.size.width, 0, self.bgPeopleView.frame.size.width/2.0-(self.peopleTitleLabel.frame.origin.x+self.peopleTitleLabel.frame.size.width), (orderAddressCellHeight-1)/2.0)];
         self.peopleNameLabel.font = [UIFont systemFontOfSize:18];
         self.peopleNameLabel.backgroundColor = [UIColor blueColor];
         [self.bgPeopleView addSubview:self.peopleNameLabel];
         
         //电话号码
-        self.telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.peopleNameLabel.frame.origin.x+self.peopleNameLabel.frame.size.width, 0, self.bgPeopleView.frame.size.width/2.0, 50)];
+        self.telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.peopleNameLabel.frame.origin.x+self.peopleNameLabel.frame.size.width, 0, self.bgPeopleView.frame.size.width/2.0, (orderAddressCellHeight-1)/2.0)];
         self.telephoneLabel.textAlignment = NSTextAlignmentRight;
         self.telephoneLabel.font = [UIFont systemFontOfSize:13];
-        self.backgroundColor = [UIColor magentaColor];
         [self.bgPeopleView addSubview:self.telephoneLabel];
         
         //电话号码图标
@@ -79,26 +78,25 @@
         [self.bgView addSubview:lineView];
         
         //收件地址背景视图
-        self.bgAdressView = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, lineView.frame.size.height+lineView.frame.origin.y, self.bgView.frame.size.width-2*orderTextwidth, 50)];
+        self.bgAdressView = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, lineView.frame.size.height+lineView.frame.origin.y, self.bgView.frame.size.width-2*orderTextwidth, (orderAddressCellHeight-1)/2.0)];
         self.bgAdressView.backgroundColor = [UIColor purpleColor];
         [self.bgView addSubview:self.bgAdressView];
         
         
         //收件人地址标题
-        self.adressTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 50)];
+        self.adressTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, (orderAddressCellHeight-1)/2.0)];
         self.adressTitleLabel.text = @"收件人地址:";
         self.adressTitleLabel.font = [UIFont systemFontOfSize:13];
         self.adressTitleLabel.backgroundColor = [UIColor redColor];
         [self.bgAdressView addSubview:self.adressTitleLabel];
         
         //收件人地址
-        self.adressnameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.adressTitleLabel.frame.origin.x+self.adressTitleLabel.frame.size.width, 0, self.bgAdressView.frame.size.width-(self.adressTitleLabel.frame.origin.x+self.adressTitleLabel.frame.size.width), 50)];
+        self.adressnameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.adressTitleLabel.frame.origin.x+self.adressTitleLabel.frame.size.width, 0, self.bgAdressView.frame.size.width-(self.adressTitleLabel.frame.origin.x+self.adressTitleLabel.frame.size.width), (orderAddressCellHeight-1)/2.0)];
         self.adressnameLabel.numberOfLines=3;
         self.adressnameLabel.font = [UIFont systemFontOfSize:15];
         self.adressnameLabel.backgroundColor = [UIColor grayColor];
         [self.bgAdressView addSubview:self.adressnameLabel];
         
-        [self setBackgroundColor:[UIColor redColor]];
     }
     return self;
 }
