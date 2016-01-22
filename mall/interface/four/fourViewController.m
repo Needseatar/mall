@@ -139,7 +139,7 @@
 #pragma mark - 设置TabelView界面
 -(void)setTabel
 {
-    self.shopingTabel = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)style:UITableViewStylePlain];
+    self.shopingTabel = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)style:UITableViewStylePlain];
     self.shopingTabel.delegate = self;
     self.shopingTabel.dataSource = self;
     self.shopingTabel.hidden = YES;
@@ -231,7 +231,7 @@
             NSDictionary *signInAddShoppingCar =
             [NSDictionary dictionaryWithObjectsAndKeys:
              signIn.key, @"key",
-             [NSString stringWithFormat:@"%d", shoping.cart_id], @"cart_id", nil];
+             [NSString stringWithFormat:@"%ld", (long)shoping.cart_id], @"cart_id", nil];
             [manager POST:DelectShopping parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
                 NSLog(@"JSON: %@", dict);
@@ -362,7 +362,7 @@
     NSString *strOld=nil;
     for (int i=0; i<self.dataArray.count; i++) {
         shopingCarModel *shoppingCar = self.dataArray[i];
-        strNew = [NSString stringWithFormat:@"%d|%d",shoppingCar.cart_id, [shoppingCar.goods_num integerValue]];
+        strNew = [NSString stringWithFormat:@"%ld|%ld",(long)shoppingCar.cart_id, (long)[shoppingCar.goods_num integerValue]];
         if (strOld==nil) {
             strOld = strNew;
         }else
@@ -407,8 +407,8 @@
         NSDictionary *signInAddShoppingCar =
         [NSDictionary dictionaryWithObjectsAndKeys:
          signIn.key, @"key",
-         [NSString stringWithFormat:@"%d", shopping.cart_id], @"cart_id",
-         [NSString stringWithFormat:@"%d", [shopping.goods_num integerValue]], @"quantity",
+         [NSString stringWithFormat:@"%ld", (long)shopping.cart_id], @"cart_id",
+         [NSString stringWithFormat:@"%ld", (long)[shopping.goods_num integerValue]], @"quantity",
          nil];
         [manager POST:changShopping parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];

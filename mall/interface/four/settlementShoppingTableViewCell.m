@@ -42,29 +42,29 @@
         
         //上边的分隔线
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, 0, self.bgImageView.frame.size.width-2*orderTextwidth, 1)];
-        line.backgroundColor = [UIColor blackColor];
+        line.backgroundColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
         [self.bgImageView addSubview:line];
         
         //左边的图片
         self.goodsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(orderTextwidth, 5, orderGoodsCellHeight-10, orderGoodsCellHeight-10)];
-        self.goodsImageView.backgroundColor = [UIColor redColor];
+        self.goodsImageView.backgroundColor = redColorDebug;
         [self.bgImageView addSubview:self.goodsImageView];
         
         //标题
         self.goodsTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.goodsImageView.frame.origin.x+self.goodsImageView.frame.size.width+5, 3, self.bgImageView.frame.size.width-(self.goodsImageView.frame.origin.x+self.goodsImageView.frame.size.width+5)-orderTextwidth, 60)];
         self.goodsTitleLabel.numberOfLines = 3;
         self.goodsTitleLabel.font = [UIFont systemFontOfSize:16];
-        self.goodsTitleLabel.backgroundColor = [UIColor redColor];
+        self.goodsTitleLabel.backgroundColor = greenColorDebug;
         [self.bgImageView addSubview:self.goodsTitleLabel];
         
         //价格
         self.goodsPaceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.goodsTitleLabel.frame.origin.x, self.goodsTitleLabel.frame.origin.y+self.goodsTitleLabel.frame.size.height, self.goodsTitleLabel.frame.size.width, 25)];
         self.goodsPaceLabel.textColor = [UIColor redColor];
-        self.goodsPaceLabel.backgroundColor = [UIColor orangeColor];
+        self.goodsPaceLabel.backgroundColor = blueColorDebug;
         [self.bgImageView addSubview:self.goodsPaceLabel];
         
         self.goodsNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.goodsPaceLabel.frame.origin.x, self.goodsPaceLabel.frame.origin.y+self.goodsPaceLabel.frame.size.height, self.goodsPaceLabel.frame.size.width, 25)];
-        self.goodsNumberLabel.backgroundColor = [UIColor greenColor];
+        self.goodsNumberLabel.backgroundColor = redColorDebug;
         [self.bgImageView addSubview:self.goodsNumberLabel];
         
     }

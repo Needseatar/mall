@@ -161,7 +161,6 @@
                     
                     //加载款式的button
                     NSArray *dicspecValueValues = [dicspecValue allKeys];
-                    NSLog(@"%d", dicspecValueValues.count);
                     [self.dicspecValueValuesArray addObject:dicspecValueValues];
 //                    [self.dicspecValueArray addObject:dicspecValue];
                     for (int l=0; l<dicspecValue.count; l++) {
@@ -173,7 +172,6 @@
                         but1.layer.cornerRadius =6;
                         but1.layer.borderWidth = 2;//边框宽度
                         but1.tag = 33333+l;
-                        NSLog(@"%d", but1.tag);
                         
                         //设置默认选择的款式
                         NSDictionary * goods_specDic = [data.goods_info goods_spec];

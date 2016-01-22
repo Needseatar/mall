@@ -23,6 +23,16 @@
 #pragma mark - 项目常用参数
 /****************************************项目常用参数**********************************************************
  *************************************************************************************************/
+
+//调试模式下的颜色 就是把默认白色的颜色改成下面的颜色调试
+//调试完之后全部置白 只有白色才可以使用下面的配置
+//whiteColor
+#define greenColorDebug [UIColor whiteColor]
+#define redColorDebug [UIColor whiteColor]
+#define blueColorDebug [UIColor whiteColor]
+#define bgMagentaColor [UIColor whiteColor]
+
+
 //设置 goodInformationViewController  视图的变量
 #define bgWidth 310       //使用在背景视图里面
 #define bgX     5         //使用在x坐标里

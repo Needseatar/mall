@@ -247,7 +247,6 @@
             NSLog(@"截取的值为：%@",aString);
             self.mArry = [[NSArray alloc] init];
             self.mArry = [aString componentsSeparatedByString:@","]; //从字符，中分隔成n个元素的数组
-            NSLog(@"%d", self.mArry.count);
             [self setButtonRandom]; //设置随机button 的位置和颜色
             
             [self setButton];    //加载随机button

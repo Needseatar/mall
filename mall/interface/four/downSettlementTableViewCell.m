@@ -43,18 +43,18 @@
         self.SUMLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderTextwidth, 10, self.bgImageView.frame.size.width-orderTextwidth-110, 30)];
         self.SUMLabel.text = @"总额:";
         self.SUMLabel.font = [UIFont systemFontOfSize:20];
-        self.SUMLabel.backgroundColor = [UIColor greenColor];
+        self.SUMLabel.backgroundColor = blueColorDebug;
         [self.bgImageView addSubview:self.SUMLabel];
         
         //总额价格
         self.SUMPaceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.SUMLabel.frame.origin.x, self.SUMLabel.frame.origin.y+self.SUMLabel.frame.size.height, self.bgImageView.frame.size.width-orderTextwidth-110, self.SUMLabel.frame.size.height)];
         self.SUMPaceLabel.textColor = [UIColor redColor];
-        self.SUMPaceLabel.backgroundColor = [UIColor greenColor];
+        self.SUMPaceLabel.backgroundColor = greenColorDebug;
         [self.bgImageView addSubview:self.SUMPaceLabel];
         
         //提交订单
         self.submitOrderButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.submitOrderButton.frame = CGRectMake(self.bgImageView.frame.size.width-110, 15, 110-2*orderTextwidth, 50);
+        self.submitOrderButton.frame = CGRectMake(self.bgImageView.frame.size.width-110, 15, 110-orderTextwidth, 50);
         [self.submitOrderButton setTitle:@"提交订单" forState:UIControlStateNormal];
         [self.submitOrderButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.submitOrderButton setBackgroundColor:[UIColor redColor]];
@@ -76,9 +76,7 @@
 
 -(void)submitOrder
 {
-    ;
-    ;
-    ;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"InFourViewControlSkip" object:[NSString stringWithFormat:@"OrderPushSkip"]];
 }
 
 #pragma mark - 画虚线函数

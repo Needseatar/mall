@@ -60,13 +60,15 @@
     //洗白
     for (int i=0; i<3; i++) {
         squareLabel *SLabel = (squareLabel *)[self.bgView viewWithTag:50+i];
-        [SLabel setBackgroundColor:[UIColor whiteColor]];
+        [SLabel setBackgroundColor:[UIColor clearColor]];
         SLabel.text = @"";
         SLabel.gc_parent_id = 0;
+        SLabel.userInteractionEnabled = NO;
     }
     if (data.count != 0 && data.count<4) {
         for (int i=0; i<data.count; i++) {
             squareLabel *SLabel = (squareLabel *)[self.bgView viewWithTag:50+i];
+            SLabel.userInteractionEnabled = YES;
             thirClassification *stringObj = data[i];
             int color = arc4random() % 5;
             [SLabel setBackgroundColor:self.colorArray[color]];

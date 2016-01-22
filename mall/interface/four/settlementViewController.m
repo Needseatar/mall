@@ -15,6 +15,9 @@
 
 @property (retain, nonatomic) storeCartModel *storeData;
 @property (retain, nonatomic) UITableView    *tabelview;
+@property (retain, nonatomic) UIView         *bgPayView; //点击支付方式的背景遮盖
+@property (retain, nonatomic) NSMutableArray *payMethodArray; //保存了用户总共有的支付方式的字符串
+@property (assign, nonatomic) NSInteger      pageOfPayMethod; //保存了用户选择的支付payMethodArray字符串里面的支付方式
 
 @end
 
@@ -24,6 +27,9 @@
 {
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
+    
+    
+    self.tabBarController.tabBar.hidden = YES; //设置标签栏不隐藏
     [self requestShoppingCartFister];
 }
 #pragma mark - 进入视图
@@ -70,6 +76,22 @@
             storeCartGoodsList *dsdl = lsd.goods_list[0];
             NSLog(@"%@", dsdl.goods_name);
             
+            //初始化用户的支付方式，是否支持货到付款
+            if ([self.storeData.ifshow_offpay isKindOfClass:[NSString class]]) {
+                
+                if ([self.storeData.ifshow_offpay isEqualToString:@"true"]) {
+                    self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], [NSString stringWithFormat:@"货到付款"], nil];
+                }else
+                {
+                    self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
+                }
+            }else
+            {
+                self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
+            }
+            //初始化 用户的支付方式
+            self.pageOfPayMethod = 0;
+            
             [self.tabelview reloadData];
             
         }failure:^(AFHTTPRequestOperation *operation, NSError *error){
@@ -84,13 +106,92 @@
 #pragma mark - 加载tabel
 -(void)setTabelView
 {
-    self.tabelview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStyleGrouped];
+    self.tabelview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+TabBar) style:UITableViewStyleGrouped];
     [self.tabelview setBackgroundColor:[UIColor whiteColor]];
     [self.tabelview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.tabelview.delegate = self;
     self.tabelview.dataSource = self;
     //self.tabelview.hidden = YES;
     [self.view addSubview:self.tabelview];
+    
+    //接收cell里面实行页面跳转
+    NSNotificationCenter * nc1 = [NSNotificationCenter defaultCenter];
+    [nc1 addObserver:self selector:@selector(inCellAddressSkip:) name:@"InFourViewControlSkip" object:nil];
+}
+#pragma mark -  界面跳转
+-(void)inCellAddressSkip:(NSNotification *)notification
+{
+    NSString *str = [notification object];
+    if ([str isEqualToString:@"AddressSkip"]) { //地址设置跳转
+        setAddressViewController *addressViewControl = [[setAddressViewController alloc] init];
+        [self.navigationController pushViewController:addressViewControl animated:YES];
+    }else if ([str isEqualToString:@"SetpPayMethodView"]) //支付方式设置
+    {
+        self.bgPayView = [[UIView alloc] initWithFrame:self.view.frame];
+        self.bgPayView.backgroundColor = [UIColor blackColor];
+        self.bgPayView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        self.bgPayView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapAction = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bgViewTapAction)];//加载点击动作
+        [self.bgPayView addGestureRecognizer:tapAction];
+        [self.view addSubview:self.bgPayView];
+        UIView *payMethod;
+        if (self.payMethodArray.count==2) { //支持货到付款
+            payMethod = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-240/2.0, self.view.frame.size.height/2.0-80/2.0, 240, 80)];
+            payMethod.backgroundColor = [UIColor whiteColor];
+            [self.bgPayView addSubview:payMethod];
+        }else
+        {
+            payMethod = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-160/2.0, self.view.frame.size.height/2.0-80/2.0, 160, 80)];
+            payMethod.backgroundColor = [UIColor whiteColor];
+            [self.bgPayView addSubview:payMethod];
+        }
+        
+        //设置支付方式视图
+        CGRect fram = payMethod.frame;
+        NSMutableArray *mArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"支付方式"], nil];
+        for (int i=0; i<self.payMethodArray.count; i++) {
+            [mArray addObject:self.payMethodArray[i]];
+        }
+        for (int i=0; i<mArray.count; i++) {
+            UILabel *PayTitleMethod = [[UILabel alloc] initWithFrame:CGRectMake(0, i*fram.size.height/3.0, fram.size.width, fram.size.height/3.0-1)];
+            PayTitleMethod.text = mArray[i];
+            if (i==0) {
+                PayTitleMethod.textColor = [UIColor colorWithRed:36/255.0f green:158/255.0f blue:246/255.0f alpha:1];
+                PayTitleMethod.backgroundColor = [UIColor whiteColor];
+                
+                //划线
+                UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, i*fram.size.height/3.0 +fram.size.height/3.0-1, fram.size.width, fram.size.height/3.0)];
+                line.backgroundColor = [UIColor colorWithRed:36/255.0f green:158/255.0f blue:246/255.0f alpha:1];
+                [payMethod addSubview:line];
+            }else
+            {
+                PayTitleMethod.textColor = [UIColor blackColor];
+                PayTitleMethod.backgroundColor = [UIColor whiteColor];
+                
+                //划线
+                if (i!=2) {
+                    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, i*fram.size.height/3.0 +fram.size.height/3.0-1, fram.size.width, fram.size.height/3.0)];
+                    line.backgroundColor = [UIColor blackColor];
+                    [payMethod addSubview:line];
+                }
+            }
+            [payMethod addSubview:PayTitleMethod];
+        }
+        
+        
+        [self.tabelview reloadData];
+    }else if ([str isEqualToString:@"invoiceInformationSkip"]) //发票信息设置跳转
+    {
+        
+    }else if ([str isEqualToString:@"OrderPushSkip"]) //提交订单
+    {
+        
+    }
+}
+//释放视图
+-(void)bgViewTapAction
+{
+    [self.bgPayView removeFromSuperview];
 }
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法
@@ -153,9 +254,13 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-        
-        
-        [cell setGoodsPace:20];
+        //计算总的价格
+        float sumPace=0.0;;
+        for (int i=0; i<self.storeData.store_cart_list.count; i++) {
+            storeCartInformaton *goodList = self.storeData.store_cart_list[i];
+            sumPace = [goodList.store_goods_total floatValue]+sumPace;
+        }
+        [cell setGoodsPace:sumPace];
         
         return cell;
     }else  //商品列表
@@ -207,7 +312,7 @@
     }
     return 0.01;
 }
-//返回组头视图
+#pragma mark - 返回组头视图
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section >=3 && section!=4+self.storeData.store_cart_list.count-1) {
@@ -228,13 +333,13 @@
         
         //上边的分隔线
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(orderTextwidth, 0, bgImageView.frame.size.width-2*orderTextwidth, 1)];
-        line.backgroundColor = [UIColor blackColor];
+        line.backgroundColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
         [bgImageView addSubview:line];
         
         //店铺名字
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderTextwidth, 1, self.view.frame.size.width-2*(orderRightLeftWidth+orderTextwidth), sectionHeight-1)];
         titleLabel.font = [UIFont systemFontOfSize:20];
-        titleLabel.backgroundColor = [UIColor greenColor];
+        titleLabel.backgroundColor = greenColorDebug;
         storeCartInformaton *goodList = self.storeData.store_cart_list[section-3];
         titleLabel.text = goodList.store_name;
         [bgImageView addSubview:titleLabel];
@@ -243,7 +348,7 @@
     }
     return nil;
 }
-//返回组尾视图
+#pragma mark - 返回组尾视图
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (section >=3 && section!=4+self.storeData.store_cart_list.count-1)
