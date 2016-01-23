@@ -12,7 +12,7 @@
 
 @interface PaymentMethodTableViewCell : UITableViewCell
 
--(void)setPeopleInformation:(storeCartModel *)data;
+-(void)setPeopleInformation:(storeCartModel *)data payMethodString:(NSString *)payMethodString;
 
 
 @end

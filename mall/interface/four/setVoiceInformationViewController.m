@@ -1,23 +1,23 @@
 //
-//  setAddressViewController.m
+//  setVoiceInformationViewController.m
 //  mall
 //
-//  Created by Mihua on 22/1/16.
+//  Created by Mihua on 23/1/16.
 //  Copyright © 2016年 Mihua. All rights reserved.
 //
 
-#import "setAddressViewController.h"
+#import "setVoiceInformationViewController.h"
 
-@interface setAddressViewController ()
+@interface setVoiceInformationViewController ()
 
 @end
 
-@implementation setAddressViewController
+@implementation setVoiceInformationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"收货地址管理";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"发票";
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)didReceiveMemoryWarning {

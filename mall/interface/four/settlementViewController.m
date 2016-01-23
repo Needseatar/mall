@@ -23,6 +23,16 @@
 
 @implementation settlementViewController
 
+
+#pragma mark - 设置按钮显示 返回
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self == [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+    }
+    return self;
+}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
@@ -134,14 +144,15 @@
         UITapGestureRecognizer *tapAction = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bgViewTapAction)];//加载点击动作
         [self.bgPayView addGestureRecognizer:tapAction];
         [self.view addSubview:self.bgPayView];
+        
         UIView *payMethod;
         if (self.payMethodArray.count==2) { //支持货到付款
-            payMethod = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-240/2.0, self.view.frame.size.height/2.0-80/2.0, 240, 80)];
+            payMethod = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-240/2.0, self.view.frame.size.height/2.0-180/2.0, 240, 180)];
             payMethod.backgroundColor = [UIColor whiteColor];
             [self.bgPayView addSubview:payMethod];
         }else
         {
-            payMethod = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-160/2.0, self.view.frame.size.height/2.0-80/2.0, 160, 80)];
+            payMethod = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2.0-240/2.0, self.view.frame.size.height/2.0-120/2.0, 240, 120)];
             payMethod.backgroundColor = [UIColor whiteColor];
             [self.bgPayView addSubview:payMethod];
         }
@@ -152,15 +163,17 @@
         for (int i=0; i<self.payMethodArray.count; i++) {
             [mArray addObject:self.payMethodArray[i]];
         }
+        //创建控件
         for (int i=0; i<mArray.count; i++) {
-            UILabel *PayTitleMethod = [[UILabel alloc] initWithFrame:CGRectMake(0, i*fram.size.height/3.0, fram.size.width, fram.size.height/3.0-1)];
+            UILabel *PayTitleMethod = [[UILabel alloc] initWithFrame:CGRectMake(0, i*fram.size.height/(float)mArray.count, fram.size.width, fram.size.height/(float)mArray.count-1)];
+            PayTitleMethod.tag = 200+i;
             PayTitleMethod.text = mArray[i];
             if (i==0) {
                 PayTitleMethod.textColor = [UIColor colorWithRed:36/255.0f green:158/255.0f blue:246/255.0f alpha:1];
                 PayTitleMethod.backgroundColor = [UIColor whiteColor];
                 
                 //划线
-                UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, i*fram.size.height/3.0 +fram.size.height/3.0-1, fram.size.width, fram.size.height/3.0)];
+                UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, i*fram.size.height/(float)mArray.count +fram.size.height/(float)mArray.count-1, fram.size.width, 1)];
                 line.backgroundColor = [UIColor colorWithRed:36/255.0f green:158/255.0f blue:246/255.0f alpha:1];
                 [payMethod addSubview:line];
             }else
@@ -169,12 +182,16 @@
                 PayTitleMethod.backgroundColor = [UIColor whiteColor];
                 
                 //划线
-                if (i!=2) {
-                    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, i*fram.size.height/3.0 +fram.size.height/3.0-1, fram.size.width, fram.size.height/3.0)];
+                if (i!=mArray.count-1) {
+                    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, i*fram.size.height/(float)mArray.count +fram.size.height/(float)mArray.count-1, fram.size.width, 1)];
                     line.backgroundColor = [UIColor blackColor];
                     [payMethod addSubview:line];
                 }
             }
+            PayTitleMethod.userInteractionEnabled = YES;
+            UITapGestureRecognizer *PayTitleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(PayTitleTapAction:)];//加载点击动作
+            [PayTitleMethod addGestureRecognizer:PayTitleTap];
+            
             [payMethod addSubview:PayTitleMethod];
         }
         
@@ -182,16 +199,27 @@
         [self.tabelview reloadData];
     }else if ([str isEqualToString:@"invoiceInformationSkip"]) //发票信息设置跳转
     {
-        
+        setVoiceInformationViewController *voiceViewControl = [[setVoiceInformationViewController alloc] init];
+        [self.navigationController pushViewController:voiceViewControl animated:YES];
     }else if ([str isEqualToString:@"OrderPushSkip"]) //提交订单
     {
-        
+        submitOrderViewController *submitOrdre = [[submitOrderViewController alloc] init];
+        [self.navigationController pushViewController:submitOrdre animated:YES];
     }
 }
 //释放视图
 -(void)bgViewTapAction
 {
     [self.bgPayView removeFromSuperview];
+}
+//选择支付方式
+-(void)PayTitleTapAction:(UITapGestureRecognizer *)action
+{
+    if (action.view.tag-200!=0) {
+        self.pageOfPayMethod = action.view.tag-200-1;
+        [self.bgPayView removeFromSuperview];
+        [self.tabelview reloadData];
+    }
 }
 #pragma mark - tabelView代理
 //返回表格的行数的代理方法
@@ -231,7 +259,7 @@
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         
-        [cell setPeopleInformation:self.storeData];
+        [cell setPeopleInformation:self.storeData payMethodString:self.payMethodArray[self.pageOfPayMethod]];
         
         return cell;
     }else if (indexPath.section == 2)  //订单明细

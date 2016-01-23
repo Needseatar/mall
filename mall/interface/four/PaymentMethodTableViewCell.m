@@ -123,9 +123,9 @@
     return self;
 }
 
--(void)setPeopleInformation:(storeCartModel *)data
+-(void)setPeopleInformation:(storeCartModel *)data payMethodString:(NSString *)payMethodString
 {
-    self.PayMethodLabel.text = @"线上付款";
+    self.PayMethodLabel.text = payMethodString;
     self.invoiceNamelabel.text = data.inv_info.content;
 }
 

@@ -18,6 +18,8 @@
 #import "settlementAddressTableViewCell.h"
 #import "PaymentMethodTableViewCell.h"
 #import "setAddressViewController.h"
+#import "setVoiceInformationViewController.h"
+#import "submitOrderViewController.h"
 
 @interface settlementViewController : UIViewController
 

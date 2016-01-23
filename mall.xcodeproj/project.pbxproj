@@ -101,6 +101,8 @@
 		1BBCBA5D1C4E20D0003A492A /* settlementAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBCBA5C1C4E20D0003A492A /* settlementAddressTableViewCell.m */; };
 		1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0EBA61C18097C001F87DB /* squareLabel.m */; };
 		1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC5D8651C195F5A00DB078C /* commodityList.m */; };
+		1BCEF2411C5327DF002817E7 /* setVoiceInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCEF2401C5327DF002817E7 /* setVoiceInformationViewController.m */; };
+		1BCEF2441C532AF8002817E7 /* submitOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCEF2431C532AF8002817E7 /* submitOrderViewController.m */; };
 		1BD136971C27DB6200736179 /* fisterBrandTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD136961C27DB6200736179 /* fisterBrandTableViewCell.m */; };
 		1BD1369A1C27E8FD00736179 /* fisterHome1TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD136991C27E8FD00736179 /* fisterHome1TableViewCell.m */; };
 		1BD2A5CC1C3E169A008F1E38 /* fourTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD2A5CB1C3E169A008F1E38 /* fourTableViewCell.m */; };
@@ -278,6 +280,10 @@
 		1BC0EBA61C18097C001F87DB /* squareLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = squareLabel.m; sourceTree = "<group>"; };
 		1BC5D8641C195F5A00DB078C /* commodityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commodityList.h; sourceTree = "<group>"; };
 		1BC5D8651C195F5A00DB078C /* commodityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = commodityList.m; sourceTree = "<group>"; };
+		1BCEF23F1C5327DF002817E7 /* setVoiceInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setVoiceInformationViewController.h; sourceTree = "<group>"; };
+		1BCEF2401C5327DF002817E7 /* setVoiceInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setVoiceInformationViewController.m; sourceTree = "<group>"; };
+		1BCEF2421C532AF8002817E7 /* submitOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = submitOrderViewController.h; sourceTree = "<group>"; };
+		1BCEF2431C532AF8002817E7 /* submitOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = submitOrderViewController.m; sourceTree = "<group>"; };
 		1BD136951C27DB6200736179 /* fisterBrandTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterBrandTableViewCell.h; sourceTree = "<group>"; };
 		1BD136961C27DB6200736179 /* fisterBrandTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterBrandTableViewCell.m; sourceTree = "<group>"; };
 		1BD136981C27E8FD00736179 /* fisterHome1TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome1TableViewCell.h; sourceTree = "<group>"; };
@@ -680,6 +686,10 @@
 				1B27109E1C4CC7F7002E5405 /* downSettlementTableViewCell.m */,
 				1B9E15EF1C520D5700890F0A /* setAddressViewController.h */,
 				1B9E15F01C520D5700890F0A /* setAddressViewController.m */,
+				1BCEF23F1C5327DF002817E7 /* setVoiceInformationViewController.h */,
+				1BCEF2401C5327DF002817E7 /* setVoiceInformationViewController.m */,
+				1BCEF2421C532AF8002817E7 /* submitOrderViewController.h */,
+				1BCEF2431C532AF8002817E7 /* submitOrderViewController.m */,
 			);
 			path = four;
 			sourceTree = "<group>";
@@ -991,12 +1001,14 @@
 				1B625AFA1C1E72A600DBAF24 /* dataCommodityInformation.m in Sources */,
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
 				1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */,
+				1BCEF2441C532AF8002817E7 /* submitOrderViewController.m in Sources */,
 				1BEF94911BFD660000F7470D /* fisterViewController.m in Sources */,
 				1B7E14091C32273A00BBA789 /* loadingImageView.m in Sources */,
 				1B625B031C1EA4E100DBAF24 /* secondStoreList.m in Sources */,
 				1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */,
 				1BAEB0351C3BA00B00285AAF /* goodsInformationpaceTableViewCell.m in Sources */,
 				1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */,
+				1BCEF2411C5327DF002817E7 /* setVoiceInformationViewController.m in Sources */,
 				1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */,
 				1BB862DB1C28E9EA0086EEC2 /* fisterHome4TableViewCell.m in Sources */,
 				1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */,

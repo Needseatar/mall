@@ -601,13 +601,21 @@
         [manager POST:AddShopingCar parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
             NSLog(@"%@", dict);
-            if ([dict[@"datas"] integerValue]==1) {
+            NSString *str = [NSString stringWithFormat:@"%@", dict[@"datas"]];
+            if ([str integerValue]==1) {
                 if (self.errorNetWork==nil) {
                     self.errorNetWork = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"已加入购物车"];
                     [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
                     [self.view addSubview:self.errorNetWork];
                 }
-            };
+            }else
+            {
+                if (self.errorNetWork==nil) {
+                    self.errorNetWork = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:str];
+                    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                    [self.view addSubview:self.errorNetWork];
+                }
+            }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
         }];

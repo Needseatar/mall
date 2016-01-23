@@ -1,22 +1,23 @@
 //
-//  setAddressViewController.m
+//  submitOrderViewController.m
 //  mall
 //
-//  Created by Mihua on 22/1/16.
+//  Created by Mihua on 23/1/16.
 //  Copyright © 2016年 Mihua. All rights reserved.
 //
 
-#import "setAddressViewController.h"
+#import "submitOrderViewController.h"
 
-@interface setAddressViewController ()
+@interface submitOrderViewController ()
 
 @end
 
-@implementation setAddressViewController
+@implementation submitOrderViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"收货地址管理";
+    
+     self.title = @"订单";
     self.view.backgroundColor = [UIColor whiteColor];
 }
 

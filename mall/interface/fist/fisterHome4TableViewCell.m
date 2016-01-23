@@ -65,7 +65,7 @@
     NSRange range;
     if (tap.view.tag ==10) {
         NSString *url = [NSString stringWithFormat:@"%@", self.data.rectangle1_type];
-        if ([url isEqualToString:@"url"] && [str rangeOfString:@"goods_id"].location != NSNotFound) {
+        if ([url isEqualToString:@"url"] && [self.data.rectangle1_data rangeOfString:@"goods_id"].location != NSNotFound) {
             
             range = [self.data.rectangle1_data rangeOfString:@"goods_id"];
             str = [self.data.rectangle1_data substringFromIndex:(range.location+range.length)];
@@ -76,7 +76,7 @@
     }else if (tap.view.tag ==11)
     {
         NSString *url = [NSString stringWithFormat:@"%@", self.data.rectangle2_type];
-        if ([url isEqualToString:@"url"] && [str rangeOfString:@"goods_id"].location != NSNotFound) {
+        if ([url isEqualToString:@"url"] && [self.data.rectangle1_data rangeOfString:@"goods_id"].location != NSNotFound) {
             range = [self.data.rectangle2_data rangeOfString:@"goods_id"];
             str = [self.data.rectangle2_data substringFromIndex:(range.location+range.length)];
             range = [str rangeOfString:@"="];
@@ -86,7 +86,7 @@
     }else if (tap.view.tag == 12)
     {
         NSString *url = [NSString stringWithFormat:@"%@", self.data.square_type];
-        if ([url isEqualToString:@"url"] && [str rangeOfString:@"goods_id"].location != NSNotFound) {
+        if ([url isEqualToString:@"url"] && [self.data.rectangle1_data rangeOfString:@"goods_id"].location != NSNotFound) {
             range = [self.data.square_data rangeOfString:@"goods_id"];
             str = [self.data.square_data substringFromIndex:(range.location+range.length)];
             range = [str rangeOfString:@"="];
