@@ -26,11 +26,15 @@
 
 //调试模式下的颜色 就是把默认白色的颜色改成下面的颜色调试
 //调试完之后全部置白 只有白色才可以使用下面的配置
-//whiteColor
-#define greenColorDebug [UIColor whiteColor]
-#define redColorDebug [UIColor whiteColor]
-#define blueColorDebug [UIColor whiteColor]
-#define bgMagentaColor [UIColor whiteColor]
+#define greenColorDebug [UIColor greenColor]
+#define redColorDebug [UIColor redColor]
+#define blueColorDebug [UIColor blueColor]
+#define bgMagentaColor [UIColor MagentaColor]
+
+//#define greenColorDebug [UIColor whiteColor]
+//#define redColorDebug [UIColor whiteColor]
+//#define blueColorDebug [UIColor whiteColor]
+//#define bgMagentaColor [UIColor whiteColor]
 
 
 //设置 goodInformationViewController  视图的变量
@@ -66,6 +70,56 @@
 #pragma mark - 接口数据
 /***********************************接口数据***************************************************************
  *************************************************************************************************/
+
+#pragma mark -localhost本地
+
+/*
+//登录接口（post）
+#define  SignIn @"http://localhost/shopping.com/mobile/index.php?act=index"
+//注销接口 （post）
+#define  Cancellation @"http://localhost/shopping.com/mobile/index.php?act=logout"
+//我的商城接口 （post）
+#define MyMall @"http://localhost/shopping.com/mobile/index.php?act=member_index"
+//注册接口（post）
+#define Registration @"http://localhost/shopping.com/mobile/index.php?act=login&op=register"
+//商品分类一级分类接口（get）
+#define FisterClassification @"http://localhost/shopping.com/mobile/index.php?act=goods_class"
+//商品分类二级和三级分类接口（get）
+#define STClassification @"http://localhost/shopping.com/mobile/index.php?act=goods_class&gc_id=%ld"
+//首页接口（get）
+#define fisterRequest @"http://localhost/shopping.com/mobile/index.php?act=index"
+//商品列表接口（get）
+#define SecondListRequest @"http://localhost/shopping.com/mobile/index.php?act=goods&op=goods_list%@&order=%ld&page=%ld&curpage=%ld%@"
+//商品详细信息接口（get）
+#define DetailedCommodity @"http://localhost/shopping.com/mobile/index.php?act=goods&op=goods_detail&goods_id=%ld"
+//商品的详细信息的图文详情(get)
+#define GoodsHtml @"http://localhost/shopping.com/mobile/index.php?act=goods&op=goods_body&goods_id=%ld"
+//标签控制器的搜索接口（get）
+#define SearchText @"http://localhost/shopping.com/mobile/index.php?act=search&op=search"
+//返回商品是否收藏 (post)
+//
+ //key
+// *goods_id
+//
+#define  Collection  @"http://localhost/shopping.com/mobile/index.php?act=member_favorites&op=isfavorites"
+//商家的店铺(get)
+#define  MerchantShop  @"http://localhost/shopping.com/mobile/index.php?act=shop&op=index&page=10%@%@"
+//购物车里面的商品(post)
+#define  ShoppingCartNetWork  @"http://localhost/shopping.com/mobile/index.php?act=member_cart&op=cart_list"
+//购物车购买第一步(post)
+#define  ShoppingCartFistBuy  @"http://localhost/shopping.com/mobile/index.php?act=member_buy&op=buy_step1"
+//购物车添加(post)
+#define AddShopingCar @"http://localhost/shopping.com/mobile/index.php?act=member_cart&op=cart_add"
+//修改购物车修改数量(post)
+#define changShopping @"http://localhost/shopping.com/mobile/index.php?act=member_cart&op=cart_edit_quantity"
+//购物车删除(post)
+#define DelectShopping @"http://localhost/shopping.com/mobile/index.php?act=member_cart&op=cart_del"
+
+*/
+
+#pragma mark -localhost网页接口
+
+ 
 //登录接口（post）
 #define  SignIn @"http://shop.trqq.com/mobile/index.php?act=login"
 //注销接口 （post）
@@ -89,10 +143,10 @@
 //标签控制器的搜索接口（get）
 #define SearchText @"http://shop.trqq.com/mobile/index.php?act=search&op=search"
 //返回商品是否收藏 (post)
-/*
- *key
- *goods_id
- */
+
+// *key
+// *goods_id
+//
 #define  Collection  @"http://shop.trqq.com/mobile/index.php?act=member_favorites&op=isfavorites"
 //商家的店铺(get)
 #define  MerchantShop  @"http://shop.trqq.com/mobile/index.php?act=shop&op=index&page=10%@%@"
@@ -106,6 +160,9 @@
 #define changShopping @"http://shop.trqq.com/mobile/index.php?act=member_cart&op=cart_edit_quantity"
 //购物车删除(post)
 #define DelectShopping @"http://shop.trqq.com/mobile/index.php?act=member_cart&op=cart_del"
+//地址列表(post)
+#define UserAddressList @"http://shop.trqq.com/mobile/index.php?act=member_address&op=address_list"
+
 /**************************************************************************************************
  *************************************************************************************************/
 

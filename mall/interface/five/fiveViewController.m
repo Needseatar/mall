@@ -376,7 +376,8 @@
 //地址点击动作
 -(void)addressAction
 {
-    ;
+    setAddressViewController *address = [[setAddressViewController alloc] init];
+    [self.navigationController pushViewController:address animated:YES];
 }
 //视图动作
 -(void)bgSignInTapAction

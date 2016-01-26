@@ -611,6 +611,8 @@
             }else
             {
                 if (self.errorNetWork==nil) {
+                    NSDictionary *dicError = dict[@"datas"];
+                    NSString *str = [NSString stringWithFormat:@"%@", dicError[@"error"]];
                     self.errorNetWork = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:str];
                     [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
                     [self.view addSubview:self.errorNetWork];

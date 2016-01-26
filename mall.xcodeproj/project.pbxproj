@@ -82,7 +82,6 @@
 		1B8091021C1292D600938258 /* fisterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8091011C1292D600938258 /* fisterData.m */; };
 		1B8609851C5083410011492A /* accsessory_arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B8609841C5083410011492A /* accsessory_arrow_right@2x.png */; };
 		1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */; };
-		1B9E15F11C520D5700890F0A /* setAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E15F01C520D5700890F0A /* setAddressViewController.m */; };
 		1BABA6641C2A738A00FF5BEF /* beginImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BABA6631C2A738A00FF5BEF /* beginImage.xib */; };
 		1BAEB0321C3BA00B00285AAF /* goodInformationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAEB0251C3BA00B00285AAF /* goodInformationTableViewCell.m */; };
 		1BAEB0331C3BA00B00285AAF /* goodInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAEB0271C3BA00B00285AAF /* goodInformationViewController.m */; };
@@ -123,6 +122,10 @@
 		1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF94791BFD660000F7470D /* thirdViewController.m */; };
 		1BEF95491BFD6CCC00F7470D /* ZJScreenAdaptation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF95481BFD6CCC00F7470D /* ZJScreenAdaptation.m */; };
 		1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF2B9AA1C0003D200010E52 /* fiveAboutViewController.m */; };
+		1BF66F0D1C5713D0003DF5E1 /* addressListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF66F0C1C5713D0003DF5E1 /* addressListModel.m */; };
+		1BF66F1B1C57503C003DF5E1 /* addAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF66F161C57503C003DF5E1 /* addAddressViewController.m */; };
+		1BF66F1C1C57503C003DF5E1 /* setAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF66F181C57503C003DF5E1 /* setAddressTableViewCell.m */; };
+		1BF66F1D1C57503C003DF5E1 /* setAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF66F1A1C57503C003DF5E1 /* setAddressViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -244,8 +247,6 @@
 		1B8609841C5083410011492A /* accsessory_arrow_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accsessory_arrow_right@2x.png"; sourceTree = "<group>"; };
 		1B8912DA1C0D8B0F00DD3B72 /* secondMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondMainTableViewCell.h; sourceTree = "<group>"; };
 		1B8912DB1C0D8B0F00DD3B72 /* secondMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondMainTableViewCell.m; sourceTree = "<group>"; };
-		1B9E15EF1C520D5700890F0A /* setAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setAddressViewController.h; sourceTree = "<group>"; };
-		1B9E15F01C520D5700890F0A /* setAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setAddressViewController.m; sourceTree = "<group>"; };
 		1BABA6631C2A738A00FF5BEF /* beginImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = beginImage.xib; sourceTree = "<group>"; };
 		1BAEB0241C3BA00B00285AAF /* goodInformationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = goodInformationTableViewCell.h; sourceTree = "<group>"; };
 		1BAEB0251C3BA00B00285AAF /* goodInformationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goodInformationTableViewCell.m; sourceTree = "<group>"; };
@@ -325,6 +326,14 @@
 		1BF2B9A91C0003D200010E52 /* fiveAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fiveAboutViewController.h; sourceTree = "<group>"; };
 		1BF2B9AA1C0003D200010E52 /* fiveAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveAboutViewController.m; sourceTree = "<group>"; };
 		1BF2B9AC1C000DCD00010E52 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		1BF66F0B1C5713D0003DF5E1 /* addressListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addressListModel.h; sourceTree = "<group>"; };
+		1BF66F0C1C5713D0003DF5E1 /* addressListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addressListModel.m; sourceTree = "<group>"; };
+		1BF66F151C57503C003DF5E1 /* addAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addAddressViewController.h; sourceTree = "<group>"; };
+		1BF66F161C57503C003DF5E1 /* addAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addAddressViewController.m; sourceTree = "<group>"; };
+		1BF66F171C57503C003DF5E1 /* setAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setAddressTableViewCell.h; sourceTree = "<group>"; };
+		1BF66F181C57503C003DF5E1 /* setAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setAddressTableViewCell.m; sourceTree = "<group>"; };
+		1BF66F191C57503C003DF5E1 /* setAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setAddressViewController.h; sourceTree = "<group>"; };
+		1BF66F1A1C57503C003DF5E1 /* setAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setAddressViewController.m; sourceTree = "<group>"; };
 		459B52899CA9205C5D7003AB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		99D9C3188B0B8A822BA52518 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FF8F3B935D9E0FA1FF88A65C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -414,6 +423,7 @@
 		1B468F9A1C06DEFF006CE377 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				1BF66F0A1C571364003DF5E1 /* addressList */,
 				1B7039381C47428A0041FDBD /* storeCartListModel */,
 				1B6CA2131C3D0A4D000B8E8F /* shopIngCar */,
 				1B6CA20F1C3CB8E9000B8E8F /* merchantModel */,
@@ -623,6 +633,7 @@
 				1BAEB0211C3B9E3E00285AAF /* merchantShop */,
 				1BAEB0231C3BA00B00285AAF /* goodsClassification */,
 				1B7E14031C32261400BBA789 /* publicView */,
+				1BF66F141C57503C003DF5E1 /* addressManagement */,
 				1BEF946B1BFD660000F7470D /* fist */,
 				1BEF946E1BFD660000F7470D /* five */,
 				1BEF94711BFD660000F7470D /* four */,
@@ -684,8 +695,6 @@
 				1B27109B1C4CC295002E5405 /* settlementShoppingTableViewCell.m */,
 				1B27109D1C4CC7F7002E5405 /* downSettlementTableViewCell.h */,
 				1B27109E1C4CC7F7002E5405 /* downSettlementTableViewCell.m */,
-				1B9E15EF1C520D5700890F0A /* setAddressViewController.h */,
-				1B9E15F01C520D5700890F0A /* setAddressViewController.m */,
 				1BCEF23F1C5327DF002817E7 /* setVoiceInformationViewController.h */,
 				1BCEF2401C5327DF002817E7 /* setVoiceInformationViewController.m */,
 				1BCEF2421C532AF8002817E7 /* submitOrderViewController.h */,
@@ -744,6 +753,28 @@
 				1B5366AE1C02DDF2002C5CB2 /* abouCompanyViewController.m */,
 			);
 			path = about;
+			sourceTree = "<group>";
+		};
+		1BF66F0A1C571364003DF5E1 /* addressList */ = {
+			isa = PBXGroup;
+			children = (
+				1BF66F0B1C5713D0003DF5E1 /* addressListModel.h */,
+				1BF66F0C1C5713D0003DF5E1 /* addressListModel.m */,
+			);
+			path = addressList;
+			sourceTree = "<group>";
+		};
+		1BF66F141C57503C003DF5E1 /* addressManagement */ = {
+			isa = PBXGroup;
+			children = (
+				1BF66F191C57503C003DF5E1 /* setAddressViewController.h */,
+				1BF66F1A1C57503C003DF5E1 /* setAddressViewController.m */,
+				1BF66F171C57503C003DF5E1 /* setAddressTableViewCell.h */,
+				1BF66F181C57503C003DF5E1 /* setAddressTableViewCell.m */,
+				1BF66F151C57503C003DF5E1 /* addAddressViewController.h */,
+				1BF66F161C57503C003DF5E1 /* addAddressViewController.m */,
+			);
+			path = addressManagement;
 			sourceTree = "<group>";
 		};
 		B80B5D75A5CC0478F8656EDE /* Pods */ = {
@@ -1007,6 +1038,7 @@
 				1B625B031C1EA4E100DBAF24 /* secondStoreList.m in Sources */,
 				1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */,
 				1BAEB0351C3BA00B00285AAF /* goodsInformationpaceTableViewCell.m in Sources */,
+				1BF66F1C1C57503C003DF5E1 /* setAddressTableViewCell.m in Sources */,
 				1BB1E4A11C0C3A650040EDD1 /* oneClassification.m in Sources */,
 				1BCEF2411C5327DF002817E7 /* setVoiceInformationViewController.m in Sources */,
 				1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */,
@@ -1018,9 +1050,11 @@
 				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,
 				1B7039441C474EE30041FDBD /* addressInfo.m in Sources */,
 				1B2710911C4C8B83002E5405 /* settlementOrderTableViewCell.m in Sources */,
+				1BF66F0D1C5713D0003DF5E1 /* addressListModel.m in Sources */,
 				1B625AFD1C1E949D00DBAF24 /* secondCommendList.m in Sources */,
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,
 				1BEF94931BFD660000F7470D /* fourViewController.m in Sources */,
+				1BF66F1D1C57503C003DF5E1 /* setAddressViewController.m in Sources */,
 				1B7A15801C4F3E2200247283 /* PaymentMethodTableViewCell.m in Sources */,
 				1BD1369A1C27E8FD00736179 /* fisterHome1TableViewCell.m in Sources */,
 				1B6CA2161C3D0AB7000B8E8F /* shopingCarModel.m in Sources */,
@@ -1047,11 +1081,11 @@
 				1BB862DE1C28F52F0086EEC2 /* fisterListerTableViewCell.m in Sources */,
 				1BAEB0371C3BA00B00285AAF /* secondListTableViewCell.m in Sources */,
 				1B8090FC1C12926500938258 /* fisterHome4.m in Sources */,
+				1BF66F1B1C57503C003DF5E1 /* addAddressViewController.m in Sources */,
 				1BB203F01C463FB400D6A830 /* settlementViewController.m in Sources */,
 				1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */,
 				1BD393F31C0FEABB00FD3E75 /* secondTwoTableViewCell.m in Sources */,
 				1BC5D8661C195F5B00DB078C /* commodityList.m in Sources */,
-				1B9E15F11C520D5700890F0A /* setAddressViewController.m in Sources */,
 				1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */,
 				1B8091021C1292D600938258 /* fisterData.m in Sources */,
 				1B35A42A1C040DE9004C1544 /* fiveBlockString.m in Sources */,

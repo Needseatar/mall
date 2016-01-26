@@ -6,7 +6,11 @@
 //  Copyright © 2016年 Mihua. All rights reserved.
 //
 
-#import "ViewController.h"
+#import <UIKit/UIKit.h>
+#import "addressListModel.h"
+#import "setAddressTableViewCell.h"
+#import "addAddressViewController.h"
+
 
 @interface setAddressViewController : UIViewController
 

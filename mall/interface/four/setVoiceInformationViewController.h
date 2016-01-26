@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Mihua. All rights reserved.
 //
 
-#import "ViewController.h"
+#import <UIKit/UIKit.h>
 
 @interface setVoiceInformationViewController : UIViewController
 
