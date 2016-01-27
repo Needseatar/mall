@@ -162,6 +162,8 @@
 #define DelectShopping @"http://shop.trqq.com/mobile/index.php?act=member_cart&op=cart_del"
 //地址列表(post)
 #define UserAddressList @"http://shop.trqq.com/mobile/index.php?act=member_address&op=address_list"
+//地区列表(post)
+#define AreaAddressList @"http://shop.trqq.com/mobile/index.php?act=member_address&op=area_list"
 
 /**************************************************************************************************
  *************************************************************************************************/

@@ -8,12 +8,33 @@
 
 #import "addAddressViewController.h"
 
-@interface addAddressViewController ()<UITextFieldDelegate>
+@interface addAddressViewController ()<UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
-@property (retain, nonatomic) UIView      *bgView;
-@property (retain, nonatomic) UILabel     *addressRegionLbel;
-@property (assign, nonatomic) BOOL        reginSelect; //判断是否已经选择了地区
-@property (retain, nonatomic) UIButton    *AddAddressButton;
+@property (retain, nonatomic) UIView       *bgView;
+@property (retain, nonatomic) UILabel      *addressRegionLbel;
+@property (assign, nonatomic) BOOL         reginSelect; //判断是否已经选择了地区
+@property (retain, nonatomic) UIButton     *AddAddressButton;
+
+@property (retain, nonatomic) UIView       *pickerAndButtonView;
+@property (retain, nonatomic) UIPickerView *pickerView;
+
+@property (retain, nonatomic) NSArray      *provinceArray; //保存了省的数据
+@property (retain, nonatomic) NSString     *provinceNowOperation; //保存了请求所有省份请求数据的地址
+@property (assign, nonatomic) BOOL         provinceNowBecome;   //省份数据是否回来
+
+@property (retain, nonatomic) NSArray      *cityArray;   //保存了当前选择省的城市数据
+@property (retain, nonatomic) NSString     *cityNowOperation; //保存了当前选择省请求数据的地址
+@property (assign, nonatomic) BOOL         cityNowBecome;   //当前请求的省份id是否回来
+
+@property (retain, nonatomic) NSArray      *areaArray;   //保存了当前城市选着的区的数据
+@property (retain, nonatomic) NSString     *areaNowOperation; //保存了当前选择市请求数据的地址
+@property (assign, nonatomic) BOOL         areaNowBecome;   //当前请求的省份id是否回来
+
+@property (retain, nonatomic) NSString     *IDNow;      //当前请求的id
+
+@property (retain, nonatomic) NSString     *provinceString;      //当前选择的省份
+@property (retain, nonatomic) NSString     *cityString;      //当前选择的城市
+@property (retain, nonatomic) NSString     *areaString;      //当前选择的地区
 
 @end
 
@@ -28,6 +49,45 @@
     self.reginSelect = NO;
     
     [self setUserAddress]; //设置视图
+    
+    [self initPicker]; //设置地址选择器 和 按钮
+    
+    [self requestAreaAddressList:nil indexSection:0];  //请求省份
+}
+
+#pragma mark -  初始化PickerView使用的数据源
+-(void)initPicker{
+    self.provinceArray = [[NSArray alloc] init];
+    self.cityArray = [[NSArray alloc] init];
+    self.areaArray = [[NSArray alloc] init];
+    
+    
+    self.pickerAndButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-180, self.view.frame.size.width, 180)];
+    self.pickerAndButtonView.userInteractionEnabled = YES;
+    self.pickerAndButtonView.hidden = YES;
+    [self.view addSubview:self.pickerAndButtonView];
+    
+    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 130)];
+    self.pickerView.backgroundColor = greenColorDebug;
+    self.pickerView.delegate = self;
+    self.pickerView.dataSource = self;
+    [self.pickerAndButtonView addSubview:self.pickerView];
+    
+    self.provinceArray = [[NSArray alloc] init];
+    self.cityArray = [[NSArray alloc] init];
+    self.areaArray = [[NSArray alloc] init];
+    for (int i=0; i<3; i++) { //刷新数据
+        [self.pickerView reloadComponent:i];
+    }
+    
+    UIButton *but = [UIButton buttonWithType:UIButtonTypeCustom];
+    but.frame = CGRectMake(0, self.pickerView.frame.size.height+self.pickerView.frame.origin.y, self.view.frame.size.width, self.pickerAndButtonView.frame.size.height-self.pickerView.frame.size.height);
+    [but setBackgroundColor:[UIColor redColor]];
+    [but setTitle:@"确定" forState:UIControlStateNormal];
+    [but setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    but.titleLabel.font = [UIFont systemFontOfSize:18];
+    [self.pickerAndButtonView addSubview:but];
+    
 }
 
 -(void)setUserAddress
@@ -54,21 +114,22 @@
                              @"详细地址(必填)"];
     for (int i=0; i<arrayString.count; i++) {
         if (i==3) {
-            self.addressRegionLbel = [[UILabel alloc] initWithFrame:CGRectMake(0, i*31, self.bgView.frame.size.width-17, 30)];
+            UIButton *bgButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [bgButton setBackgroundColor:greenColorDebug];
+            bgButton.frame = CGRectMake(0, i*31, self.bgView.frame.size.width, 30);
+            bgButton.tag = 10+i;
+            [bgButton addTarget:self action:@selector(addressButtonAction) forControlEvents:UIControlEventTouchUpInside];
+            [self.bgView addSubview:bgButton];
+            
+            self.addressRegionLbel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bgView.frame.size.width-17, 30)];
             self.addressRegionLbel.text = arrayString[i];
             self.addressRegionLbel.backgroundColor = [UIColor whiteColor];
-            self.addressRegionLbel.tag = 10+i;
-            [self.bgView addSubview:self.addressRegionLbel];
+            [bgButton addSubview:self.addressRegionLbel];
             
-            UIView *imageViewBG = [[UIView alloc] init];
-            imageViewBG.backgroundColor =greenColorDebug;
-            imageViewBG.frame = CGRectMake(self.bgView.frame.size.width-17, i*31, 15, 30);
-            [self.bgView addSubview:imageViewBG];
-            
-            UIImageView *ImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.addressRegionLbel.frame.size.height/2.0-15/2.0, 10, 15)];
+            UIImageView *ImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bgView.frame.size.width-17, self.addressRegionLbel.frame.size.height/2.0-15/2.0, 10, 15)];
             ImageView.backgroundColor = redColorDebug;
             ImageView.image = [UIImage imageNamed:@"accsessory_arrow_right@2x.png"];
-            [imageViewBG addSubview:ImageView];
+            [bgButton addSubview:ImageView];
         }else
         {
             UITextField *textFil = [[UITextField alloc] initWithFrame:CGRectMake(0, i*31, self.bgView.frame.size.width, 30)];
@@ -100,6 +161,12 @@
     [self.AddAddressButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:self.AddAddressButton];
 
+}
+#pragma mark - 所在区选择
+-(void)addressButtonAction
+{
+    [self keyboardAction];
+    self.pickerAndButtonView.hidden = NO;
 }
 
 #pragma mark - 当用户点击return键的时候执行该方法
@@ -140,7 +207,7 @@
     return YES;
 }
 
-#pragma mark - 视图点击回收键盘
+#pragma mark - 回收键盘
 -(void)keyboardAction
 {
     for (int i = 10; i<15; i++) {
@@ -151,6 +218,160 @@
         [userTextFild resignFirstResponder];
     }
 }
+
+#pragma mark - 请求地址数据
+//areaID是请求的id ，indexSection是请求第几组的数据
+-(void)requestAreaAddressList:(NSString *)areaID indexSection:(int)indexSection{
+    
+    signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        NSDictionary *signInAddress;
+        
+        switch (indexSection) {
+            case 0:
+            {
+                signInAddress =
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 signIn.key, @"key",
+                 nil];
+                self.provinceNowOperation = [NSString stringWithFormat:@"%@", manager.responseSerializer];
+                self.provinceNowBecome = NO;
+                for (int i=0; i<3; i++) {
+                    [self.pickerView reloadComponent:i];
+                }
+                break;
+            }
+            case 1:
+            {
+                signInAddress =
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 signIn.key, @"key", areaID, @"area_id",
+                 nil];
+                self.cityNowOperation = [NSString stringWithFormat:@"%@", manager.responseSerializer];
+                self.cityNowBecome = NO;
+                for (int i=1; i<3; i++) {
+                    [self.pickerView reloadComponent:i];
+                }
+                break;
+            }
+            case 2:
+            {
+                signInAddress =
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 signIn.key, @"key", areaID, @"area_id",
+                 nil];
+                self.areaNowOperation = [NSString stringWithFormat:@"%@", manager.responseSerializer];
+                self.areaNowBecome = NO;
+                [self.pickerView reloadComponent:2];
+                break;
+            }
+            default:
+                break;
+        }
+        
+        self.IDNow = areaID;
+        
+        [manager POST:AreaAddressList parameters:signInAddress success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"%@", operation.responseSerializer);
+            NSLog(@"JSON: %@", dict);
+            if ([self.provinceNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) { //所有省份都请求回来
+                self.provinceArray = [addressAreaModel setValueWithDictionary:dict];
+                self.provinceNowBecome = YES;
+                
+                self.cityArray = [[NSArray alloc] init];
+                self.areaArray = [[NSArray alloc] init];
+                
+                self.IDNow = [NSString stringWithFormat:@"%@", [self.provinceArray[0] area_id]];
+                [self requestAreaAddressList:self.IDNow indexSection:1];  //请求省份对应的城市
+            }else if ([self.cityNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) { //当前的城市数据请求回来
+                self.cityArray = [addressAreaModel setValueWithDictionary:dict];
+                self.cityNowBecome = YES;
+                self.areaArray = [[NSArray alloc] init];
+                
+                self.IDNow = [NSString stringWithFormat:@"%@", [self.cityArray[0] area_id]];
+                [self requestAreaAddressList:self.IDNow indexSection:2];  //请求城市对应的区
+            }else if ([self.areaNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) //当前的区的数据请求回来
+            {
+                self.areaNowBecome = YES;
+                self.areaArray = [addressAreaModel setValueWithDictionary:dict];
+            }
+            for (int i=0; i<3; i++) { //刷新数据
+                [self.pickerView reloadComponent:i];
+            }
+            
+        }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+            NSLog(@"Error: %@", error);
+        }];
+    }else //没有令牌，也就是没有登录
+    {
+        
+    }
+}
+
+#pragma mark 实现协议UIPickerViewDelegate方法
+//以下3个方法实现PickerView的数据初始化
+//确定picker的轮子个数
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 3;
+}
+//确定picker的每个轮子的item数
+- (NSInteger)pickerView:(UIPickerView *)pickerView
+numberOfRowsInComponent:(NSInteger)component {
+    if (component == 0) {//省份个数
+        return self.provinceArray.count;
+    } else if(component == 1){//市的个数
+        return [self.cityArray count];
+    }else if(component == 2)//区的个数
+    {
+        return [self.areaArray count];
+    }else
+    {
+        return 0;
+    }
+}
+//确定每个轮子的每一项显示什么内容
+-(NSString *)pickerView:(UIPickerView *)pickerView
+            titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (component == 0) {//省份名
+        return [self.provinceArray[row] area_name] ;
+    } else if(component == 1){//市名
+        return [self.cityArray[row] area_name];
+    }else if(component == 2)//区名
+    {
+        return [self.areaArray[row] area_name];
+    }else
+    {
+        return @"";
+    }
+}
+
+//监听轮子的移动
+- (void)pickerView:(UIPickerView *)pickerView
+      didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (component == 0) {
+        self.IDNow = [NSString stringWithFormat:@"%@", [self.provinceArray[row] area_id]];
+        self.provinceString = [self.provinceArray[row] area_name]; //保存选择的省
+        self.cityString = @"";
+        self.areaString = @"";
+        [self requestAreaAddressList:self.IDNow indexSection:1];  //请求省份对应的城市
+    }else  if (component == 1){
+        self.IDNow = [NSString stringWithFormat:@"%@", [self.cityArray[row] area_id]];
+        self.cityString = [self.cityArray[row] area_name]; //保存选择的市
+        self.areaString = @"";
+        [self requestAreaAddressList:self.IDNow indexSection:2];  //请求城市对应的区
+    }else
+    {
+        self.areaString = [self.areaArray[row] area_name]; //保存选择的区
+    }
+    self.addressRegionLbel.text = [NSString stringWithFormat:@"%@ %@ %@",
+                                   self.provinceString,
+                                   self.cityString,
+                                   self.areaString];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
