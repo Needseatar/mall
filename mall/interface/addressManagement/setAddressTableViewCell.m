@@ -33,6 +33,7 @@
         [self addSubview:self.mobPhone];
         
         self.addresArea = [[UILabel alloc] initWithFrame:CGRectMake(self.addressTitle.frame.origin.x, self.addressTitle.frame.origin.y+self.addressTitle.frame.size.height, delegate.ViewFrame.size.width-2*5, 30)];
+        self.addresArea.numberOfLines = 2;
         self.addresArea.backgroundColor = redColorDebug;
         [self addSubview:self.addresArea];
         
@@ -43,9 +44,9 @@
 
 -(void)setlabelTitle:(addressListModel *)data
 {
-    self.addressTitle.text = data.address;
+    self.addressTitle.text = data.true_name;
     self.mobPhone.text = data.mob_phone;
-    self.addresArea.text = data.area_info;
+    self.addresArea.text = [NSString stringWithFormat:@"%@ %@", data.area_info, data.address];
 }
 - (void)awakeFromNib {
     // Initialization code

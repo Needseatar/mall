@@ -15,7 +15,7 @@
 @property (assign, nonatomic) BOOL         reginSelect; //判断是否已经选择了地区
 @property (retain, nonatomic) UIButton     *AddAddressButton;
 
-@property (retain, nonatomic) UIView       *pickerAndButtonView;
+@property (retain, nonatomic) UIView       *pickerAndButtonView; //地区选择背景视图
 @property (retain, nonatomic) UIPickerView *pickerView;
 
 @property (retain, nonatomic) NSArray      *provinceArray; //保存了省的数据
@@ -36,6 +36,12 @@
 @property (retain, nonatomic) NSString     *cityString;      //当前选择的城市
 @property (retain, nonatomic) NSString     *areaString;      //当前选择的地区
 
+@property (retain, nonatomic) NSMutableArray *IDArray;      //保存了城市编号(地址联动的第二级)地区编号(地址联动的第三级)的字符串对象
+
+
+
+@property (retain, nonatomic) UILabel           *errorRefresh; //数据没有输入提示
+
 @end
 
 @implementation addAddressViewController
@@ -43,10 +49,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"添加地址";
-    
-    self.reginSelect = NO;
+    [self setInitData]; //初始化数据
     
     [self setUserAddress]; //设置视图
     
@@ -55,20 +58,33 @@
     [self requestAreaAddressList:nil indexSection:0];  //请求省份
 }
 
-#pragma mark -  初始化PickerView使用的数据源
--(void)initPicker{
+-(void)setInitData
+{
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"添加地址";
+    
+    self.reginSelect = NO;
+    
+    self.IDArray = [[NSMutableArray alloc] init];
+    
+    self.provinceString = [[NSString alloc] init];
+    self.cityString = [[NSString alloc] init];
+    self.areaString = [[NSString alloc] init];
+    
     self.provinceArray = [[NSArray alloc] init];
     self.cityArray = [[NSArray alloc] init];
     self.areaArray = [[NSArray alloc] init];
-    
-    
+}
+
+#pragma mark -  初始化PickerView使用的数据源
+-(void)initPicker{
     self.pickerAndButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-180, self.view.frame.size.width, 180)];
-    self.pickerAndButtonView.userInteractionEnabled = YES;
     self.pickerAndButtonView.hidden = YES;
     [self.view addSubview:self.pickerAndButtonView];
     
     self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 130)];
     self.pickerView.backgroundColor = greenColorDebug;
+    self.pickerView.userInteractionEnabled = YES;
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
     [self.pickerAndButtonView addSubview:self.pickerView];
@@ -86,10 +102,20 @@
     [but setTitle:@"确定" forState:UIControlStateNormal];
     [but setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     but.titleLabel.font = [UIFont systemFontOfSize:18];
+    [but addTarget:self action:@selector(addressDetermine) forControlEvents:UIControlEventTouchUpInside];
+    but.userInteractionEnabled = NO;
+    but.alpha=0.4;
+    but.tag = 3474;
     [self.pickerAndButtonView addSubview:but];
     
 }
 
+-(void)addressDetermine
+{
+    
+    self.AddAddressButton.userInteractionEnabled = YES;
+    self.pickerAndButtonView.hidden = YES;
+}
 -(void)setUserAddress
 {
     //在视图添加点击后回收键盘动作
@@ -135,6 +161,13 @@
             UITextField *textFil = [[UITextField alloc] initWithFrame:CGRectMake(0, i*31, self.bgView.frame.size.width, 30)];
             textFil.borderStyle = UITextBorderStyleNone;
             textFil.placeholder = arrayString[i];
+            
+            if (i==1 || i==2) {
+                textFil.keyboardType = UIKeyboardTypeNumberPad;
+            }else
+            {
+                textFil.keyboardType = UIKeyboardTypeDefault;
+            }
             textFil.backgroundColor = [UIColor whiteColor];
             textFil.tag = 10+i;
             textFil.delegate = self;
@@ -159,14 +192,149 @@
     self.AddAddressButton.titleLabel.font = [UIFont systemFontOfSize:20];
     [self.AddAddressButton setTitle:@"添加地址" forState:UIControlStateNormal];
     [self.AddAddressButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.AddAddressButton addTarget:self action:@selector(addAddressServer) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.AddAddressButton];
 
 }
+
+#pragma mark -  添加地址到服务器
+-(void)addAddressServer
+{
+    //回收键盘
+    for (int i = 10; i<14; i++) {
+        UITextField * userTextFild = (UITextField *)[self.view viewWithTag:i];
+        [userTextFild resignFirstResponder];
+    }
+    
+    //搜索输入栏的视图是否有输入的数据
+    BOOL Whether=NO;
+    NSString *prompt=nil;
+    NSArray *arrayString = @[@"请输入收件人姓名",
+                             @"请输入手机号码",
+                             @"请输入电话号码",
+                             @"请选择地区",
+                             @"请输入详细地址"];
+    for (int i=0; i<arrayString.count; i++) {
+        if (i==2) {
+            continue;
+        }
+        if (i==3) {
+            if ([self.addressRegionLbel.text isEqualToString:@"所在地区"]) {
+                prompt = arrayString[i];
+                break;
+            }
+        }else
+        {
+            UITextField *textField = [self.bgView viewWithTag:10+i];
+            if ([textField.text isEqualToString:@""]) {
+                prompt = arrayString[i];
+                break;
+            }
+        }
+        if (i==4) {
+            Whether = YES;
+        }
+    }
+    
+    if (Whether) { //数据正确，提交地址
+        signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+        if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+            
+            NSArray *addressKey = @[@"true_name",
+                                    @"city_id",
+                                    @"area_id",
+                                    @"area_info",
+                                    @"address",
+                                    @"mob_phone",
+                                    @"tel_phone"];
+            
+            NSMutableArray *addressObject = [[NSMutableArray alloc] init];
+            for (int i=0; i<arrayString.count; i++) {
+                UITextField *textFil = [self.bgView viewWithTag:10+i];
+                if (i==3) {
+                    [addressObject addObject:self.addressRegionLbel.text];
+                    continue;
+                }
+                [addressObject addObject:textFil.text];
+            }
+            
+            NSDictionary *addAddressDic;
+            if ([addressObject[2] isEqualToString:@""]) {
+                addAddressDic =
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 signIn.key, @"key",
+                 addressObject[0], addressKey[0],
+                 self.IDArray[0], addressKey[1],
+                 self.IDArray[0], addressKey[2],
+                 self.addressRegionLbel.text, addressKey[3],
+                 addressObject[4], addressKey[4],
+                 addressObject[1], addressKey[5], nil];
+            }else
+            {
+                addAddressDic =
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                 signIn.key, @"key",
+                 addressObject[0], addressKey[0],
+                 self.IDArray[0], addressKey[1],
+                 self.IDArray[0], addressKey[2],
+                 self.addressRegionLbel.text, addressKey[3],
+                 addressObject[4], addressKey[4],
+                 addressObject[1], addressKey[5],
+                 addressObject[2], addressKey[6], nil];
+            }
+            
+            //加载请求地址数据视图
+            UIView *bgActionView = [[UIView alloc] initWithFrame:self.view.frame];
+            bgActionView.backgroundColor = [UIColor blackColor];
+            bgActionView.alpha = 0.7;
+            [self.view addSubview:bgActionView];
+             UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(bgActionView.frame.size.width/2.0-30/2.0, bgActionView.frame.size.height/2.0-30/2.0, 30.0, 30.0)];
+            [aiView startAnimating];
+            aiView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+            [bgActionView addSubview:aiView];
+            
+            //请求增加数据
+            [manager POST:AddAddress parameters:addAddressDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"%@", operation.responseSerializer);
+                NSLog(@"JSON: %@", dict);
+                
+                [bgActionView removeFromSuperview];
+                //返回第二层目录
+                [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -3)] animated:YES];
+                
+            }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                NSLog(@"Error: %@", error);
+                [bgActionView removeFromSuperview];
+            }];
+        }else //没有令牌，也就是没有登录
+        {
+            
+        }
+    }else //数据错误， 提示哪里没有一输入
+    {
+        if (self.errorRefresh==nil) {
+            self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:prompt];
+            [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+            [self.view addSubview:self.errorRefresh];
+        }
+    }
+}
+
 #pragma mark - 所在区选择
 -(void)addressButtonAction
 {
     [self keyboardAction];
+    self.AddAddressButton.userInteractionEnabled = NO;
     self.pickerAndButtonView.hidden = NO;
+    //设置地区
+    self.addressRegionLbel.text = [NSString stringWithFormat:@"%@ %@ %@",
+                                   self.provinceString,
+                                   self.cityString,
+                                   self.areaString];
+
 }
 
 #pragma mark - 当用户点击return键的时候执行该方法
@@ -199,6 +367,7 @@
         case 14:
         {
             [textField resignFirstResponder];
+            [self addAddressServer];
             break;
         }
         default:
@@ -280,7 +449,7 @@
             if ([self.provinceNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) { //所有省份都请求回来
                 self.provinceArray = [addressAreaModel setValueWithDictionary:dict];
                 self.provinceNowBecome = YES;
-                
+                self.provinceString = [self.provinceArray[0] area_name];
                 self.cityArray = [[NSArray alloc] init];
                 self.areaArray = [[NSArray alloc] init];
                 
@@ -289,14 +458,38 @@
             }else if ([self.cityNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) { //当前的城市数据请求回来
                 self.cityArray = [addressAreaModel setValueWithDictionary:dict];
                 self.cityNowBecome = YES;
+                self.cityString = [self.cityArray[0] area_name];
                 self.areaArray = [[NSArray alloc] init];
+                
+                self.IDArray = [[NSMutableArray alloc] init]; //重置请求的id
+                [self.IDArray addObject:self.IDNow]; //保存数据编号
                 
                 self.IDNow = [NSString stringWithFormat:@"%@", [self.cityArray[0] area_id]];
                 [self requestAreaAddressList:self.IDNow indexSection:2];  //请求城市对应的区
             }else if ([self.areaNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) //当前的区的数据请求回来
             {
+                if (self.IDArray.count == 1) {
+                    [self.IDArray addObject:self.IDNow]; //保存数据编号
+                }else if (self.IDArray.count > 1)
+                {
+                    self.IDArray[1] = self.IDNow; //保存数据编号
+                }
+                
+                //三级地址请求回来，确定可以按下
+                UIButton *but = [self.pickerAndButtonView viewWithTag:3474];
+                but.userInteractionEnabled = YES;
+                but.alpha=1;
+                
                 self.areaNowBecome = YES;
                 self.areaArray = [addressAreaModel setValueWithDictionary:dict];
+                self.areaString = [self.areaArray[0] area_name];
+                
+                if (self.pickerAndButtonView.hidden == NO) {
+                    self.addressRegionLbel.text = [NSString stringWithFormat:@"%@ %@ %@",
+                                                   self.provinceString,
+                                                   self.cityString,
+                                                   self.areaString];
+                }
             }
             for (int i=0; i<3; i++) { //刷新数据
                 [self.pickerView reloadComponent:i];
@@ -352,16 +545,31 @@ numberOfRowsInComponent:(NSInteger)component {
 - (void)pickerView:(UIPickerView *)pickerView
       didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if (component == 0) {
+        
+        //设置如果三级地址没有请求回来，就不能确定
+        UIButton *but = [self.pickerAndButtonView viewWithTag:3474];
+        but.userInteractionEnabled = NO;
+        but.alpha=0.4;
+        
         self.IDNow = [NSString stringWithFormat:@"%@", [self.provinceArray[row] area_id]];
         self.provinceString = [self.provinceArray[row] area_name]; //保存选择的省
         self.cityString = @"";
         self.areaString = @"";
         [self requestAreaAddressList:self.IDNow indexSection:1];  //请求省份对应的城市
+        
+        
+        self.cityArray = [[NSArray alloc] init];
+        self.areaArray = [[NSArray alloc] init];
+        [self.pickerView reloadComponent:1];//第二列重新读值（刷新）
+        [self.pickerView reloadComponent:2];//第三列重新读值（刷新）
     }else  if (component == 1){
         self.IDNow = [NSString stringWithFormat:@"%@", [self.cityArray[row] area_id]];
         self.cityString = [self.cityArray[row] area_name]; //保存选择的市
         self.areaString = @"";
         [self requestAreaAddressList:self.IDNow indexSection:2];  //请求城市对应的区
+        
+        self.areaArray = [[NSArray alloc] init];
+        [self.pickerView reloadComponent:2];//第三列重新读值（刷新）
     }else
     {
         self.areaString = [self.areaArray[row] area_name]; //保存选择的区
@@ -372,6 +580,11 @@ numberOfRowsInComponent:(NSInteger)component {
                                    self.areaString];
 }
 
+-(void)setStoplabel
+{
+    [self.errorRefresh removeFromSuperview];
+    self.errorRefresh = nil;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

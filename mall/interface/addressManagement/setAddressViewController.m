@@ -125,6 +125,33 @@
 {
     return 0.01;
 }
+#pragma mark - 编辑删除table
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+#pragma mark 在滑动手势删除某一行的时候，显示按钮
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 添加一个删除按钮
+    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        NSLog(@"点击了删除");
+        
+    }];
+    
+    // 删除一个置顶按钮
+    UITableViewRowAction *editRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"编辑" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        NSLog(@"点击了编辑");
+        
+        
+    }];
+    editRowAction.backgroundColor = [UIColor orangeColor];
+    
+    // 将设置好的按钮放到数组中返回
+    return @[deleteRowAction, editRowAction];
+}
+
 
 #pragma mark - 添加地址按钮
 -(void)addAddressButton
