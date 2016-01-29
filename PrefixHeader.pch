@@ -26,15 +26,15 @@
 
 //调试模式下的颜色 就是把默认白色的颜色改成下面的颜色调试
 //调试完之后全部置白 只有白色才可以使用下面的配置
-//#define greenColorDebug [UIColor greenColor]
-//#define redColorDebug [UIColor redColor]
-//#define blueColorDebug [UIColor blueColor]
-//#define bgMagentaColor [UIColor MagentaColor]
+#define greenColorDebug [UIColor greenColor]
+#define redColorDebug [UIColor redColor]
+#define blueColorDebug [UIColor blueColor]
+#define bgMagentaColor [UIColor MagentaColor]
 
-#define greenColorDebug [UIColor whiteColor]
-#define redColorDebug [UIColor whiteColor]
-#define blueColorDebug [UIColor whiteColor]
-#define bgMagentaColor [UIColor whiteColor]
+//#define greenColorDebug [UIColor whiteColor]
+//#define redColorDebug [UIColor whiteColor]
+//#define blueColorDebug [UIColor whiteColor]
+//#define bgMagentaColor [UIColor whiteColor]
 
 
 //设置 goodInformationViewController  视图的变量
@@ -166,6 +166,8 @@
 #define AreaAddressList @"http://shop.trqq.com/mobile/index.php?act=member_address&op=area_list"
 //地址添加(post)
 #define AddAddress @"http://shop.trqq.com/mobile/index.php?act=member_address&op=address_add"
+//地址删除(post)
+#define deleteAddress @"http://shop.trqq.com/mobile/index.php?act=member_address&op=address_del"
 /**************************************************************************************************
  *************************************************************************************************/
 

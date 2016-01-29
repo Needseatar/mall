@@ -13,7 +13,7 @@
 @interface setAddressViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (retain, nonatomic) UITableView    *tabelview;
-@property (retain, nonatomic) NSArray        *addressData;
+@property (retain, nonatomic) NSMutableArray *addressData;
 
 
 @end
@@ -137,14 +137,40 @@
     // 添加一个删除按钮
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         NSLog(@"点击了删除");
-        
+        signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+        if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+            
+            NSDictionary *deleteAddressList =
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             signIn.key, @"key",
+             [self.addressData[indexPath.row] address_id], @"address_id", nil];
+            [manager POST:deleteAddress parameters:deleteAddressList success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"JSON: %@", dict);
+                
+                if ([dict[@"datas"] isEqualToString:@"1"]) {
+                    [self.addressData removeObjectAtIndex:[indexPath section]];  //删除数组里的数据
+                    [self.tabelview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]  withRowAnimation:UITableViewRowAnimationFade];  //删除对应的组数
+                }
+            }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                
+                NSLog(@"Error: %@", error);
+            }];
+        }else //没有令牌，也就是没有登录
+        {
+            ;
+        }
     }];
     
     // 删除一个置顶按钮
     UITableViewRowAction *editRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"编辑" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         NSLog(@"点击了编辑");
         
-        
+        addAddressViewController *addAddressVC = [[addAddressViewController alloc] init];
+        addAddressVC.addressList = self.addressData[indexPath.row];
+        [self.navigationController pushViewController:addAddressVC animated:YES];
     }];
     editRowAction.backgroundColor = [UIColor orangeColor];
     

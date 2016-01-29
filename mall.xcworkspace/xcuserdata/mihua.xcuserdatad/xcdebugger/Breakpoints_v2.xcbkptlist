@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mall/interface/addressManagement/addAddressViewController.m"
-            timestampString = "475661494.255186"
+            timestampString = "475746779.814772"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
-            landmarkName = "-addAddressServer"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "-addressDetermine"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

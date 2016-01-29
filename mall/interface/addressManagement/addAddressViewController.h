@@ -11,4 +11,6 @@
 
 @interface addAddressViewController : UIViewController
 
+@property (retain, nonatomic) addressListModel *addressList;
+
 @end

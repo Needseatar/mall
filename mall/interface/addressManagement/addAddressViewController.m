@@ -36,9 +36,8 @@
 @property (retain, nonatomic) NSString     *cityString;      //当前选择的城市
 @property (retain, nonatomic) NSString     *areaString;      //当前选择的地区
 
-@property (retain, nonatomic) NSMutableArray *IDArray;      //保存了城市编号(地址联动的第二级)地区编号(地址联动的第三级)的字符串对象
-
-
+@property (retain, nonatomic) NSString     *city_id;
+@property (retain, nonatomic) NSString     *area_id;
 
 @property (retain, nonatomic) UILabel           *errorRefresh; //数据没有输入提示
 
@@ -55,7 +54,13 @@
     
     [self initPicker]; //设置地址选择器 和 按钮
     
-    [self requestAreaAddressList:nil indexSection:0];  //请求省份
+    if ([self.addressList isKindOfClass:[addressListModel class]]) { //编辑跳转
+        [self requestAreaAddressList:nil indexSection:0];  //请求省份
+        
+    }else
+    {
+        [self requestAreaAddressList:nil indexSection:0];  //请求省份
+    }
 }
 
 -(void)setInitData
@@ -64,8 +69,9 @@
     self.title = @"添加地址";
     
     self.reginSelect = NO;
+    self.city_id = @"";
+    self.area_id = @"";
     
-    self.IDArray = [[NSMutableArray alloc] init];
     
     self.provinceString = [[NSString alloc] init];
     self.cityString = [[NSString alloc] init];
@@ -115,6 +121,9 @@
     
     self.AddAddressButton.userInteractionEnabled = YES;
     self.pickerAndButtonView.hidden = YES;
+    
+    NSLog(@"%@,%@", self.city_id, self.area_id);
+    NSLog(@"%@,%@,%@", self.addressList.address_id, self.addressList.city_id, self.addressList.area_id);
 }
 -(void)setUserAddress
 {
@@ -266,8 +275,8 @@
                 [NSDictionary dictionaryWithObjectsAndKeys:
                  signIn.key, @"key",
                  addressObject[0], addressKey[0],
-                 self.IDArray[0], addressKey[1],
-                 self.IDArray[0], addressKey[2],
+                 self.city_id, addressKey[1],
+                 self.area_id, addressKey[2],
                  self.addressRegionLbel.text, addressKey[3],
                  addressObject[4], addressKey[4],
                  addressObject[1], addressKey[5], nil];
@@ -277,8 +286,8 @@
                 [NSDictionary dictionaryWithObjectsAndKeys:
                  signIn.key, @"key",
                  addressObject[0], addressKey[0],
-                 self.IDArray[0], addressKey[1],
-                 self.IDArray[0], addressKey[2],
+                 self.city_id, addressKey[1],
+                 self.area_id, addressKey[2],
                  self.addressRegionLbel.text, addressKey[3],
                  addressObject[4], addressKey[4],
                  addressObject[1], addressKey[5],
@@ -308,6 +317,11 @@
             }failure:^(AFHTTPRequestOperation *operation, NSError *error){
                 NSLog(@"Error: %@", error);
                 [bgActionView removeFromSuperview];
+                if (self.errorRefresh==nil) {
+                    self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"添加失败"];
+                    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                    [self.view addSubview:self.errorRefresh];
+                }
             }];
         }else //没有令牌，也就是没有登录
         {
@@ -458,31 +472,42 @@
             }else if ([self.cityNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) { //当前的城市数据请求回来
                 self.cityArray = [addressAreaModel setValueWithDictionary:dict];
                 self.cityNowBecome = YES;
-                self.cityString = [self.cityArray[0] area_name];
+                if (self.cityArray.count != 0) {
+                    self.cityString = [self.cityArray[0] area_name];
+                }else
+                {
+                    self.cityString = @"";
+                }
                 self.areaArray = [[NSArray alloc] init];
-                
-                self.IDArray = [[NSMutableArray alloc] init]; //重置请求的id
-                [self.IDArray addObject:self.IDNow]; //保存数据编号
                 
                 self.IDNow = [NSString stringWithFormat:@"%@", [self.cityArray[0] area_id]];
                 [self requestAreaAddressList:self.IDNow indexSection:2];  //请求城市对应的区
             }else if ([self.areaNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) //当前的区的数据请求回来
             {
-                if (self.IDArray.count == 1) {
-                    [self.IDArray addObject:self.IDNow]; //保存数据编号
-                }else if (self.IDArray.count > 1)
-                {
-                    self.IDArray[1] = self.IDNow; //保存数据编号
-                }
                 
                 //三级地址请求回来，确定可以按下
                 UIButton *but = [self.pickerAndButtonView viewWithTag:3474];
                 but.userInteractionEnabled = YES;
                 but.alpha=1;
                 
+                
                 self.areaNowBecome = YES;
                 self.areaArray = [addressAreaModel setValueWithDictionary:dict];
-                self.areaString = [self.areaArray[0] area_name];
+                
+                
+                //初始化添加地址的id的数据
+                self.city_id = self.IDNow;
+                
+                if (self.areaArray.count != 0) {
+                    self.areaString = [self.areaArray[0] area_name];
+                    //初始化最后的添加id数据
+                    self.area_id = [self.areaArray[0] area_id];
+                }else
+                {
+                    self.areaString = @"";
+                    self.area_id = @"";
+                }
+                
                 
                 if (self.pickerAndButtonView.hidden == NO) {
                     self.addressRegionLbel.text = [NSString stringWithFormat:@"%@ %@ %@",
@@ -572,6 +597,7 @@ numberOfRowsInComponent:(NSInteger)component {
         [self.pickerView reloadComponent:2];//第三列重新读值（刷新）
     }else
     {
+        self.area_id = [self.areaArray[row] area_id];
         self.areaString = [self.areaArray[row] area_name]; //保存选择的区
     }
     self.addressRegionLbel.text = [NSString stringWithFormat:@"%@ %@ %@",
