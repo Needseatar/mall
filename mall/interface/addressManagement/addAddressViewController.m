@@ -39,7 +39,11 @@
 @property (retain, nonatomic) NSString     *city_id;
 @property (retain, nonatomic) NSString     *area_id;
 
-@property (retain, nonatomic) UILabel           *errorRefresh; //数据没有输入提示
+@property (retain, nonatomic) UILabel      *errorRefresh; //数据没有输入提示
+
+@property (retain, nonatomic) NSArray      *areaNameArray;
+@property (assign, nonatomic) BOOL         whetherEdit; //默认市no， 如果是编辑跳转就是Yes
+@property (retain, nonatomic) NSString     *addressEditID; //保存了编辑地址的id
 
 @end
 
@@ -55,10 +59,33 @@
     [self initPicker]; //设置地址选择器 和 按钮
     
     if ([self.addressList isKindOfClass:[addressListModel class]]) { //编辑跳转
+        self.whetherEdit = YES;
+        self.areaNameArray = [[self.addressList area_info] componentsSeparatedByString:@" "];//获取省市区的地址
+        
+        NSArray *editDataArray = @[self.addressList.true_name,
+                                   self.addressList.mob_phone,
+                                   self.addressList.tel_phone,
+                                   self.addressList.area_info,
+                                   self.addressList.address];
+        for (int i=0; i<editDataArray.count; i++) {
+            if (i==3) {
+                self.addressRegionLbel.text = editDataArray[i];
+                continue;
+            }
+            UITextField *textFil = [self.bgView viewWithTag:10+i];
+            if ([editDataArray[i] isEqualToString:@"<null>"]) {
+                textFil.text = @"";
+            }else
+            {
+                textFil.text = editDataArray[i];
+            }
+        }
+        
         [self requestAreaAddressList:nil indexSection:0];  //请求省份
         
     }else
     {
+        self.whetherEdit = NO;
         [self requestAreaAddressList:nil indexSection:0];  //请求省份
     }
 }
@@ -120,11 +147,13 @@
 {
     
     self.AddAddressButton.userInteractionEnabled = YES;
+    self.AddAddressButton.alpha = 1;
     self.pickerAndButtonView.hidden = YES;
     
     NSLog(@"%@,%@", self.city_id, self.area_id);
     NSLog(@"%@,%@,%@", self.addressList.address_id, self.addressList.city_id, self.addressList.area_id);
 }
+#pragma mark - 设置视图
 -(void)setUserAddress
 {
     //在视图添加点击后回收键盘动作
@@ -269,10 +298,10 @@
                 [addressObject addObject:textFil.text];
             }
             
-            NSDictionary *addAddressDic;
+            NSMutableDictionary *addAddressDic;
             if ([addressObject[2] isEqualToString:@""]) {
                 addAddressDic =
-                [NSDictionary dictionaryWithObjectsAndKeys:
+                [NSMutableDictionary dictionaryWithObjectsAndKeys:
                  signIn.key, @"key",
                  addressObject[0], addressKey[0],
                  self.city_id, addressKey[1],
@@ -283,7 +312,7 @@
             }else
             {
                 addAddressDic =
-                [NSDictionary dictionaryWithObjectsAndKeys:
+                [NSMutableDictionary dictionaryWithObjectsAndKeys:
                  signIn.key, @"key",
                  addressObject[0], addressKey[0],
                  self.city_id, addressKey[1],
@@ -304,8 +333,18 @@
             aiView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
             [bgActionView addSubview:aiView];
             
+            NSString *url;
+            if (self.whetherEdit==NO) {
+                url=AddAddress;
+            }else
+            {
+                url=EditAddress;
+                NSDictionary *dicAddress = [NSDictionary dictionaryWithObjectsAndKeys:self.addressEditID, @"address_id", nil];
+                [addAddressDic addEntriesFromDictionary:dicAddress];
+                NSLog(@"%@", addAddressDic);
+            }
             //请求增加数据
-            [manager POST:AddAddress parameters:addAddressDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [manager POST:url parameters:addAddressDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
                 NSLog(@"%@", operation.responseSerializer);
                 NSLog(@"JSON: %@", dict);
@@ -342,6 +381,7 @@
 {
     [self keyboardAction];
     self.AddAddressButton.userInteractionEnabled = NO;
+    self.AddAddressButton.alpha = 0.4;
     self.pickerAndButtonView.hidden = NO;
     //设置地区
     self.addressRegionLbel.text = [NSString stringWithFormat:@"%@ %@ %@",
@@ -467,8 +507,26 @@
                 self.cityArray = [[NSArray alloc] init];
                 self.areaArray = [[NSArray alloc] init];
                 
-                self.IDNow = [NSString stringWithFormat:@"%@", [self.provinceArray[0] area_id]];
-                [self requestAreaAddressList:self.IDNow indexSection:1];  //请求省份对应的城市
+                [self.pickerView reloadComponent:0];
+                if ([self.addressList isKindOfClass:[addressListModel class]]) { //判断是不是编辑跳转
+                    for (int i=0; i<self.provinceArray.count; i++) {
+                        if ([[self.provinceArray[i] area_name] isEqualToString:self.areaNameArray[0]]) {
+                            [self.pickerView selectRow:i inComponent:0 animated:NO];
+                            
+                            self.provinceString = [self.provinceArray[i] area_name];
+
+                            
+                            self.IDNow = [NSString stringWithFormat:@"%@", [self.provinceArray[i] area_id]];
+                            [self requestAreaAddressList:self.IDNow indexSection:1];  //请求省份对应的城市
+                            break;
+                        }
+                    }
+                }else
+                {
+                    self.IDNow = [NSString stringWithFormat:@"%@", [self.provinceArray[0] area_id]];
+                    [self requestAreaAddressList:self.IDNow indexSection:1];  //请求省份对应的城市
+                }
+                
             }else if ([self.cityNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) { //当前的城市数据请求回来
                 self.cityArray = [addressAreaModel setValueWithDictionary:dict];
                 self.cityNowBecome = YES;
@@ -480,11 +538,29 @@
                 }
                 self.areaArray = [[NSArray alloc] init];
                 
-                self.IDNow = [NSString stringWithFormat:@"%@", [self.cityArray[0] area_id]];
-                [self requestAreaAddressList:self.IDNow indexSection:2];  //请求城市对应的区
+                [self.pickerView reloadComponent:1];
+                if ([self.addressList isKindOfClass:[addressListModel class]]) { //判断是不是编辑跳转
+                    for (int i=0; i<self.cityArray.count; i++) {
+                        if ([[self.cityArray[i] area_name] isEqualToString:self.areaNameArray[1]]) {
+                            [self.pickerView selectRow:i inComponent:1 animated:NO];
+                            self.cityString = [self.cityArray[i] area_name];
+
+                            
+                            self.IDNow = [NSString stringWithFormat:@"%@", [self.cityArray[i] area_id]];
+                            [self requestAreaAddressList:self.IDNow indexSection:2];  //请求城市对应的区
+                            break;
+                        }
+                    }
+                }else
+                {
+                    self.IDNow = [NSString stringWithFormat:@"%@", [self.cityArray[0] area_id]];
+                    [self requestAreaAddressList:self.IDNow indexSection:2];  //请求城市对应的区
+                }
+                
             }else if ([self.areaNowOperation isEqualToString:[NSString stringWithFormat:@"%@", operation.responseSerializer]]) //当前的区的数据请求回来
             {
                 
+                NSLog(@"JSON: %@", dict);
                 //三级地址请求回来，确定可以按下
                 UIButton *but = [self.pickerAndButtonView viewWithTag:3474];
                 but.userInteractionEnabled = YES;
@@ -500,7 +576,6 @@
                 
                 if (self.areaArray.count != 0) {
                     self.areaString = [self.areaArray[0] area_name];
-                    //初始化最后的添加id数据
                     self.area_id = [self.areaArray[0] area_id];
                 }else
                 {
@@ -508,6 +583,24 @@
                     self.area_id = @"";
                 }
                 
+                [self.pickerView reloadComponent:2];
+                if ([self.addressList isKindOfClass:[addressListModel class]]) { //判断是不是编辑跳转
+                    if (self.areaNameArray.count ==  3) {
+                        for (int i=0; i<self.areaArray.count; i++) {
+                            if ([[self.areaArray[i] area_name] isEqualToString:self.areaNameArray[2]]) {
+                                [self.pickerView selectRow:i inComponent:2 animated:NO];
+                                self.areaString = self.areaNameArray[2];
+                                //添加地址的id的数据覆盖之前的值
+                                self.area_id = [self.areaArray[i] area_id];
+                                
+                                self.addressEditID = self.addressList.address_id;
+                                self.addressList = nil;
+                                
+                                break;
+                            }
+                        }
+                    }
+                }
                 
                 if (self.pickerAndButtonView.hidden == NO) {
                     self.addressRegionLbel.text = [NSString stringWithFormat:@"%@ %@ %@",
@@ -515,9 +608,6 @@
                                                    self.cityString,
                                                    self.areaString];
                 }
-            }
-            for (int i=0; i<3; i++) { //刷新数据
-                [self.pickerView reloadComponent:i];
             }
             
         }failure:^(AFHTTPRequestOperation *operation, NSError *error){

@@ -30,6 +30,10 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    if ([self.addressData isKindOfClass:[NSMutableArray class]]) {
+        [self.tabelview reloadData];
+    }
+    
     self.navigationController.navigationBarHidden = NO;
     
     self.tabBarController.tabBar.hidden = YES;
@@ -124,6 +128,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.01;
+}
+//地址选择
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 #pragma mark - 编辑删除table
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
