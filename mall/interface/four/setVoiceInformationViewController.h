@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "voiceListTableViewCell.h"
+#import "AddVoiceTableViewCell.h"
+#import "voiceListModel.h"
 
 @interface setVoiceInformationViewController : UIViewController
 

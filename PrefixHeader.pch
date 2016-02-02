@@ -168,8 +168,14 @@
 #define AddAddress @"http://shop.trqq.com/mobile/index.php?act=member_address&op=address_add"
 //地址编辑(post)
 #define EditAddress @"http://shop.trqq.com/mobile/index.php?act=member_address&op=address_edit"
+//更换收货地址(post)
+#define ChangeAddress @"http://shop.trqq.com/mobile/index.php?act=member_buy&op=change_address"
 //地址删除(post)
 #define deleteAddress @"http://shop.trqq.com/mobile/index.php?act=member_address&op=address_del"
+//发票列表(post)
+#define voiceListPost @"http://shop.trqq.com/mobile/index.php?act=member_invoice&op=invoice_list"
+//发票添加(post)
+#define AddvoiceListPost @"http://shop.trqq.com/mobile/index.php?act=member_invoice&op=invoice_add"
 /**************************************************************************************************
  *************************************************************************************************/
 

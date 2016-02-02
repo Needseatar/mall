@@ -40,11 +40,15 @@
     
     
     self.tabBarController.tabBar.hidden = YES; //设置标签栏不隐藏
-    [self requestShoppingCartFister];
+    
+    
+    
 }
 #pragma mark - 进入视图
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self requestShoppingCartFister];
     
     [self setTabelView];
     
@@ -70,21 +74,6 @@
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
             NSLog(@"JSON: %@", dict);
             self.storeData = [storeCartModel setValueWithDictionary:dict];
-            
-            NSLog(@"%@", self.storeData.freight_hash);
-            
-            addressInfo *dadf = self.storeData.address_info;
-            NSLog(@"%@", dadf.area_info);
-            
-            ShoppingInvInfo *lll = self.storeData.inv_info;
-            NSLog(@"%@", lll.inv_content);
-            
-            storeCartInformaton *lsd = self.storeData.store_cart_list[0];
-            NSLog(@"%@", lsd.store_name);
-            
-            
-            storeCartGoodsList *dsdl = lsd.goods_list[0];
-            NSLog(@"%@", dsdl.goods_name);
             
             //初始化用户的支付方式，是否支持货到付款
             if ([self.storeData.ifshow_offpay isKindOfClass:[NSString class]]) {
@@ -134,6 +123,7 @@
     NSString *str = [notification object];
     if ([str isEqualToString:@"AddressSkip"]) { //地址设置跳转
         setAddressViewController *addressViewControl = [[setAddressViewController alloc] init];
+        addressViewControl.freight_hash = self.storeData.freight_hash;
         [self.navigationController pushViewController:addressViewControl animated:YES];
     }else if ([str isEqualToString:@"SetpPayMethodView"]) //支付方式设置
     {

@@ -14,4 +14,6 @@
 
 @interface setAddressViewController : UIViewController
 
+@property (retain, nonatomic) NSString *freight_hash;
+
 @end

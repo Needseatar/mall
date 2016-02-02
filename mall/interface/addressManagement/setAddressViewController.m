@@ -132,7 +132,34 @@
 //地址选择
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        
+        addressListModel *selectAddress = self.addressData[indexPath.row];
+        NSDictionary *signInChangeAddress =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         signIn.key, @"key",
+         self.freight_hash, @"freight_hash",
+         selectAddress.city_id, @"city_id",
+         selectAddress.area_id, @"area_id", nil];
+        NSLog(@"%@", signInChangeAddress);
+        [manager POST:ChangeAddress parameters:signInChangeAddress success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"JSON: %@", dict);
+            
+            
+            [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
+            
+        }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+            
+            NSLog(@"Error: %@", error);
+        }];
+    }else //没有令牌，也就是没有登录
+    {
+        ;
+    }
 }
 #pragma mark - 编辑删除table
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
