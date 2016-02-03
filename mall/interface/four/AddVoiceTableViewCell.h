@@ -10,4 +10,8 @@
 
 @interface AddVoiceTableViewCell : UITableViewCell
 
+@property (retain, nonatomic) UIView      *bgView;
+@property (retain, nonatomic) UITextField *companyInformation;
+@property (retain, nonatomic) UILabel     *voiceTitleDetails;
+
 @end

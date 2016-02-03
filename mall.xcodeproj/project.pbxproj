@@ -652,15 +652,15 @@
 		1BEF946A1BFD660000F7470D /* interface */ = {
 			isa = PBXGroup;
 			children = (
+				1B7E14031C32261400BBA789 /* publicView */,
 				1BAEB0211C3B9E3E00285AAF /* merchantShop */,
 				1BAEB0231C3BA00B00285AAF /* goodsClassification */,
-				1B7E14031C32261400BBA789 /* publicView */,
 				1BF66F141C57503C003DF5E1 /* addressManagement */,
 				1BEF946B1BFD660000F7470D /* fist */,
-				1BEF946E1BFD660000F7470D /* five */,
-				1BEF94711BFD660000F7470D /* four */,
 				1BEF94741BFD660000F7470D /* second */,
 				1BEF94771BFD660000F7470D /* third */,
+				1BEF94711BFD660000F7470D /* four */,
+				1BEF946E1BFD660000F7470D /* five */,
 			);
 			path = interface;
 			sourceTree = "<group>";

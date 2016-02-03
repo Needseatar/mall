@@ -176,6 +176,10 @@
 #define voiceListPost @"http://shop.trqq.com/mobile/index.php?act=member_invoice&op=invoice_list"
 //发票添加(post)
 #define AddvoiceListPost @"http://shop.trqq.com/mobile/index.php?act=member_invoice&op=invoice_add"
+//发票删除(post)
+#define delectvoiceListPost @"http://shop.trqq.com/mobile/index.php?act=member_invoice&op=invoice_del"
+//发票内容列表(post)
+#define voiceListInformationPost @"http://shop.trqq.com/mobile/index.php?act=member_invoice&op=invoice_content_list"
 /**************************************************************************************************
  *************************************************************************************************/
 

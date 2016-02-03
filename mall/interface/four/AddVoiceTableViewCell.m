@@ -10,9 +10,10 @@
 
 @interface AddVoiceTableViewCell ()
 
-@property (retain, nonatomic) UIView      *bgView;
+
 @property (retain, nonatomic) UILabel     *AddVoiceTitle;
 @property (retain, nonatomic) NSArray     *titleStringArray;
+
 
 @end
 
@@ -64,10 +65,10 @@
             [bgButton addSubview:selectLabel];
             
             if (i==1) {
-                UITextField *companyInformation = [[UITextField alloc] initWithFrame:CGRectMake(bgButton.frame.origin.x+bgButton.frame.size.width, bgButton.frame.origin.y, self.bgView.frame.size.width-bgButton.frame.size.width, bgButton.frame.size.height)];
-                companyInformation.layer.borderWidth = 1;
-                companyInformation.backgroundColor = greenColorDebug;
-                [self.bgView addSubview:companyInformation];
+                self.companyInformation = [[UITextField alloc] initWithFrame:CGRectMake(bgButton.frame.origin.x+bgButton.frame.size.width, bgButton.frame.origin.y, self.bgView.frame.size.width-bgButton.frame.size.width, bgButton.frame.size.height)];
+                self.companyInformation.layer.borderWidth = 1;
+                self.companyInformation.backgroundColor = greenColorDebug;
+                [self.bgView addSubview:self.companyInformation];
             }
         }
         
@@ -81,9 +82,15 @@
         voiceDetails.backgroundColor = greenColorDebug;
         voiceDetails.image = [UIImage imageNamed:@"spinner_normal.png"];
         [self.bgView addSubview:voiceDetails];
-        UILabel *voiceTitleDetails = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, voiceDetails.frame.size.width-30, voiceDetails.frame.size.height)];
-        voiceTitleDetails.text = @"明细";
-        [voiceDetails addSubview:voiceTitleDetails];
+        
+        UITapGestureRecognizer * voiceAction = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(voiceAction)];//加载点击动作
+        [voiceDetails addGestureRecognizer:voiceAction];
+        voiceDetails.userInteractionEnabled = YES;
+
+        
+        self.voiceTitleDetails = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, voiceDetails.frame.size.width, voiceDetails.frame.size.height)];
+        self.voiceTitleDetails.text = @"";
+        [voiceDetails addSubview:self.voiceTitleDetails];
         
         //保存发票
         NSArray *array = @[@"保存发票信息",@"不需要发票"];
@@ -93,6 +100,7 @@
         fr.size.height = 40;
         for (int i=0; i<array.count; i++) {
             UIButton *but = [[UIButton alloc] initWithFrame:CGRectMake(125*i, 0, 120, 40)];
+            [but addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
             [but setBackgroundColor:greenColorDebug];
             but.tag = 555+i;
             [but setTitle:array[i] forState:UIControlStateNormal];
@@ -109,7 +117,7 @@
             }
         }
         fr.origin.x = self.bgView.frame.size.width/2.0-fr.size.width/2.0;
-        fr.origin.y = voiceDetails.frame.origin.y+voiceTitleDetails.frame.size.height+10;
+        fr.origin.y = voiceDetails.frame.origin.y+self.voiceTitleDetails.frame.size.height+10;
         bgButtonView.frame = fr;
         [self.bgView addSubview:bgButtonView];
     }
@@ -128,6 +136,20 @@
     but.selected = YES;
     selectImageView.image = [UIImage imageNamed:@"trade_info_stream_logistics_time_active_icon.png"];
 
+}
+
+-(void)voiceAction
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"voiceListAction" object:nil];
+}
+-(void)buttonAction:(UIButton *)but
+{
+    if (but.tag == 555) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveOrGiveUpVoice" object:@"Save"];
+    }else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveOrGiveUpVoice" object:@"GiveUp"];
+    }
 }
 - (void)awakeFromNib {
     // Initialization code
