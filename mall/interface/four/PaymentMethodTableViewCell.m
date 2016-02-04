@@ -127,6 +127,7 @@
 {
     self.PayMethodLabel.text = payMethodString;
     self.invoiceNamelabel.text = data.inv_info.content;
+    NSLog(@"%@", data.inv_info.content);
 }
 
 -(void)payMethodViewSkip

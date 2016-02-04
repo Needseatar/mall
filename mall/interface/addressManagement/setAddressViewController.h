@@ -10,10 +10,11 @@
 #import "addressListModel.h"
 #import "setAddressTableViewCell.h"
 #import "addAddressViewController.h"
+#import "storeCartModel.h"
 
 
 @interface setAddressViewController : UIViewController
 
-@property (retain, nonatomic) NSString *freight_hash;
+@property (retain, nonatomic) storeCartModel *storeData;
 
 @end

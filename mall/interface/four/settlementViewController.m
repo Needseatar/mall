@@ -41,8 +41,9 @@
     
     self.tabBarController.tabBar.hidden = YES; //设置标签栏不隐藏
     
-    
-    
+    if ([self.storeData isKindOfClass:[storeCartModel class]]) { //如果是上
+        [self.tabelview reloadData];
+    }
 }
 #pragma mark - 进入视图
 - (void)viewDidLoad {
@@ -123,7 +124,7 @@
     NSString *str = [notification object];
     if ([str isEqualToString:@"AddressSkip"]) { //地址设置跳转
         setAddressViewController *addressViewControl = [[setAddressViewController alloc] init];
-        addressViewControl.freight_hash = self.storeData.freight_hash;
+        addressViewControl.storeData = self.storeData;
         [self.navigationController pushViewController:addressViewControl animated:YES];
     }else if ([str isEqualToString:@"SetpPayMethodView"]) //支付方式设置
     {
@@ -190,6 +191,7 @@
     }else if ([str isEqualToString:@"invoiceInformationSkip"]) //发票信息设置跳转
     {
         setVoiceInformationViewController *voiceViewControl = [[setVoiceInformationViewController alloc] init];
+        voiceViewControl.storeData = self.storeData;
         [self.navigationController pushViewController:voiceViewControl animated:YES];
     }else if ([str isEqualToString:@"OrderPushSkip"]) //提交订单
     {

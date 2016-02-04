@@ -129,9 +129,9 @@
 {
     return 0.01;
 }
-//地址选择
+#pragma mark - 地址选择
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+{/*
     signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
     if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -141,7 +141,7 @@
         NSDictionary *signInChangeAddress =
         [NSDictionary dictionaryWithObjectsAndKeys:
          signIn.key, @"key",
-         self.freight_hash, @"freight_hash",
+         [self.storeData freight_hash], @"freight_hash",
          selectAddress.city_id, @"city_id",
          selectAddress.area_id, @"area_id", nil];
         NSLog(@"%@", signInChangeAddress);
@@ -160,6 +160,13 @@
     {
         ;
     }
+  */
+    self.storeData.address_info.true_name = [self.addressData[indexPath.row] true_name];
+    self.storeData.address_info.mob_phone = [self.addressData[indexPath.row] mob_phone];
+    self.storeData.address_info.area_info = [self.addressData[indexPath.row] area_info];
+    self.storeData.address_info.address = [self.addressData[indexPath.row] address];
+    [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
+    
 }
 #pragma mark - 编辑删除table
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath

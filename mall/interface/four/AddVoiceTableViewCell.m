@@ -8,7 +8,7 @@
 
 #import "AddVoiceTableViewCell.h"
 
-@interface AddVoiceTableViewCell ()
+@interface AddVoiceTableViewCell ()<UITextFieldDelegate>
 
 
 @property (retain, nonatomic) UILabel     *AddVoiceTitle;
@@ -67,6 +67,7 @@
             if (i==1) {
                 self.companyInformation = [[UITextField alloc] initWithFrame:CGRectMake(bgButton.frame.origin.x+bgButton.frame.size.width, bgButton.frame.origin.y, self.bgView.frame.size.width-bgButton.frame.size.width, bgButton.frame.size.height)];
                 self.companyInformation.layer.borderWidth = 1;
+                self.companyInformation.delegate = self;
                 self.companyInformation.backgroundColor = greenColorDebug;
                 [self.bgView addSubview:self.companyInformation];
             }
@@ -128,7 +129,7 @@
 {
     for (int i=0; i<self.titleStringArray.count; i++) {
         UIButton * button = [self.bgView viewWithTag:10+i];
-        but.selected = NO;
+        button.selected = NO;
         UIImageView *imageView = [button viewWithTag:222];
         imageView.image = [UIImage imageNamed:@"trade_info_stream_logistics_time_icon.png"];
     }
@@ -150,6 +151,13 @@
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SaveOrGiveUpVoice" object:@"GiveUp"];
     }
+}
+
+#pragma mark - 当用户点击return键的时候执行该方法
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 - (void)awakeFromNib {
     // Initialization code

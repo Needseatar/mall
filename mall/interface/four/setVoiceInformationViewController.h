@@ -13,4 +13,7 @@
 
 @interface setVoiceInformationViewController : UIViewController
 
+@property (retain, nonatomic) storeCartModel *storeData;
+
+
 @end

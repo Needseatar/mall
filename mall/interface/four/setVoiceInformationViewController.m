@@ -14,8 +14,15 @@
 @property (retain, nonatomic) UIView      *bgVoiceView;
 @property (retain, nonatomic) UITableView *voiceInformationTabelView;
 @property (retain, nonatomic) NSMutableArray     *data;
-@property (retain, nonatomic) NSArray     *voiceInformation;
+@property (retain, nonatomic) NSArray     *voiceInformation; //发票内容
 @property (retain, nonatomic) NSString    *voiceTitleDetailsString;
+
+//tabelView添加发票组的cell里面的视图
+@property (retain, nonatomic) UIView      *bgView;
+@property (retain, nonatomic) UITextField *companyInformation;
+@property (retain, nonatomic) UILabel     *voiceTitleDetails;
+
+@property (retain, nonatomic) UILabel           *errorRefresh; //刷新失败视图
 
 @end
 
@@ -109,6 +116,11 @@
                 cell = [[AddVoiceTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone; // 设置选中没有颜色
+            //获取cell第二组cell里面的视图
+            self.bgView = cell.bgView;
+            self.companyInformation = cell.companyInformation;
+            self.voiceTitleDetails = cell.voiceTitleDetails;
+            
             cell.voiceTitleDetails.text = self.voiceTitleDetailsString;
             
             return cell;
@@ -130,7 +142,8 @@
 #pragma mark - 跳转
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.tabelView) {
-        ;
+        self.storeData.inv_info.content = [NSString stringWithFormat:@"普通发票 %@ %@", [self.data[indexPath.row] inv_title], [self.data[indexPath.row] inv_content]];
+        [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
     }else
     {
         self.voiceTitleDetailsString = self.voiceInformation[indexPath.row];
@@ -298,11 +311,76 @@
 -(void)VoiceSaveOrGiveUp:(NSNotification *)notification
 {
     if ([[notification object] isEqualToString:@"Save"]) {
-        ;
+        if ([self.companyInformation.text isEqualToString:@""]) {
+            if (self.errorRefresh==nil) {
+                self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"请输入公司名字"];
+                [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];
+                [self.view addSubview:self.errorRefresh];
+            }
+        }else
+        {
+            [self AddVoiceInformation]; //保存发票
+        }
     }else
     {
+        self.storeData.inv_info.content = [NSString stringWithFormat:@"不需要发票"];
         [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
     }
+}
+
+#pragma mark - 添加发票
+-(void)AddVoiceInformation
+{
+    signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        
+        NSDictionary *AddVoiceListInformation;
+        
+        UIButton *selectBut = [self.bgView viewWithTag:10];
+        if (selectBut.selected == YES) {
+            AddVoiceListInformation =
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             signIn.key, @"key",
+             @"person", @"inv_title_select",
+             self.voiceTitleDetails.text, @"inv_content", nil];
+        }else
+        {
+            AddVoiceListInformation =
+            [NSDictionary dictionaryWithObjectsAndKeys:
+             signIn.key, @"key",
+             @"company", @"inv_title_select",
+             self.companyInformation.text, @"inv_title",
+             self.voiceTitleDetails.text, @"inv_content", nil];
+        }
+        NSLog(@"%@", AddVoiceListInformation);
+        [manager POST:AddvoiceListPost parameters:AddVoiceListInformation success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"JSON: %@", dict);
+            
+            NSDictionary *VoiceList = dict[@"datas"];
+            self.voiceInformation = VoiceList[@"invoice_content_list"];
+            if (self.voiceInformation.count>0) {
+                self.voiceTitleDetailsString = self.voiceInformation[0];
+            }
+            
+            [self.tabelView reloadData];
+            [self.voiceInformationTabelView reloadData];
+            
+        }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+            NSLog(@"Error: %@", error);
+        }];
+    }else //没有令牌，也就是没有登录
+    {
+        ;
+    }
+}
+
+-(void)setStoplabel
+{
+    [self.errorRefresh removeFromSuperview];
+    self.errorRefresh = nil;
 }
 
 - (void)didReceiveMemoryWarning {
