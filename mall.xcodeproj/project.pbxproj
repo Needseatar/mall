@@ -133,6 +133,8 @@
 		1BF66F1B1C57503C003DF5E1 /* addAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF66F161C57503C003DF5E1 /* addAddressViewController.m */; };
 		1BF66F1C1C57503C003DF5E1 /* setAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF66F181C57503C003DF5E1 /* setAddressTableViewCell.m */; };
 		1BF66F1D1C57503C003DF5E1 /* setAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF66F1A1C57503C003DF5E1 /* setAddressViewController.m */; };
+		1BF7AAF51C702C3F00328BC2 /* account_tab_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7AAF41C702C3F00328BC2 /* account_tab_bg.png */; };
+		1BF7AAFB1C70730500328BC2 /* UIView+loadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7AAFA1C70730500328BC2 /* UIView+loadingImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -352,6 +354,9 @@
 		1BF66F181C57503C003DF5E1 /* setAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setAddressTableViewCell.m; sourceTree = "<group>"; };
 		1BF66F191C57503C003DF5E1 /* setAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setAddressViewController.h; sourceTree = "<group>"; };
 		1BF66F1A1C57503C003DF5E1 /* setAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setAddressViewController.m; sourceTree = "<group>"; };
+		1BF7AAF41C702C3F00328BC2 /* account_tab_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = account_tab_bg.png; sourceTree = "<group>"; };
+		1BF7AAF91C70730500328BC2 /* UIView+loadingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+loadingImageView.h"; sourceTree = "<group>"; };
+		1BF7AAFA1C70730500328BC2 /* UIView+loadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+loadingImageView.m"; sourceTree = "<group>"; };
 		459B52899CA9205C5D7003AB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		99D9C3188B0B8A822BA52518 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FF8F3B935D9E0FA1FF88A65C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -386,6 +391,7 @@
 		1B2710321C4C85C3002E5405 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				1BF7AAF41C702C3F00328BC2 /* account_tab_bg.png */,
 				1BF38D0F1C60947C001CB3D6 /* spinner_normal.png */,
 				1BCA1B221C5F496F00D189B6 /* trade_info_stream_logistics_time_active_icon@2x.png */,
 				1BCA1B231C5F496F00D189B6 /* trade_info_stream_logistics_time_icon@2x.png */,
@@ -516,6 +522,8 @@
 				1B7E14081C32273A00BBA789 /* loadingImageView.m */,
 				1B7E899D1C3F8E6300EBEDA2 /* tabelBarID.h */,
 				1B7E899E1C3F8E6300EBEDA2 /* tabelBarID.m */,
+				1BF7AAF91C70730500328BC2 /* UIView+loadingImageView.h */,
+				1BF7AAFA1C70730500328BC2 /* UIView+loadingImageView.m */,
 			);
 			path = publicView;
 			sourceTree = "<group>";
@@ -954,6 +962,7 @@
 				1BEF93E91BFD62FC00F7470D /* LaunchScreen.storyboard in Resources */,
 				1B2710611C4C85C3002E5405 /* accsessory_check.png in Resources */,
 				1B27108B1C4C85C3002E5405 /* product_detail_new_collect_pressed.png in Resources */,
+				1BF7AAF51C702C3F00328BC2 /* account_tab_bg.png in Resources */,
 				1B8609851C5083410011492A /* accsessory_arrow_right@2x.png in Resources */,
 				1B27106A1C4C85C3002E5405 /* dialog_bocop_loading_rotate_anim_img.png in Resources */,
 				1B2710651C4C85C3002E5405 /* coupon_double_arrow_normal.png in Resources */,
@@ -1070,6 +1079,7 @@
 				1B7039471C4751CE0041FDBD /* ShoppingInvInfo.m in Sources */,
 				1B27109C1C4CC295002E5405 /* settlementShoppingTableViewCell.m in Sources */,
 				1B625AFA1C1E72A600DBAF24 /* dataCommodityInformation.m in Sources */,
+				1BF7AAFB1C70730500328BC2 /* UIView+loadingImageView.m in Sources */,
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
 				1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */,
 				1BCEF2441C532AF8002817E7 /* submitOrderViewController.m in Sources */,

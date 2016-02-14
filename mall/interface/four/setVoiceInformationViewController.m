@@ -364,7 +364,7 @@
             if (self.voiceInformation.count>0) {
                 self.voiceTitleDetailsString = self.voiceInformation[0];
             }
-            
+            [self requestVoiceList]; //请求发票列表
             [self.tabelView reloadData];
             [self.voiceInformationTabelView reloadData];
             

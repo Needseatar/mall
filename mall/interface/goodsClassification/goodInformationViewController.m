@@ -561,12 +561,9 @@
         case 1:
         {
             signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
-            if (signIn.whetherSignIn == YES) {
-                //跳回根视图
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                //跳转到购物车
-                tabelBarID *TB = [tabelBarID shareTabbarID:nil];
-                TB.tabbarControl.selectedIndex = 3;
+            if (signIn.whetherSignIn == YES) {  
+                fourViewController *goodsCar = [[fourViewController alloc] init];
+                [self.navigationController pushViewController:goodsCar animated:YES];
                 break;
             }else
             {

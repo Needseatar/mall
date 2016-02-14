@@ -100,7 +100,7 @@
 #pragma mark - 设置TabelView界面
 -(void)setTabel
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Navigation+UpState+130+tabelLogoInterval, 320, 568-Navigation-UpState-130-tabelLogoInterval-companyAndWebBGHeight)style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Navigation+UpState+130+tabelLogoInterval, self.view.frame.size.width, self.view.frame.size.height-Navigation-UpState-130-tabelLogoInterval-companyAndWebBGHeight)style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -155,17 +155,17 @@
     self.bgCompanyView.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
     [self.view addSubview:self.bgCompanyView];
     
-    UILabel *webLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width-10, 20)];
+    UILabel *webLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (companyAndWebBGHeight/3.0)*0, self.view.frame.size.width-10*2, companyAndWebBGHeight/3.0-5)];
     webLabel.text = @"官方网站：http://shop.trqq.com/";
     webLabel.textColor = [UIColor darkGrayColor];
     [self.bgCompanyView addSubview:webLabel];
     
-    UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(10, 40, self.view.frame.size.width-10, 20)];
+    UILabel *companyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (companyAndWebBGHeight/3.0)*1, self.view.frame.size.width-10*2, companyAndWebBGHeight/3.0-5)];
     companyLabel.text = @"公司名称：广西泰润网络科技有限公司";
     companyLabel.textColor = [UIColor darkGrayColor];
     [self.bgCompanyView addSubview:companyLabel];
     
-    UILabel *telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMakeEx(10, 70, self.view.frame.size.width-10, 20)];
+    UILabel *telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (companyAndWebBGHeight/3.0)*2, self.view.frame.size.width-10*2, companyAndWebBGHeight/3.0-5)];
     telephoneLabel.text = @"电话号码：400-0852-562";
     telephoneLabel.textColor = [UIColor darkGrayColor];
     [self.bgCompanyView addSubview:telephoneLabel];

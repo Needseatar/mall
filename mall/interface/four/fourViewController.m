@@ -16,6 +16,7 @@
 
 @interface fourViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (assign, nonatomic) BOOL              settlement; //设置有没有tab
 @property (retain, nonatomic) NSMutableArray    *dataArray;
 @property (retain, nonatomic) UISearchBar       *searchBar;
 @property (retain, nonatomic) UITableView       *shopingTabel;
@@ -43,13 +44,23 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    self.tabBarController.tabBar.hidden = NO; //设置标签栏不隐藏
+    if ([self.navigationController.viewControllers count] == 1) {
+        _settlement=YES;
+        self.tabBarController.tabBar.hidden = NO; //设置标签栏隐藏
+    }else //设置总价格的背景视图位置
+    {
+        _settlement=NO;
+        self.tabBarController.tabBar.hidden = YES; //设置标签栏不隐藏
+    }
     self.errorNetWork = nil;
+    
     [self requestShoppingCart];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setDataInit];
     
     [self createSearchBar]; //设置导航栏
     
@@ -66,6 +77,19 @@
     [self hideAllView];  //隐藏所有界面
     
     [self SetSettlementView]; //设置下面的购物价格
+}
+
+#pragma mark - 初始化数据
+-(void)setDataInit
+{
+    if ([self.navigationController.viewControllers count] == 1) {
+        _settlement=YES;
+        self.tabBarController.tabBar.hidden = NO; //设置标签栏隐藏
+    }else //设置总价格的背景视图位置
+    {
+        _settlement=NO;
+        self.tabBarController.tabBar.hidden = YES; //设置标签栏不隐藏
+    }
 }
 
 #pragma mark - 设置没有网络界面
@@ -139,7 +163,12 @@
 #pragma mark - 设置TabelView界面
 -(void)setTabel
 {
-    self.shopingTabel = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)style:UITableViewStylePlain];
+    if (_settlement == YES) {
+        self.shopingTabel = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-SettlementHeight) style:UITableViewStylePlain];
+    }else
+    {
+        self.shopingTabel = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+TabBar-SettlementHeight) style:UITableViewStylePlain];
+    }
     self.shopingTabel.delegate = self;
     self.shopingTabel.dataSource = self;
     self.shopingTabel.hidden = YES;
@@ -184,9 +213,9 @@
 }
 //返回组尾高度
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (self.dataArray.count>0 && section==self.dataArray.count-1) {
-        return SettlementHeight;
-    }
+//    if (self.dataArray.count>0 && section==self.dataArray.count-1) {
+//        return SettlementHeight;
+//    }
     return 0.01;
 }
 //返回组头高度
@@ -309,7 +338,13 @@
 {
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    self.bgSortView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-TabBar-SettlementHeight, self.view.frame.size.width, SettlementHeight)];
+    self.bgSortView = [[UIView alloc] init];
+    if (_settlement == YES) {
+        self.bgSortView.frame = CGRectMake(0, self.view.frame.size.height-TabBar-SettlementHeight, self.view.frame.size.width, SettlementHeight);
+    }else
+    {
+        self.bgSortView.frame = CGRectMake(0, self.view.frame.size.height-SettlementHeight, self.view.frame.size.width, SettlementHeight);
+    }
     self.bgSortView.hidden = YES;
     [self.bgSortView setBackgroundColor:[UIColor colorWithRed:248.0/255.0f green:249.0/255.0f blue:250.0/255.0f alpha:1]];
     [self.view addSubview:self.bgSortView];
