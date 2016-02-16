@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "fiveBlockString.h"
 #import "signInModel.h"
 #import "fiveMyMallmodel.h"
 
 
 @interface fiveViewUserTableViewCell : UITableViewCell
+
+@property (strong, nonatomic) void (^action)(NSString *string); //需要传回动作的名字的参数
 
 -(void)comeBackActionString:(void(^)(NSString *string))action; //传回动作的名字
 

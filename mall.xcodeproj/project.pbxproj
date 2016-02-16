@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		173E103D213C0BF1BE46CBD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8F3B935D9E0FA1FF88A65C /* libPods.a */; };
 		1B066EE61C5898030098021A /* addressAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B066EE51C5898030098021A /* addressAreaModel.m */; };
+		1B0E83DA1C730A6A00D2E85A /* submitOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0E83D91C730A6A00D2E85A /* submitOrderViewController.m */; };
+		1B0E83DE1C7312DD00D2E85A /* myOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0E83DD1C7312DD00D2E85A /* myOrderModel.m */; };
+		1B0E83E11C7319CE00D2E85A /* orderGroupList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0E83E01C7319CE00D2E85A /* orderGroupList.m */; };
 		1B2710611C4C85C3002E5405 /* accsessory_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B2710331C4C85C3002E5405 /* accsessory_check.png */; };
 		1B2710621C4C85C3002E5405 /* barcode_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B2710341C4C85C3002E5405 /* barcode_normal.png */; };
 		1B2710631C4C85C3002E5405 /* bg_user_center.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B2710351C4C85C3002E5405 /* bg_user_center.jpg */; };
@@ -57,7 +60,6 @@
 		1B2710991C4CA4CC002E5405 /* shopping_checkout_body_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B2710971C4CA4CC002E5405 /* shopping_checkout_body_bg.png */; };
 		1B27109C1C4CC295002E5405 /* settlementShoppingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27109B1C4CC295002E5405 /* settlementShoppingTableViewCell.m */; };
 		1B27109F1C4CC7F7002E5405 /* downSettlementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27109E1C4CC7F7002E5405 /* downSettlementTableViewCell.m */; };
-		1B35A42A1C040DE9004C1544 /* fiveBlockString.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B35A4291C040DE9004C1544 /* fiveBlockString.m */; };
 		1B35A42D1C0458BA004C1544 /* fiveRegisteredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B35A42C1C0458BA004C1544 /* fiveRegisteredViewController.m */; };
 		1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B468F9C1C06DF89006CE377 /* signInModel.m */; };
 		1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */; };
@@ -106,7 +108,6 @@
 		1BCA1B241C5F496F00D189B6 /* trade_info_stream_logistics_time_active_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BCA1B221C5F496F00D189B6 /* trade_info_stream_logistics_time_active_icon@2x.png */; };
 		1BCA1B251C5F496F00D189B6 /* trade_info_stream_logistics_time_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BCA1B231C5F496F00D189B6 /* trade_info_stream_logistics_time_icon@2x.png */; };
 		1BCEF2411C5327DF002817E7 /* setVoiceInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCEF2401C5327DF002817E7 /* setVoiceInformationViewController.m */; };
-		1BCEF2441C532AF8002817E7 /* submitOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BCEF2431C532AF8002817E7 /* submitOrderViewController.m */; };
 		1BD136971C27DB6200736179 /* fisterBrandTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD136961C27DB6200736179 /* fisterBrandTableViewCell.m */; };
 		1BD1369A1C27E8FD00736179 /* fisterHome1TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD136991C27E8FD00736179 /* fisterHome1TableViewCell.m */; };
 		1BD2A5CC1C3E169A008F1E38 /* fourTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD2A5CB1C3E169A008F1E38 /* fourTableViewCell.m */; };
@@ -157,6 +158,12 @@
 /* Begin PBXFileReference section */
 		1B066EE41C5898030098021A /* addressAreaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addressAreaModel.h; sourceTree = "<group>"; };
 		1B066EE51C5898030098021A /* addressAreaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addressAreaModel.m; sourceTree = "<group>"; };
+		1B0E83D81C730A6A00D2E85A /* submitOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = submitOrderViewController.h; sourceTree = "<group>"; };
+		1B0E83D91C730A6A00D2E85A /* submitOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = submitOrderViewController.m; sourceTree = "<group>"; };
+		1B0E83DC1C7312DD00D2E85A /* myOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myOrderModel.h; sourceTree = "<group>"; };
+		1B0E83DD1C7312DD00D2E85A /* myOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myOrderModel.m; sourceTree = "<group>"; };
+		1B0E83DF1C7319CE00D2E85A /* orderGroupList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderGroupList.h; sourceTree = "<group>"; };
+		1B0E83E01C7319CE00D2E85A /* orderGroupList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderGroupList.m; sourceTree = "<group>"; };
 		1B2710331C4C85C3002E5405 /* accsessory_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = accsessory_check.png; sourceTree = "<group>"; };
 		1B2710341C4C85C3002E5405 /* barcode_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barcode_normal.png; sourceTree = "<group>"; };
 		1B2710351C4C85C3002E5405 /* bg_user_center.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_user_center.jpg; sourceTree = "<group>"; };
@@ -208,8 +215,6 @@
 		1B27109B1C4CC295002E5405 /* settlementShoppingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settlementShoppingTableViewCell.m; sourceTree = "<group>"; };
 		1B27109D1C4CC7F7002E5405 /* downSettlementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = downSettlementTableViewCell.h; sourceTree = "<group>"; };
 		1B27109E1C4CC7F7002E5405 /* downSettlementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = downSettlementTableViewCell.m; sourceTree = "<group>"; };
-		1B35A4281C040DE9004C1544 /* fiveBlockString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fiveBlockString.h; sourceTree = "<group>"; };
-		1B35A4291C040DE9004C1544 /* fiveBlockString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveBlockString.m; sourceTree = "<group>"; };
 		1B35A42B1C0458BA004C1544 /* fiveRegisteredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fiveRegisteredViewController.h; sourceTree = "<group>"; };
 		1B35A42C1C0458BA004C1544 /* fiveRegisteredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveRegisteredViewController.m; sourceTree = "<group>"; };
 		1B468F9B1C06DF89006CE377 /* signInModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signInModel.h; sourceTree = "<group>"; };
@@ -300,8 +305,6 @@
 		1BCA1B231C5F496F00D189B6 /* trade_info_stream_logistics_time_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trade_info_stream_logistics_time_icon@2x.png"; sourceTree = "<group>"; };
 		1BCEF23F1C5327DF002817E7 /* setVoiceInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setVoiceInformationViewController.h; sourceTree = "<group>"; };
 		1BCEF2401C5327DF002817E7 /* setVoiceInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setVoiceInformationViewController.m; sourceTree = "<group>"; };
-		1BCEF2421C532AF8002817E7 /* submitOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = submitOrderViewController.h; sourceTree = "<group>"; };
-		1BCEF2431C532AF8002817E7 /* submitOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = submitOrderViewController.m; sourceTree = "<group>"; };
 		1BD136951C27DB6200736179 /* fisterBrandTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterBrandTableViewCell.h; sourceTree = "<group>"; };
 		1BD136961C27DB6200736179 /* fisterBrandTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fisterBrandTableViewCell.m; sourceTree = "<group>"; };
 		1BD136981C27E8FD00736179 /* fisterHome1TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fisterHome1TableViewCell.h; sourceTree = "<group>"; };
@@ -388,6 +391,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B0E83D71C730A6A00D2E85A /* myOrder */ = {
+			isa = PBXGroup;
+			children = (
+				1B0E83D81C730A6A00D2E85A /* submitOrderViewController.h */,
+				1B0E83D91C730A6A00D2E85A /* submitOrderViewController.m */,
+			);
+			path = myOrder;
+			sourceTree = "<group>";
+		};
+		1B0E83DB1C7312B800D2E85A /* myOrderModel */ = {
+			isa = PBXGroup;
+			children = (
+				1B0E83DC1C7312DD00D2E85A /* myOrderModel.h */,
+				1B0E83DD1C7312DD00D2E85A /* myOrderModel.m */,
+				1B0E83DF1C7319CE00D2E85A /* orderGroupList.h */,
+				1B0E83E01C7319CE00D2E85A /* orderGroupList.m */,
+			);
+			path = myOrderModel;
+			sourceTree = "<group>";
+		};
 		1B2710321C4C85C3002E5405 /* image */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +473,7 @@
 		1B468F9A1C06DEFF006CE377 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				1B0E83DB1C7312B800D2E85A /* myOrderModel */,
 				1BF38D0B1C6086EF001CB3D6 /* voiceModel */,
 				1BF66F0A1C571364003DF5E1 /* addressList */,
 				1B7039381C47428A0041FDBD /* storeCartListModel */,
@@ -664,6 +688,7 @@
 				1BAEB0211C3B9E3E00285AAF /* merchantShop */,
 				1BAEB0231C3BA00B00285AAF /* goodsClassification */,
 				1BF66F141C57503C003DF5E1 /* addressManagement */,
+				1B0E83D71C730A6A00D2E85A /* myOrder */,
 				1BEF946B1BFD660000F7470D /* fist */,
 				1BEF94741BFD660000F7470D /* second */,
 				1BEF94771BFD660000F7470D /* third */,
@@ -699,8 +724,6 @@
 				1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */,
 				1B35A42B1C0458BA004C1544 /* fiveRegisteredViewController.h */,
 				1B35A42C1C0458BA004C1544 /* fiveRegisteredViewController.m */,
-				1B35A4281C040DE9004C1544 /* fiveBlockString.h */,
-				1B35A4291C040DE9004C1544 /* fiveBlockString.m */,
 				1BF2B9A81C00038800010E52 /* about */,
 			);
 			path = five;
@@ -731,8 +754,6 @@
 				1BCA1B201C5F429A00D189B6 /* voiceListTableViewCell.m */,
 				1BCA1B1C1C5F0ADA00D189B6 /* AddVoiceTableViewCell.h */,
 				1BCA1B1D1C5F0ADA00D189B6 /* AddVoiceTableViewCell.m */,
-				1BCEF2421C532AF8002817E7 /* submitOrderViewController.h */,
-				1BCEF2431C532AF8002817E7 /* submitOrderViewController.m */,
 			);
 			path = four;
 			sourceTree = "<group>";
@@ -1082,7 +1103,6 @@
 				1BF7AAFB1C70730500328BC2 /* UIView+loadingImageView.m in Sources */,
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
 				1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */,
-				1BCEF2441C532AF8002817E7 /* submitOrderViewController.m in Sources */,
 				1BEF94911BFD660000F7470D /* fisterViewController.m in Sources */,
 				1B7E14091C32273A00BBA789 /* loadingImageView.m in Sources */,
 				1B625B031C1EA4E100DBAF24 /* secondStoreList.m in Sources */,
@@ -1095,6 +1115,7 @@
 				1BB862DB1C28E9EA0086EEC2 /* fisterHome4TableViewCell.m in Sources */,
 				1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */,
 				1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */,
+				1B0E83DE1C7312DD00D2E85A /* myOrderModel.m in Sources */,
 				1BAEB0381C3BA00B00285AAF /* secondListViewController.m in Sources */,
 				1B8090FF1C12929D00938258 /* fisterList.m in Sources */,
 				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,
@@ -1102,6 +1123,7 @@
 				1B2710911C4C8B83002E5405 /* settlementOrderTableViewCell.m in Sources */,
 				1BF66F0D1C5713D0003DF5E1 /* addressListModel.m in Sources */,
 				1B625AFD1C1E949D00DBAF24 /* secondCommendList.m in Sources */,
+				1B0E83E11C7319CE00D2E85A /* orderGroupList.m in Sources */,
 				1BEF94941BFD660000F7470D /* secondViewController.m in Sources */,
 				1BCA1B1E1C5F0ADA00D189B6 /* AddVoiceTableViewCell.m in Sources */,
 				1BEF94931BFD660000F7470D /* fourViewController.m in Sources */,
@@ -1132,6 +1154,7 @@
 				1B70393B1C4742C20041FDBD /* storeCartModel.m in Sources */,
 				1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */,
 				1BB862DE1C28F52F0086EEC2 /* fisterListerTableViewCell.m in Sources */,
+				1B0E83DA1C730A6A00D2E85A /* submitOrderViewController.m in Sources */,
 				1BAEB0371C3BA00B00285AAF /* secondListTableViewCell.m in Sources */,
 				1B8090FC1C12926500938258 /* fisterHome4.m in Sources */,
 				1BF66F1B1C57503C003DF5E1 /* addAddressViewController.m in Sources */,
@@ -1142,7 +1165,6 @@
 				1B8912DC1C0D8B0F00DD3B72 /* secondMainTableViewCell.m in Sources */,
 				1B8091021C1292D600938258 /* fisterData.m in Sources */,
 				1B066EE61C5898030098021A /* addressAreaModel.m in Sources */,
-				1B35A42A1C040DE9004C1544 /* fiveBlockString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -94,7 +94,7 @@
 #pragma mark - 设置TabelView界面
 -(void)setTabelView
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -UpState, widthEx(320), heightEx(568)+UpState) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+UpState) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
@@ -182,12 +182,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) { //用户的那个表格设置没有进入界面
         
-    }else if (indexPath.section == 4 && indexPath.row == 1) //进入关于的界面
+    }
+    if (indexPath.section == 1 && indexPath.row == 0) { //进入我的订单
+        submitOrderViewController *myOrderViewcontrol = [[submitOrderViewController alloc] init];
+        [self.navigationController pushViewController:myOrderViewcontrol animated:YES];
+    }
+    if (indexPath.section == 4 && indexPath.row == 1) //进入关于的界面
     {
         fiveAboutViewController *FAV = [[fiveAboutViewController alloc] init];
         [self.navigationController pushViewController:FAV animated:YES];
     }
-    
 }
 //返回行高的代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

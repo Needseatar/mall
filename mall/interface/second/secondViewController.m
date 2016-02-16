@@ -121,7 +121,7 @@
 #pragma mark - 加载tabel
 -(void)setTabelView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, widthEx(100), heightEx(568)) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, fisterTabelWith, self.view.frame.size.height) style:UITableViewStyleGrouped];
     [_tableView setBackgroundColor:[UIColor whiteColor]];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -132,14 +132,14 @@
 -(void)setTabelViewOfSecondAndThird
 {
     if (self.OCassification.count != 0) {
-        self.bgTableScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(widthEx(100), Navigation+UpState, widthEx(320-100), heightEx(568)-Navigation-UpState-TabBar)];
+        self.bgTableScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width, Navigation+UpState, self.view.frame.size.width-self.tableView.frame.size.width, self.view.frame.size.height-Navigation-UpState-TabBar)];
         [self.bgTableScrollView setBackgroundColor:[UIColor whiteColor]];
-        self.bgTableScrollView.contentSize = CGSizeMake(widthEx(320-100)*self.OCassification.count, heightEx(568)-Navigation-UpState-TabBar);
+        self.bgTableScrollView.contentSize = CGSizeMake((self.view.frame.size.width-self.tableView.frame.size.width)*self.OCassification.count, self.view.frame.size.height-Navigation-UpState-TabBar);
         self.bgTableScrollView.pagingEnabled = YES;
         self.bgTableScrollView.delegate = self;
         [self.view addSubview:self.bgTableScrollView];
         for (int i=0; i<self.OCassification.count; i++) {
-            UITableView *secondTabel = [[UITableView alloc] initWithFrame:CGRectMake(i*widthEx(320-100), 0, widthEx(320-100), heightEx(568)-Navigation-UpState-TabBar) style:UITableViewStyleGrouped];
+            UITableView *secondTabel = [[UITableView alloc] initWithFrame:CGRectMake(i*(self.view.frame.size.width-self.tableView.frame.size.width), 0, self.view.frame.size.width-self.tableView.frame.size.width, self.view.frame.size.height-Navigation-UpState-TabBar) style:UITableViewStyleGrouped];
             [secondTabel setBackgroundColor:[UIColor whiteColor]];
             secondTabel.tag = 100+i;
             secondTabel.delegate = self;
@@ -290,7 +290,7 @@
 #pragma mark - 一级数据tabelView跳转到指定滚动视图
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.tableView) {
-        [self.bgTableScrollView setContentOffset:CGPointMake(220*indexPath.row, 0) animated:YES];
+        [self.bgTableScrollView setContentOffset:CGPointMake((self.view.frame.size.width-self.tableView.frame.size.width)*indexPath.row, 0) animated:YES];
         self.page = indexPath.row;
         self.whetherNowArray = NO;
         self.thirdArray = [[NSMutableArray alloc] init]; //初始化当前页面的第三级数据
@@ -301,14 +301,16 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView != self.tableView) {
         if (indexPath.row != 0) {
-            return heightEx(70);
+            
+            return ((self.view.frame.size.width-fisterTabelWith) - 2*6)/3.0 - 10 + 2*6;
+            
         }else
         {
-            return heightEx(35);
+            return 35;
         }
     }else
     {
-        return heightEx(35);
+        return 35;
     }
 }
 #pragma mark - 背景滚动视图代理
@@ -318,7 +320,7 @@
     if (self.bgTableScrollView == scrollView) {
         self.whetherNowArray = NO;
         self.thirdArray = [[NSMutableArray alloc] init]; //初始化当前页面的第三级数据
-        self.page = scrollView.bounds.origin.x/220;
+        self.page = scrollView.bounds.origin.x/(self.view.frame.size.width-self.tableView.frame.size.width);
         [self.tableView reloadData];
     }
 }

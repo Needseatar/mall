@@ -38,6 +38,9 @@
 #define bgMagentaColor [UIColor whiteColor]
 
 
+//设置分类页面的参数
+#define fisterTabelWith 100 //第一个tabel的宽度
+
 //设置 goodInformationViewController  视图的变量
 #define bgWidth 310       //使用在背景视图里面
 #define bgX     5         //使用在x坐标里
@@ -181,6 +184,8 @@
 #define delectvoiceListPost @"http://shop.trqq.com/mobile/index.php?act=member_invoice&op=invoice_del"
 //发票内容列表(post)
 #define voiceListInformationPost @"http://shop.trqq.com/mobile/index.php?act=member_invoice&op=invoice_content_list"
+//订单列表 (post)
+#define MyOrderList @"http://shop.trqq.com/mobile/index.php?act=member_order&op=order_list"
 /**************************************************************************************************
  *************************************************************************************************/
 

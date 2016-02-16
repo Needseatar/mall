@@ -23,7 +23,6 @@
 
 @property (retain, nonatomic) UIView      *bgSignInView; //登陆时候背景视图
 
-@property (strong, nonatomic) fiveBlockString *string; //返回需要调用函数的字符
 
 @property (retain, nonatomic) UIView      *bgUserView;
 @property (retain, nonatomic) UILabel     *userNamelabel;
@@ -180,8 +179,7 @@
 
 -(void)comeBackActionString:(void(^)(NSString *string))action  //传回动作的名字
 {
-    self.string = [[fiveBlockString alloc] init];
-    self.string.action = action;
+    self.action = action;
 }
 
 //注册动作
@@ -189,49 +187,49 @@
 {
     //作用: 原来被点击执行target-action对应的方法
     //现在: 判断action是否已经设置block, 如果被设置, 执行block
-    if(self.string.action)
+    if(self.action)
     {
-        self.string.action(@"registeredAction");
+        self.action(@"registeredAction");
     }
 }
 //登陆动作
 -(void)signInAction
 {
-    if(self.string.action)
+    if(self.action)
     {
-        self.string.action(@"signInAction");
+        self.action(@"signInAction");
     }
 }
 //头像点击动作
 -(void)userAction
 {
-    if(self.string.action)
+    if(self.action)
     {
-        self.string.action(@"userAction");
+        self.action(@"userAction");
     }
 }
 //关注的商品点击动作
 -(void)attentionAction
 {
-    if(self.string.action)
+    if(self.action)
     {
-        self.string.action(@"attentionAction");
+        self.action(@"attentionAction");
     }
 }
 //浏览记录点击动作
 -(void)browseAction
 {
-    if(self.string.action)
+    if(self.action)
     {
-        self.string.action(@"browseAction");
+        self.action(@"browseAction");
     }
 }
 //地址点击动作
 -(void)addressAction
 {
-    if(self.string.action)
+    if(self.action)
     {
-        self.string.action(@"addressAction");
+        self.action(@"addressAction");
     }
 }
 

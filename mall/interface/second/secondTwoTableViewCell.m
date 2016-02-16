@@ -13,6 +13,7 @@
 
 @property (retain, nonatomic) UIView         *bgView;
 @property (retain, nonatomic) NSMutableArray *colorArray;
+@property (assign, nonatomic) int            squareWithHeight;
 
 @end
 
@@ -20,10 +21,12 @@
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        AppDelegate *delegate=(AppDelegate*)[[UIApplication sharedApplication] delegate];
+        _squareWithHeight = ((delegate.ViewFrame.size.width-fisterTabelWith) - 6)/3.0 - 6;
         
         //初始化背景视图
         self.bgView = [[UIView alloc] init];
-        self.bgView.frame = CGRectMakeEx(0, 0, 240, 70);
+        self.bgView.frame = CGRectMake(0, 0, delegate.ViewFrame.size.width-fisterTabelWith, 70);
         self.bgView.userInteractionEnabled =YES;
         [self addSubview:self.bgView];
         
@@ -40,7 +43,7 @@
         //初始化cell里面的格子
         for (int i=0; i<3; i++) {
             squareLabel *SLabel = [[squareLabel alloc] init]; //squareLabel继承于label，增加了一个nsinter属性保存方块的id
-            SLabel.frame = CGRectMakeEx(6 + i*70, 6, 60, 60);
+            SLabel.frame = CGRectMake(6 + i*(_squareWithHeight+6), 6, _squareWithHeight, _squareWithHeight);
             [SLabel setBackgroundColor:[UIColor redColor]];
             [SLabel setTextAlignment:NSTextAlignmentCenter];
             [SLabel setTextColor:[UIColor whiteColor]];

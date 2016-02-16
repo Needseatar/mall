@@ -14,7 +14,7 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.bgLabel = [[UILabel alloc] init];
-        self.bgLabel.frame = CGRectMakeEx(0, 0, 100, 35);
+        self.bgLabel.frame = CGRectMake(0, 0, fisterTabelWith, 35);
         [self.bgLabel setBackgroundColor:[UIColor grayColor]];
         [self.bgLabel setTextAlignment:NSTextAlignmentCenter];
         [self.bgLabel setTextColor:[UIColor blackColor]];

@@ -161,10 +161,11 @@
         ;
     }
   */
-    self.storeData.address_info.true_name = [self.addressData[indexPath.row] true_name];
-    self.storeData.address_info.mob_phone = [self.addressData[indexPath.row] mob_phone];
-    self.storeData.address_info.area_info = [self.addressData[indexPath.row] area_info];
-    self.storeData.address_info.address = [self.addressData[indexPath.row] address];
+    addressInfo *info = self.addressData[indexPath.row];
+    self.storeData.address_info.true_name = info.true_name;
+    self.storeData.address_info.mob_phone = info.mob_phone;
+    self.storeData.address_info.area_info = info.area_info;
+    self.storeData.address_info.address = info.address;
     [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
     
 }
