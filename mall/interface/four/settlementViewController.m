@@ -195,9 +195,38 @@
         [self.navigationController pushViewController:voiceViewControl animated:YES];
     }else if ([str isEqualToString:@"OrderPushSkip"]) //提交订单
     {
-        submitOrderViewController *submitOrdre = [[submitOrderViewController alloc] init];
-        [self.navigationController pushViewController:submitOrdre animated:YES];
+        [self requestShoppingCartSecond]; //购买第二步
     }
+}
+#pragma mark - 提交订单
+-(void)requestShoppingCartSecond
+{
+    signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        NSDictionary *signInAddShoppingCar =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         signIn.key, @"key",
+         @"1", @"ifcart",
+         @"22", @"cart_id",
+         nil];
+        NSLog(@"%@", signInAddShoppingCar);
+        [manager POST:shoppingCartSecondBuy parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"JSON: %@", dict);
+            
+            submitOrderViewController *submitOrdre = [[submitOrderViewController alloc] init];
+            [self.navigationController pushViewController:submitOrdre animated:YES];
+            
+        }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+            NSLog(@"Error: %@", error);
+        }];
+    }else //没有令牌，也就是没有登录
+    {
+        ;
+    }
+
 }
 //释放视图
 -(void)bgViewTapAction

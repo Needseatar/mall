@@ -158,6 +158,8 @@
 #define  ShoppingCartNetWork  @"http://shop.trqq.com/mobile/index.php?act=member_cart&op=cart_list"
 //购物车购买第一步(post)
 #define  ShoppingCartFistBuy  @"http://shop.trqq.com/mobile/index.php?act=member_buy&op=buy_step1"
+//购买第二步
+#define shoppingCartSecondBuy @"http://shop.trqq.com/mobile/index.php?act=member_buy&op=buy_step2"
 //购物车添加(post)
 #define AddShopingCar @"http://shop.trqq.com/mobile/index.php?act=member_cart&op=cart_add"
 //修改购物车修改数量(post)

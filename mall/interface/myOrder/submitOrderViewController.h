@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "myOrderModelList.h"
+#import "submitOrderHeadTableViewCell.h"
+#import "submitOrderFootTableViewCell.h"
+#import "shoppingOrderTableViewCell.h"
 
 @interface submitOrderViewController : UIViewController
 

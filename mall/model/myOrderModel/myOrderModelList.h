@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "orderGroupList.h"
 
-@interface myOrderModel : NSString
+@interface myOrderModelList : NSString
 
-@property (retain, nonatomic) NSString *order_group_list;
+@property (retain, nonatomic) NSArray  *order_group_list;
 @property (retain, nonatomic) NSNumber *hasmore;
 @property (retain, nonatomic) NSNumber *page_total;
+
++(myOrderModelList *)setValueWithDictionary:(NSDictionary *)data;
+
 
 @end

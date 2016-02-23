@@ -86,9 +86,9 @@
         {
             self.hasmore = NO;
         }
+        [self.merchantTabel reloadData];
         [self.merchantTabel.mj_header endRefreshing];
         [self.merchantTabel.mj_footer endRefreshing];
-        [self.merchantTabel reloadData];
         [self.loadingiew removeFromSuperview];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -145,7 +145,7 @@
 #pragma mark - 设置TabelView界面
 -(void)setTabel
 {
-    self.merchantTabel = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 568-TabBar)style:UITableViewStylePlain];
+    self.merchantTabel = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+TabBar) style:UITableViewStylePlain];
     self.merchantTabel.delegate = self;
     self.merchantTabel.dataSource = self;
     [self.view addSubview:self.merchantTabel];
