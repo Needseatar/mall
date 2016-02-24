@@ -13,7 +13,9 @@
 
 @interface settlementViewController ()<UITableViewDataSource, UITableViewDelegate>
 
-@property (retain, nonatomic) storeCartModel *storeData;
+@property (retain, nonatomic) storeCartModel *storeData; //页面数据
+@property (retain, nonatomic) changeAddressModel *addressData; //修改地址返回的数据
+
 @property (retain, nonatomic) UITableView    *tabelview;
 @property (retain, nonatomic) UIView         *bgPayView; //点击支付方式的背景遮盖
 @property (retain, nonatomic) NSMutableArray *payMethodArray; //保存了用户总共有的支付方式的字符串
@@ -75,6 +77,70 @@
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
             NSLog(@"JSON: %@", dict);
             self.storeData = [storeCartModel setValueWithDictionary:dict];
+            
+            [self changeAddress]; //修改收货地址
+//            //初始化用户的支付方式，是否支持货到付款
+//            if ([self.storeData.ifshow_offpay isKindOfClass:[NSString class]]) {
+//                
+//                if ([self.storeData.ifshow_offpay isEqualToString:@"true"]) {
+//                    self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], [NSString stringWithFormat:@"货到付款"], nil];
+//                }else
+//                {
+//                    self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
+//                }
+//            }else
+//            {
+//                self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
+//            }
+//            //初始化 用户的支付方式
+//            self.pageOfPayMethod = 0;
+//            
+//            [self.tabelview reloadData];
+            
+        }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+            NSLog(@"Error: %@", error);
+        }];
+    }else //没有令牌，也就是没有登录
+    {
+        ;
+    }
+}
+
+#pragma mark - 修改收货地址
+-(void)changeAddress
+{
+    signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        NSDictionary *signInAddShoppingCar =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         signIn.key, @"key",
+         self.storeData.freight_hash, @"freight_hash",
+         self.storeData.address_info.city_id, @"city_id",
+         self.storeData.address_info.area_id,@"area_id", nil];
+        [manager POST:ChangeAddress parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"JSON: %@", dict);
+            self.addressData = [changeAddressModel setValueWithDictionary:dict];
+            
+            //修改订单页面的数据，修改地址后页面的运输费和是否支持货到付款都会改变
+            if (self.addressData.allow_offpay == 1) {
+                self.storeData.ifshow_offpay = @"true";
+            }
+//            for (int i=0; i<self.storeData.store_cart_list.count; i++) {
+//                storeCartInformaton *storeCart = self.storeData.store_cart_list[i];
+//                for (int j=0; j<storeCart.goods_list.count; j++) {
+//                    NSString *storeID = [storeCart.goods_list[j] store_id];
+//                    NSArray *keyArray= [self.addressData.content allKeys];
+//                    for (int k=0; k<keyArray.count; k++) {
+//                        if ([storeID isEqualToString:keyArray[k]]) {
+//                            storeID;
+//                        }
+//                    }
+//                }
+//            }
+            
             
             //初始化用户的支付方式，是否支持货到付款
             if ([self.storeData.ifshow_offpay isKindOfClass:[NSString class]]) {
@@ -205,11 +271,30 @@
     if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        
+        //提取需要购买的物品
+        NSString *strNew=nil;
+        NSString *strOld=nil;
+        for (int i=0; i<[self.storeData.store_cart_list count]; i++) {
+            storeCartInformaton *store = self.storeData.store_cart_list[i];
+            for (int j=0; j<store.goods_list.count; j++) {
+                strNew = [NSString stringWithFormat:@"%ld|%ld", (long)[store.goods_list[j] cart_id], (long)[[store.goods_list[j] goods_num] integerValue]];
+                if (strOld==nil) {
+                    strOld = strNew;
+                }else
+                {
+                    strOld = [NSString stringWithFormat:@"%@,%@", strOld, strNew];
+                }
+            }
+        }
+        
         NSDictionary *signInAddShoppingCar =
         [NSDictionary dictionaryWithObjectsAndKeys:
          signIn.key, @"key",
          @"1", @"ifcart",
-         @"22", @"cart_id",
+         strOld, @"cart_id",
+         self.storeData.address_info.address_id, @"address_id",
+         self.storeData.vat_hash, @"vat_hash", 
          nil];
         NSLog(@"%@", signInAddShoppingCar);
         [manager POST:shoppingCartSecondBuy parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -61,6 +61,7 @@
 		1B27109C1C4CC295002E5405 /* settlementShoppingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27109B1C4CC295002E5405 /* settlementShoppingTableViewCell.m */; };
 		1B27109F1C4CC7F7002E5405 /* downSettlementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27109E1C4CC7F7002E5405 /* downSettlementTableViewCell.m */; };
 		1B35A42D1C0458BA004C1544 /* fiveRegisteredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B35A42C1C0458BA004C1544 /* fiveRegisteredViewController.m */; };
+		1B42A5751C7D8FA8007C8AD8 /* changeAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B42A5741C7D8FA8007C8AD8 /* changeAddressModel.m */; };
 		1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B468F9C1C06DF89006CE377 /* signInModel.m */; };
 		1B48C9641BFEC452009CE729 /* fiveViewUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B48C9631BFEC452009CE729 /* fiveViewUserTableViewCell.m */; };
 		1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B50F5AF1C08374F003608C2 /* fiveMyMallmodel.m */; };
@@ -222,6 +223,8 @@
 		1B27109E1C4CC7F7002E5405 /* downSettlementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = downSettlementTableViewCell.m; sourceTree = "<group>"; };
 		1B35A42B1C0458BA004C1544 /* fiveRegisteredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fiveRegisteredViewController.h; sourceTree = "<group>"; };
 		1B35A42C1C0458BA004C1544 /* fiveRegisteredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fiveRegisteredViewController.m; sourceTree = "<group>"; };
+		1B42A5731C7D8FA8007C8AD8 /* changeAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = changeAddressModel.h; sourceTree = "<group>"; };
+		1B42A5741C7D8FA8007C8AD8 /* changeAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = changeAddressModel.m; sourceTree = "<group>"; };
 		1B468F9B1C06DF89006CE377 /* signInModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signInModel.h; sourceTree = "<group>"; };
 		1B468F9C1C06DF89006CE377 /* signInModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = signInModel.m; sourceTree = "<group>"; };
 		1B48C9621BFEC451009CE729 /* fiveViewUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fiveViewUserTableViewCell.h; sourceTree = "<group>"; };
@@ -493,6 +496,15 @@
 				1B2710601C4C85C3002E5405 /* wifi_off.png */,
 			);
 			path = image;
+			sourceTree = "<group>";
+		};
+		1B42A5721C7D8F82007C8AD8 /* changeAddressModel */ = {
+			isa = PBXGroup;
+			children = (
+				1B42A5731C7D8FA8007C8AD8 /* changeAddressModel.h */,
+				1B42A5741C7D8FA8007C8AD8 /* changeAddressModel.m */,
+			);
+			path = changeAddressModel;
 			sourceTree = "<group>";
 		};
 		1B468F9A1C06DEFF006CE377 /* model */ = {
@@ -847,6 +859,7 @@
 		1BF66F0A1C571364003DF5E1 /* addressList */ = {
 			isa = PBXGroup;
 			children = (
+				1B42A5721C7D8F82007C8AD8 /* changeAddressModel */,
 				1BF66F0B1C5713D0003DF5E1 /* addressListModel.h */,
 				1BF66F0C1C5713D0003DF5E1 /* addressListModel.m */,
 				1B066EE41C5898030098021A /* addressAreaModel.h */,
@@ -1140,6 +1153,7 @@
 				1B50F5B01C08374F003608C2 /* fiveMyMallmodel.m in Sources */,
 				1BB862DB1C28E9EA0086EEC2 /* fisterHome4TableViewCell.m in Sources */,
 				1B5366AF1C02DDF2002C5CB2 /* abouCompanyViewController.m in Sources */,
+				1B42A5751C7D8FA8007C8AD8 /* changeAddressModel.m in Sources */,
 				1BC0EBA71C18097C001F87DB /* squareLabel.m in Sources */,
 				1B0E83DE1C7312DD00D2E85A /* myOrderModelList.m in Sources */,
 				1BAEB0381C3BA00B00285AAF /* secondListViewController.m in Sources */,

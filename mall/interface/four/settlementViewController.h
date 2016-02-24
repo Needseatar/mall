@@ -20,6 +20,7 @@
 #import "setAddressViewController.h"
 #import "setVoiceInformationViewController.h"
 #import "submitOrderViewController.h"
+#import "changeAddressModel.h"
 
 @interface settlementViewController : UIViewController
 
