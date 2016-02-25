@@ -11,10 +11,12 @@
 #import "setAddressTableViewCell.h"
 #import "addAddressViewController.h"
 #import "storeCartModel.h"
-
+#import "changeAddressModel.h"
 
 @interface setAddressViewController : UIViewController
 
 @property (retain, nonatomic) storeCartModel *storeData;
+
+-(void)backStoreAddress:(void(^)(changeAddressModel *address))action;
 
 @end

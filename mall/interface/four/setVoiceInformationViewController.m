@@ -312,7 +312,8 @@
 -(void)VoiceSaveOrGiveUp:(NSNotification *)notification
 {
     if ([[notification object] isEqualToString:@"Save"]) {
-        if ([self.companyInformation.text isEqualToString:@""]) {
+        UIButton *but = [self.bgView viewWithTag:11];
+        if ([self.companyInformation.text isEqualToString:@""] && but.selected == YES) {
             if (self.errorRefresh==nil) {
                 self.errorRefresh = [loadingImageView setNetWorkRefreshError:self.view.frame viewString:@"请输入公司名字"];
                 [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(setStoplabel) userInfo:nil repeats:NO];

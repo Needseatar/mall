@@ -38,7 +38,7 @@
     
     [self requestMyOrder]; //请求数据
 }
-#pragma mark - 请求数据
+#pragma mark - 初始化数据
 -(void)InitializedData
 {
     self.title = @"订单";
@@ -63,7 +63,17 @@
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
             NSLog(@"JSON: %@", dict);
             
-            self.data = [myOrderModelList setValueWithDictionary:dict];
+            if ([self.data isKindOfClass:[myOrderModelList class]] && self.curpage!=1) {
+                myOrderModelList *newData = [myOrderModelList setValueWithDictionary:dict];
+                for (int i=0; i<newData.order_group_list.count; i++) {
+                    [self.data.order_group_list addObject:newData.order_group_list[i]];
+                }
+            }else
+            {
+                self.data = [myOrderModelList setValueWithDictionary:dict];
+            }
+            [self.orderTabelView.mj_header endRefreshing];
+            [self.orderTabelView.mj_footer endRefreshing];
             [self.orderTabelView reloadData];
         }failure:^(AFHTTPRequestOperation *operation, NSError *error){
             
@@ -82,6 +92,27 @@
     self.orderTabelView.delegate = self;
     self.orderTabelView.dataSource = self;
     [self.view addSubview:self.orderTabelView];
+    
+    //加载下拉菜单
+    self.orderTabelView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //初始化数据
+        self.page = 10;  //设置请求数量
+        self.curpage = 1; //设置当前页码
+        //进入刷新状态后会自动调用这个block
+        [self requestMyOrder];
+    }];
+    
+    //加载上拉菜单
+    self.orderTabelView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        //初始化数据
+        self.page = 10;  //设置请求数量
+        if ([self.data hasmore]) {
+            self.curpage++; //设置当前页码
+        }
+        //进入刷新状态后会自动调用这个block
+        [self requestMyOrder];
+    }];
 }
 //返回表格的行数的代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -158,12 +189,28 @@
 //返回组头高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    if (section == 0) {
+        return 30;
+    }else
+    {
+        return 60;
+    }
 }
 //返回组头视图
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UILabel *loadingOrderlabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    UIView *bgView = [[UIView alloc] init];
+    int headHeight = 60;
+    if (section==0) {
+        headHeight = 30;
+    }else
+    {
+        headHeight = 60;
+    }
+    bgView.frame = CGRectMake(0, 0, self.view.frame.size.width, headHeight);
+    bgView.backgroundColor = [UIColor colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:1];
+    
+    UILabel *loadingOrderlabel = [[UILabel alloc] initWithFrame:CGRectMake(0, headHeight-30, self.view.frame.size.width, 30)];
     if ([[self.data.order_group_list[section] pay_amount] integerValue] <= 0) {
         loadingOrderlabel.backgroundColor = [UIColor colorWithRed:128/255.0f green:128/255.0f blue:128/255.0f alpha:1];
     }else
@@ -172,7 +219,9 @@
     }
     loadingOrderlabel.textColor = [UIColor whiteColor];
     loadingOrderlabel.text = [NSString stringWithFormat:@"下单时间:%@", [self setNumberToTime:[self.data.order_group_list[section] add_time]]];
-    return loadingOrderlabel;
+    [bgView addSubview:loadingOrderlabel];
+    
+    return bgView;
 }
 //返回组尾高度
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

@@ -14,7 +14,7 @@
     NSDictionary *dic = data[@"datas"];
     myOrderModelList *model = [[myOrderModelList alloc] init];
     model.order_group_list = [orderGroupList setValueWithDictionary:dic];
-    model.hasmore = data[@"hasmore"];
+    model.hasmore = [data[@"hasmore"] integerValue];
     model.page_total = data[@"page_total"];
     return model;
 }

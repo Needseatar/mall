@@ -26,7 +26,7 @@
         AppDelegate *delegate=(AppDelegate*)[[UIApplication sharedApplication] delegate];
         
         self.leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 5, leftImageHeight, leftImageHeight)];
-        self.leftImageView.backgroundColor = redColorDebug;
+        self.leftImageView.backgroundColor = [UIColor colorWithRed:218.0f/255.0f green:218.0f/255.0f blue:218.0f/255.0f alpha:1];
         [self addSubview:self.leftImageView];
         
         self.rightTitlel = [[UILabel alloc] initWithFrame:CGRectMake(self.leftImageView.frame.origin.x+self.leftImageView.frame.size.width+3, self.leftImageView.frame.origin.y, delegate.ViewFrame.size.width-(self.leftImageView.frame.origin.x+self.leftImageView.frame.size.width+3), 60)];
@@ -52,10 +52,13 @@
 
 -(void)setImageAndText:(extendOrderGoods *)data;
 {
+    //洗白
+    [self.leftImageView setImage:[UIImage imageNamed:@""]];
+    
     [self.leftImageView setImageWithURL:[NSURL URLWithString:data.goods_image_url]];
     self.rightTitlel.text = data.goods_name;
     self.priceLibel.text = [NSString stringWithFormat:@"￥%@", data.goods_price];
-    self.goodsNumber.text = [NSString stringWithFormat:@"X%@", data.goods_num];
+    self.goodsNumber.text = [NSString stringWithFormat:@"x%@", data.goods_num];
 }
 
 

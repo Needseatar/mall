@@ -15,6 +15,7 @@
 @property (retain, nonatomic) UITableView    *tabelview;
 @property (retain, nonatomic) NSMutableArray *addressData;
 
+@property (strong, nonatomic) void (^action)(changeAddressModel *address);
 
 @end
 
@@ -138,9 +139,41 @@
     self.storeData.address_info.area_info = info.area_info;
     self.storeData.address_info.address = info.address;
     self.storeData.address_info.address_id = info.address_id;
-    [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
+    [self changeAddress];
     
 }
+#pragma mark - 修改收货地址
+-(void)changeAddress
+{
+    signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        NSDictionary *signInAddShoppingCar =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         signIn.key, @"key",
+         self.storeData.freight_hash, @"freight_hash",
+         self.storeData.address_info.city_id, @"city_id",
+         self.storeData.address_info.area_id,@"area_id", nil];
+        [manager POST:ChangeAddress parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"JSON: %@", dict);
+            if(self.action)
+            {
+                self.action([changeAddressModel setValueWithDictionary:dict]); //传回修改后的地址数据
+                [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
+            }
+            
+        }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+            NSLog(@"Error: %@", error);
+        }];
+    }else //没有令牌，也就是没有登录
+    {
+        ;
+    }
+}
+
+
 #pragma mark - 编辑删除table
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -215,6 +248,11 @@
 {
     addAddressViewController *addAddress = [[addAddressViewController alloc] init];
     [self.navigationController pushViewController:addAddress animated:YES];
+}
+
+-(void)backStoreAddress:(void(^)(changeAddressModel *address))action
+{
+    self.action = action;
 }
 
 - (void)didReceiveMemoryWarning {

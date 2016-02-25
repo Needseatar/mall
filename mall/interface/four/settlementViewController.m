@@ -40,7 +40,6 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]]; //设置返回按钮颜色
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]];
     
-    
     self.tabBarController.tabBar.hidden = YES; //设置标签栏不隐藏
     
     if ([self.storeData isKindOfClass:[storeCartModel class]]) { //如果是上
@@ -108,25 +107,7 @@
             self.addressData = [changeAddressModel setValueWithDictionary:dict];
             
             //修改订单页面的数据，修改地址后是否支持货到付款会改变
-            if (self.addressData.allow_offpay == 1) {
-                self.storeData.ifshow_offpay = @"true";
-            }
-            
-            //初始化用户的支付方式，是否支持货到付款
-            if ([self.storeData.ifshow_offpay isKindOfClass:[NSString class]]) {
-                
-                if ([self.storeData.ifshow_offpay isEqualToString:@"true"]) {
-                    self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], [NSString stringWithFormat:@"货到付款"], nil];
-                }else
-                {
-                    self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
-                }
-            }else
-            {
-                self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
-            }
-            //初始化 用户的支付方式
-            self.pageOfPayMethod = 0;
+            [self initUserPay];
             
             [self.tabelview reloadData];
             
@@ -161,6 +142,19 @@
     if ([str isEqualToString:@"AddressSkip"]) { //地址设置跳转
         setAddressViewController *addressViewControl = [[setAddressViewController alloc] init];
         addressViewControl.storeData = self.storeData;
+        [addressViewControl backStoreAddress:^void(changeAddressModel *address){
+            self.addressData.allow_offpay = address.allow_offpay;
+            self.addressData.allow_offpay_batch = address.allow_offpay_batch;
+            self.addressData.content = address.content;
+            self.addressData.offpay_hash = address.offpay_hash;
+            self.addressData.offpay_hash_batch = address.offpay_hash_batch;
+            self.addressData.state = address.state;
+            //修改订单页面的数据，修改地址后是否支持货到付款会改变
+            if (self.addressData.allow_offpay == 1) {
+                self.storeData.ifshow_offpay = @"true";
+            }
+            [self initUserPay];
+        }];
         [self.navigationController pushViewController:addressViewControl animated:YES];
     }else if ([str isEqualToString:@"SetpPayMethodView"]) //支付方式设置
     {
@@ -520,6 +514,23 @@
     return nil;
 }
 
+-(void)initUserPay
+{
+    if ([self.storeData.ifshow_offpay isKindOfClass:[NSString class]]) {
+        
+        if ([self.storeData.ifshow_offpay isEqualToString:@"true"]) {
+            self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], [NSString stringWithFormat:@"货到付款"], nil];
+        }else
+        {
+            self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
+        }
+    }else
+    {
+        self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
+    }
+    //初始化 用户的支付方式
+    self.pageOfPayMethod = 0;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
