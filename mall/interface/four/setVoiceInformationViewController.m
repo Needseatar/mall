@@ -143,6 +143,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.tabelView) {
         self.storeData.inv_info.content = [NSString stringWithFormat:@"普通发票 %@ %@", [self.data[indexPath.row] inv_title], [self.data[indexPath.row] inv_content]];
+        self.storeData.inv_info.inv_id = [self.data[indexPath.row] inv_id];
         [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
     }else
     {
@@ -324,6 +325,7 @@
     }else
     {
         self.storeData.inv_info.content = [NSString stringWithFormat:@"不需要发票"];
+        self.storeData.inv_info.inv_id = @"不需要发票";
         [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
     }
 }

@@ -10,7 +10,6 @@
 
 @interface submitOrderFootTableViewCell : UITableViewCell
 
--(void)setStrigLabel:(dataOrderListModel *)data;
-
+-(void)setStrigLabel:(dataOrderListModel *)data cellOrderID:(void(^)(NSString *cellOrderID))action;
 
 @end

@@ -65,7 +65,6 @@
             
             self.data = [myOrderModelList setValueWithDictionary:dict];
             [self.orderTabelView reloadData];
-            
         }failure:^(AFHTTPRequestOperation *operation, NSError *error){
             
             NSLog(@"Error: %@", error);
@@ -127,7 +126,9 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone; // 设置选中没有颜色
         NSDictionary *arrayDic = array[indexPath.row];
-        [cell setStrigLabel:arrayDic[@"foot"]];
+        [cell setStrigLabel:arrayDic[@"foot"] cellOrderID:^void(NSString *orderID){
+            [self cancelStoreOrder:orderID];
+        }];
         
         return cell;
     }
@@ -218,6 +219,35 @@
     NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
     NSLog(@"%@", currentDateStr);
     return currentDateStr;
+}
+
+#pragma mark - 取消店铺订单
+-(void)cancelStoreOrder:(NSString *)orderID
+{
+    signInModel *signIn = [signInModel sharedUserTokenInModel:[signInModel initSingleCase]];
+    if ([signIn.key isKindOfClass:[NSString class]] && signIn.whetherSignIn == YES) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer  serializer];
+        NSDictionary *cancelStoreOrder=
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         signIn.key, @"key",
+         orderID, @"order_id", nil];
+        NSLog(@"%@", cancelStoreOrder);
+        [manager POST:cancelOrderURL parameters:cancelStoreOrder success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            NSLog(@"JSON: %@", dict);
+            if ([dict[@"datas"] integerValue] == 1) {
+                [self requestMyOrder]; //请求数据刷新页面
+            }
+            
+        }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+            
+            NSLog(@"Error: %@", error);
+        }];
+    }else //没有令牌，也就是没有登录
+    {
+        ;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -16,6 +16,9 @@
 @property (retain, nonatomic) UILabel *payStatus;
 @property (retain, nonatomic) UIView  *bgCancelView;
 
+@property (retain, nonatomic) NSString *orderID;
+@property (strong, nonatomic) void (^action)(NSString *string);
+
 @end
 
 @implementation submitOrderFootTableViewCell
@@ -55,6 +58,7 @@
         [cancelOrder setBackgroundColor:[UIColor redColor]];
         [cancelOrder setTitle:@"取消订单" forState:UIControlStateNormal];
         [cancelOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cancelOrder addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
         [self.bgCancelView addSubview:cancelOrder];
         
         self.backgroundColor = greenColorDebug;
@@ -62,11 +66,14 @@
     return self;
 }
 
--(void)setStrigLabel:(dataOrderListModel *)data
+-(void)setStrigLabel:(dataOrderListModel *)data cellOrderID:(void(^)(NSString *cellOrderID))action
 {
     self.shippingFee.text = [NSString stringWithFormat:@"运费:￥%@", data.shipping_fee];
     self.payAmount.text = [NSString stringWithFormat:@"合计:￥%@", data.goods_amount];
     self.payStatus.text = data.state_desc;
+    
+    self.action = action;
+    self.orderID = data.order_id;
     
     if ([data.if_cancel integerValue]) {
         self.bgCancelView.hidden = NO;
@@ -76,6 +83,13 @@
     }
 }
 
+-(void)buttonAction
+{
+    if(self.action)
+    {
+        self.action(self.orderID);
+    }
+}
 
 - (void)awakeFromNib {
     // Initialization code

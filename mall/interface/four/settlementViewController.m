@@ -79,23 +79,6 @@
             self.storeData = [storeCartModel setValueWithDictionary:dict];
             
             [self changeAddress]; //修改收货地址
-//            //初始化用户的支付方式，是否支持货到付款
-//            if ([self.storeData.ifshow_offpay isKindOfClass:[NSString class]]) {
-//                
-//                if ([self.storeData.ifshow_offpay isEqualToString:@"true"]) {
-//                    self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], [NSString stringWithFormat:@"货到付款"], nil];
-//                }else
-//                {
-//                    self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
-//                }
-//            }else
-//            {
-//                self.payMethodArray = [[NSMutableArray alloc] initWithObjects:[NSString stringWithFormat:@"线上支付"], nil];
-//            }
-//            //初始化 用户的支付方式
-//            self.pageOfPayMethod = 0;
-//            
-//            [self.tabelview reloadData];
             
         }failure:^(AFHTTPRequestOperation *operation, NSError *error){
             NSLog(@"Error: %@", error);
@@ -124,23 +107,10 @@
             NSLog(@"JSON: %@", dict);
             self.addressData = [changeAddressModel setValueWithDictionary:dict];
             
-            //修改订单页面的数据，修改地址后页面的运输费和是否支持货到付款都会改变
+            //修改订单页面的数据，修改地址后是否支持货到付款会改变
             if (self.addressData.allow_offpay == 1) {
                 self.storeData.ifshow_offpay = @"true";
             }
-//            for (int i=0; i<self.storeData.store_cart_list.count; i++) {
-//                storeCartInformaton *storeCart = self.storeData.store_cart_list[i];
-//                for (int j=0; j<storeCart.goods_list.count; j++) {
-//                    NSString *storeID = [storeCart.goods_list[j] store_id];
-//                    NSArray *keyArray= [self.addressData.content allKeys];
-//                    for (int k=0; k<keyArray.count; k++) {
-//                        if ([storeID isEqualToString:keyArray[k]]) {
-//                            storeID;
-//                        }
-//                    }
-//                }
-//            }
-            
             
             //初始化用户的支付方式，是否支持货到付款
             if ([self.storeData.ifshow_offpay isKindOfClass:[NSString class]]) {
@@ -288,14 +258,18 @@
             }
         }
         
+        NSArray *payName = @[@"online", @"offline"];
         NSDictionary *signInAddShoppingCar =
         [NSDictionary dictionaryWithObjectsAndKeys:
          signIn.key, @"key",
          @"1", @"ifcart",
          strOld, @"cart_id",
          self.storeData.address_info.address_id, @"address_id",
-         self.storeData.vat_hash, @"vat_hash", 
-         nil];
+         self.storeData.vat_hash, @"vat_hash",
+         self.addressData.offpay_hash, @"offpay_hash",
+         self.addressData.offpay_hash_batch, @"offpay_hash_batch",
+         payName[self.pageOfPayMethod], @"pay_name",
+         self.storeData.inv_info.inv_id, @"invoice_id", nil];
         NSLog(@"%@", signInAddShoppingCar);
         [manager POST:shoppingCartSecondBuy parameters:signInAddShoppingCar success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -516,13 +490,14 @@
         transportPaceLabel.textColor = [UIColor redColor];
         //计算本店运费
         float SUMpace =0;
-        for (int i=0; i<goodList.goods_list.count; i++) {
-            SUMpace = SUMpace+[[goodList.goods_list[i] goods_freight] floatValue];
+        if ([goodList.freight integerValue]) { //freight 0-免运费 1-需要计算运费
+            for (int i=0; i<goodList.goods_list.count; i++) {
+                SUMpace = SUMpace+[[goodList.goods_list[i] goods_freight] floatValue];
+            }
         }
         transportPaceLabel.text = [NSString stringWithFormat:@"￥%.2f", SUMpace];
         transportPaceLabel.textAlignment = NSTextAlignmentRight;
         [bgImageView addSubview:transportPaceLabel];
-        
         
         //本店合计
         UILabel *SUMLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderTextwidth, transportLabel.frame.size.height+transportLabel.frame.origin.y+10, self.view.frame.size.width-2*(orderRightLeftWidth+orderTextwidth), 25)];
