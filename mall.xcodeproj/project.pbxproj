@@ -70,6 +70,10 @@
 		1B625AFD1C1E949D00DBAF24 /* secondCommendList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625AFC1C1E949D00DBAF24 /* secondCommendList.m */; };
 		1B625B001C1E9A7400DBAF24 /* secondGoodsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625AFF1C1E9A7400DBAF24 /* secondGoodsInfo.m */; };
 		1B625B031C1EA4E100DBAF24 /* secondStoreList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B625B021C1EA4E100DBAF24 /* secondStoreList.m */; };
+		1B6332281C7FF26800319B62 /* UITableView+selectTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6332271C7FF26800319B62 /* UITableView+selectTableView.m */; };
+		1B63322B1C7FF92F00319B62 /* addViewSelectTabelUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B63322A1C7FF92F00319B62 /* addViewSelectTabelUITableViewCell.m */; };
+		1B63322E1C8004C300319B62 /* addSelectTabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B63322D1C8004C300319B62 /* addSelectTabel.m */; };
+		1B6332341C803F0600319B62 /* publicTabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6332331C803F0600319B62 /* publicTabelViewController.m */; };
 		1B6CA2121C3CB948000B8E8F /* merchantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CA2111C3CB948000B8E8F /* merchantModel.m */; };
 		1B6CA2161C3D0AB7000B8E8F /* shopingCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CA2151C3D0AB7000B8E8F /* shopingCarModel.m */; };
 		1B70393B1C4742C20041FDBD /* storeCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B70393A1C4742C20041FDBD /* storeCartModel.m */; };
@@ -241,6 +245,14 @@
 		1B625AFF1C1E9A7400DBAF24 /* secondGoodsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondGoodsInfo.m; sourceTree = "<group>"; };
 		1B625B011C1EA4E100DBAF24 /* secondStoreList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = secondStoreList.h; sourceTree = "<group>"; };
 		1B625B021C1EA4E100DBAF24 /* secondStoreList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = secondStoreList.m; sourceTree = "<group>"; };
+		1B6332261C7FF26800319B62 /* UITableView+selectTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+selectTableView.h"; sourceTree = "<group>"; };
+		1B6332271C7FF26800319B62 /* UITableView+selectTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+selectTableView.m"; sourceTree = "<group>"; };
+		1B6332291C7FF92F00319B62 /* addViewSelectTabelUITableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addViewSelectTabelUITableViewCell.h; sourceTree = "<group>"; };
+		1B63322A1C7FF92F00319B62 /* addViewSelectTabelUITableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addViewSelectTabelUITableViewCell.m; sourceTree = "<group>"; };
+		1B63322C1C8004C300319B62 /* addSelectTabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addSelectTabel.h; sourceTree = "<group>"; };
+		1B63322D1C8004C300319B62 /* addSelectTabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addSelectTabel.m; sourceTree = "<group>"; };
+		1B6332321C803F0600319B62 /* publicTabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = publicTabelViewController.h; sourceTree = "<group>"; };
+		1B6332331C803F0600319B62 /* publicTabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = publicTabelViewController.m; sourceTree = "<group>"; };
 		1B6CA2101C3CB948000B8E8F /* merchantModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = merchantModel.h; sourceTree = "<group>"; };
 		1B6CA2111C3CB948000B8E8F /* merchantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = merchantModel.m; sourceTree = "<group>"; };
 		1B6CA2141C3D0AB7000B8E8F /* shopingCarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shopingCarModel.h; sourceTree = "<group>"; };
@@ -585,6 +597,14 @@
 				1B7E899E1C3F8E6300EBEDA2 /* tabelBarID.m */,
 				1BF7AAF91C70730500328BC2 /* UIView+loadingImageView.h */,
 				1BF7AAFA1C70730500328BC2 /* UIView+loadingImageView.m */,
+				1B6332321C803F0600319B62 /* publicTabelViewController.h */,
+				1B6332331C803F0600319B62 /* publicTabelViewController.m */,
+				1B6332261C7FF26800319B62 /* UITableView+selectTableView.h */,
+				1B6332271C7FF26800319B62 /* UITableView+selectTableView.m */,
+				1B6332291C7FF92F00319B62 /* addViewSelectTabelUITableViewCell.h */,
+				1B63322A1C7FF92F00319B62 /* addViewSelectTabelUITableViewCell.m */,
+				1B63322C1C8004C300319B62 /* addSelectTabel.h */,
+				1B63322D1C8004C300319B62 /* addSelectTabel.m */,
 			);
 			path = publicView;
 			sourceTree = "<group>";
@@ -1137,11 +1157,13 @@
 				1BAEB0361C3BA00B00285AAF /* goodsSpecificationsTableViewCell.m in Sources */,
 				1B7039471C4751CE0041FDBD /* ShoppingInvInfo.m in Sources */,
 				1B27109C1C4CC295002E5405 /* settlementShoppingTableViewCell.m in Sources */,
+				1B63322E1C8004C300319B62 /* addSelectTabel.m in Sources */,
 				1B625AFA1C1E72A600DBAF24 /* dataCommodityInformation.m in Sources */,
 				1BF7AAFB1C70730500328BC2 /* UIView+loadingImageView.m in Sources */,
 				1BEF93E11BFD62FC00F7470D /* ViewController.m in Sources */,
 				1BAFA9DE1C157B6600EA6825 /* thirClassification.m in Sources */,
 				1BEF94911BFD660000F7470D /* fisterViewController.m in Sources */,
+				1B6332281C7FF26800319B62 /* UITableView+selectTableView.m in Sources */,
 				1B7E14091C32273A00BBA789 /* loadingImageView.m in Sources */,
 				1B625B031C1EA4E100DBAF24 /* secondStoreList.m in Sources */,
 				1BEF94951BFD660000F7470D /* thirdViewController.m in Sources */,
@@ -1159,6 +1181,7 @@
 				1BAEB0381C3BA00B00285AAF /* secondListViewController.m in Sources */,
 				1B8090FF1C12929D00938258 /* fisterList.m in Sources */,
 				1BF2B9AB1C0003D200010E52 /* fiveAboutViewController.m in Sources */,
+				1B6332341C803F0600319B62 /* publicTabelViewController.m in Sources */,
 				1B7039441C474EE30041FDBD /* addressInfo.m in Sources */,
 				1B2710911C4C8B83002E5405 /* settlementOrderTableViewCell.m in Sources */,
 				1BF66F0D1C5713D0003DF5E1 /* addressListModel.m in Sources */,
@@ -1201,6 +1224,7 @@
 				1B0E83DA1C730A6A00D2E85A /* submitOrderViewController.m in Sources */,
 				1BAEB0371C3BA00B00285AAF /* secondListTableViewCell.m in Sources */,
 				1B8090FC1C12926500938258 /* fisterHome4.m in Sources */,
+				1B63322B1C7FF92F00319B62 /* addViewSelectTabelUITableViewCell.m in Sources */,
 				1BF66F1B1C57503C003DF5E1 /* addAddressViewController.m in Sources */,
 				1BB203F01C463FB400D6A830 /* settlementViewController.m in Sources */,
 				1B468F9D1C06DF89006CE377 /* signInModel.m in Sources */,

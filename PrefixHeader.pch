@@ -20,6 +20,10 @@
 #import "signInModel.h"
 #import "UIView+loadingImageView.h"
 
+#import "UITableView+selectTableView.h"
+#import "addViewSelectTabelUITableViewCell.h"
+#import "publicTabelViewController.h"
+
 
 #pragma mark - 项目常用参数
 /****************************************项目常用参数**********************************************************

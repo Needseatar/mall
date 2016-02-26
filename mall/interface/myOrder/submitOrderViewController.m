@@ -242,16 +242,25 @@
         UIView *bgView = [[UIView alloc] init];
         bgView.backgroundColor = blueColorDebug;
         
-        self.payOrder = [UIButton buttonWithType:UIButtonTypeSystem];
+        self.payOrder = [UIButton buttonWithType:UIButtonTypeCustom];
         self.payOrder.frame = CGRectMake(10, 10, self.view.frame.size.width-2*10, 40);
         [self.payOrder setBackgroundColor:[UIColor redColor]];
         [self.payOrder setTitle:paceString forState:UIControlStateNormal];
         [self.payOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.payOrder addTarget:self action:@selector(addOrderSever) forControlEvents:UIControlEventTouchUpInside];
         [bgView addSubview:self.payOrder];
         
         return bgView;
     }
     return nil;
+}
+
+#pragma mark - 提交订单按钮
+-(void)addOrderSever
+{
+    publicTabelViewController *PTVC = [[publicTabelViewController alloc] init];
+    [PTVC screenshot];
+    [self presentViewController:PTVC animated:NO completion:nil];
 }
 
 #pragma mark - 时间戳转换成时间

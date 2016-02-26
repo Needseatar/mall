@@ -77,6 +77,7 @@
     [self hideAllView];  //隐藏所有界面
     
     [self SetSettlementView]; //设置下面的购物价格
+    
 }
 
 #pragma mark - 初始化数据
@@ -322,7 +323,6 @@
                 self.shopingTabel.hidden = NO;
                 self.bgSortView.hidden = NO;
             }
-
         }
         failure:^(AFHTTPRequestOperation *operation, NSError *error){
             NSLog(@"Error: %@", error);
